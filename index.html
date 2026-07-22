@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wind · AI 驅動的全端工程師 — 網站 / App / API / 自動化</title>
-<meta name="description" content="AI 驅動的全端工程師,從網站、App、API 到自動化都能交付。報價透明,可開發票可簽約。初談免費,24 小時內報價。">
+<meta name="description" content="AI 驅動的全端工程師,從網站、App、API 到自動化都能交付。">
 <meta property="og:title" content="Wind · AI 驅動的全端工程師">
 <meta property="og:description" content="有需求,就能交付可上線的成品。網站 / App / API / 自動化,一條龍搞定。">
 <meta property="og:type" content="website">
@@ -39,6 +39,9 @@ section{padding:80px 0}
 .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--grad);color:#fff;font-weight:600;font-size:1rem;padding:14px 32px;border-radius:99px;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(102,126,234,.35)}
 .btn-primary::after{content:'→';font-size:1.1rem}
+.scroll-cue{display:inline-block;color:var(--dim);font-size:.85rem;margin-top:24px;animation:bounce 2s infinite;text-decoration:none;transition:color .2s}
+.scroll-cue:hover{color:var(--accent1)}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
 
 /* ---- tech marquee ---- */
 .marquee-wrap{overflow:hidden;padding:12px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
@@ -51,7 +54,7 @@ section{padding:80px 0}
 .work-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,border-color .3s}
 .work-card:hover{transform:translateY(-4px);border-color:rgba(102,126,234,.3)}
 .preview-box{position:relative;width:100%;height:220px;overflow:hidden;background:var(--surface2)}
-.preview-box iframe{position:absolute;top:0;left:0;width:100%;height:150%;border:none;transform:translateY(0);pointer-events:none;opacity:.85}
+.preview-box iframe{position:absolute;top:0;left:0;width:100%;height:150%;border:none;transform:translateY(0);pointer-events:none;touch-action:none;opacity:.85}
 .work-info{padding:20px;flex:1;display:flex;flex-direction:column;gap:10px}
 .tag-row{display:flex;gap:6px;flex-wrap:wrap}
 .tag{font-size:.72rem;padding:3px 10px;border-radius:99px;background:rgba(102,126,234,.12);color:var(--accent1);border:1px solid rgba(102,126,234,.2);white-space:nowrap}
@@ -113,7 +116,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   <span class="hero-badge">🤖 AI 驅動開發 · 交付更快 · 報價更省</span>
   <h1>有需求，就能交付<br>可上線的成品</h1>
   <p>我是 Wind，AI 驅動的全端工程師。網站、App、API、自動化——給我需求，我給你成品。</p>
-  <a href="mailto:rock90340@gmail.com" class="btn-primary">聊聊你的需求</a>
+  <a href="#works" class="scroll-cue">↓ 往下看作品</a>
 </div>
 </section>
 
@@ -142,7 +145,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     <!-- 1 陶茶雅舍 -->
     <div class="work-card reveal">
       <div class="preview-box">
-        <iframe src="https://rock903400-byte.github.io/tao-tea-house/" loading="lazy" sandbox="allow-scripts"></iframe>
+        <iframe src="https://rock903400-byte.github.io/tao-tea-house/" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
       <div class="work-info">
         <div class="tag-row"><span class="tag">品牌形象</span><span class="tag green">已上線</span></div>
@@ -155,7 +158,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     <!-- 2 MONO CLASSICS -->
     <div class="work-card reveal">
       <div class="preview-box">
-        <iframe src="https://rock903400-byte.github.io/mono-classics-demo/demo/demo.html" loading="lazy" sandbox="allow-scripts"></iframe>
+        <iframe src="https://rock903400-byte.github.io/mono-classics-demo/demo/demo.html" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
       <div class="work-info">
         <div class="tag-row"><span class="tag">電商・POS</span><span class="tag green">已上線</span></div>
@@ -168,7 +171,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     <!-- 3 LINE AI 生態系 -->
     <div class="work-card reveal">
       <div class="preview-box">
-        <iframe src="https://rock903400-byte.github.io/shiangan-metal-website-mockups/" loading="lazy" sandbox="allow-scripts"></iframe>
+        <iframe src="https://rock903400-byte.github.io/shiangan-metal-website-mockups/" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
       <div class="work-info">
         <div class="tag-row"><span class="tag amber">LINE・AI</span><span class="tag green">已上線</span></div>
@@ -181,7 +184,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     <!-- 4 信用評分系統 -->
     <div class="work-card reveal">
       <div class="preview-box">
-        <iframe src="https://rock903400-byte.github.io/credit-score-system/" loading="lazy" sandbox="allow-scripts"></iframe>
+        <iframe src="https://rock903400-byte.github.io/credit-score-system/" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
       <div class="work-info">
         <div class="tag-row"><span class="tag rose">金融・工具</span><span class="tag green">已上線</span></div>
@@ -194,7 +197,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     <!-- 5 FitLog AI -->
     <div class="work-card reveal">
       <div class="preview-box">
-        <iframe src="https://rock903400-byte.github.io/FitLog-AI/" loading="lazy" sandbox="allow-scripts"></iframe>
+        <iframe src="https://rock903400-byte.github.io/FitLog-AI/" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
       <div class="work-info">
         <div class="tag-row"><span class="tag amber">App・AI</span><span class="tag green">已上線</span></div>
@@ -207,7 +210,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     <!-- 6 法拍補償試算 -->
     <div class="work-card reveal">
       <div class="preview-box">
-        <iframe src="https://rock903400-byte.github.io/foreclosure-compensation-analyzer/" loading="lazy" sandbox="allow-scripts"></iframe>
+        <iframe src="https://rock903400-byte.github.io/foreclosure-compensation-analyzer/" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
       </div>
       <div class="work-info">
         <div class="tag-row"><span class="tag">試算工具</span><span class="tag green">已上線</span></div>
@@ -280,19 +283,9 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 </div>
 </section>
 
-<!-- ============ CTA ============ -->
-<section class="cta">
-<div class="wrap">
-  <h2 class="reveal">想讓工作更省事嗎？</h2>
-  <p class="reveal">不論是網站、App、自動化還是客製化系統，<br>我都能幫你把需求變成可上線的成品。</p>
-  <a href="mailto:rock90340@gmail.com" class="btn-email reveal">rock90340@gmail.com</a>
-  <span class="btn-note reveal">24 小時內回覆 · 初談免費 · 報價低於坊間公定價</span>
-</div>
-</section>
-
 <!-- ============ FOOTER ============ -->
 <footer>
-  © 2026 Wind · 為你的業務打造 · 可開發票 · 可簽約
+  © 2026 Wind · <a href="https://github.com/rock903400-byte" target="_blank" rel="noopener" style="color:var(--accent1)">GitHub</a>
 </footer>
 
 <!-- ============ SCROLL REVEAL ============ -->
