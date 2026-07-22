@@ -55,6 +55,9 @@ section{padding:80px 0}
 .work-card:hover{transform:translateY(-4px);border-color:rgba(102,126,234,.3)}
 .preview-box{position:relative;width:100%;height:220px;overflow:hidden;background:var(--surface2)}
 .preview-box iframe{position:absolute;top:0;left:0;width:100%;height:150%;border:none;transform:translateY(0);pointer-events:none;touch-action:none;opacity:.85}
+/* 不允許被 iframe 嵌入的作品，改用截圖預覽 */
+.preview-box img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.9}
+.work-card:hover .preview-box img{opacity:1}
 .work-info{padding:20px;flex:1;display:flex;flex-direction:column;gap:10px}
 .tag-row{display:flex;gap:6px;flex-wrap:wrap}
 .tag{font-size:.72rem;padding:3px 10px;border-radius:99px;background:rgba(102,126,234,.12);color:var(--accent1);border:1px solid rgba(102,126,234,.2);white-space:nowrap}
@@ -243,6 +246,19 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
         <h3>據點地圖產生器</h3>
         <p class="desc">上傳 Excel 地址清單，自動清理、地理編碼並轉成互動地圖，多據點管理一眼看完。</p>
         <a class="btn-demo" href="https://rock903400-byte.github.io/cu-branch-locator-map/" target="_blank" rel="noopener">查看 Demo</a>
+      </div>
+    </div>
+
+    <!-- 9 員工福利商店 App -->
+    <div class="work-card reveal">
+      <div class="preview-box">
+        <img src="assets/tekiyou-store.webp" alt="員工福利商店 App 首頁，顯示特約商家數量與功能選單" loading="lazy" width="720" height="440">
+      </div>
+      <div class="work-info">
+        <div class="tag-row"><span class="tag amber">App・PWA</span><span class="tag green">已上線</span></div>
+        <h3>員工福利商店 App</h3>
+        <p class="desc">React + TypeScript 打造的離線可用 PWA，地圖找店、會員驗證、商家推薦審核一條龍。</p>
+        <a class="btn-demo" href="https://special-stores-app-52e1c.web.app" target="_blank" rel="noopener">查看 Demo</a>
       </div>
     </div>
 
