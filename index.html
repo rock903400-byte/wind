@@ -112,7 +112,8 @@ section{padding:64px 0 48px}
 .about-lead{font-size:clamp(1.15rem,3vw,1.45rem);font-weight:700;line-height:1.7;margin-bottom:24px;
   background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .about-body{color:var(--dim);font-size:.95rem;line-height:2.05;margin-bottom:16px}
-.about-body:last-child{margin-bottom:0;color:#cbd5e1}
+/* 最後一句是整段最重的一句，獨立成段並提亮 —— 給它一個落點 */
+.about-body:last-child{margin-bottom:0;margin-top:28px;color:#e2e8f0;font-size:1.02rem}
 
 /* ---- services ---- */
 /* max-width 讓 8 顆 pill 折成對稱形；不限寬時在 1440 會折成 7+1 留下孤兒 */
@@ -329,7 +330,8 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     <p class="about-lead">我不是那種一開口就講框架的工程師。</p>
     <p class="about-body">來找我的人，手上通常是一件很具體的麻煩——一份每個月都要重做的報表、一套只有老員工才會用的流程、一個想了很久但問了幾家都聽不懂報價的想法。</p>
     <p class="about-body">我做的事很單純：把那件麻煩聽懂，然後做成一個你打開就會用的東西。</p>
-    <p class="about-body">AI Agent 讓我在陌生的產業裡跑得比以前快很多，所以我不用挑客戶的行業。但真正花時間的從來不是寫程式，是搞清楚你每天到底怎麼工作。</p>
+    <p class="about-body">AI Agent 讓我在陌生的產業裡跑得比以前快很多，所以我不用挑客戶的行業。</p>
+    <p class="about-body">但真正花時間的從來不是寫程式，是搞清楚你每天到底怎麼工作。</p>
   </div>
 </div>
 </section>
