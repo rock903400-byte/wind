@@ -34,7 +34,7 @@ img{max-width:100%;display:block}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 section{padding:64px 0 48px}
 .sec-title{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:700;margin-bottom:8px}
-.sec-sub{text-align:center;color:var(--dim);font-size:.95rem;margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto}
+.sec-sub{text-align:center;color:var(--dim);font-size:.95rem;line-height:1.75;margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto}
 
 /* ---- hero ---- */
 /* padding-top 原為 120px（頁面無固定 nav，本來就偏寬）。副標改長後
@@ -44,29 +44,45 @@ section{padding:64px 0 48px}
 .hero::after{content:'';position:absolute;bottom:-40%;right:-20%;width:80%;height:120%;background:radial-gradient(circle,rgba(118,75,162,.12) 0%,transparent 70%);pointer-events:none}
 .hero-inner{position:relative;z-index:1}
 .hero h1{font-size:clamp(1.8rem,5.5vw,3.2rem);font-weight:800;line-height:1.25;margin-bottom:16px;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{color:var(--dim);font-size:clamp(.95rem,2.5vw,1.15rem);max-width:520px;margin:0 auto 32px}
-.hero-badge{display:inline-block;background:rgba(102,126,234,.12);border:1px solid rgba(102,126,234,.25);border-radius:99px;padding:6px 18px;font-size:.82rem;color:var(--accent1);margin-bottom:24px;letter-spacing:.5px}
-.scroll-cue{display:inline-block;color:var(--dim);font-size:.85rem;margin-top:24px;animation:bounce 2s infinite;text-decoration:none;transition:color .2s}
-.scroll-cue:hover{color:var(--accent1)}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.hero p{color:var(--dim);font-size:clamp(.95rem,2.5vw,1.15rem);line-height:1.9;max-width:520px;margin:0 auto 32px}
+.hero-badge{display:inline-block;background:rgba(102,126,234,.12);border:1px solid rgba(102,126,234,.25);border-radius:99px;padding:6px 18px;font-size:.82rem;color:#8fa4ff;margin-bottom:24px;letter-spacing:.5px}
+
+/* 進場依序呼吸，不要整塊同時蹦出來 —— 節奏從第一秒就開始 */
+.hero-inner>*{animation:rise .9s cubic-bezier(.22,.61,.36,1) both}
+.hero-badge{animation-delay:.05s}
+.hero h1{animation-delay:.2s}
+.hero p{animation-delay:.38s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* 原本是 2s 的 bounce，那是催促感。改成緩慢的呼吸，讓人願意停一下 */
+.scroll-cue{display:inline-block;color:var(--dim);font-size:.85rem;margin-top:24px;text-decoration:none;transition:color .2s;
+  animation:rise .9s cubic-bezier(.22,.61,.36,1) .56s both,breathe 3.4s ease-in-out 1.6s infinite}
+.scroll-cue:hover{color:#8fa4ff}
+@keyframes breathe{0%,100%{opacity:.6;transform:translateY(0)}50%{opacity:1;transform:translateY(5px)}}
 
 /* ---- tech marquee ---- */
-.marquee-wrap{overflow:hidden;padding:12px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.marquee{display:flex;gap:32px;animation:scroll 30s linear infinite;width:max-content}
+/* 兩端硬切邊會把視線拉住；改成淡出，讓它退到背景層 */
+.marquee-wrap{overflow:hidden;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent);
+  mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent)}
+/* 30s 太快，字在動會搶走注意力。45s 是「有在動但不吵」 */
+.marquee{display:flex;gap:36px;animation:scroll 45s linear infinite;width:max-content}
 .marquee span{white-space:nowrap;font-size:.82rem;color:var(--dim);letter-spacing:1px;text-transform:uppercase}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* ---- works grid ---- */
 .works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
-.work-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .3s,border-color .3s}
-.work-card:hover{transform:translateY(-4px);border-color:rgba(102,126,234,.3)}
+.work-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .45s cubic-bezier(.22,.61,.36,1),border-color .45s,box-shadow .45s}
+.work-card:hover{transform:translateY(-6px);border-color:rgba(143,164,255,.35);box-shadow:0 18px 40px -20px rgba(102,126,234,.5)}
 .preview-box{position:relative;width:100%;height:220px;overflow:hidden;background:var(--surface2)}
-.preview-box img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.9}
+.preview-box img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.9;
+  transition:opacity .5s,transform .7s cubic-bezier(.22,.61,.36,1)}
 /* 九張縮圖明暗與構圖不一（深色滿版／淺色 Streamlit／手機殼白邊），
    下緣統一淡出，順便蓋掉被裁到一半的元素 */
 .preview-box::after{content:'';position:absolute;inset:auto 0 0 0;height:56px;background:linear-gradient(to top,var(--surface),transparent);pointer-events:none}
-.work-card:hover .preview-box img{opacity:1}
-.work-info{padding:20px;flex:1;display:flex;flex-direction:column;gap:10px}
+.work-card:hover .preview-box img{opacity:1;transform:scale(1.05)}
+.work-info{padding:22px;flex:1;display:flex;flex-direction:column;gap:12px}
 .tag-row{display:flex;gap:6px;flex-wrap:wrap}
 /* color 不用 --accent1：#667eea 疊在 .12 底色上只有 4.18:1，11.5px 小字需 4.5:1 */
 .tag{font-size:.72rem;padding:3px 10px;border-radius:99px;background:rgba(102,126,234,.12);color:#8fa4ff;border:1px solid rgba(102,126,234,.2);white-space:nowrap}
@@ -74,18 +90,29 @@ section{padding:64px 0 48px}
 .tag.amber{background:rgba(251,191,36,.1);color:#fbbf24;border-color:rgba(251,191,36,.2)}
 .tag.rose{background:rgba(244,63,94,.1);color:#fb7185;border-color:rgba(244,63,94,.2)}
 .work-info h3{font-size:1.1rem;font-weight:700}
-.work-info .desc{color:var(--dim);font-size:.85rem;flex:1}
-.btn-demo{display:inline-flex;align-items:center;gap:6px;color:var(--accent1);font-size:.85rem;font-weight:600;margin-top:4px;transition:color .2s}
-.btn-demo:hover{color:#8b9ff5}
-.btn-demo::after{content:'↗'}
+.work-info .desc{color:var(--dim);font-size:.88rem;line-height:1.8;flex:1}
+.btn-demo{display:inline-flex;align-items:center;gap:6px;color:#8fa4ff;font-size:.85rem;font-weight:600;margin-top:4px;transition:color .2s}
+.btn-demo:hover{color:#b3c0ff}
+.btn-demo::after{content:'↗';transition:transform .35s cubic-bezier(.22,.61,.36,1)}
+.work-card:hover .btn-demo::after{transform:translate(3px,-3px)}
 
 /* ---- strengths ---- */
 .strengths-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
 .strength-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:border-color .3s}
 .strength-card:hover{border-color:rgba(102,126,234,.25)}
-.strength-card .icon{font-size:1.6rem;margin-bottom:10px}
-.strength-card h4{font-size:1rem;font-weight:700;margin-bottom:6px}
-.strength-card p{color:var(--dim);font-size:.85rem}
+.strength-card .icon{font-size:1.6rem;margin-bottom:12px}
+.strength-card h4{font-size:1rem;font-weight:700;margin-bottom:8px}
+.strength-card p{color:var(--dim);font-size:.88rem;line-height:1.8}
+
+/* ---- about（換氣點）----
+   刻意不給卡片、不給邊框、不給背景 —— 前後都是密集的格線，
+   這裡的「什麼都沒有」就是那個停頓。留白比字更重要，別加裝飾。 */
+#about{padding:96px 0 88px}
+.about-inner{max-width:600px;margin:0 auto;text-align:center}
+.about-lead{font-size:clamp(1.15rem,3vw,1.45rem);font-weight:700;line-height:1.7;margin-bottom:24px;
+  background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.about-body{color:var(--dim);font-size:.95rem;line-height:2.05;margin-bottom:16px}
+.about-body:last-child{margin-bottom:0;color:#cbd5e1}
 
 /* ---- services ---- */
 /* max-width 讓 8 顆 pill 折成對稱形；不限寬時在 1440 會折成 7+1 留下孤兒 */
@@ -120,10 +147,15 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   }
   html{scroll-behavior:auto}
   /* 跑馬燈須停在起點；僅靠 iteration-count:1 會停在 translateX(-50%) 造成錯位 */
-  .marquee{animation:none}
-  .scroll-cue{animation:none}
+  .marquee{animation:none!important}
+  /* hero 進場的 animation-delay 不會被 duration 覆寫吃掉：
+     配 fill-mode both 會讓元素在 delay 期間維持 opacity:0，變成一段空白閃爍。
+     必須整個關掉，不能只縮短 duration。 */
+  .hero-inner>*,.scroll-cue{animation:none!important}
   /* .reveal 初始 opacity:0，此處明確覆寫以確保內容必定可見 */
   .reveal{opacity:1;transform:none}
+  /* JS 會寫 inline transition-delay 做錯開，inline 樣式贏 CSS，須 !important 蓋掉 */
+  .reveal{transition-delay:0s!important}
 }
 
 /* 最後一段收窄，避免與 footer 之間又空一大塊 */
@@ -290,6 +322,18 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 </div>
 </section>
 
+<!-- ============ ABOUT（換氣點：看完證據，再聽這個人說話） ============ -->
+<section id="about">
+<div class="wrap">
+  <div class="about-inner reveal">
+    <p class="about-lead">我不是那種一開口就講框架的工程師。</p>
+    <p class="about-body">來找我的人，手上通常是一件很具體的麻煩——一份每個月都要重做的報表、一套只有老員工才會用的流程、一個想了很久但問了幾家都聽不懂報價的想法。</p>
+    <p class="about-body">我做的事很單純：把那件麻煩聽懂，然後做成一個你打開就會用的東西。</p>
+    <p class="about-body">AI Agent 讓我在陌生的產業裡跑得比以前快很多，所以我不用挑客戶的行業。但真正花時間的從來不是寫程式，是搞清楚你每天到底怎麼工作。</p>
+  </div>
+</div>
+</section>
+
 <!-- ============ STRENGTHS ============ -->
 <section id="strengths">
 <div class="wrap">
@@ -357,8 +401,21 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 <!-- ============ SCROLL REVEAL ============ -->
 <script>
 (function(){
+  // 同一列的卡片錯開進場，整塊一起蹦出來沒有節奏可言。
+  // 欄數在 reveal 當下才從 computed style 讀 —— grid 用 auto-fill，欄數隨寬度變。
+  function stagger(el){
+    var grid = el.parentElement;
+    if(!grid || !/works-grid|strengths-grid/.test(grid.className)) return 0;
+    var cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length || 1;
+    return ([].indexOf.call(grid.children, el) % cols) * 90;
+  }
   var obs = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.style.transitionDelay = stagger(e.target) + 'ms';
+      e.target.classList.add('visible');
+      obs.unobserve(e.target);
+    })
   },{threshold:.15});
   document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
 })();
