@@ -19,6 +19,9 @@
   --bg:#0a0e1a;--surface:#111827;--surface2:#1a1f35;--border:rgba(255,255,255,.06);
   --text:#f1f5f9;--dim:#94a3b8;--accent1:#667eea;--accent2:#764ba2;
   --grad:linear-gradient(135deg,var(--accent1),var(--accent2));
+  /* 深底上的漸層文字專用：--grad 的終點 #764ba2 對 --bg 只有 3.02:1，
+     剛好卡在大字 AA 門檻，標題後半會糊進背景。此組約 9:1 → 7:1。 */
+  --grad-text:linear-gradient(135deg,#8fa4ff,#c4a2f5);
   --radius:12px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -29,7 +32,7 @@ img{max-width:100%;display:block}
 
 /* ---- layout ---- */
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
-section{padding:80px 0}
+section{padding:80px 0 64px}
 .sec-title{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:700;margin-bottom:8px}
 .sec-sub{text-align:center;color:var(--dim);font-size:.95rem;margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto}
 
@@ -38,7 +41,7 @@ section{padding:80px 0}
 .hero::before{content:'';position:absolute;top:-40%;left:-20%;width:80%;height:120%;background:radial-gradient(circle,rgba(102,126,234,.15) 0%,transparent 70%);pointer-events:none}
 .hero::after{content:'';position:absolute;bottom:-40%;right:-20%;width:80%;height:120%;background:radial-gradient(circle,rgba(118,75,162,.12) 0%,transparent 70%);pointer-events:none}
 .hero-inner{position:relative;z-index:1}
-.hero h1{font-size:clamp(1.8rem,5.5vw,3.2rem);font-weight:800;line-height:1.25;margin-bottom:16px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero h1{font-size:clamp(1.8rem,5.5vw,3.2rem);font-weight:800;line-height:1.25;margin-bottom:16px;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero p{color:var(--dim);font-size:clamp(.95rem,2.5vw,1.15rem);max-width:520px;margin:0 auto 32px}
 .hero-badge{display:inline-block;background:rgba(102,126,234,.12);border:1px solid rgba(102,126,234,.25);border-radius:99px;padding:6px 18px;font-size:.82rem;color:var(--accent1);margin-bottom:24px;letter-spacing:.5px}
 .scroll-cue{display:inline-block;color:var(--dim);font-size:.85rem;margin-top:24px;animation:bounce 2s infinite;text-decoration:none;transition:color .2s}
@@ -57,10 +60,14 @@ section{padding:80px 0}
 .work-card:hover{transform:translateY(-4px);border-color:rgba(102,126,234,.3)}
 .preview-box{position:relative;width:100%;height:220px;overflow:hidden;background:var(--surface2)}
 .preview-box img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.9}
+/* 九張縮圖明暗與構圖不一（深色滿版／淺色 Streamlit／手機殼白邊），
+   下緣統一淡出，順便蓋掉被裁到一半的元素 */
+.preview-box::after{content:'';position:absolute;inset:auto 0 0 0;height:56px;background:linear-gradient(to top,var(--surface),transparent);pointer-events:none}
 .work-card:hover .preview-box img{opacity:1}
 .work-info{padding:20px;flex:1;display:flex;flex-direction:column;gap:10px}
 .tag-row{display:flex;gap:6px;flex-wrap:wrap}
-.tag{font-size:.72rem;padding:3px 10px;border-radius:99px;background:rgba(102,126,234,.12);color:var(--accent1);border:1px solid rgba(102,126,234,.2);white-space:nowrap}
+/* color 不用 --accent1：#667eea 疊在 .12 底色上只有 4.18:1，11.5px 小字需 4.5:1 */
+.tag{font-size:.72rem;padding:3px 10px;border-radius:99px;background:rgba(102,126,234,.12);color:#8fa4ff;border:1px solid rgba(102,126,234,.2);white-space:nowrap}
 .tag.green{background:rgba(16,185,129,.1);color:#34d399;border-color:rgba(16,185,129,.2)}
 .tag.amber{background:rgba(251,191,36,.1);color:#fbbf24;border-color:rgba(251,191,36,.2)}
 .tag.rose{background:rgba(244,63,94,.1);color:#fb7185;border-color:rgba(244,63,94,.2)}
@@ -79,7 +86,8 @@ section{padding:80px 0}
 .strength-card p{color:var(--dim);font-size:.85rem}
 
 /* ---- services ---- */
-.svc-wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+/* max-width 讓 8 顆 pill 折成對稱形；不限寬時在 1440 會折成 7+1 留下孤兒 */
+.svc-wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:760px;margin:0 auto}
 .svc-pill{background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:10px 20px;font-size:.88rem;color:var(--text);transition:border-color .3s,background .3s}
 .svc-pill:hover{border-color:var(--accent1);background:var(--surface2)}
 
@@ -115,7 +123,14 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   /* .reveal 初始 opacity:0，此處明確覆寫以確保內容必定可見 */
   .reveal{opacity:1;transform:none}
 }
+
+/* 最後一段收窄，避免與 footer 之間又空一大塊 */
+#services{padding-bottom:48px}
 </style>
+<noscript><style>
+  /* .reveal 初始 opacity:0，靠 IntersectionObserver 顯示；沒 JS 就整個作品區空白 */
+  .reveal{opacity:1;transform:none}
+</style></noscript>
 </head>
 <body>
 
@@ -185,7 +200,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
       <div class="work-info">
         <div class="tag-row"><span class="tag amber">LINE・AI</span><span class="tag green">已上線</span></div>
         <h3>LINE AI 生態系</h3>
-        <p class="desc">300+ 社 × 20 萬社員 × LINE + Gemini AI + Pinecone，台灣最大 LINE 互助經濟網絡。</p>
+        <p class="desc">300+ 家 × 20 萬會員 × LINE + Gemini AI + Pinecone，台灣最大 LINE 互助經濟網絡。</p>
         <a class="btn-demo" href="https://rock903400-byte.github.io/line-ai-ecosystem-demo/" target="_blank" rel="noopener">查看 Demo</a>
       </div>
     </div>
@@ -251,7 +266,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
       <div class="work-info">
         <div class="tag-row"><span class="tag amber">App・PWA</span><span class="tag green">已上線</span></div>
         <h3>員工福利商店 App</h3>
-        <p class="desc">離線可用的 React + TS PWA：地圖即時找店、社員身分驗證，商家推薦經幹部與超管兩級審核。</p>
+        <p class="desc">離線可用的 React + TS PWA：地圖即時找店、會員身分驗證，商家推薦經幹部與超管兩級審核。</p>
         <a class="btn-demo" href="https://special-stores-app-52e1c.web.app" target="_blank" rel="noopener">查看 Demo</a>
       </div>
     </div>
