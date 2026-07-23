@@ -14,9 +14,12 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌀</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0a0e1a;--surface:#111827;--surface2:#1a1f35;--border:rgba(255,255,255,.06);
+  --bg:#0a0e1a;--surface:rgba(17,24,39,.75);--surface2:rgba(26,31,53,.85);--border:rgba(255,255,255,.08);
   --text:#f1f5f9;--dim:#94a3b8;--accent1:#667eea;--accent2:#764ba2;
   --grad:linear-gradient(135deg,var(--accent1),var(--accent2));
   /* 深底上的漸層文字專用：--grad 的終點 #764ba2 對 --bg 只有 3.02:1，
@@ -26,66 +29,74 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;line-height:1.6;overflow-x:hidden}
+body{
+  background-color:var(--bg);
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(102,126,234,.12) 0%, transparent 60%),
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size:100% 100%, 48px 48px, 48px 48px;
+  background-position:center top, -1px -1px, -1px -1px;
+  color:var(--text);
+  font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;
+  line-height:1.6;
+  overflow-x:hidden;
+}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 
 /* ---- layout ---- */
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 section{padding:64px 0 48px}
-.sec-title{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:700;margin-bottom:8px}
+.sec-title{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;margin-bottom:8px;letter-spacing:-.02em}
 .sec-sub{text-align:center;color:var(--dim);font-size:.95rem;line-height:1.75;margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto}
 
 /* ---- hero ---- */
-/* padding-top 原為 120px（頁面無固定 nav，本來就偏寬）。副標改長後
-   內容 369px + 200px padding 會在矮視窗把 scroll-cue 擠出摺線，收到 96px */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:96px 0 72px}
-.hero::before{content:'';position:absolute;top:-40%;left:-20%;width:80%;height:120%;background:radial-gradient(circle,rgba(102,126,234,.15) 0%,transparent 70%);pointer-events:none}
-.hero::after{content:'';position:absolute;bottom:-40%;right:-20%;width:80%;height:120%;background:radial-gradient(circle,rgba(118,75,162,.12) 0%,transparent 70%);pointer-events:none}
+.hero::before{content:'';position:absolute;top:-40%;left:-20%;width:80%;height:120%;background:radial-gradient(circle,rgba(102,126,234,.18) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-40%;right:-20%;width:80%;height:120%;background:radial-gradient(circle,rgba(118,75,162,.15) 0%,transparent 70%);pointer-events:none}
 .hero-inner{position:relative;z-index:1}
-.hero h1{font-size:clamp(1.8rem,5.5vw,3.2rem);font-weight:800;line-height:1.25;margin-bottom:16px;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero h1{font-size:clamp(1.8rem,5.5vw,3.2rem);font-weight:800;line-height:1.25;margin-bottom:16px;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.02em}
 .hero p{color:var(--dim);font-size:clamp(.95rem,2.5vw,1.15rem);line-height:1.9;max-width:520px;margin:0 auto 32px}
-.hero-badge{display:inline-block;background:rgba(102,126,234,.12);border:1px solid rgba(102,126,234,.25);border-radius:99px;padding:6px 18px;font-size:.82rem;color:#8fa4ff;margin-bottom:24px;letter-spacing:.5px}
+.hero-badge{display:inline-block;background:rgba(102,126,234,.12);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(102,126,234,.25);border-radius:99px;padding:6px 18px;font-size:.82rem;font-weight:500;color:#8fa4ff;margin-bottom:24px;letter-spacing:.5px;box-shadow:0 0 20px rgba(102,126,234,.15)}
 
-/* 進場依序呼吸，不要整塊同時蹦出來 —— 節奏從第一秒就開始 */
 .hero-inner>*{animation:rise .9s cubic-bezier(.22,.61,.36,1) both}
 .hero-badge{animation-delay:.05s}
 .hero h1{animation-delay:.2s}
 .hero p{animation-delay:.38s}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
-/* 原本是 2s 的 bounce，那是催促感。改成緩慢的呼吸，讓人願意停一下 */
 .scroll-cue{display:inline-block;color:var(--dim);font-size:.85rem;margin-top:24px;text-decoration:none;transition:color .2s;
   animation:rise .9s cubic-bezier(.22,.61,.36,1) .56s both,breathe 3.4s ease-in-out 1.6s infinite}
 .scroll-cue:hover{color:#8fa4ff}
 @keyframes breathe{0%,100%{opacity:.6;transform:translateY(0)}50%{opacity:1;transform:translateY(5px)}}
 
 /* ---- tech marquee ---- */
-/* 兩端硬切邊會把視線拉住；改成淡出，讓它退到背景層 */
-.marquee-wrap{overflow:hidden;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+.marquee-wrap{overflow:hidden;padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  background:rgba(17,24,39,.3);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   -webkit-mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent);
   mask-image:linear-gradient(to right,transparent,#000 10%,#000 90%,transparent)}
-/* 30s 太快，字在動會搶走注意力。45s 是「有在動但不吵」 */
 .marquee{display:flex;gap:36px;animation:scroll 45s linear infinite;width:max-content}
-.marquee span{white-space:nowrap;font-size:.82rem;color:var(--dim);letter-spacing:1px;text-transform:uppercase}
+.marquee span{white-space:nowrap;font-size:.82rem;font-weight:600;color:var(--dim);letter-spacing:1px;text-transform:uppercase}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* ---- works grid ---- */
 .works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
-.work-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;
+.work-card{position:relative;background:var(--surface);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;
   transition:transform .45s cubic-bezier(.22,.61,.36,1),border-color .45s,box-shadow .45s}
-.work-card:hover{transform:translateY(-6px);border-color:rgba(143,164,255,.35);box-shadow:0 18px 40px -20px rgba(102,126,234,.5)}
-.preview-box{position:relative;width:100%;height:220px;overflow:hidden;background:var(--surface2)}
+.work-card::before{content:'';position:absolute;inset:0;background:radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(143,164,255,.15), transparent 40%);opacity:0;transition:opacity .4s ease;pointer-events:none;z-index:1}
+.work-card:hover{transform:translateY(-6px);border-color:rgba(143,164,255,.4);box-shadow:0 20px 40px -15px rgba(102,126,234,.35)}
+.work-card:hover::before{opacity:1}
+
+.preview-box{position:relative;width:100%;height:220px;overflow:hidden;background:var(--surface2);z-index:2}
 .preview-box img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.9;
   transition:opacity .5s,transform .7s cubic-bezier(.22,.61,.36,1)}
-/* 九張縮圖明暗與構圖不一（深色滿版／淺色 Streamlit／手機殼白邊），
-   下緣統一淡出，順便蓋掉被裁到一半的元素 */
-.preview-box::after{content:'';position:absolute;inset:auto 0 0 0;height:56px;background:linear-gradient(to top,var(--surface),transparent);pointer-events:none}
+.preview-box::after{content:'';position:absolute;inset:auto 0 0 0;height:56px;background:linear-gradient(to top,rgba(17,24,39,.95),transparent);pointer-events:none}
 .work-card:hover .preview-box img{opacity:1;transform:scale(1.05)}
-.work-info{padding:22px;flex:1;display:flex;flex-direction:column;gap:12px}
+
+.work-info{padding:22px;flex:1;display:flex;flex-direction:column;gap:12px;position:relative;z-index:2}
 .tag-row{display:flex;gap:6px;flex-wrap:wrap}
-/* color 不用 --accent1：#667eea 疊在 .12 底色上只有 4.18:1，11.5px 小字需 4.5:1 */
-.tag{font-size:.72rem;padding:3px 10px;border-radius:99px;background:rgba(102,126,234,.12);color:#8fa4ff;border:1px solid rgba(102,126,234,.2);white-space:nowrap}
+.tag{font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:99px;background:rgba(102,126,234,.12);color:#8fa4ff;border:1px solid rgba(102,126,234,.2);white-space:nowrap}
 .tag.green{background:rgba(16,185,129,.1);color:#34d399;border-color:rgba(16,185,129,.2)}
 .tag.amber{background:rgba(251,191,36,.1);color:#fbbf24;border-color:rgba(251,191,36,.2)}
 .tag.rose{background:rgba(244,63,94,.1);color:#fb7185;border-color:rgba(244,63,94,.2)}
@@ -98,28 +109,26 @@ section{padding:64px 0 48px}
 
 /* ---- strengths ---- */
 .strengths-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
-.strength-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:border-color .3s}
-.strength-card:hover{border-color:rgba(102,126,234,.25)}
-.strength-card .icon{font-size:1.6rem;margin-bottom:12px}
-.strength-card h4{font-size:1rem;font-weight:700;margin-bottom:8px}
-.strength-card p{color:var(--dim);font-size:.88rem;line-height:1.8}
+.strength-card{position:relative;background:var(--surface);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:var(--radius);padding:24px;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s}
+.strength-card::before{content:'';position:absolute;inset:0;background:radial-gradient(400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(143,164,255,.12), transparent 40%);opacity:0;transition:opacity .4s ease;pointer-events:none}
+.strength-card:hover{border-color:rgba(143,164,255,.3);transform:translateY(-3px);box-shadow:0 12px 30px -15px rgba(102,126,234,.2)}
+.strength-card:hover::before{opacity:1}
+.strength-card .icon{font-size:1.6rem;margin-bottom:12px;position:relative;z-index:2}
+.strength-card h4{font-size:1rem;font-weight:700;margin-bottom:8px;position:relative;z-index:2}
+.strength-card p{color:var(--dim);font-size:.88rem;line-height:1.8;position:relative;z-index:2}
 
-/* ---- about（換氣點）----
-   刻意不給卡片、不給邊框、不給背景 —— 前後都是密集的格線，
-   這裡的「什麼都沒有」就是那個停頓。留白比字更重要，別加裝飾。 */
+/* ---- about ---- */
 #about{padding:96px 0 88px}
 .about-inner{max-width:600px;margin:0 auto;text-align:center}
 .about-lead{font-size:clamp(1.15rem,3vw,1.45rem);font-weight:700;line-height:1.7;margin-bottom:24px;
   background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .about-body{color:var(--dim);font-size:.95rem;line-height:2.05;margin-bottom:16px}
-/* 最後一句是整段最重的一句，獨立成段並提亮 —— 給它一個落點 */
 .about-body:last-child{margin-bottom:0;margin-top:28px;color:#e2e8f0;font-size:1.02rem}
 
 /* ---- services ---- */
-/* max-width 讓 8 顆 pill 折成對稱形；不限寬時在 1440 會折成 7+1 留下孤兒 */
 .svc-wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:760px;margin:0 auto}
-.svc-pill{background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:10px 20px;font-size:.88rem;color:var(--text);transition:border-color .3s,background .3s}
-.svc-pill:hover{border-color:var(--accent1);background:var(--surface2)}
+.svc-pill{background:var(--surface);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:99px;padding:10px 20px;font-size:.88rem;font-weight:500;color:var(--text);transition:border-color .3s,background .3s,transform .3s}
+.svc-pill:hover{border-color:var(--accent1);background:var(--surface2);transform:translateY(-2px)}
 
 /* ---- footer ---- */
 footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;border-top:1px solid var(--border)}
@@ -441,7 +450,15 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   }
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll, {passive:true});
-  sweep();                          // 首屏已在視窗內的先揭示
+  // 鼠標動態 Spotlight 光影追蹤
+  var spotlightCards = document.querySelectorAll('.work-card, .strength-card');
+  spotlightCards.forEach(function(card){
+    card.addEventListener('mousemove', function(e){
+      var rect = card.getBoundingClientRect();
+      card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+      card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+    });
+  });
 })();
 </script>
 </body>
