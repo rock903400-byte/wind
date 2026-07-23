@@ -403,6 +403,12 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 <!-- ============ SCROLL REVEAL ============ -->
 <script>
 (function(){
+  // 這裡刻意不用 IntersectionObserver。快速捲動時元素可能在一個 frame 內
+  // 從「視窗下方」跳到「視窗上方」，兩端狀態都是未相交 —— IO 不會觸發，
+  // 那些元素就永遠停在 opacity:0，捲回上面是一片空白。實測 23 個有 19 個中招。
+  // 改用 rAF 節流的掃描：只問「有沒有到過視窗內」，不管中間怎麼跳。
+  var pending = [].slice.call(document.querySelectorAll('.reveal'));
+
   // 同一列的卡片錯開進場，整塊一起蹦出來沒有節奏可言。
   // 欄數在 reveal 當下才從 computed style 讀 —— grid 用 auto-fill，欄數隨寬度變。
   function stagger(el){
@@ -411,15 +417,29 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     var cols = getComputedStyle(grid).gridTemplateColumns.split(' ').length || 1;
     return ([].indexOf.call(grid.children, el) % cols) * 90;
   }
-  var obs = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(!e.isIntersecting) return;
-      e.target.style.transitionDelay = stagger(e.target) + 'ms';
-      e.target.classList.add('visible');
-      obs.unobserve(e.target);
-    })
-  },{threshold:.15});
-  document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+
+  var ticking = false;
+  function sweep(){
+    ticking = false;
+    for(var i = pending.length - 1; i >= 0; i--){
+      var el = pending[i];
+      if(el.getBoundingClientRect().top < window.innerHeight * 0.9){
+        el.style.transitionDelay = stagger(el) + 'ms';
+        el.classList.add('visible');
+        pending.splice(i, 1);
+      }
+    }
+    if(!pending.length){           // 全部揭示後自己拆掉監聽，不留成本
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    }
+  }
+  function onScroll(){
+    if(!ticking){ ticking = true; requestAnimationFrame(sweep); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  sweep();                          // 首屏已在視窗內的先揭示
 })();
 </script>
 </body>
