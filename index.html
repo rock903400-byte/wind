@@ -234,6 +234,48 @@ section{padding:64px 0 48px}
 
 /* ---- footer ---- */
 footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;border-top:1px solid var(--border)}
+.footer-link{color:var(--dim);margin:0 6px;transition:color .2s}
+.footer-link:hover{color:#8fa4ff}
+
+/* ---- back to top button ---- */
+.back-to-top{
+  position:fixed;
+  bottom:28px;
+  right:28px;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  background:rgba(17,24,39,.85);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(143,164,255,.3);
+  color:#8fa4ff;
+  font-size:1.1rem;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(10px);
+  transition:all .3s cubic-bezier(.22,.61,.36,1);
+  box-shadow:0 8px 20px rgba(0,0,0,.3);
+  z-index:99;
+  text-decoration:none;
+}
+.back-to-top.show{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+}
+.back-to-top:hover{
+  background:var(--accent1);
+  color:#fff;
+  border-color:transparent;
+  transform:translateY(-3px);
+  box-shadow:0 12px 25px rgba(102,126,234,.4);
+}
 
 /* ---- animations ---- */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
@@ -523,10 +565,13 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 
 <!-- ============ FOOTER ============ -->
 <footer>
-  © 2026 Wind · <a href="https://github.com/rock903400-byte" target="_blank" rel="noopener" style="color:var(--accent1)">GitHub</a>
+  © 2026 Wind · <a href="https://github.com/rock903400-byte" target="_blank" rel="noopener" class="footer-link" style="color:var(--accent1)">GitHub</a> · <a href="#" id="footerBackToTop" class="footer-link">↑ 回到頂部</a>
 </footer>
 
-<!-- ============ SCROLL REVEAL ============ -->
+<!-- 懸浮回到頂部按鈕 -->
+<a href="#" id="backToTop" class="back-to-top" title="回到頂部" aria-label="回到頂部">↑</a>
+
+<!-- ============ SCROLL REVEAL & INTERACTION ============ -->
 <script>
 (function(){
   // 這裡刻意不用 IntersectionObserver。快速捲動時元素可能在一個 frame 內
@@ -565,6 +610,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   }
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll, {passive:true});
+
   // 鼠標動態 Spotlight 光影追蹤
   var spotlightCards = document.querySelectorAll('.work-card, .strength-card');
   spotlightCards.forEach(function(card){
@@ -574,6 +620,29 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
       card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
     });
   });
+
+  // 回到頂部 (Back to Top) 懸浮按鈕與 Footer 連結
+  var btt = document.getElementById('backToTop');
+  var footerBtt = document.getElementById('footerBackToTop');
+  
+  function scrollToTop(e){
+    if(e) e.preventDefault();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  if(btt){
+    window.addEventListener('scroll', function(){
+      if(window.scrollY > 300){
+        btt.classList.add('show');
+      } else {
+        btt.classList.remove('show');
+      }
+    }, {passive:true});
+    btt.addEventListener('click', scrollToTop);
+  }
+  if(footerBtt){
+    footerBtt.addEventListener('click', scrollToTop);
+  }
 })();
 </script>
 </body>
