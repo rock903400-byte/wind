@@ -19,7 +19,7 @@
 | 9 | [AI 財務分析報告產生器](https://wind-report-generator-demo.streamlit.app/) | 資料・AI |
 | 10 | [LiveHub 多路直播監看](https://rock903400-byte.github.io/livehub-demo/) | 直播監看 |
 | 11 | [旅遊行程估價系統](https://rock903400-byte.github.io/ttq-demo/) | 旅遊報價 |
-| 12 | [勞恩布妮巧居](https://rock903400-byte.github.io/laoenbuni/) | 品牌形象 |
+| 12 | [勞恩布妮的家](https://laoenbuni.pages.dev/) | 品牌形象・訂房系統 |
 
 ## Demo
 
