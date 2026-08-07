@@ -1,5 +1,8 @@
 # Wind
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Demo](https://img.shields.io/badge/Demo-Live-brightgreen)](https://rock903400-byte.github.io/wind/)
+
 > 跨產業接案開發 — AI Agent，給你可上線的成品
 
 我是 Wind。從茶藝教室、古董相機電商、金融授信到健身 App——靠 AI Agent 快速進入陌生領域，不同產業的案子我都能接下來做完。
