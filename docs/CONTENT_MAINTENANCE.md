@@ -27,4 +27,7 @@
 - 篩選邏輯、reveal 動畫、spotlight 同在 `</body>` 前最後一個 `<script>` IIFE 內(約 `L750+`),修改勿拆散。
 - `.reveal` 一次性揭示;篩選切回時由 filter JS 補 `.visible`,不可移除該行。
 - 篩選按鈕用 `aria-pressed`、卡片隱藏用 `.work-card.hidden`(CSS 已定義)。
+- 每張卡**只能有一個 `.btn-demo` 連結**——整卡點擊是靠 `.works-grid` 的 click 委派抓它的 href 開新分頁;若卡內加第二個 `a`,點擊會開錯目標。
+- 外部連結的 `rel="noopener"` 維持不動(勿改 `noreferrer`,會掉 referrer 分析)。
+- nav「免費聊聊」與 footer LINE 連結皆指向 `https://lin.ee/pMv99Du`;更換 LINE 帳號時要同步改兩處。
 - 驗證:本機改完可直接開 `index.html`,或用 `npx serve` 起 localhost 檢查。
