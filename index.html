@@ -58,6 +58,9 @@ section{scroll-margin-top:76px}
 .site-links{display:flex;gap:20px;font-size:.9rem;color:var(--dim)}
 .site-links a{transition:color .2s}
 .site-links a:hover{color:var(--text)}
+.nav-cta{flex:none;padding:8px 18px;border-radius:99px;background:var(--grad);color:#fff;font-size:.82rem;font-weight:600;transition:box-shadow .2s,transform .2s}
+.nav-cta:hover{color:#fff;box-shadow:0 8px 20px rgba(102,126,234,.45);transform:translateY(-1px)}
+.nav-cta:focus-visible{outline:2px solid #8fa4ff;outline-offset:3px}
 
 /* ---- works filter ---- */
 .filter-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:-24px 0 32px}
@@ -81,9 +84,10 @@ section{scroll-margin-top:76px}
 .hero p{animation-delay:.38s}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
-.scroll-cue{display:inline-block;color:var(--dim);font-size:.85rem;margin-top:24px;text-decoration:none;transition:color .2s;
-  animation:rise .9s cubic-bezier(.22,.61,.36,1) .56s both,breathe 3.4s ease-in-out 1.6s infinite}
-.scroll-cue:hover{color:#8fa4ff}
+.scroll-cue{display:inline-flex;align-items:center;gap:8px;color:#fff;font-size:.9rem;font-weight:600;margin-top:32px;padding:12px 26px;border-radius:99px;background:var(--grad);text-decoration:none;transition:transform .2s,box-shadow .2s;
+  animation:rise .9s cubic-bezier(.22,.61,.36,1) .56s both,breathe 3.4s ease-in-out 1.6s infinite;box-shadow:0 8px 24px rgba(102,126,234,.35)}
+.scroll-cue:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(102,126,234,.55);color:#fff}
+.scroll-cue:focus-visible{outline:2px solid #8fa4ff;outline-offset:3px}
 @keyframes breathe{0%,100%{opacity:.6;transform:translateY(0)}50%{opacity:1;transform:translateY(5px)}}
 
 /* ---- tech marquee ---- */
@@ -101,6 +105,7 @@ section{scroll-margin-top:76px}
   transition:transform .45s cubic-bezier(.22,.61,.36,1),border-color .45s,box-shadow .45s}
 .work-card::before{content:'';position:absolute;inset:0;background:radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(143,164,255,.15), transparent 40%);opacity:0;transition:opacity .4s ease;pointer-events:none;z-index:1}
 .work-card:hover{transform:translateY(-6px);border-color:rgba(143,164,255,.4);box-shadow:0 20px 40px -15px rgba(102,126,234,.35)}
+.work-card{cursor:pointer}
 .work-card:hover::before{opacity:1}
 
 .preview-box{position:relative;width:100%;height:220px;overflow:hidden;background:var(--surface2);z-index:2}
@@ -346,6 +351,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     <a href="#about">關於</a>
     <a href="#strengths">為什麼選我</a>
   </div>
+  <a class="nav-cta" href="https://lin.ee/pMv99Du" target="_blank" rel="noopener">免費聊聊</a>
 </nav>
 
 <main>
@@ -735,7 +741,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 
 <!-- ============ FOOTER ============ -->
 <footer>
-  © 2026 Wind · <a href="https://github.com/rock903400-byte" target="_blank" rel="noopener" class="footer-link" style="color:var(--accent1)">GitHub</a> · <a href="mailto:rock90340@gmail.com" class="footer-link" style="color:var(--accent1)">Email</a> · <a href="#" id="footerBackToTop" class="footer-link">↑ 回到頂部</a>
+  © 2026 Wind · <a href="https://lin.ee/pMv99Du" target="_blank" rel="noopener" class="footer-link" style="color:var(--accent1)">LINE</a> · <a href="https://github.com/rock903400-byte" target="_blank" rel="noopener" class="footer-link" style="color:var(--accent1)">GitHub</a> · <a href="mailto:rock90340@gmail.com" class="footer-link" style="color:var(--accent1)">Email</a> · <a href="#" id="footerBackToTop" class="footer-link">↑ 回到頂部</a>
 </footer>
 
 <!-- 懸浮回到頂部按鈕 -->
@@ -831,6 +837,19 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
         if(show) card.classList.add('visible');
       });
     });
+  });
+
+  // 卡片整卡可點：點到非連結區域 → 以卡片內 btn-demo 的目標開新分頁
+  var WINDOW_FEATURES = 'noopener';
+  document.querySelector('.works-grid').addEventListener('click', function(e){
+    var link = e.target.closest('a');
+    if(link) return;
+    var card = e.target.closest('.work-card');
+    if(!card) return;
+    var demo = card.querySelector('.btn-demo');
+    if(demo && demo.getAttribute('href')){
+      window.open(demo.getAttribute('href'), '_blank', WINDOW_FEATURES);
+    }
   });
 })();
 </script>
