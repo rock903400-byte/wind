@@ -50,6 +50,21 @@ img{max-width:100%;display:block}
 section{padding:64px 0 48px}
 .sec-title{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;margin-bottom:8px;letter-spacing:-.02em}
 .sec-sub{text-align:center;color:var(--dim);font-size:.95rem;line-height:1.75;margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto}
+section{scroll-margin-top:76px}
+
+/* ---- top nav ---- */
+.site-nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;max-width:1100px;margin:0 auto;background:rgba(10,14,26,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.site-brand{font-weight:800;font-size:1.05rem;letter-spacing:.5px}
+.site-links{display:flex;gap:20px;font-size:.9rem;color:var(--dim)}
+.site-links a{transition:color .2s}
+.site-links a:hover{color:var(--text)}
+
+/* ---- works filter ---- */
+.filter-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:-24px 0 32px}
+.filter-btn{appearance:none;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--dim);padding:7px 16px;border-radius:99px;font-size:.85rem;font-family:inherit;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.filter-btn:hover{color:var(--text);border-color:rgba(102,126,234,.4)}
+.filter-btn.active{background:rgba(102,126,234,.16);border-color:rgba(102,126,234,.5);color:#8fa4ff}
+.work-card.hidden{display:none}
 
 /* ---- hero ---- */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:96px 0 72px}
@@ -321,6 +336,18 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 </style></noscript>
 </head>
 <body>
+
+<!-- ============ TOP NAV ============ -->
+<nav class="site-nav" aria-label="主要導覽">
+  <a class="site-brand" href="#" aria-label="Wind 首頁">Wind</a>
+  <div class="site-links">
+    <a href="#services">我能做什麼</a>
+    <a href="#works">作品實績</a>
+    <a href="#about">關於</a>
+    <a href="#strengths">為什麼選我</a>
+  </div>
+</nav>
+
 <main>
 
 <!-- ============ HERO ============ -->
@@ -371,10 +398,19 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   <h2 class="sec-title reveal">作品實績</h2>
   <p class="sec-sub reveal">標「已上線」的每天都有人在用，其餘為可實際操作的原型與提案——涵蓋教育、零售、金融、健康、食品、美容美體、不動產、藝文、旅宿觀光、地方服務、企業內部。</p>
 
+  <div class="filter-row reveal" role="group" aria-label="作品篩選">
+    <button class="filter-btn active" data-cat="all" aria-pressed="true" type="button">全部</button>
+    <button class="filter-btn" data-cat="brand" aria-pressed="false" type="button">品牌形象</button>
+    <button class="filter-btn" data-cat="ecom" aria-pressed="false" type="button">電商</button>
+    <button class="filter-btn" data-cat="aiapp" aria-pressed="false" type="button">AI・App</button>
+    <button class="filter-btn" data-cat="fin" aria-pressed="false" type="button">金融・工具</button>
+    <button class="filter-btn" data-cat="demo" aria-pressed="false" type="button">展示・Demo</button>
+  </div>
+
   <div class="works-grid">
 
     <!-- 伯鐸儲蓄互助社 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="brand">
       <div class="preview-box">
         <img src="assets/boduosavings.webp" alt="伯鐸儲蓄互助社官網首頁，誠信互助在地深耕主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -387,7 +423,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 果醬女孩 Jam Girl -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="ecom">
       <div class="preview-box">
         <img src="assets/jamgirl.webp" alt="果醬女孩電商官網首頁，季節限定果醬主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -400,7 +436,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 眉序修眉 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="brand">
       <div class="preview-box">
         <img src="assets/meixu.webp" alt="眉序修眉官網首頁，台南開運修眉主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -413,7 +449,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 1 陶茶雅舍 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="brand">
       <div class="preview-box">
         <img src="assets/tao-tea-house.webp" alt="陶茶雅舍網站首頁，茶藝課程主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -426,7 +462,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 2 MONO CLASSICS -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="ecom">
       <div class="preview-box">
         <img src="assets/mono-classics.webp" alt="MONO CLASSICS 藏品庫存管理介面" loading="lazy" width="720" height="440">
       </div>
@@ -439,7 +475,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 3 LINE AI 生態系 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="aiapp">
       <div class="preview-box">
         <img src="assets/line-ai-ecosystem.webp" alt="LINE AI 生態系首頁主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -452,7 +488,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 4 信用評分系統 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="fin">
       <div class="preview-box">
         <img src="assets/credit-score-system.webp" alt="信用評分與核貸試算系統輸入介面" loading="lazy" width="720" height="440">
       </div>
@@ -465,7 +501,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 儲互社風險儀表板 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="fin">
       <div class="preview-box">
         <img src="assets/cu-risk-dashboard.webp" alt="儲互社風險儀表板，顯示跨機構比較與趨勢追蹤" loading="lazy" width="720" height="440">
       </div>
@@ -478,7 +514,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 5 FitLog AI -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="aiapp">
       <div class="preview-box">
         <img src="assets/fitlog-ai.webp" alt="FitLog AI 主畫面，顯示每日熱量環、TDEE 計算與飲食紀錄輸入" loading="lazy" width="720" height="440">
       </div>
@@ -491,7 +527,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 6 法拍補償試算 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="fin">
       <div class="preview-box">
         <img src="assets/foreclosure-analyzer.webp" alt="法拍補償試算工具的案件列表與篩選介面" loading="lazy" width="720" height="440">
       </div>
@@ -504,7 +540,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 7 學術展覽互動網站 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="demo">
       <div class="preview-box">
         <img src="assets/academic-exhibition.webp" alt="學術展覽網站首頁主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -518,7 +554,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 
 
     <!-- 8 員工福利商店 App -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="aiapp">
       <div class="preview-box">
         <img src="assets/tekiyou-store.webp" alt="員工福利商店 App 首頁，顯示特約商家數量與功能選單" loading="lazy" width="720" height="440">
       </div>
@@ -531,7 +567,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 9 AI 財務分析報告產生器 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="aiapp">
       <div class="preview-box">
         <img src="assets/report-generator-demo.webp" alt="財務分析報告產生器操作介面" loading="lazy" width="720" height="440">
       </div>
@@ -544,7 +580,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 10 LiveHub 多路直播監看 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="demo">
       <div class="preview-box">
         <img src="assets/livehub.webp" alt="LiveHub 多路直播監看首頁，多路直播並排播放" loading="lazy" width="720" height="440">
       </div>
@@ -557,7 +593,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 11 旅遊行程估價系統 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="demo">
       <div class="preview-box">
         <img src="assets/ttq-estimator.webp" alt="旅遊行程估價系統操作介面，左側逐日行程、右側即時報價總結" loading="lazy" width="720" height="440">
       </div>
@@ -570,7 +606,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 12 勞恩布妮的家 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="brand">
       <div class="preview-box">
         <img src="assets/laoenbuni.webp" alt="勞恩布妮的家民宿官網首頁，秀巒溪谷與楓紅主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -583,7 +619,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 13 艾比兒甜點 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="ecom">
       <div class="preview-box">
         <img src="assets/alexsarah-bakery.webp" alt="艾比兒甜點官網首頁，東門市場甜點主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -596,7 +632,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 14 頭嵙山・森活樂校 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="brand">
       <div class="preview-box">
         <img src="assets/taichung-forestry-coop.webp" alt="臺中市林業生產合作社官網首頁，森活樂校森林主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -609,7 +645,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 15 台中建德浸信會 -->
-    <div class="work-card reveal">
+    <div class="work-card reveal" data-cat="brand">
       <div class="preview-box">
         <img src="assets/chienteh-church-site.webp" alt="台中建德浸信會官網首頁，教會歡迎主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -777,6 +813,25 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   if(footerBtt){
     footerBtt.addEventListener('click', scrollToTop);
   }
+
+  // 作品篩選：依 data-cat 顯示/隱藏卡片，重新出現的卡片直接以已揭示狀態呈現
+  var filterBtns = document.querySelectorAll('.filter-row .filter-btn');
+  var workCards = document.querySelectorAll('.work-card');
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var cat = btn.getAttribute('data-cat');
+      filterBtns.forEach(function(b){
+        var on = (b === btn);
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      workCards.forEach(function(card){
+        var show = (cat === 'all') || (card.getAttribute('data-cat') === cat);
+        card.classList.toggle('hidden', !show);
+        if(show) card.classList.add('visible');
+      });
+    });
+  });
 })();
 </script>
 </body>
