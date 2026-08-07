@@ -20,6 +20,9 @@
 | 10 | [LiveHub 多路直播監看](https://rock903400-byte.github.io/livehub-demo/) | 直播監看 |
 | 11 | [旅遊行程估價系統](https://rock903400-byte.github.io/ttq-demo/) | 旅遊報價 |
 | 12 | [勞恩布妮的家](https://laoenbuni.pages.dev/) | 品牌形象・訂房系統 |
+| 13 | [艾比兒甜點](https://rock903400-byte.github.io/alexsarah-bakery/) | 品牌形象・甜點店官網 |
+| 14 | [臺中市林業生產合作社](https://rock903400-byte.github.io/taichung-forestry-coop/) | 品牌形象・森林療育 |
+| 15 | [台中建德浸信會](https://rock903400-byte.github.io/chienteh-church-site/) | 品牌形象・教會官網 |
 
 ## Demo
 
