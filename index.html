@@ -13,6 +13,8 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://rock903400-byte.github.io/wind/">
+<meta name="theme-color" content="#0a0e1a">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌀</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,10 +49,9 @@ img{max-width:100%;display:block}
 
 /* ---- layout ---- */
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
-section{padding:64px 0 48px}
+section{padding:64px 0 48px;scroll-margin-top:76px}
 .sec-title{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;margin-bottom:8px;letter-spacing:-.02em}
 .sec-sub{text-align:center;color:var(--dim);font-size:.95rem;line-height:1.75;margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto}
-section{scroll-margin-top:76px}
 
 /* ---- top nav ---- */
 .site-nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;max-width:1100px;margin:0 auto;background:rgba(10,14,26,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
@@ -100,7 +101,10 @@ section{scroll-margin-top:76px}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* ---- works grid ---- */
-.works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+.works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;
+  /* 旗艦卡 span 2 會讓 sparse 流留下永久空洞（後續項目不回填），必須 dense */
+  grid-auto-flow:dense}
+.works-grid.collapsed .work-card.extra{display:none}
 .work-card{position:relative;background:var(--surface);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;
   transition:transform .45s cubic-bezier(.22,.61,.36,1),border-color .45s,box-shadow .45s}
 .work-card::before{content:'';position:absolute;inset:0;background:radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(143,164,255,.15), transparent 40%);opacity:0;transition:opacity .4s ease;pointer-events:none;z-index:1}
@@ -129,6 +133,26 @@ section{scroll-margin-top:76px}
 .btn-demo::after{content:'↗';transition:transform .35s cubic-bezier(.22,.61,.36,1)}
 .work-card:hover .btn-demo::after{transform:translate(3px,-3px)}
 
+/* ---- 旗艦作品卡 ---- */
+.work-card.featured{grid-column:span 2;border-color:rgba(143,164,255,.28);box-shadow:0 18px 44px -24px rgba(102,126,234,.5)}
+.work-card.featured .preview-box{height:300px}
+.work-card.featured .work-info{padding:26px 28px}
+.work-card.featured .work-info h3{font-size:1.35rem;letter-spacing:-.01em}
+.work-card.featured .desc{font-size:.94rem}
+.flagship-badge{position:absolute;top:14px;left:14px;z-index:3;display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:99px;background:var(--grad);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;box-shadow:0 6px 18px rgba(102,126,234,.45)}
+.metric-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:2px}
+.metric{flex:1 1 120px;padding:12px 14px;border:1px solid rgba(143,164,255,.18);border-radius:10px;background:rgba(102,126,234,.07)}
+.metric-num{display:block;font-size:1.15rem;font-weight:800;line-height:1.3;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.metric-label{display:block;margin-top:2px;color:var(--dim);font-size:.76rem;letter-spacing:.3px}
+
+/* ---- 作品計數與展開 ---- */
+.filter-count{text-align:center;color:var(--dim);font-size:.82rem;margin:-20px 0 28px}
+.show-all-wrap{display:flex;justify-content:center;margin-top:32px}
+.show-all-wrap[hidden]{display:none}
+.show-all-btn{appearance:none;font-family:inherit;cursor:pointer;padding:11px 30px;border-radius:99px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text);font-size:.9rem;font-weight:600;transition:background .2s,border-color .2s,transform .2s}
+.show-all-btn:hover{border-color:rgba(143,164,255,.45);background:rgba(102,126,234,.14);transform:translateY(-2px)}
+.show-all-btn:focus-visible{outline:2px solid #8fa4ff;outline-offset:3px}
+
 /* ---- strengths ---- */
 .strengths-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
 .strength-card{position:relative;background:var(--surface);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:var(--radius);padding:24px;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s}
@@ -136,7 +160,7 @@ section{scroll-margin-top:76px}
 .strength-card:hover{border-color:rgba(143,164,255,.3);transform:translateY(-3px);box-shadow:0 12px 30px -15px rgba(102,126,234,.2)}
 .strength-card:hover::before{opacity:1}
 .strength-card .icon{font-size:1.6rem;margin-bottom:12px;position:relative;z-index:2}
-.strength-card h4{font-size:1rem;font-weight:700;margin-bottom:8px;position:relative;z-index:2}
+.strength-card h3{font-size:1rem;font-weight:700;margin-bottom:8px;position:relative;z-index:2}
 .strength-card p{color:var(--dim);font-size:.88rem;line-height:1.8;position:relative;z-index:2}
 
 /* ---- about ---- */
@@ -250,9 +274,40 @@ section{scroll-margin-top:76px}
 }
 
 /* ---- services ---- */
-.svc-wrap{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:760px;margin:0 auto}
-.svc-pill{background:var(--surface);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:99px;padding:10px 20px;font-size:.88rem;font-weight:500;color:var(--text);transition:border-color .3s,background .3s,transform .3s}
-.svc-pill:hover{border-color:var(--accent1);background:var(--surface2);transform:translateY(-2px)}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.svc-card{display:flex;flex-direction:column;gap:8px;padding:20px 22px;background:var(--surface);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:var(--radius);transition:border-color .3s,background .3s,transform .3s,box-shadow .3s}
+.svc-card:hover{border-color:rgba(143,164,255,.35);transform:translateY(-3px);box-shadow:0 12px 30px -18px rgba(102,126,234,.45)}
+.svc-icon{font-size:1.5rem;line-height:1}
+.svc-card h3{font-size:1rem;font-weight:700}
+.svc-card p{color:var(--dim);font-size:.85rem;line-height:1.75;flex:1}
+.svc-jump{align-self:flex-start;appearance:none;background:none;border:0;padding:0;font-family:inherit;font-size:.82rem;font-weight:600;color:#8fa4ff;cursor:pointer;transition:color .2s}
+.svc-jump:hover{color:#b3c0ff}
+.svc-jump:focus-visible{outline:2px solid #8fa4ff;outline-offset:3px;border-radius:4px}
+.svc-card.svc-featured{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.1)}
+.svc-card.svc-featured:hover{border-color:rgba(16,185,129,.65)}
+.svc-card.svc-featured h3,.svc-card.svc-featured .svc-jump{color:#6ee7b7}
+
+/* ---- process ---- */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.step{position:relative;padding:22px;background:var(--surface);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--border);border-radius:var(--radius)}
+.step::after{content:'';position:absolute;top:44px;right:-20px;width:20px;height:1px;background:linear-gradient(90deg,rgba(143,164,255,.55),transparent)}
+.process-grid .step:last-child::after{display:none}
+.step-num{display:block;font-size:1.9rem;font-weight:800;line-height:1;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.step h3{margin:10px 0 6px;font-size:1rem;font-weight:700}
+.step p{color:var(--dim);font-size:.85rem;line-height:1.8}
+
+/* ---- contact ---- */
+#contact{padding:72px 0 80px}
+.contact-card{max-width:760px;margin:0 auto;padding:44px 40px;text-align:center;background:rgba(17,24,39,.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(143,164,255,.2);border-radius:16px;box-shadow:0 24px 60px -20px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.1)}
+.contact-card h2{font-size:clamp(1.5rem,4vw,2.1rem);font-weight:800;letter-spacing:-.02em;margin-bottom:12px;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.contact-card>p{color:var(--dim);font-size:.95rem;line-height:1.85;max-width:520px;margin:0 auto 28px}
+.contact-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 30px;border-radius:99px;background:var(--grad);color:#fff;font-size:.92rem;font-weight:700;box-shadow:0 8px 24px rgba(102,126,234,.35);transition:transform .2s,box-shadow .2s}
+.btn-primary:hover{color:#fff;transform:translateY(-2px);box-shadow:0 12px 32px rgba(102,126,234,.55)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:13px 30px;border-radius:99px;border:1px solid rgba(143,164,255,.35);color:var(--text);font-size:.92rem;font-weight:600;transition:border-color .2s,background .2s,transform .2s}
+.btn-secondary:hover{border-color:#8fa4ff;background:rgba(102,126,234,.12);transform:translateY(-2px)}
+.btn-primary:focus-visible,.btn-secondary:focus-visible{outline:2px solid #8fa4ff;outline-offset:3px}
+.contact-note{margin-top:20px;color:var(--dim);font-size:.8rem;letter-spacing:.3px;line-height:1.8}
 
 /* ---- footer ---- */
 footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;border-top:1px solid var(--border)}
@@ -304,11 +359,33 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 /* ---- responsive ---- */
+/* nav 內容最小需要 ~612px（brand 45 + links 407 + CTA 88 + gap/padding 72），
+   窄於此一定擠壞並被 body 的 overflow-x:hidden 靜靜裁掉 → 改成兩列 */
+@media(max-width:820px){
+  .site-nav{flex-wrap:wrap;row-gap:8px;padding:10px 16px}
+  .site-brand{flex:1}
+  .site-links{order:3;flex-basis:100%;gap:14px;font-size:.82rem;padding-bottom:2px;
+    overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .site-links::-webkit-scrollbar{display:none}
+  .site-links a{white-space:nowrap}
+  /* nav 變兩列 → 錨點必須跟著加高，否則標題被 sticky nav 蓋住 */
+  section{scroll-margin-top:104px}
+  .process-grid{grid-template-columns:1fr 1fr}
+  .step::after{display:none}
+}
 @media(max-width:700px){
   section{padding:52px 0 40px}
   .works-grid{grid-template-columns:1fr}
+  .work-card.featured{grid-column:span 1}
+  .work-card.featured .preview-box{height:200px}
+  .work-card.featured .work-info{padding:22px}
+  .work-card.featured .work-info h3{font-size:1.2rem}
   .strengths-grid{grid-template-columns:1fr 1fr}
   .preview-box{height:180px}
+  .process-grid{grid-template-columns:1fr}
+  #contact{padding:56px 0 64px}
+  .contact-card{padding:32px 22px}
+  .contact-actions{flex-direction:column}
 }
 @media(max-width:420px){
   .strengths-grid{grid-template-columns:1fr}
@@ -338,8 +415,12 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 #strengths{padding-bottom:40px}
 </style>
 <noscript><style>
-  /* .reveal 初始 opacity:0，靠 IntersectionObserver 顯示；沒 JS 就整個作品區空白 */
+  /* .reveal 初始 opacity:0，靠捲動掃描顯示；沒 JS 就整個作品區空白 */
   .reveal{opacity:1;transform:none}
+  /* 沒 JS 展不開，收折會讓 10 張作品永遠看不到 → 直接全開 */
+  .works-grid.collapsed .work-card.extra{display:flex}
+  /* 篩選鈕、計數、展開鈕沒 JS 全是死的，不如不要出現 */
+  .filter-row,.filter-count,.show-all-wrap{display:none}
 </style></noscript>
 <script type="application/ld+json">
 {
@@ -350,7 +431,8 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   "description": "多項已上線作品，橫跨 11+ 個產業。全端網站、LINE AI 整合、金融風控工具與 AI 流程賦能輕量儲值制。",
   "author": {
     "@type": "Person",
-    "name": "Wind"
+    "name": "Wind",
+    "sameAs": ["https://github.com/rock903400-byte"]
   },
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
@@ -431,16 +513,61 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 <div class="wrap">
   <h2 class="sec-title reveal">我能做什麼</h2>
   <p class="sec-sub reveal">從零到一，從一頁式網站到跨系統整合</p>
-  <div class="svc-wrap reveal">
-    <a href="ai-enablement.html" class="svc-pill" style="border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.12);color:#6ee7b7;font-weight:700">⚡ AI 流程賦能儲值制 (NT$ 1,000) ↗</a>
-    <span class="svc-pill">🌐 形象網站</span>
-    <span class="svc-pill">🛒 電商系統</span>
-    <span class="svc-pill">📊 互動工具</span>
-    <span class="svc-pill">📱 LINE / App</span>
-    <span class="svc-pill">⚡ 自動化腳本</span>
-    <span class="svc-pill">🤖 AI 整合</span>
-    <span class="svc-pill">🗄️ 後台系統</span>
-    <span class="svc-pill">📈 資料視覺化</span>
+  <div class="svc-grid reveal">
+    <div class="svc-card svc-featured">
+      <span class="svc-icon">⚡</span>
+      <h3>AI 流程賦能儲值制</h3>
+      <p>儲值 NT$ 1,000 交付 2 項輕量自動化模組，48 小時極速交付、資產 100% 自主。</p>
+      <a class="svc-jump" href="ai-enablement.html">看完整說明 ↗</a>
+    </div>
+    <div class="svc-card">
+      <span class="svc-icon">🌐</span>
+      <h3>形象網站</h3>
+      <p>品牌故事、服務內容、聯絡動線一次收斂，手機開起來一樣好看。</p>
+      <button class="svc-jump" type="button" data-jump="brand">看案例 →</button>
+    </div>
+    <div class="svc-card">
+      <span class="svc-icon">🛒</span>
+      <h3>電商系統</h3>
+      <p>商品、金物流、訂單後台一起做，串 7-11 賣貨便或既有金流都可以。</p>
+      <button class="svc-jump" type="button" data-jump="ecom">看案例 →</button>
+    </div>
+    <div class="svc-card">
+      <span class="svc-icon">📊</span>
+      <h3>互動工具</h3>
+      <p>試算機、評分器、報表產生器——把你腦中那套規則變成別人也能用的工具。</p>
+      <button class="svc-jump" type="button" data-jump="fin">看案例 →</button>
+    </div>
+    <div class="svc-card">
+      <span class="svc-icon">📱</span>
+      <h3>LINE / App</h3>
+      <p>LINE 官方帳號、LIFF、PWA，讓客戶不用安裝就能用。</p>
+      <button class="svc-jump" type="button" data-jump="aiapp">看案例 →</button>
+    </div>
+    <div class="svc-card">
+      <span class="svc-icon">🤖</span>
+      <h3>AI 整合</h3>
+      <p>把 LLM 接進你的資料與流程，不是接個聊天框就算數。</p>
+      <button class="svc-jump" type="button" data-jump="aiapp">看案例 →</button>
+    </div>
+    <div class="svc-card">
+      <span class="svc-icon">🗄️</span>
+      <h3>後台系統</h3>
+      <p>庫存、訂單、房況、權限分級，讓不懂技術的同事也敢自己操作。</p>
+      <button class="svc-jump" type="button" data-jump="ecom">看案例 →</button>
+    </div>
+    <div class="svc-card">
+      <span class="svc-icon">📈</span>
+      <h3>資料視覺化</h3>
+      <p>把散在各處的數字，變成主管一眼看得懂的儀表板。</p>
+      <button class="svc-jump" type="button" data-jump="fin">看案例 →</button>
+    </div>
+    <div class="svc-card">
+      <span class="svc-icon">🧰</span>
+      <h3>自動化腳本</h3>
+      <p>每個月都要重做一次的事，交給排程去跑，你只收結果。</p>
+      <a class="svc-jump" href="ai-enablement.html">看自動化模組 ↗</a>
+    </div>
   </div>
 </div>
 </section>
@@ -459,30 +586,14 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     <button class="filter-btn" data-cat="fin" aria-pressed="false" type="button">金融・工具</button>
     <button class="filter-btn" data-cat="demo" aria-pressed="false" type="button">展示・Demo</button>
   </div>
+  <p class="filter-count reveal" id="filterCount" aria-live="polite" role="status"></p>
 
-  <div class="works-grid">
+  <div class="works-grid collapsed" id="worksGrid">
 
-    <!-- 1 儲互社風險儀表板 -->
-    <div class="work-card reveal" data-cat="fin">
+    <!-- 1 LINE AI 生態系 -->
+    <div class="work-card featured reveal" data-cat="aiapp">
       <div class="preview-box">
-        <img src="assets/cu-risk-dashboard.webp" alt="儲互社風險儀表板，顯示跨機構比較與趨勢追蹤" loading="lazy" width="720" height="440">
-      </div>
-      <div class="work-info">
-        <div class="tag-row">
-          <span class="tag rose">金融・風控</span>
-          <span class="tag green">已上線運作</span>
-          <span class="tag tech">Streamlit</span>
-          <span class="tag tech">Python</span>
-        </div>
-        <h3>儲蓄互助社風險監控儀表板</h3>
-        <p class="desc">專為金融合作機構打造：自動偵測逾期與流動性風險，整合跨機構同業比較、熱區矩陣與資產趨勢追蹤，助管理層秒懂合規體質。</p>
-        <a class="btn-demo" href="https://cu-analysis-v1-vizgphhwjwmfkvrrktdjte.streamlit.app/" target="_blank" rel="noopener">查看 Live 系統</a>
-      </div>
-    </div>
-
-    <!-- 2 LINE AI 生態系 -->
-    <div class="work-card reveal" data-cat="aiapp">
-      <div class="preview-box">
+        <span class="flagship-badge">★ 旗艦案例</span>
         <img src="assets/line-ai-ecosystem.webp" alt="LINE AI 生態系首頁主視覺" loading="lazy" width="720" height="440">
       </div>
       <div class="work-info">
@@ -495,11 +606,64 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
         </div>
         <h3>LINE AI 互助經濟網絡系統</h3>
         <p class="desc">服務 300+ 商家 × 20 萬會員：串接 Gemini LLM 與 Pinecone 向量資料庫，實現毫秒級規章問答、即時商務媒合與智慧推播。</p>
+        <div class="metric-row">
+          <div class="metric"><span class="metric-num">20 萬</span><span class="metric-label">服務會員</span></div>
+          <div class="metric"><span class="metric-num">300+</span><span class="metric-label">合作商家</span></div>
+          <div class="metric"><span class="metric-num">毫秒級</span><span class="metric-label">規章問答回應</span></div>
+        </div>
         <a class="btn-demo" href="https://rock903400-byte.github.io/line-ai-ecosystem-demo/" target="_blank" rel="noopener">查看 Live 系統</a>
       </div>
     </div>
 
-    <!-- 3 信用評分系統 -->
+    <!-- 2 儲互社風險儀表板 -->
+    <div class="work-card featured reveal" data-cat="fin">
+      <div class="preview-box">
+        <span class="flagship-badge">★ 旗艦案例</span>
+        <img src="assets/cu-risk-dashboard.webp" alt="儲互社風險儀表板，顯示跨機構比較與趨勢追蹤" loading="lazy" width="720" height="440">
+      </div>
+      <div class="work-info">
+        <div class="tag-row">
+          <span class="tag rose">金融・風控</span>
+          <span class="tag green">已上線運作</span>
+          <span class="tag tech">Streamlit</span>
+          <span class="tag tech">Python</span>
+        </div>
+        <h3>儲蓄互助社風險監控儀表板</h3>
+        <p class="desc">專為金融合作機構打造：自動偵測逾期與流動性風險，整合跨機構同業比較、熱區矩陣與資產趨勢追蹤，助管理層秒懂合規體質。</p>
+        <!-- TODO: 風控儀表板改用硬數字（服務機構數 / 監控戶數 / 資產規模）更有說服力 -->
+        <div class="metric-row">
+          <div class="metric"><span class="metric-num">跨機構</span><span class="metric-label">同業體質比較</span></div>
+          <div class="metric"><span class="metric-num">即時</span><span class="metric-label">逾期與流動性偵測</span></div>
+        </div>
+        <a class="btn-demo" href="https://cu-analysis-v1-vizgphhwjwmfkvrrktdjte.streamlit.app/" target="_blank" rel="noopener">查看 Live 系統</a>
+      </div>
+    </div>
+
+    <!-- 3 法拍補償試算 -->
+    <div class="work-card featured reveal" data-cat="fin">
+      <div class="preview-box">
+        <span class="flagship-badge">★ 旗艦案例</span>
+        <img src="assets/foreclosure-analyzer.webp" alt="法拍補償試算工具的案件列表與篩選介面" loading="lazy" width="720" height="440">
+      </div>
+      <div class="work-info">
+        <div class="tag-row">
+          <span class="tag rose">不動產科技</span>
+          <span class="tag green">已上線運作</span>
+          <span class="tag tech">Python 爬蟲</span>
+          <span class="tag tech">ROI 精算</span>
+        </div>
+        <h3>全台法拍公告即時監控與 ROI 試算</h3>
+        <p class="desc">每 5 分鐘同步全台法院法拍公告，精算 300+ 筆在管標的投資報酬率、點交風險與資金成本並自動排序，省去 85% 人工查榜時間。</p>
+        <div class="metric-row">
+          <div class="metric"><span class="metric-num">每 5 分鐘</span><span class="metric-label">同步全台法院</span></div>
+          <div class="metric"><span class="metric-num">300+ 筆</span><span class="metric-label">在管標的試算</span></div>
+          <div class="metric"><span class="metric-num">-85%</span><span class="metric-label">人工查榜時間</span></div>
+        </div>
+        <a class="btn-demo" href="https://rock903400-byte.github.io/foreclosure-compensation-analyzer/" target="_blank" rel="noopener">體驗試算系統</a>
+      </div>
+    </div>
+
+    <!-- 4 信用評分系統 -->
     <div class="work-card reveal" data-cat="fin">
       <div class="preview-box">
         <img src="assets/credit-score-system.webp" alt="信用評分與核貸試算系統輸入介面" loading="lazy" width="720" height="440">
@@ -514,24 +678,6 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
         <h3>放款信用評分與審查報告產生器</h3>
         <p class="desc">依據還款能力、擔保品、信用等四維加權評分（35/25/20/10），輸入案由即自動計算信用額度並生成符合金融法規之送審報告。</p>
         <a class="btn-demo" href="https://rock903400-byte.github.io/credit-score-system/" target="_blank" rel="noopener">體驗評分系統</a>
-      </div>
-    </div>
-
-    <!-- 4 法拍補償試算 -->
-    <div class="work-card reveal" data-cat="fin">
-      <div class="preview-box">
-        <img src="assets/foreclosure-analyzer.webp" alt="法拍補償試算工具的案件列表與篩選介面" loading="lazy" width="720" height="440">
-      </div>
-      <div class="work-info">
-        <div class="tag-row">
-          <span class="tag rose">不動產科技</span>
-          <span class="tag green">已上線運作</span>
-          <span class="tag tech">Python 爬蟲</span>
-          <span class="tag tech">ROI 精算</span>
-        </div>
-        <h3>全台法拍公告即時監控與 ROI 試算</h3>
-        <p class="desc">每 5 分鐘同步全台法院法拍公告，精算 300+ 筆在管標的投資報酬率、點交風險與資金成本並自動排序，省去 85% 人工查榜時間。</p>
-        <a class="btn-demo" href="https://rock903400-byte.github.io/foreclosure-compensation-analyzer/" target="_blank" rel="noopener">體驗試算系統</a>
       </div>
     </div>
 
@@ -627,7 +773,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 10 旅遊行程估價系統 -->
-    <div class="work-card reveal" data-cat="demo">
+    <div class="work-card extra reveal" data-cat="demo">
       <div class="preview-box">
         <img src="assets/ttq-estimator.webp" alt="旅遊行程估價系統操作介面，左側逐日行程、右側即時報價總結" loading="lazy" width="720" height="440">
       </div>
@@ -645,7 +791,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 11 LiveHub 多路直播監看 -->
-    <div class="work-card reveal" data-cat="demo">
+    <div class="work-card extra reveal" data-cat="demo">
       <div class="preview-box">
         <img src="assets/livehub.webp" alt="LiveHub 多路直播監看首頁，多路直播並排播放" loading="lazy" width="720" height="440">
       </div>
@@ -663,7 +809,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 12 學術展覽互動網站 -->
-    <div class="work-card reveal" data-cat="demo">
+    <div class="work-card extra reveal" data-cat="demo">
       <div class="preview-box">
         <img src="assets/academic-exhibition.webp" alt="學術展覽網站首頁主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -681,7 +827,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 13 伯鐸儲蓄互助社 -->
-    <div class="work-card reveal" data-cat="brand">
+    <div class="work-card extra reveal" data-cat="brand">
       <div class="preview-box">
         <img src="assets/boduosavings.webp" alt="伯鐸儲蓄互助社官網首頁，誠信互助在地深耕主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -699,7 +845,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 14 果醬女孩 Jam Girl -->
-    <div class="work-card reveal" data-cat="ecom">
+    <div class="work-card extra reveal" data-cat="ecom">
       <div class="preview-box">
         <img src="assets/jamgirl.webp" alt="果醬女孩電商官網首頁，季節限定果醬主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -717,7 +863,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 15 艾比兒甜點 -->
-    <div class="work-card reveal" data-cat="ecom">
+    <div class="work-card extra reveal" data-cat="ecom">
       <div class="preview-box">
         <img src="assets/alexsarah-bakery.webp" alt="艾比兒甜點官網首頁，東門市場甜點主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -735,7 +881,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 16 臺中市林業生產合作社 -->
-    <div class="work-card reveal" data-cat="brand">
+    <div class="work-card extra reveal" data-cat="brand">
       <div class="preview-box">
         <img src="assets/taichung-forestry-coop.webp" alt="臺中市林業生產合作社官網首頁，森活樂校森林主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -753,7 +899,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 17 陶茶雅舍 -->
-    <div class="work-card reveal" data-cat="brand">
+    <div class="work-card extra reveal" data-cat="brand">
       <div class="preview-box">
         <img src="assets/tao-tea-house.webp" alt="陶茶雅舍網站首頁，茶藝課程主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -771,7 +917,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 18 眉序修眉 -->
-    <div class="work-card reveal" data-cat="brand">
+    <div class="work-card extra reveal" data-cat="brand">
       <div class="preview-box">
         <img src="assets/meixu.webp" alt="眉序修眉官網首頁，台南開運修眉主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -789,7 +935,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     </div>
 
     <!-- 19 台中建德浸信會 -->
-    <div class="work-card reveal" data-cat="brand">
+    <div class="work-card extra reveal" data-cat="brand">
       <div class="preview-box">
         <img src="assets/chienteh-church-site.webp" alt="台中建德浸信會官網首頁，教會歡迎主視覺" loading="lazy" width="720" height="440">
       </div>
@@ -806,6 +952,10 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
       </div>
     </div>
 
+  </div>
+
+  <div class="show-all-wrap" id="showAllWrap">
+    <button class="show-all-btn" id="showAllWorks" type="button" aria-expanded="false" aria-controls="worksGrid">顯示全部 19 項作品 ↓</button>
   </div>
 </div>
 </section>
@@ -835,6 +985,37 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
       <div class="about-footer-quote">
         <p class="about-punchline">而真正花時間的，從來不是寫程式——是搞清楚你每天怎麼工作、在哪些地方撐著、又希望這一切最後長成什麼樣子。</p>
       </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ============ PROCESS（合作流程） ============ -->
+<section id="process">
+<div class="wrap">
+  <h2 class="sec-title reveal">合作是怎麼進行的</h2>
+  <p class="sec-sub reveal">你不用先寫好規格書，講得出「哪裡卡住」就可以開始。</p>
+
+  <div class="process-grid">
+    <div class="step reveal">
+      <span class="step-num">01</span>
+      <h3>先聊 30 分鐘</h3>
+      <p>用 LINE 講你的麻煩：哪一段最花時間、誰在做、做錯會怎樣。不用先想清楚要什麼系統。</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">02</span>
+      <h3>做出第一版</h3>
+      <p>我先交一個可以點、可以改的成品，不是簡報也不是規格書——讓你直接看到方向對不對。</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">03</span>
+      <h3>你實際用、當場改</h3>
+      <p>拿你的真實資料與流程跑一遍。方向錯，在這一步轉最便宜；細節不順，當場調。</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">04</span>
+      <h3>上線 + 長期配合</h3>
+      <p>交付上線後不會消失，後續維護、迭代與新需求都能繼續接。可開發票、可簽約。</p>
     </div>
   </div>
 </div>
@@ -880,6 +1061,21 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   </div>
 </div>
 </section>
+
+<!-- ============ CONTACT（結尾 CTA） ============ -->
+<section id="contact">
+<div class="wrap">
+  <div class="contact-card reveal">
+    <h2>有需求，先聊聊就好</h2>
+    <p>不用先想清楚規格，也不用先準備預算表。講得出「哪裡卡住」，我就能告訴你這件事值不值得做、大概怎麼做。</p>
+    <div class="contact-actions">
+      <a class="btn-primary" href="https://lin.ee/pMv99Du" target="_blank" rel="noopener">💬 LINE 免費聊聊</a>
+      <a class="btn-secondary" href="mailto:rock90340@gmail.com">✉️ 寄 Email 給我</a>
+    </div>
+    <p class="contact-note">通常 24 小時內回覆・可開發票、可簽約・大型專案可分期</p>
+  </div>
+</div>
+</section>
 </main>
 
 <!-- ============ FOOTER ============ -->
@@ -913,7 +1109,11 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     ticking = false;
     for(var i = pending.length - 1; i >= 0; i--){
       var el = pending[i];
-      if(el.getBoundingClientRect().top < window.innerHeight * 0.9){
+      var r = el.getBoundingClientRect();
+      // 收折或被篩選掉的卡是 display:none，rect 全 0 會被誤判成「已進場」而提前消耗掉，
+      // 之後展開就沒有淡入。跳過它們，改由 revealNow() 在真正露出的當下處理。
+      if(!r.height) continue;
+      if(r.top < window.innerHeight * 0.9){
         el.style.transitionDelay = stagger(el) + 'ms';
         el.classList.add('visible');
         pending.splice(i, 1);
@@ -926,6 +1126,15 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   }
   function onScroll(){
     if(!ticking){ ticking = true; requestAnimationFrame(sweep); }
+  }
+
+  // 從 display:none 變回可見的卡，補一次進場動畫（略帶錯開）
+  function revealNow(el, delay){
+    var i = pending.indexOf(el);
+    if(i > -1) pending.splice(i, 1);
+    el.style.transitionDelay = (delay || 0) + 'ms';
+    void el.offsetWidth;          // 強制 reflow，transition 才會從 opacity:0 起跑
+    el.classList.add('visible');
   }
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll, {passive:true});
@@ -963,36 +1172,89 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     footerBtt.addEventListener('click', scrollToTop);
   }
 
-  // 作品篩選：依 data-cat 顯示/隱藏卡片，重新出現的卡片直接以已揭示狀態呈現
+  // 作品篩選 × 收折：預設只顯示 9 張（3 張旗艦 + 6 張），其餘帶 .extra
   var filterBtns = document.querySelectorAll('.filter-row .filter-btn');
-  var workCards = document.querySelectorAll('.work-card');
+  var workCards = [].slice.call(document.querySelectorAll('.work-card'));
+  var grid = document.getElementById('worksGrid');
+  var showAllBtn = document.getElementById('showAllWorks');
+  var showAllWrap = document.getElementById('showAllWrap');
+  var countEl = document.getElementById('filterCount');
+  var currentCat = 'all';
+  var expanded = false;
+
+  function applyView(animate){
+    // 收折只在「全部」時有意義；選了分類就一律全顯示，否則會出現
+    // 「只剩 2 張卻還掛著『顯示全部 19 項』」這種鬼畫面
+    var collapsed = (currentCat === 'all') && !expanded;
+    grid.classList.toggle('collapsed', collapsed);
+
+    var shown = 0;
+    workCards.forEach(function(card){
+      var match = (currentCat === 'all') || (card.getAttribute('data-cat') === currentCat);
+      card.classList.toggle('hidden', !match);
+      if(match && !(collapsed && card.classList.contains('extra'))){
+        if(animate) revealNow(card, (shown % 3) * 70);
+        shown++;
+      }
+    });
+
+    if(countEl) countEl.textContent = '顯示 ' + shown + ' / ' + workCards.length + ' 項作品';
+    if(showAllWrap) showAllWrap.hidden = (currentCat !== 'all');
+    if(showAllBtn){
+      showAllBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      showAllBtn.textContent = expanded
+        ? '收合作品列表 ↑'
+        : '顯示全部 ' + workCards.length + ' 項作品 ↓';
+    }
+  }
+  // 首次只設定計數與收折狀態，不強制揭示 —— 讓 .reveal 照常做捲動進場
+  applyView(false);
+
   filterBtns.forEach(function(btn){
     btn.addEventListener('click', function(){
-      var cat = btn.getAttribute('data-cat');
+      currentCat = btn.getAttribute('data-cat');
       filterBtns.forEach(function(b){
         var on = (b === btn);
         b.classList.toggle('active', on);
         b.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
-      workCards.forEach(function(card){
-        var show = (cat === 'all') || (card.getAttribute('data-cat') === cat);
-        card.classList.toggle('hidden', !show);
-        if(show) card.classList.add('visible');
-      });
+      applyView(true);            // expanded 刻意不重設：手動展開過就記住
+    });
+  });
+
+  if(showAllBtn){
+    showAllBtn.addEventListener('click', function(){
+      expanded = !expanded;
+      applyView(true);
+      // 收合時人可能已經捲到很下面，收完會停在半空中 → 拉回作品區開頭
+      if(!expanded) document.getElementById('works').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  }
+
+  // 服務卡「看案例」：直接觸發對應的篩選鈕，不另寫一套篩選邏輯
+  document.querySelectorAll('.svc-jump[data-jump]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var target = document.querySelector('.filter-btn[data-cat="' + b.getAttribute('data-jump') + '"]');
+      if(target) target.click();
+      document.getElementById('works').scrollIntoView({behavior:'smooth', block:'start'});
     });
   });
 
   // 卡片整卡可點：點到非連結區域 → 以卡片內 btn-demo 的目標開新分頁
-  var WINDOW_FEATURES = 'noopener';
-  document.querySelector('.works-grid').addEventListener('click', function(e){
-    var link = e.target.closest('a');
-    if(link) return;
+  grid.addEventListener('click', function(e){
+    if(e.target.closest('a')) return;
     var card = e.target.closest('.work-card');
     if(!card) return;
     var demo = card.querySelector('.btn-demo');
-    if(demo && demo.getAttribute('href')){
-      window.open(demo.getAttribute('href'), '_blank', WINDOW_FEATURES);
-    }
+    var href = demo && demo.getAttribute('href');
+    if(!href) return;
+    // window.open(url,'_blank',features) 帶 features 字串會被部分瀏覽器當彈窗擋掉，
+    // 改用暫時 anchor 觸發，走的是一般連結路徑。
+    var a = document.createElement('a');
+    a.href = href;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.click();
   });
 })();
 </script>
