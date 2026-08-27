@@ -1,10 +1,10 @@
 # 飛律｜Google 表單建置規格（給 Gemini）
 
-> ✅ 已建置完成（2026-05-11 18:16 Gemini 執行）
-> * 前台填寫：`https://docs.google.com/forms/d/e/1FAIpQLSeEVIn6Vd3QytFiyHQjWk0FKJvQTOVr1ylCtpTLKOfqv7O4JQ/viewform`
-> * 後台編輯：`https://docs.google.com/forms/d/1ADrtnBNkAYAITLWS6p7iCJeuLO-m4bP7zSBEEowLRYI/edit`
-> * 試算表：`https://docs.google.com/spreadsheets/d/1qcJ-8vAA8MMudf9TX1ptFw4iQ_RE7emH16bJvKI9eAQ/edit`
-> * 嵌入：`https://docs.google.com/forms/d/e/1FAIpQLSeEVIn6Vd3QytFiyHQjWk0FKJvQTOVr1ylCtpTLKOfqv7O4JQ/viewform?embedded=true` 已嵌入 `ai-enablement.html:2073` 的 `#lead-form-google`
+> ✅ 已建置完成（2026-05-11 18:16 Gemini 執行，18:34 V2 更新）
+> * 前台填寫（V2 最新）：`https://docs.google.com/forms/d/e/1FAIpQLScxZUEHsd_8CdnbxDGLQ2c22XGzq0bBTfgJSa6Xt5TXEAUwDA/viewform`
+> * 後台編輯（V2）：`https://docs.google.com/forms/d/1-OysnVmU9WCRpc7WWdHBi1NuzgrzGT7QePIQoA8cARo/edit`
+> * 試算表（V2）：`https://docs.google.com/spreadsheets/d/1F6SJIz4_QQwy_hRByCCwNfXiTEo6bXcsH95dcf9aUsk/edit`
+> * 舊版（已替換）：`1FAIpQLSeEVIn6Vd.../1ADrtn.../1qcJ-8vAA...` → 已由 V2 取代，`ai-enablement.html` 已更新為 V2 外部連結
 > 語系：繁體中文 · 帳號：`rock90340@gmail.com` · 統編：`54730503`
 
 ---
