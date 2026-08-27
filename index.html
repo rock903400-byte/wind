@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/line-ai-ecosystem.webp" type="image/webp" fetchpriority="high">
 <style>
 :root{
   --bg:#0a0e1a;--surface:rgba(17,24,39,.75);--surface2:rgba(26,31,53,.85);--border:rgba(255,255,255,.08);
@@ -58,9 +59,10 @@ section{padding:64px 0 48px;scroll-margin-top:76px}
 /* ---- top nav ---- */
 .site-nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;max-width:1100px;margin:0 auto;background:rgba(10,14,26,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
 .site-brand{font-weight:800;font-size:1.05rem;letter-spacing:.5px}
-.site-links{display:flex;gap:20px;font-size:.9rem;color:var(--dim)}
-.site-links a{transition:color .2s}
+.site-links{display:flex;gap:16px;font-size:.9rem;color:var(--dim);align-items:center}
+.site-links a{padding:4px 10px;border-radius:99px;transition:color .2s,background .2s,border-color .2s;border:1px solid transparent}
 .site-links a:hover{color:var(--text)}
+.site-links a.active{color:#8fa4ff;background:rgba(102,126,234,.14);border-color:rgba(102,126,234,.35);font-weight:700}
 .nav-cta{flex:none;padding:8px 18px;border-radius:99px;background:var(--grad);color:#fff;font-size:.82rem;font-weight:600;transition:box-shadow .2s,transform .2s}
 .nav-cta:hover{color:#fff;box-shadow:0 8px 20px rgba(102,126,234,.45);transform:translateY(-1px)}
 .nav-cta:focus-visible{outline:2px solid #8fa4ff;outline-offset:3px}
@@ -371,16 +373,25 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
+/* ---- 觸控回饋與微互動 ---- */
+.filter-btn:active,.show-all-btn:active,.btn-primary:active,.btn-secondary:active,.nav-cta:active,.hero-promo:active,.scroll-cue:active,.back-to-top:active,.svc-jump:active{
+  transform:scale(.96);
+}
+.work-card:active,.strength-card:active,.svc-card:active{
+  transform:scale(.99);
+}
+
 /* ---- responsive ---- */
 /* nav 內容最小需要 ~612px（brand 45 + links 407 + CTA 88 + gap/padding 72），
    窄於此一定擠壞並被 body 的 overflow-x:hidden 靜靜裁掉 → 改成兩列 */
 @media(max-width:820px){
   .site-nav{flex-wrap:wrap;row-gap:8px;padding:10px 16px}
   .site-brand{flex:1}
-  .site-links{order:3;flex-basis:100%;gap:14px;font-size:.82rem;padding-bottom:2px;
+  .site-links{order:3;flex-basis:100%;gap:8px;font-size:.82rem;padding:4px 0 6px;
     overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
   .site-links::-webkit-scrollbar{display:none}
-  .site-links a{white-space:nowrap}
+  .site-links a{white-space:nowrap;padding:6px 14px;border-radius:99px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);display:inline-flex;align-items:center;min-height:34px}
+  .site-links a.active{background:rgba(102,126,234,.22);border-color:rgba(102,126,234,.48);color:#8fa4ff;font-weight:700}
   /* nav 變兩列 → 錨點必須跟著加高，否則標題被 sticky nav 蓋住 */
   section{scroll-margin-top:104px}
   .process-grid{grid-template-columns:1fr 1fr}
@@ -402,6 +413,14 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 }
 @media(max-width:420px){
   .strengths-grid{grid-template-columns:1fr}
+}
+@media(max-width:380px){
+  .wrap{padding:0 14px}
+  .work-info{padding:16px}
+  .metric{flex:1 1 100%}
+  .sec-title{font-size:1.45rem}
+  .hero h1{font-size:1.75rem}
+  .hero p{font-size:.9rem}
 }
 
 /* ---- 尊重「減少動態」系統偏好 ---- */
@@ -622,7 +641,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     <div class="work-card featured reveal" data-cat="aiapp">
       <div class="preview-box">
         <span class="flagship-badge">★ 旗艦案例</span>
-        <img src="assets/line-ai-ecosystem.webp" alt="LINE AI 生態系首頁主視覺" loading="lazy" width="720" height="440">
+        <img src="assets/line-ai-ecosystem.webp" alt="LINE AI 生態系首頁主視覺" fetchpriority="high" width="720" height="440">
       </div>
       <div class="work-info">
         <div class="tag-row">
@@ -1293,6 +1312,63 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     a.rel = 'noopener';
     a.click();
   });
+
+  // ---- Scrollspy 導覽列即時錨點連動 ----
+  var spyLinks = [].slice.call(document.querySelectorAll('.site-links a[href^="#"]'));
+  var spySections = spyLinks.map(function(link){
+    var id = link.getAttribute('href').slice(1);
+    return document.getElementById(id);
+  }).filter(Boolean);
+  var siteLinksNav = document.querySelector('.site-links');
+  var activeSpyLink = null;
+  var spyTicking = false;
+
+  function updateScrollspy(){
+    spyTicking = false;
+    var scrollPos = window.scrollY + 140; // 配合 sticky nav 高度與頂部緩衝
+    var current = null;
+
+    for(var i = 0; i < spySections.length; i++){
+      var sec = spySections[i];
+      if(sec.offsetTop <= scrollPos){
+        current = sec;
+      }
+    }
+
+    spyLinks.forEach(function(link){
+      var isMatch = current && (link.getAttribute('href') === '#' + current.id);
+      link.classList.toggle('active', isMatch);
+      if(isMatch && link !== activeSpyLink){
+        activeSpyLink = link;
+        // 手機版導覽橫向捲動時，自動將 Active 項目平滑置中
+        if(siteLinksNav && window.innerWidth <= 820){
+          var linkLeft = link.offsetLeft;
+          var linkWidth = link.offsetWidth;
+          var navWidth = siteLinksNav.offsetWidth;
+          siteLinksNav.scrollTo({
+            left: linkLeft - (navWidth / 2) + (linkWidth / 2),
+            behavior: SCROLL_BEHAVIOR
+          });
+        }
+      }
+    });
+
+    if(!current && activeSpyLink){
+      activeSpyLink = null;
+      spyLinks.forEach(function(l){ l.classList.remove('active'); });
+    }
+  }
+
+  function onSpyScroll(){
+    if(!spyTicking){
+      spyTicking = true;
+      requestAnimationFrame(updateScrollspy);
+    }
+  }
+
+  window.addEventListener('scroll', onSpyScroll, {passive:true});
+  window.addEventListener('resize', onSpyScroll, {passive:true});
+  updateScrollspy();
 })();
 </script>
 </body>

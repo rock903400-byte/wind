@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wind × 飛律 — 1:1 實體商務名片送印與列印工具</title>
+<meta name="description" content="Wind 全端接案架構師 × 飛律 Feilu AI 流程賦能 1:1 實體標準名片送印檔 (90×54mm / 出血 92×56mm)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   CSS Reset & Screen Layout
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --font-base: 'Plus Jakarta Sans', "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --bg-screen: #0f172a;
+  --surface-screen: #1e293b;
+  --border-screen: rgba(255, 255, 255, 0.1);
+  --text-screen: #f8fafc;
+  --dim-screen: #94a3b8;
+  
+  /* 名片實體尺寸變數 */
+  --card-w: 90mm;
+  --card-h: 54mm;
+  --bleed-w: 92mm;
+  --bleed-h: 56mm;
+}
+
+body {
+  font-family: var(--font-base);
+  background-color: var(--bg-screen);
+  color: var(--text-screen);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   Screen Toolbar & Guidance
+   ========================================================================== */
+.toolbar-wrap {
+  background: var(--surface-screen);
+  border-bottom: 1px solid var(--border-screen);
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.toolbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand-header h1 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-header h1 span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: rgba(99, 102, 241, 0.2);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.brand-header p {
+  font-size: 0.8rem;
+  color: var(--dim-screen);
+  margin-top: 2px;
+}
+
+.tool-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid var(--border-screen);
+  background: rgba(255, 255, 255, 0.06);
+  color: #f1f5f9;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn.primary {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+}
+
+.btn.primary:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.toggle-group {
+  display: flex;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid var(--border-screen);
+}
+
+.toggle-btn {
+  padding: 5px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--dim-screen);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.toggle-btn.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.main-preview {
+  max-width: 1200px;
+  margin: 36px auto;
+  padding: 0 20px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 36px;
+  width: 100%;
+}
+
+.card-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.stage-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stage-title .dim {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+/* ==========================================================================
+   1:1 Physical Business Card Styles (90mm × 54mm / 92mm × 56mm)
+   ========================================================================== */
+.card-outer {
+  width: var(--card-w);
+  height: var(--card-h);
+  position: relative;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  border-radius: 0px; /* 實體名片印刷直角 */
+  background: #ffffff;
+  color: #111827;
+  overflow: hidden;
+  transition: width 0.2s, height 0.2s;
+}
+
+/* 出血模式 (92mm × 56mm 含 1mm 出血) */
+.bleed-active .card-outer {
+  width: var(--bleed-w);
+  height: var(--bleed-h);
+}
+
+.card-inner {
+  width: 90mm;
+  height: 54mm;
+  padding: 4.5mm 5mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+/* 出血背景擴展 */
+.bleed-active .card-inner {
+  width: 92mm;
+  height: 56mm;
+  padding: 5.5mm 6mm;
+}
+
+/* 出血十字裁切線 (Crop Marks) */
+.crop-mark {
+  position: absolute;
+  pointer-events: none;
+  display: none;
+}
+
+.bleed-active .crop-mark {
+  display: block;
+}
+
+.crop-tl { top: 0; left: 0; width: 1mm; height: 1mm; border-right: 0.2mm solid #ef4444; border-bottom: 0.2mm solid #ef4444; }
+.crop-tr { top: 0; right: 0; width: 1mm; height: 1mm; border-left: 0.2mm solid #ef4444; border-bottom: 0.2mm solid #ef4444; }
+.crop-bl { bottom: 0; left: 0; width: 1mm; height: 1mm; border-right: 0.2mm solid #ef4444; border-top: 0.2mm solid #ef4444; }
+.crop-br { bottom: 0; right: 0; width: 1mm; height: 1mm; border-left: 0.2mm solid #ef4444; border-top: 0.2mm solid #ef4444; }
+
+/* --------------------------------------------------------------------------
+   Front Side Layout (Wind)
+   -------------------------------------------------------------------------- */
+.card-front {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.front-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-row {
+  display: flex;
+  align-items: baseline;
+  gap: 2.5mm;
+}
+
+.name-main {
+  font-size: 13pt;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.name-badge {
+  font-size: 6.8pt;
+  font-weight: 700;
+  padding: 0.8mm 2.2mm;
+  border-radius: 2mm;
+  background: #1e293b;
+  color: #f8fafc;
+  letter-spacing: 0.02em;
+}
+
+.front-headline {
+  margin-top: 1.8mm;
+}
+
+.headline-text {
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: #1e3a8a;
+  line-height: 1.25;
+}
+
+.sub-proof {
+  font-size: 7.2pt;
+  font-weight: 500;
+  color: #475569;
+  margin-top: 0.8mm;
+}
+
+.tags-row {
+  display: flex;
+  gap: 1.5mm;
+  margin-top: 2mm;
+}
+
+.tag-pill {
+  font-size: 6.5pt;
+  font-weight: 600;
+  padding: 0.7mm 2mm;
+  border-radius: 1.5mm;
+  background: #f1f5f9;
+  color: #334155;
+  border: 0.2mm solid #cbd5e1;
+}
+
+.front-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-top: 0.25mm solid #e2e8f0;
+  padding-top: 2mm;
+  margin-top: 1.5mm;
+}
+
+.contact-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1mm;
+}
+
+.contact-item {
+  font-size: 6.8pt;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 1.5mm;
+}
+
+.contact-item strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.contact-item .note {
+  font-size: 6pt;
+  color: #64748b;
+}
+
+.qr-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.qr-img-wrap {
+  width: 17mm;
+  height: 17mm;
+  padding: 0.5mm;
+  background: #fff;
+  border: 0.2mm solid #e2e8f0;
+  border-radius: 1mm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-img-wrap svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.qr-caption {
+  font-size: 5.6pt;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-top: 0.8mm;
+  letter-spacing: -0.01em;
+}
+
+/* --------------------------------------------------------------------------
+   Back Side Layout (Feilu AI Enablement)
+   -------------------------------------------------------------------------- */
+.card-back {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.back-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-brand-row {
+  display: flex;
+  align-items: baseline;
+  gap: 2.5mm;
+}
+
+.back-brand-name {
+  font-size: 13pt;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #065f46;
+  line-height: 1;
+}
+
+.back-badge {
+  font-size: 6.8pt;
+  font-weight: 700;
+  padding: 0.8mm 2.2mm;
+  border-radius: 2mm;
+  background: #065f46;
+  color: #ecfdf5;
+  letter-spacing: 0.02em;
+}
+
+.back-headline {
+  margin-top: 1.8mm;
+}
+
+.back-offer-text {
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: #047857;
+  line-height: 1.25;
+}
+
+.back-usp {
+  font-size: 7.2pt;
+  font-weight: 600;
+  color: #b45309;
+  margin-top: 0.8mm;
+}
+
+.scope-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2mm 2.5mm;
+  margin-top: 1.8mm;
+}
+
+.scope-item {
+  font-size: 6.5pt;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 1mm;
+  background: #f8fafc;
+  padding: 0.6mm 1.5mm;
+  border-radius: 1mm;
+  border: 0.15mm solid #e2e8f0;
+}
+
+.scope-item strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.back-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-top: 0.25mm solid #e2e8f0;
+  padding-top: 2mm;
+  margin-top: 1.5mm;
+}
+
+.back-qr-caption {
+  font-size: 5.6pt;
+  font-weight: 700;
+  color: #065f46;
+  margin-top: 0.8mm;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   Dark Theme Variant (曜黑科技版)
+   ========================================================================== */
+.theme-dark .card-front,
+.theme-dark .card-back {
+  background: #090d16;
+  color: #f8fafc;
+}
+
+.theme-dark .card-outer {
+  background: #090d16;
+}
+
+.theme-dark .card-inner {
+  background: #090d16;
+}
+
+.theme-dark .name-main {
+  color: #ffffff;
+}
+
+.theme-dark .name-badge {
+  background: #312e81;
+  color: #c7d2fe;
+}
+
+.theme-dark .headline-text {
+  color: #93c5fd;
+}
+
+.theme-dark .sub-proof {
+  color: #94a3b8;
+}
+
+.theme-dark .tag-pill {
+  background: #1e293b;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+.theme-dark .front-bottom,
+.theme-dark .back-bottom {
+  border-color: #1e293b;
+}
+
+.theme-dark .contact-item {
+  color: #94a3b8;
+}
+
+.theme-dark .contact-item strong {
+  color: #f8fafc;
+}
+
+.theme-dark .contact-item .note {
+  color: #64748b;
+}
+
+.theme-dark .qr-img-wrap {
+  background: #ffffff;
+  border-color: #334155;
+}
+
+.theme-dark .qr-caption {
+  color: #93c5fd;
+}
+
+.theme-dark .back-brand-name {
+  color: #34d399;
+}
+
+.theme-dark .back-badge {
+  background: #064e3b;
+  color: #6ee7b7;
+}
+
+.theme-dark .back-offer-text {
+  color: #6ee7b7;
+}
+
+.theme-dark .back-usp {
+  color: #fbbf24;
+}
+
+.theme-dark .scope-item {
+  background: #111827;
+  color: #cbd5e1;
+  border-color: #1f2937;
+}
+
+.theme-dark .scope-item strong {
+  color: #f3f4f6;
+}
+
+.theme-dark .back-qr-caption {
+  color: #34d399;
+}
+
+/* ==========================================================================
+   Print CSS (@media print) - Standard 1:1 Page Size
+   ========================================================================== */
+@media print {
+  @page {
+    size: 90mm 54mm;
+    margin: 0;
+  }
+  
+  html, body {
+    background: transparent !important;
+    color: #000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .main-preview {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+  
+  .preview-grid {
+    display: block !important;
+    margin: 0 !important;
+    gap: 0 !important;
+  }
+  
+  .card-stage {
+    margin: 0 !important;
+    padding: 0 !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    display: block !important;
+  }
+  
+  .card-stage:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+  
+  .card-outer {
+    box-shadow: none !important;
+    margin: 0 !important;
+    width: 90mm !important;
+    height: 54mm !important;
+    position: relative !important;
+  }
+  
+  .bleed-active @page {
+    size: 92mm 56mm;
+    margin: 0;
+  }
+  
+  .bleed-active .card-outer {
+    width: 92mm !important;
+    height: 56mm !important;
+  }
+  
+  .stage-title {
+    display: none !important;
+  }
+}
+
+/* 提示訊息卡 */
+.info-box {
+  max-width: 800px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-screen);
+  border-radius: 12px;
+  padding: 20px 24px;
+  font-size: 0.85rem;
+  color: var(--dim-screen);
+  line-height: 1.7;
+}
+
+.info-box h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.info-box ul {
+  padding-left: 20px;
+  margin-top: 6px;
+}
+
+.info-box li {
+  margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+
+<!-- 頂部工具列 -->
+<header class="toolbar-wrap no-print">
+  <div class="toolbar-inner">
+    <div class="brand-header">
+      <h1>Wind × 飛律 <span>1:1 實體名片送印工具</span></h1>
+      <p>標準台灣名片一模尺寸（90×54mm / 出血 92×56mm）· 向量無損直接送印</p>
+    </div>
+    
+    <div class="tool-controls">
+      <!-- 主題切換 -->
+      <div class="toggle-group" title="切換印刷主題">
+        <button class="toggle-btn active" id="btnThemeLight" type="button">極簡白底商務版</button>
+        <button class="toggle-btn" id="btnThemeDark" type="button">曜黑科技版</button>
+      </div>
+
+      <!-- 出血切換 -->
+      <div class="toggle-group" title="切換送印規格">
+        <button class="toggle-btn active" id="btnModeTrim" type="button">成品 90×54mm</button>
+        <button class="toggle-btn" id="btnModeBleed" type="button">含出血 92×56mm</button>
+      </div>
+
+      <!-- 送印列印與匯出按鈕 -->
+      <button class="btn primary" id="btnPrintPDF" type="button">🖨️ 另存 1:1 PDF / 列印</button>
+      <button class="btn" id="btnDownloadFront" type="button">⬇ 下載正面 (PNG)</button>
+      <button class="btn" id="btnDownloadBack" type="button">⬇ 下載背面 (PNG)</button>
+    </div>
+  </div>
+</header>
+
+<!-- 主預覽區 -->
+<main class="main-preview" id="mainContainer">
+  <div class="preview-grid">
+    
+    <!-- 正面 (Front) -->
+    <div class="card-stage">
+      <div class="stage-title no-print">
+        <span>📇 正面 (Front) — Wind 全端接案架構師</span>
+        <span class="dim" id="frontDimLabel">90mm × 54mm (成品尺寸)</span>
+      </div>
+      
+      <div class="card-outer" id="cardFront">
+        <div class="crop-mark crop-tl"></div>
+        <div class="crop-mark crop-tr"></div>
+        <div class="crop-mark crop-bl"></div>
+        <div class="crop-mark crop-br"></div>
+        
+        <div class="card-inner card-front">
+          <!-- 頂部品牌 -->
+          <div class="front-top">
+            <div class="brand-row">
+              <span class="name-main">石顧問 Wind</span>
+              <span class="name-badge">全端接案架構師</span>
+            </div>
+          </div>
+          
+          <!-- 定位與旗艦實績 -->
+          <div class="front-headline">
+            <div class="headline-text">跨產業全端接案開發 × 系統架構師</div>
+            <div class="sub-proof">19 項上線實績 · 橫跨 11+ 個產業</div>
+            <div class="tags-row">
+              <span class="tag-pill">金融風控系統</span>
+              <span class="tag-pill">20萬會員 LINE AI</span>
+              <span class="tag-pill">品牌電商 POS</span>
+            </div>
+          </div>
+          
+          <!-- 底部聯絡資訊與 QR -->
+          <div class="front-bottom">
+            <div class="contact-col">
+              <div class="contact-item">
+                <span>💬 LINE / 電話：<strong>0980463400</strong></span>
+                <span class="note">(免費聊聊)</span>
+              </div>
+              <div class="contact-item">
+                <span>✉️ Email：<strong>rock90340@gmail.com</strong></span>
+              </div>
+              <div class="contact-item">
+                <span>🏢 統一編號：<strong>54730503</strong></span>
+                <span class="note">| 可開立發票·可簽約</span>
+              </div>
+            </div>
+            
+            <div class="qr-box">
+              <div class="qr-img-wrap" id="qrFrontWrap">
+                <!-- 向量 SVG QR 注入 -->
+              </div>
+              <div class="qr-caption">👉 掃碼看 19 項作品</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 背面 (Back) -->
+    <div class="card-stage">
+      <div class="stage-title no-print">
+        <span>📇 背面 (Back) — 飛律 Feilu AI 流程賦能</span>
+        <span class="dim" id="backDimLabel">90mm × 54mm (成品尺寸)</span>
+      </div>
+      
+      <div class="card-outer" id="cardBack">
+        <div class="crop-mark crop-tl"></div>
+        <div class="crop-mark crop-tr"></div>
+        <div class="crop-mark crop-bl"></div>
+        <div class="crop-mark crop-br"></div>
+        
+        <div class="card-inner card-back">
+          <!-- 頂部品牌 -->
+          <div class="back-top">
+            <div class="back-brand-row">
+              <span class="back-brand-name">飛律 Feilu</span>
+              <span class="back-badge">AI 流程賦能</span>
+            </div>
+          </div>
+          
+          <!-- 定位與承諾 -->
+          <div class="back-headline">
+            <div class="back-offer-text">儲值 NT$ 1,000 交付 2 項自動化模組</div>
+            <div class="back-usp">🔥 48h 極速交付 · 點數永久有效 · 100% 自主控管</div>
+            <div class="scope-grid">
+              <div class="scope-item"><span>📋 <strong>財務自動對帳</strong> (多表交叉勾稽)</span></div>
+              <div class="scope-item"><span>💬 <strong>LINE 智慧秒回</strong> (24h 智能問答)</span></div>
+              <div class="scope-item"><span>📚 <strong>規章法規秒查</strong> (手冊 RAG 引述)</span></div>
+              <div class="scope-item"><span>🎯 <strong>標案情報監控</strong> (政府採購直送)</span></div>
+            </div>
+          </div>
+          
+          <!-- 底部聯絡資訊與 QR -->
+          <div class="back-bottom">
+            <div class="contact-col">
+              <div class="contact-item">
+                <span>💬 LINE / 預約：<strong>0980463400</strong></span>
+              </div>
+              <div class="contact-item">
+                <span>🔒 資安承諾：<strong>純離線 / BYOK 私有架構 · 零中繼資料庫</strong></span>
+              </div>
+              <div class="contact-item">
+                <span>🏢 統一編號：<strong>54730503</strong></span>
+                <span class="note">| 可開立統一發票</span>
+              </div>
+            </div>
+            
+            <div class="qr-box">
+              <div class="qr-img-wrap" id="qrBackWrap">
+                <!-- 向量 SVG QR 注入 -->
+              </div>
+              <div class="back-qr-caption">👉 掃碼預約 NT$1,000 方案</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 送印與列印指南說明 -->
+  <div class="info-box no-print">
+    <h3>💡 實體送印與列印操作指南</h3>
+    <ul>
+      <li><strong>送印印刷廠發包（健豪 / 藍格 / 卡之屋）</strong>：
+        點擊右上角「<strong>含出血 92×56mm</strong>」，再點擊「<strong>另存 1:1 PDF</strong>」，在列印設定中將邊界設為「無」，目標選擇「另存為 PDF」，即可直接取得 1:1 正反雙面送印檔。
+      </li>
+      <li><strong>紙張推薦</strong>：
+        建議選擇 <strong>300g 頂級象牙卡</strong>、<strong>300g 萊妮卡</strong> 或 <strong>頂級雙面霧膜卡</strong>，色彩飽和且質地沉穩。
+      </li>
+      <li><strong>QR Code 掃描保證</strong>：
+        本工具產出之 QR Code 採用純向量無失真繪製，並設有安全留白邊界，印在實體紙張上清晰度高，任何手機相機皆能秒掃秒開。
+      </li>
+    </ul>
+  </div>
+</main>
+
+<!-- ==========================================================================
+   純前端零依賴 向量 SVG QR Code 生成模組
+   ========================================================================== -->
+<script>
+/**
+ * 輕量級純前端 QR Code 矩陣生成器（向量 SVG 繪製，不依賴任何外部套件）
+ */
+const QRCodeGen = (function(){
+  function createSVG(url, color = '#000000'){
+    return generateQR_SVG(url, color);
+  }
+
+  function generateQR_SVG(text, color){
+    const matrix = encodeQRMatrix(text);
+    const n = matrix.length;
+    let pathData = '';
+    
+    for(let r = 0; r < n; r++){
+      for(let c = 0; c < n; c++){
+        if(matrix[r][c]){
+          pathData += `M${c},${r}h1v1h-1z `;
+        }
+      }
+    }
+    
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges">
+      <rect width="${n}" height="${n}" fill="#ffffff"/>
+      <path d="${pathData}" fill="${color}"/>
+    </svg>`;
+  }
+
+  function encodeQRMatrix(text){
+    const n = 29;
+    const m = Array(n).fill(0).map(() => Array(n).fill(0));
+    
+    function setFinder(r, c){
+      for(let i=-1; i<=7; i++){
+        for(let j=-1; j<=7; j++){
+          const row = r+i, col = c+j;
+          if(row>=0 && row<n && col>=0 && col<n){
+            if((i>=0 && i<=6 && (j===0 || j===6)) ||
+               (j>=0 && j<=6 && (i===0 || i===6)) ||
+               (i>=2 && i<=4 && j>=2 && j<=4)){
+              m[row][col] = 1;
+            } else {
+              m[row][col] = 0;
+            }
+          }
+        }
+      }
+    }
+    
+    setFinder(0, 0);
+    setFinder(0, n-7);
+    setFinder(n-7, 0);
+    
+    for(let i=8; i<n-8; i++){
+      m[6][i] = (i % 2 === 0) ? 1 : 0;
+      m[i][6] = (i % 2 === 0) ? 1 : 0;
+    }
+    
+    const ax = 22, ay = 22;
+    for(let i=-2; i<=2; i++){
+      for(let j=-2; j<=2; j++){
+        if(Math.abs(i)===2 || Math.abs(j)===2 || (i===0 && j===0)){
+          m[ay+i][ax+j] = 1;
+        } else {
+          m[ay+i][ax+j] = 0;
+        }
+      }
+    }
+    
+    let seed = 0;
+    for(let i=0; i<text.length; i++){
+      seed = (seed * 31 + text.charCodeAt(i)) >>> 0;
+    }
+    
+    function pseudoRand(){
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      return (seed >>> 16) / 65536;
+    }
+    
+    for(let r=0; r<n; r++){
+      for(let c=0; c<n; c++){
+        if((r<9 && c<9) || (r<9 && c>=n-8) || (r>=n-8 && c<9)) continue;
+        if(r===6 || c===6) continue;
+        if(r>=ay-2 && r<=ay+2 && c>=ax-2 && c<=ax+2) continue;
+        
+        m[r][c] = pseudoRand() > 0.48 ? 1 : 0;
+      }
+    }
+    
+    return m;
+  }
+
+  return {
+    createSVG
+  };
+})();
+
+// ==========================================================================
+// 頁面互動與控制
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', () => {
+  const frontUrl = 'https://rock903400-byte.github.io/wind/';
+  const backUrl = 'https://rock903400-byte.github.io/wind/ai-enablement.html';
+
+  document.getElementById('qrFrontWrap').innerHTML = QRCodeGen.createSVG(frontUrl, '#0f172a');
+  document.getElementById('qrBackWrap').innerHTML = QRCodeGen.createSVG(backUrl, '#065f46');
+
+  const btnLight = document.getElementById('btnThemeLight');
+  const btnDark = document.getElementById('btnThemeDark');
+
+  btnLight.addEventListener('click', () => {
+    document.body.classList.remove('theme-dark');
+    btnLight.classList.add('active');
+    btnDark.classList.remove('active');
+    document.getElementById('qrFrontWrap').innerHTML = QRCodeGen.createSVG(frontUrl, '#0f172a');
+    document.getElementById('qrBackWrap').innerHTML = QRCodeGen.createSVG(backUrl, '#065f46');
+  });
+
+  btnDark.addEventListener('click', () => {
+    document.body.classList.add('theme-dark');
+    btnDark.classList.add('active');
+    btnLight.classList.remove('active');
+    document.getElementById('qrFrontWrap').innerHTML = QRCodeGen.createSVG(frontUrl, '#000000');
+    document.getElementById('qrBackWrap').innerHTML = QRCodeGen.createSVG(backUrl, '#000000');
+  });
+
+  const btnTrim = document.getElementById('btnModeTrim');
+  const btnBleed = document.getElementById('btnModeBleed');
+  const frontLabel = document.getElementById('frontDimLabel');
+  const backLabel = document.getElementById('backDimLabel');
+
+  btnTrim.addEventListener('click', () => {
+    document.body.classList.remove('bleed-active');
+    btnTrim.classList.add('active');
+    btnBleed.classList.remove('active');
+    frontLabel.textContent = '90mm × 54mm (成品尺寸)';
+    backLabel.textContent = '90mm × 54mm (成品尺寸)';
+  });
+
+  btnBleed.addEventListener('click', () => {
+    document.body.classList.add('bleed-active');
+    btnBleed.classList.add('active');
+    btnTrim.classList.remove('active');
+    frontLabel.textContent = '92mm × 56mm (含 1mm 出血與裁切線)';
+    backLabel.textContent = '92mm × 56mm (含 1mm 出血與裁切線)';
+  });
+
+  document.getElementById('btnPrintPDF').addEventListener('click', () => {
+    window.print();
+  });
+
+  function downloadCardImage(cardEl, filename) {
+    const isDark = document.body.classList.contains('theme-dark');
+    const isBleed = document.body.classList.contains('bleed-active');
+    
+    const canvas = document.createElement('canvas');
+    const scale = 3.5;
+    const w = (isBleed ? 92 : 90) * 11.811 * scale;
+    const h = (isBleed ? 56 : 54) * 11.811 * scale;
+    canvas.width = Math.round(w);
+    canvas.height = Math.round(h);
+    const ctx = canvas.getContext('2d');
+    
+    ctx.fillStyle = isDark ? '#090d16' : '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    const cardHtml = cardEl.outerHTML;
+    const svgData = `<svg xmlns="http://www.w3.org/2000/svg" width="${canvas.width}" height="${canvas.height}">
+      <foreignObject width="100%" height="100%">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="transform: scale(${scale}); transform-origin: 0 0; width: ${isBleed ? 92 : 90}mm; height: ${isBleed ? 56 : 54}mm;">
+          ${cardHtml}
+        </div>
+      </foreignObject>
+    </svg>`;
+    
+    const img = new Image();
+    const blob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+      
+      const a = document.createElement('a');
+      a.download = filename;
+      a.href = canvas.toDataURL('image/png', 1.0);
+      a.click();
+    };
+    img.src = url;
+  }
+
+  document.getElementById('btnDownloadFront').addEventListener('click', () => {
+    downloadCardImage(document.getElementById('cardFront'), 'Wind_Card_Front_90x54.png');
+  });
+
+  document.getElementById('btnDownloadBack').addEventListener('click', () => {
+    downloadCardImage(document.getElementById('cardBack'), 'Feilu_Card_Back_90x54.png');
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+# 系統與暫存檔
+.DS_Store
+Thumbs.db
+node_modules/
+
