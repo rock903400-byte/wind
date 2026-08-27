@@ -18,7 +18,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌀</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0a0e1a;--surface:rgba(17,24,39,.75);--surface2:rgba(26,31,53,.85);--border:rgba(255,255,255,.08);
@@ -40,7 +40,9 @@ body{
   background-size:100% 100%, 48px 48px, 48px 48px;
   background-position:center top, -1px -1px, -1px -1px;
   color:var(--text);
-  font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;
+  /* "Noto Sans TC" 必須排在西文字體之後、系統字體之前：放到 "Segoe UI" 後面
+     等於把中文的繪製權交給系統 CJK fallback，載進來的 webfont 可能整包白載。 */
+  font-family:'Plus Jakarta Sans',"Noto Sans TC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   line-height:1.6;
   overflow-x:hidden;
 }
@@ -71,7 +73,7 @@ section{padding:64px 0 48px;scroll-margin-top:76px}
 .work-card.hidden{display:none}
 
 /* ---- hero ---- */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:96px 0 72px}
+.hero{min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:96px 0 72px}
 .hero::before{content:'';position:absolute;top:-40%;left:-20%;width:80%;height:120%;background:radial-gradient(circle,rgba(102,126,234,.18) 0%,transparent 70%);pointer-events:none}
 .hero::after{content:'';position:absolute;bottom:-40%;right:-20%;width:80%;height:120%;background:radial-gradient(circle,rgba(118,75,162,.15) 0%,transparent 70%);pointer-events:none}
 .hero-inner{position:relative;z-index:1}
@@ -90,6 +92,17 @@ section{padding:64px 0 48px;scroll-margin-top:76px}
 .scroll-cue:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(102,126,234,.55);color:#fff}
 .scroll-cue:focus-visible{outline:2px solid #8fa4ff;outline-offset:3px}
 @keyframes breathe{0%,100%{opacity:.6;transform:translateY(0)}50%{opacity:1;transform:translateY(5px)}}
+
+/* hero 內的 AI 流程賦能導流膠囊。動畫節奏排在 hero p(.38s) 與 scroll-cue(.56s) 之間 */
+.hero-promo-row{display:flex;justify-content:center;margin:-10px 0 16px;animation-delay:.47s}
+.hero-promo{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:99px;
+  background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.35);color:#6ee7b7;
+  font-size:.85rem;font-weight:600;box-shadow:0 0 16px rgba(16,185,129,.15);
+  transition:background .2s,border-color .2s,box-shadow .2s,transform .2s}
+.hero-promo:hover{color:#6ee7b7;background:rgba(16,185,129,.2);border-color:rgba(16,185,129,.6);
+  box-shadow:0 0 22px rgba(16,185,129,.3);transform:translateY(-1px)}
+.hero-promo:focus-visible{outline:2px solid #6ee7b7;outline-offset:3px}
+.hero-promo-dot{flex:none;width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981}
 
 /* ---- tech marquee ---- */
 .marquee-wrap{overflow:hidden;padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
@@ -425,37 +438,52 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Wind · 跨產業接案開發與 AI 流程賦能",
-  "url": "https://rock903400-byte.github.io/wind/",
-  "description": "多項已上線作品，橫跨 11+ 個產業。全端網站、LINE AI 整合、金融風控工具與 AI 流程賦能輕量儲值制。",
-  "author": {
-    "@type": "Person",
-    "name": "Wind",
-    "sameAs": ["https://github.com/rock903400-byte"]
-  },
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "服務項目",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "飛律 AI 流程賦能輕量儲值制",
-          "description": "儲值 NT$ 1,000 交付 2 項自動化模組，48 小時極速交付、資產 100% 自主。"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "跨產業客製化全端與系統開發",
-          "description": "品牌形象網站、電商 POS、金融工具、LINE AI 串接與自動化腳本。"
-        }
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://rock903400-byte.github.io/wind/#website",
+      "name": "Wind · 跨產業接案開發與 AI 流程賦能",
+      "url": "https://rock903400-byte.github.io/wind/",
+      "description": "多項已上線作品，橫跨 11+ 個產業。全端網站、LINE AI 整合、金融風控工具與 AI 流程賦能輕量儲值制。",
+      "inLanguage": "zh-Hant",
+      "author": {
+        "@id": "https://rock903400-byte.github.io/wind/#wind"
       }
-    ]
-  }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://rock903400-byte.github.io/wind/#wind",
+      "name": "Wind",
+      "url": "https://rock903400-byte.github.io/wind/",
+      "jobTitle": "跨產業接案工程師",
+      "makesOffer": {"@id": "https://rock903400-byte.github.io/wind/ai-enablement.html#feilu"},
+      "sameAs": [
+        "https://github.com/rock903400-byte"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "服務項目",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "飛律 AI 流程賦能輕量儲值制",
+              "description": "儲值 NT$ 1,000 交付 2 項自動化模組，48 小時極速交付、資產 100% 自主。"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "跨產業客製化全端與系統開發",
+              "description": "品牌形象網站、電商 POS、金融工具、LINE AI 串接與自動化腳本。"
+            }
+          }
+        ]
+      }
+    }
+  ]
 }
 </script>
 </head>
@@ -483,9 +511,9 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   <h1>有需求，就能交付<br>可上線的成品</h1>
   <p>我是 Wind。從金融風控儀表板、20 萬會員 LINE AI 生態、全台法拍試算到品牌電商——靠 AI Agent 快速進入陌生領域，不同產業的案子我都能接下來做完，而且用你聽得懂的話跟你討論。</p>
   
-  <div style="display:flex;justify-content:center;margin:-10px 0 16px 0;">
-    <a href="ai-enablement.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.35);color:#6ee7b7;padding:6px 18px;border-radius:99px;font-size:.85rem;font-weight:600;text-decoration:none;transition:all .2s;box-shadow:0 0 16px rgba(16,185,129,.15)">
-      <span style="display:inline-block;width:7px;height:7px;background:#10b981;border-radius:50%;box-shadow:0 0 8px #10b981"></span>
+  <div class="hero-promo-row">
+    <a class="hero-promo" href="ai-enablement.html">
+      <span class="hero-promo-dot"></span>
       🔥 飛律 AI 流程賦能・NT$ 1,000 交付 2 項模組 ➔
     </a>
   </div>
@@ -516,7 +544,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   <div class="svc-grid reveal">
     <div class="svc-card svc-featured">
       <span class="svc-icon">⚡</span>
-      <h3>AI 流程賦能儲值制</h3>
+      <h3>AI 流程賦能儲值制（飛律 Feilu）</h3>
       <p>儲值 NT$ 1,000 交付 2 項輕量自動化模組，48 小時極速交付、資產 100% 自主。</p>
       <a class="svc-jump" href="ai-enablement.html">看完整說明 ↗</a>
     </div>
@@ -630,7 +658,6 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
         </div>
         <h3>儲蓄互助社風險監控儀表板</h3>
         <p class="desc">專為金融合作機構打造：自動偵測逾期與流動性風險，整合跨機構同業比較、熱區矩陣與資產趨勢追蹤，助管理層秒懂合規體質。</p>
-        <!-- TODO: 風控儀表板改用硬數字（服務機構數 / 監控戶數 / 資產規模）更有說服力 -->
         <div class="metric-row">
           <div class="metric"><span class="metric-num">跨機構</span><span class="metric-label">同業體質比較</span></div>
           <div class="metric"><span class="metric-num">即時</span><span class="metric-label">逾期與流動性偵測</span></div>
@@ -975,7 +1002,8 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
       <p class="about-body">我做的事很單純：<strong class="highlight">把那件麻煩聽懂</strong>，再做成一個你打開就會用、而且會想留下來的東西。</p>
       <p class="about-body">我把 AI Agent 放進每一個開發環節，所以我能比別人更快摸熟你的行業、更快交出可上線的成品——同樣的東西，別人還在跟你對規格書，我已經做出<strong class="highlight">第一版讓你實際點、實際改。</strong></p>
       
-      <p class="about-body">舉例來說，信用合作社——一個我原本完全陌生的產業——我從讀法規開始，最後在風控、授信、法遵、治理都累積了實戰作品。</p>
+      <p class="about-body">舉例來說，法拍與不動產科技——一個我原本完全陌生的領域——我從讀拍賣公告規則開始，做出每 5 分鐘同步全台法院、自動精算 ROI 與點交風險的監控系統。</p>
+      <p class="about-body">金融這一塊反過來是我的本業：十多年內控與稽核的底子，讓我在風控、授信、法遵、治理都能直接用你們的業務語言對話，不必先花三個月解釋名詞。</p>
 
       <div class="about-callout">
         <span class="callout-badge">⚡ AI Agent 驅動的交付速度</span>
@@ -1046,7 +1074,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     <div class="strength-card reveal">
       <div class="icon">🎯</div>
       <h3>快速進入陌生產業</h3>
-      <p>11+ 個產業的案子都是從零摸熟你的作業流程再動手，你不用先找到「做過你這行的工程師」。</p>
+      <p>11+ 個產業的案子多數是從零摸熟你的作業流程再動手，你不用先找到「做過你這行的工程師」。</p>
     </div>
     <div class="strength-card reveal">
       <div class="icon">🧾</div>
@@ -1093,6 +1121,12 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   // 從「視窗下方」跳到「視窗上方」，兩端狀態都是未相交 —— IO 不會觸發，
   // 那些元素就永遠停在 opacity:0，捲回上面是一片空白。實測 23 個有 19 個中招。
   // 改用 rAF 節流的掃描：只問「有沒有到過視窗內」，不管中間怎麼跳。
+
+  // CSS 的 @media(prefers-reduced-motion) 蓋不掉 JS 顯式傳入的 behavior:'smooth'
+  // (html{scroll-behavior} 只管 CSS 觸發的捲動)，這裡自己讀一次偏好。
+  var SCROLL_BEHAVIOR = (window.matchMedia &&
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches) ? 'auto' : 'smooth';
+
   var pending = [].slice.call(document.querySelectorAll('.reveal'));
 
   // 同一列的卡片錯開進場，整塊一起蹦出來沒有節奏可言。
@@ -1155,7 +1189,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   
   function scrollToTop(e){
     if(e) e.preventDefault();
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    window.scrollTo({top: 0, behavior: SCROLL_BEHAVIOR});
   }
 
   if(btt){
@@ -1227,7 +1261,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
       expanded = !expanded;
       applyView(true);
       // 收合時人可能已經捲到很下面，收完會停在半空中 → 拉回作品區開頭
-      if(!expanded) document.getElementById('works').scrollIntoView({behavior:'smooth', block:'start'});
+      if(!expanded) document.getElementById('works').scrollIntoView({behavior:SCROLL_BEHAVIOR, block:'start'});
     });
   }
 
@@ -1236,13 +1270,16 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
     b.addEventListener('click', function(){
       var target = document.querySelector('.filter-btn[data-cat="' + b.getAttribute('data-jump') + '"]');
       if(target) target.click();
-      document.getElementById('works').scrollIntoView({behavior:'smooth', block:'start'});
+      document.getElementById('works').scrollIntoView({behavior:SCROLL_BEHAVIOR, block:'start'});
     });
   });
 
   // 卡片整卡可點：點到非連結區域 → 以卡片內 btn-demo 的目標開新分頁
   grid.addEventListener('click', function(e){
     if(e.target.closest('a')) return;
+    // 拖曳選取卡片文字，放開滑鼠一樣會派送 click —— 不擋掉會變成「想複製卻被開新分頁」
+    var sel = window.getSelection && window.getSelection();
+    if(sel && !sel.isCollapsed && sel.toString().length) return;
     var card = e.target.closest('.work-card');
     if(!card) return;
     var demo = card.querySelector('.btn-demo');

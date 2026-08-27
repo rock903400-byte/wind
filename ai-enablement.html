@@ -2,92 +2,105 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>飛律 | AI 流程賦能・輕量儲值制（儲值 1,000 交付 2 項）</title>
   <meta name="description" content="把繁瑣法規、帳務與行政流程，做成不必盯著也能跑的 AI 外掛。儲值 NT$ 1,000 交付 2 項自動化模組，48h 極速交付、資產 100% 自主。" />
   <meta property="og:title" content="飛律 | AI 流程賦能・輕量儲值制" />
   <meta property="og:description" content="儲值 NT$ 1,000 交付 2 項輕量自動化模組，由懂金融內控與法規的專業架構團隊交付。" />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rock903400-byte.github.io/wind/ai-enablement.html" />
+  <meta property="og:image" content="https://rock903400-byte.github.io/wind/assets/og-cover.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://rock903400-byte.github.io/wind/ai-enablement.html" />
+  <meta name="theme-color" content="#080c0f" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
 
   <!-- Schema.org JSON-LD for SEO -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "ProfessionalService",
-        "name": "飛律 AI 流程賦能 (Feilu)",
-        "description": "把繁瑣法規、帳務與行政流程，做成不必盯著也能跑的 AI 外掛。儲值 NT$ 1,000 交付 2 項自動化模組，48h 極速交付、資產 100% 自主。",
-        "url": "https://rock903400-byte.github.io/wind/ai-enablement.html",
-        "priceRange": "NT$ 1,000 - NT$ 5,000",
-        "areaServed": "TW",
-        "email": "rock90340@gmail.com",
-        "offers": {
-          "@type": "Offer",
-          "price": "1000",
-          "priceCurrency": "TWD",
-          "name": "AI 流程賦能破冰體驗（交付 2 項模組）",
-          "availability": "https://schema.org/InStock"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://rock903400-byte.github.io/wind/ai-enablement.html#feilu",
+      "name": "飛律 AI 流程賦能 (Feilu)",
+      "description": "把繁瑣法規、帳務與行政流程，做成不必盯著也能跑的 AI 外掛。儲值 NT$ 1,000 交付 2 項自動化模組，48h 極速交付、資產 100% 自主。",
+      "url": "https://rock903400-byte.github.io/wind/ai-enablement.html",
+      "serviceType": "AI 流程自動化與賦能",
+      "provider": {
+        "@id": "https://rock903400-byte.github.io/wind/#wind"
       },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "什麼是「1 項標準任務」的範疇？如何判定？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "指可在 48 小時內收斂並交付測試的獨立輕量模組。例如：一組 Google 試算表自動勾稽腳本、一個 LINE 官方帳號查詢指令、一份規章檢索問答助手、一份司法院訴狀產生器、或一組 AHK 桌面填表外掛。若需求涉及多系統串接或跨部門流程，飛律會在提單當下協助你拆解為 2~3 個清晰模組分批提單驗收，每一點都花得清清楚楚。"
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "2 個額度有使用期限嗎？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "完全沒有期限。你可以現在做完第 1 項，等下個月或有新業務痛點時再提第 2 項，點數永久有效，不需背負每個月繳月費的心理壓力。"
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "我的帳冊或個資會不會外洩？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "資料流向依模組型態分三種，提單時會先向你說明清楚，不會含糊帶過：① 純離線型（AHK 桌面外掛、純前端試算工具）：全部運算在你的電腦本機完成，資料不經過網路。② Google 生態型（GAS 試算表自動化）：資料留在你自己的 Google Workspace 帳號內，權限由你控管。③ BYOK LLM 型（規章 RAG、LINE 問答）：會將回答所需的必要片段，送往你自己 API 金鑰所對應的服務；LINE 訊息則經 LINE 官方伺服器轉送——這是這類模組的架構本質，我不會假裝它是離線的。三種型態飛律端一律不留存客戶資料副本、不建立中繼資料庫。若你的帳冊或個資完全不能離開本機，提單時直接指定第 ① 種，我會以純離線架構實作。"
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "什麼是 BYOK？API 費用會很貴嗎？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "採 BYOK（Bring Your Own Key）原則，API 金鑰與帳單都在你自己手上，用多少付多少、隨時可停，不經過我的帳戶。費用完全取決於使用量：以每月數百次輕量問答估算，OpenAI / Claude / Gemini 的原廠費用多在每月數十至數百元之間；若是每日全文檢索、大量文件嵌入或高頻推播，成本會再往上。交付前我會依你的實際用量先算一次預估給你，不會讓帳單超出預期。"
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "2 項額度用完後，想繼續委託怎麼辦？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "體驗滿意後有兩條路，依你的需求密度選：① 5 點輕量儲值包 NT$ 3,500（每點 NT$ 700）—— 無使用期限、隨提隨做，適合需求零星出現的團隊。② 月度訂閱制 NT$ 5,000／月 —— 期間內不限提單數，單一線程持續衝刺，適合已經有連續需求、想把一整條流程做完的團隊。兩者可依團隊節奏自由切換，無強制續約、無最低綁約期。"
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "48 小時怎麼算？做出來不滿意會扣點嗎？",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "48 小時自「需求規格確認完成」起算，不包含等待你回覆或提供資料的時間；若同時有多筆提單，依單一線程原則排序，提單當下就會告訴你預計啟動時間。交付後有 7 天驗收期，期間包含 2 輪規格內調整。驗收通過才扣 1 點；若調整後仍未達成當初確認的規格，該點不扣。若評估後確認技術上無法達成（例如目標系統封鎖自動化行為），我會在動工前就告訴你，同樣不扣點。"
-            }
-          }
-        ]
+      "areaServed": {
+        "@type": "Country",
+        "name": "TW"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "1000",
+        "priceCurrency": "TWD",
+        "name": "AI 流程賦能破冰體驗（交付 2 項模組）",
+        "availability": "https://schema.org/InStock"
       }
-    ]
-  }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "什麼是「1 項標準任務」的範疇？如何判定？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "指可在 48 小時內收斂並交付測試的獨立輕量模組。例如：一組 Google 試算表自動勾稽腳本、一個 LINE 官方帳號查詢指令、一份規章檢索問答助手、一份司法院訴狀產生器、或一組 AHK 桌面填表外掛。若需求涉及多系統串接或跨部門流程，飛律會在提單當下協助你拆解為 2~3 個清晰模組分批提單驗收，每一點都花得清清楚楚。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "2 個額度有使用期限嗎？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "完全沒有期限。你可以現在做完第 1 項，等下個月或有新業務痛點時再提第 2 項，點數永久有效，不需背負每個月繳月費的心理壓力。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "我的帳冊或個資會不會外洩？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "資料流向依模組型態分三種，提單時會先向你說明清楚，不會含糊帶過：① 純離線型（AHK 桌面外掛、純前端試算工具）：全部運算在你的電腦本機完成，資料不經過網路。② Google 生態型（GAS 試算表自動化）：資料留在你自己的 Google Workspace 帳號內，權限由你控管。③ BYOK LLM 型（規章 RAG、LINE 問答）：會將回答所需的必要片段，送往你自己 API 金鑰所對應的服務；LINE 訊息則經 LINE 官方伺服器轉送——這是這類模組的架構本質，我不會假裝它是離線的。三種型態飛律端一律不留存客戶資料副本、不建立中繼資料庫。若你的帳冊或個資完全不能離開本機，提單時直接指定第 ① 種，我會以純離線架構實作。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "什麼是 BYOK？API 費用會很貴嗎？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "採 BYOK（Bring Your Own Key）原則，API 金鑰與帳單都在你自己手上，用多少付多少、隨時可停，不經過我的帳戶。費用完全取決於使用量：以每月數百次輕量問答估算，OpenAI / Claude / Gemini 的原廠費用多在每月數十至數百元之間；若是每日全文檢索、大量文件嵌入或高頻推播，成本會再往上。交付前我會依你的實際用量先算一次預估給你，不會讓帳單超出預期。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "2 項額度用完後，想繼續委託怎麼辦？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "體驗滿意後有兩條路，依你的需求密度選：① 5 點輕量儲值包 NT$ 3,500（每點 NT$ 700）—— 無使用期限、隨提隨做，適合需求零星出現的團隊。② 月度訂閱制 NT$ 5,000／月 —— 期間內不限提單數（仍依單一線程原則依序交付，提單當下告知預計啟動時間），適合已經有連續需求、想把一整條流程做完的團隊。兩者可依團隊節奏自由切換，無強制續約、無最低綁約期。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "48 小時怎麼算？做出來不滿意會扣點嗎？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "48 小時自「需求規格確認完成」起算，不包含等待你回覆或提供資料的時間；若同時有多筆提單，依單一線程原則排序，提單當下就會告訴你預計啟動時間。交付後有 7 天驗收期，期間包含 2 輪規格內調整。驗收通過才扣 1 點；若調整後仍未達成當初確認的規格，該點不扣。若評估後確認技術上無法達成（例如目標系統封鎖自動化行為），我會在動工前就告訴你，同樣不扣點。"
+          }
+        }
+      ]
+    }
+  ]
+}
   </script>
 
   <style>
@@ -190,12 +203,26 @@
       padding: 0.45rem 1.1rem;
       border-radius: 999px;
       text-decoration: none;
-      transition: all 0.2s ease;
+      /* 不可用 transition:all —— 會把 outline 一起過渡，焦點框變成 200ms 才浮現 */
+      transition: background 0.2s ease, transform 0.2s ease;
     }
 
     .nav-btn:hover {
       background: var(--accent-hover);
       transform: translateY(-1px);
+    }
+
+    .nav-back {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    /* 原本是 inline onmouseover/onmouseout：鍵盤使用者完全沒有提示，CSP 下也會失效 */
+    .nav-back:hover,
+    .nav-back:focus-visible {
+      color: #fff;
     }
 
     /* ---- Container ---- */
@@ -234,6 +261,12 @@
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* .showcase-panel 引用了 fadeIn 卻沒有定義，切 tab 其實沒有任何淡入 */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     /* ---- Typography ---- */
@@ -285,7 +318,9 @@
       padding: 0.95rem 2.2rem;
       border-radius: var(--radius-md);
       text-decoration: none;
-      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: background-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 4px 20px rgba(16, 185, 129, 0.35);
       border: 1px solid rgba(255, 255, 255, 0.15);
       cursor: pointer;
@@ -324,10 +359,6 @@
 
     .grid-3 {
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-
-    .grid-2 {
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     }
 
     .card {
@@ -405,7 +436,7 @@
       margin-bottom: 0.5rem;
     }
 
-    .bio-content h4 {
+    .bio-content h3 {
       font-size: 1.22rem;
       font-weight: 800;
       color: #fff;
@@ -591,13 +622,22 @@
       border-color: rgba(255, 255, 255, 0.16);
     }
 
+    /* 這是 <button>：需要完整重置，否則會吃到瀏覽器預設的框線、背景與字體。
+       原本的 user-select:none 一併移除——它讓使用者無法複製問題文字。 */
     .faq-header {
+      appearance: none;
+      -webkit-appearance: none;
+      background: none;
+      border: 0;
+      width: 100%;
+      font-family: inherit;
+      text-align: left;
+      gap: 1rem;
       padding: 1.2rem 1.4rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      user-select: none;
       font-weight: 700;
       font-size: 1.02rem;
       color: #fff;
@@ -718,7 +758,7 @@
       border-top-right-radius: var(--radius-sm);
       cursor: pointer;
       white-space: nowrap;
-      transition: all 0.2s;
+      transition: color 0.2s, background 0.2s, border-color 0.2s;
     }
 
     .tab-btn:hover {
@@ -948,6 +988,23 @@
       text-align: center;
     }
 
+    /* ---- Focus Visible（鍵盤操作的唯一定位線索）----
+       用低特異度的通則涵蓋全部可聚焦元素：逐一列舉會漏掉沒有 class 的連結
+       （定價區兩個 inline style 的連結）與 role=tabpanel 的面板，
+       而 UA 預設框在深底上幾乎看不見。 */
+    a:focus-visible,
+    button:focus-visible,
+    [tabindex]:focus-visible {
+      outline: 2px solid var(--accent-light);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* 面板是整塊區域，外框貼齊邊緣比外推好看 */
+    .showcase-panel:focus-visible {
+      outline-offset: -2px;
+    }
+
     /* ---- Footer ---- */
     footer {
       margin-top: 6rem;
@@ -1025,10 +1082,29 @@
     }
 
     /* ---- Mobile Responsive Rules ---- */
+
+    /* 黏底列由 JS 在 innerWidth<=768 顯示，底部留白必須用同一個斷點，
+       否則 641~768px 之間黏底列會蓋住 footer。CSS 這側同時把 >768px 關掉，
+       讓斷點只有一個真實來源。 */
+    @media (max-width: 768px) {
+      .container {
+        padding-bottom: 5.5rem;
+      }
+      /* 三層漸層配 background-attachment:fixed 在行動裝置捲動會明顯掉幀 */
+      body {
+        background-attachment: scroll;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .mobile-sticky-bar {
+        display: none;
+      }
+    }
+
     @media (max-width: 640px) {
       .container {
         padding-top: 1.8rem;
-        padding-bottom: 5.5rem;
       }
       .scroll-hint {
         display: block;
@@ -1043,18 +1119,43 @@
         padding: 1.4rem;
       }
     }
+
+    /* ---- 尊重「減少動態」系統偏好 ---- */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+      html { scroll-behavior: auto; }
+      /* 狀態點是無限迴圈的呼吸燈，只縮短 duration 會變成高頻閃爍，必須整個關掉 */
+      .status-dot { animation: none !important; opacity: 1; }
+      .showcase-panel { animation: none !important; }
+      /* 黏底列的進出改成瞬間切換，不要滑入 */
+      .mobile-sticky-bar { transition: none !important; }
+    }
   </style>
+  <noscript><style>
+    /* FAQ 收合與 tab 切換全靠 JS：沒 JS 時 6 題只剩第 1 題、3 個情境只剩第 1 個，
+       其餘內容永久不可達 —— 直接全部攤開，並隱藏點不動的控制項。 */
+    .faq-body { display: block !important; }
+    .faq-icon { display: none; }
+    .faq-header { cursor: default; }
+    .showcase-panel { display: block !important; }
+    .showcase-tabs { display: none; }
+    .showcase-panel + .showcase-panel { border-top: 1px solid var(--border); }
+  </style></noscript>
 </head>
 <body>
 
   <!-- Top Sticky Navigation -->
-  <nav>
+  <nav aria-label="主要導覽">
     <div class="nav-container">
       <a href="#" class="nav-logo">
-        飛律 <span>Feilu</span> <span class="nav-badge">AI 流程賦能</span>
+        飛律 <span>Feilu</span> <span class="nav-badge">Wind 的 AI 流程賦能服務</span>
       </a>
       <div style="display: flex; align-items: center; gap: 1rem;">
-        <a href="index.html" style="color: var(--text-muted); font-size: 0.88rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">← 回作品集首頁</a>
+        <a href="index.html" class="nav-back">← 回 Wind 作品集首頁</a>
         <a href="#pricing" class="nav-btn">儲值體驗</a>
       </div>
     </div>
@@ -1099,7 +1200,7 @@
       <div class="bio-strip">
         <div class="bio-tag">FINANCE · LEGAL · AUTOMATION</div>
         <div class="bio-content">
-          <h4>一人專職交付，從頭到尾都是同一個人 ｜ 飛律 Feilu</h4>
+          <h3>一人專職交付，從頭到尾都是同一個人 ｜ 飛律 Feilu</h3>
           <p>
             深耕金融內控稽核 × 政府採購法規實務 × AI Agent 自動化流程架構。<br>
             飛律不是外包團隊轉包給你不認識的工程師，而是由我一個人從需求訪談、開發到交付驗收全程負責——這也是「單一線程一次只衝刺一項」的原因：我看得懂帳冊借貸、讀得透法規條文，並把判斷標準固化成穩定的 AI 工作流。
@@ -1251,14 +1352,14 @@
       <p class="sec-desc">點擊切換查看典型作業場景的前後差異（畫面為情境示意，非特定客戶真實資料）：</p>
 
       <div class="showcase-container">
-        <div class="showcase-tabs">
-          <button class="tab-btn active" data-tab="tab-gas">📊 財務多表自動勾稽 (GAS)</button>
-          <button class="tab-btn" data-tab="tab-rag">📚 規章手冊 RAG 智慧問答</button>
-          <button class="tab-btn" data-tab="tab-legal">⚖️ 法務文書排版與時效鬧鐘</button>
+        <div class="showcase-tabs" role="tablist" aria-label="賦能前後對照情境">
+          <button class="tab-btn active" type="button" role="tab" id="tabbtn-gas" data-tab="tab-gas" aria-controls="tab-gas" aria-selected="true">📊 財務多表自動勾稽 (GAS)</button>
+          <button class="tab-btn" type="button" role="tab" id="tabbtn-rag" data-tab="tab-rag" aria-controls="tab-rag" aria-selected="false">📚 規章手冊 RAG 智慧問答</button>
+          <button class="tab-btn" type="button" role="tab" id="tabbtn-legal" data-tab="tab-legal" aria-controls="tab-legal" aria-selected="false">⚖️ 法務文書排版與時效鬧鐘</button>
         </div>
 
         <!-- Tab 1: GAS -->
-        <div class="showcase-panel active" id="tab-gas">
+        <div class="showcase-panel active" id="tab-gas" role="tabpanel" aria-labelledby="tabbtn-gas" tabindex="0">
           <div class="mockup-window">
             <div class="mockup-header">
               <div class="mockup-dots">
@@ -1300,7 +1401,7 @@
         </div>
 
         <!-- Tab 2: RAG -->
-        <div class="showcase-panel" id="tab-rag">
+        <div class="showcase-panel" id="tab-rag" role="tabpanel" aria-labelledby="tabbtn-rag" tabindex="0">
           <div class="mockup-window">
             <div class="mockup-header">
               <div class="mockup-dots">
@@ -1342,7 +1443,7 @@
         </div>
 
         <!-- Tab 3: Legal -->
-        <div class="showcase-panel" id="tab-legal">
+        <div class="showcase-panel" id="tab-legal" role="tabpanel" aria-labelledby="tabbtn-legal" tabindex="0">
           <div class="mockup-window">
             <div class="mockup-header">
               <div class="mockup-dots">
@@ -1663,31 +1764,31 @@
       <div class="faq-list">
         
         <div class="faq-item open">
-          <div class="faq-header">
+          <button class="faq-header" type="button" aria-expanded="true" aria-controls="faq-body-1">
             <span>Q1：什麼是「1 項標準任務」的範疇？如何判定？</span>
             <span class="faq-icon">+</span>
-          </div>
-          <div class="faq-body">
+          </button>
+          <div class="faq-body" id="faq-body-1">
             指可在 48 小時內收斂並交付測試的獨立輕量模組。例如：一組 Google 試算表自動勾稽腳本、一個 LINE 官方帳號查詢指令、一份規章檢索問答助手、一份司法院訴狀產生器、或一組 AHK 桌面填表外掛。若需求涉及多系統串接或跨部門流程，飛律會在提單當下協助你拆解為 2~3 個清晰模組分批提單驗收，每一點都花得清清楚楚。
           </div>
         </div>
 
         <div class="faq-item">
-          <div class="faq-header">
+          <button class="faq-header" type="button" aria-expanded="false" aria-controls="faq-body-2">
             <span>Q2：2 個額度有使用期限嗎？</span>
             <span class="faq-icon">+</span>
-          </div>
-          <div class="faq-body">
+          </button>
+          <div class="faq-body" id="faq-body-2">
             完全沒有期限。你可以現在做完第 1 項，等下個月或有新業務痛點時再提第 2 項，點數永久有效，不需背負每個月繳月費的心理壓力。
           </div>
         </div>
 
         <div class="faq-item">
-          <div class="faq-header">
+          <button class="faq-header" type="button" aria-expanded="false" aria-controls="faq-body-3">
             <span>Q3：我的帳冊或個資會不會外洩？</span>
             <span class="faq-icon">+</span>
-          </div>
-          <div class="faq-body">
+          </button>
+          <div class="faq-body" id="faq-body-3">
 資料流向依模組型態分三種，提單時會先向你說明清楚，不會含糊帶過：<br><br>
             <strong>① 純離線型</strong>（AHK 桌面外掛、純前端試算工具）：全部運算在你的電腦本機完成，資料不經過網路。<br>
             <strong>② Google 生態型</strong>（GAS 試算表自動化）：資料留在你自己的 Google Workspace 帳號內，權限由你控管。<br>
@@ -1697,35 +1798,35 @@
         </div>
 
         <div class="faq-item">
-          <div class="faq-header">
+          <button class="faq-header" type="button" aria-expanded="false" aria-controls="faq-body-4">
             <span>Q4：什麼是 BYOK？API 費用會很貴嗎？</span>
             <span class="faq-icon">+</span>
-          </div>
-          <div class="faq-body">
+          </button>
+          <div class="faq-body" id="faq-body-4">
 採 BYOK（Bring Your Own Key）原則，<strong>API 金鑰與帳單都在你自己手上</strong>，用多少付多少、隨時可停，不經過我的帳戶。<br><br>
             費用完全取決於使用量：以每月數百次輕量問答估算，OpenAI / Claude / Gemini 的原廠費用多在<strong>每月數十至數百元</strong>之間；若是每日全文檢索、大量文件嵌入或高頻推播，成本會再往上。交付前我會依你的實際用量先算一次預估給你，不會讓帳單超出預期。
           </div>
         </div>
 
         <div class="faq-item">
-          <div class="faq-header">
+          <button class="faq-header" type="button" aria-expanded="false" aria-controls="faq-body-5">
             <span>Q5：2 項額度用完後，想繼續委託怎麼辦？</span>
             <span class="faq-icon">+</span>
-          </div>
-          <div class="faq-body">
+          </button>
+          <div class="faq-body" id="faq-body-5">
 體驗滿意後有兩條路，依你的需求密度選：<br><br>
             <strong>① 5 點輕量儲值包 NT$ 3,500</strong>（每點 NT$ 700）—— 無使用期限、隨提隨做，適合需求零星出現的團隊。<br>
-            <strong>② 月度訂閱制 NT$ 5,000／月</strong> —— 期間內不限提單數，單一線程持續衝刺，適合已經有連續需求、想把一整條流程做完的團隊。<br><br>
+            <strong>② 月度訂閱制 NT$ 5,000／月</strong> —— 期間內不限提單數（仍依單一線程原則依序交付，提單當下告知預計啟動時間），適合已經有連續需求、想把一整條流程做完的團隊。<br><br>
             兩者可依團隊節奏自由切換，<strong>無強制續約、無最低綁約期</strong>。
           </div>
         </div>
 
         <div class="faq-item">
-          <div class="faq-header">
+          <button class="faq-header" type="button" aria-expanded="false" aria-controls="faq-body-6">
             <span>Q6：48 小時怎麼算？做出來不滿意會扣點嗎？</span>
             <span class="faq-icon">+</span>
-          </div>
-          <div class="faq-body">
+          </button>
+          <div class="faq-body" id="faq-body-6">
             <strong>48 小時自「需求規格確認完成」起算</strong>，不包含等待你回覆或提供資料的時間；若同時有多筆提單，依單一線程原則排序，提單當下就會告訴你預計啟動時間。<br><br>
             交付後有 <strong>7 天驗收期，期間包含 2 輪規格內調整</strong>。<strong>驗收通過才扣 1 點</strong>；若調整後仍未達成當初確認的規格，該點不扣。若評估後確認技術上無法達成（例如目標系統封鎖自動化行為），我會在動工前就告訴你，同樣不扣點。
           </div>
@@ -1737,12 +1838,12 @@
     <!-- Footer -->
     <footer>
       <p style="margin-bottom: 0.75rem;">
-        © 2026 飛律 Feilu ｜ 把規則想清楚，把系統建起來，剩下的交給時間。
+        © 2026 飛律 Feilu ｜ Wind 的 AI 流程賦能服務 ｜ 把規則想清楚，把系統建起來，剩下的交給時間。
       </p>
-      <p style="font-size: 0.78rem; color: #64748b; max-width: 640px; margin: 0 auto 1.25rem auto; line-height: 1.7;">
+      <p style="font-size: 0.78rem; color: var(--text-muted); max-width: 640px; margin: 0 auto 1.25rem auto; line-height: 1.7;">
         本頁所有前後對照畫面與數據皆為典型作業場景的情境示意，非特定客戶真實資料，實際成效依資料量與流程複雜度而異。法務相關模組僅提供文書排版自動化，不提供法律意見，個案請洽執業律師。
       </p>
-      <p style="font-size: 0.8rem; color: #64748b;">
+      <p style="font-size: 0.8rem; color: var(--text-muted);">
         <a href="https://lin.ee/pMv99Du" target="_blank" rel="noopener">LINE</a> · 
         <a href="https://github.com/rock903400-byte" target="_blank" rel="noopener">GitHub</a> · 
         <a href="https://rock903400-byte.github.io/wind/" target="_blank" rel="noopener">作品集首頁</a> · 
@@ -1763,23 +1864,28 @@
 
   <!-- Interactive JavaScript -->
   <script>
-    // 1. FAQ Accordion Toggle
+    // 1. FAQ 手風琴（.faq-header 是 <button>：Enter/Space 由瀏覽器原生處理，
+    //    這裡只需要把 aria-expanded 跟著 .open 一起翻）
     document.querySelectorAll('.faq-header').forEach(header => {
       header.addEventListener('click', () => {
-        const item = header.parentElement;
-        item.classList.toggle('open');
+        const open = header.parentElement.classList.toggle('open');
+        header.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
     });
 
-    // 2. Mobile Sticky Action Bar on Scroll
+    // 2. 手機黏底行動列（rAF 節流；另補 resize，否則從手機寬拉回桌機寬時
+    //    要等下一次捲動才會收起來）
     const stickyBar = document.getElementById('mobileStickyBar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 380 && window.innerWidth <= 768) {
-        stickyBar.classList.add('show');
-      } else {
-        stickyBar.classList.remove('show');
-      }
-    }, { passive: true });
+    let stickyTicking = false;
+    function updateStickyBar() {
+      stickyTicking = false;
+      stickyBar.classList.toggle('show', window.scrollY > 380 && window.innerWidth <= 768);
+    }
+    function onStickyEvent() {
+      if (!stickyTicking) { stickyTicking = true; requestAnimationFrame(updateStickyBar); }
+    }
+    window.addEventListener('scroll', onStickyEvent, { passive: true });
+    window.addEventListener('resize', onStickyEvent, { passive: true });
 
     // 3. Spotlight Mouse Tracking on Cards (Desktop)
     const cards = document.querySelectorAll('.card');
@@ -1793,17 +1899,37 @@
       });
     });
 
-    // 4. Tab Switcher for Showcase Mockup Window
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.querySelectorAll('.showcase-panel').forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        const targetId = btn.getAttribute('data-tab');
-        const targetPanel = document.getElementById(targetId);
-        if (targetPanel) targetPanel.classList.add('active');
+    // 4. Showcase 分頁（role=tablist）
+    const tabBtns = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
+    const tabPanels = Array.prototype.slice.call(document.querySelectorAll('.showcase-panel'));
+
+    function activateTab(btn, moveFocus) {
+      tabBtns.forEach(b => {
+        const on = (b === btn);
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+        // 漫遊 tabindex：整組 tab 在 Tab 鍵序列裡只佔一格，組內改用左右鍵移動
+        b.tabIndex = on ? 0 : -1;
+      });
+      tabPanels.forEach(p => p.classList.remove('active'));
+      const target = document.getElementById(btn.getAttribute('data-tab'));
+      if (target) target.classList.add('active');
+      if (moveFocus) btn.focus();
+    }
+
+    tabBtns.forEach((btn, i) => {
+      btn.addEventListener('click', () => activateTab(btn, false));
+      btn.addEventListener('keydown', e => {
+        let next = null;
+        if (e.key === 'ArrowRight')     next = tabBtns[(i + 1) % tabBtns.length];
+        else if (e.key === 'ArrowLeft') next = tabBtns[(i - 1 + tabBtns.length) % tabBtns.length];
+        else if (e.key === 'Home')      next = tabBtns[0];
+        else if (e.key === 'End')       next = tabBtns[tabBtns.length - 1];
+        if (next) { e.preventDefault(); activateTab(next, true); }
       });
     });
+    // HTML 只標了 aria-selected，漫遊 tabindex 在這裡初始化（沒 JS 時全部保持可聚焦）
+    tabBtns.forEach(b => { b.tabIndex = b.classList.contains('active') ? 0 : -1; });
   </script>
 
 </body>
