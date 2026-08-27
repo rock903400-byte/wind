@@ -2,252 +2,261 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b0f19">
 <title>Wind × 飛律 — 1:1 實體商務名片送印與列印工具</title>
-<meta name="description" content="Wind 全端接案架構師 × 飛律 Feilu AI 流程賦能 1:1 實體標準名片送印檔 (90×54mm / 出血 92×56mm)">
+<meta name="description" content="Wind 簽約交付｜統編 54730503 × 飛律 Feilu AI 流程賦能 1:1 實體標準名片送印檔 (90×54mm / 出血 92×56mm)">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="石顧問 Wind × 飛律 Feilu — 1:1 實體商務名片">
+<meta property="og:description" content="19 項已上線實績｜簽約交付｜統編 54730503。可簽約·可開立發票。">
+<meta property="og:url" content="https://rock903400-byte.github.io/wind/print-card.html">
+<meta property="og:image" content="https://rock903400-byte.github.io/wind/assets/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="zh_TW">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ==========================================================================
-   CSS Reset & Screen Layout
-   ========================================================================== */
+  CSS Reset & Screen Layout
+  ========================================================================== */
 *, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+ box-sizing: border-box;
+ margin: 0;
+ padding: 0;
 }
 
 :root {
-  --font-base: 'Plus Jakarta Sans', "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --bg-screen: #0f172a;
-  --surface-screen: #1e293b;
-  --border-screen: rgba(255, 255, 255, 0.1);
-  --text-screen: #f8fafc;
-  --dim-screen: #94a3b8;
-  
-  /* 名片實體尺寸變數 */
-  --card-w: 90mm;
-  --card-h: 54mm;
-  --bleed-w: 92mm;
-  --bleed-h: 56mm;
+ --font-base: 'Plus Jakarta Sans', "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+ --bg-screen: #0f172a;
+ --surface-screen: #1e293b;
+ --border-screen: rgba(255, 255, 255, 0.1);
+ --text-screen: #f8fafc;
+ --dim-screen: #94a3b8;
+ 
+ /* 名片實體尺寸變數 */
+ --card-w: 90mm;
+ --card-h: 54mm;
+ --bleed-w: 92mm;
+ --bleed-h: 56mm;
 }
 
 body {
-  font-family: var(--font-base);
-  background-color: var(--bg-screen);
-  color: var(--text-screen);
-  line-height: 1.4;
-  -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
+ font-family: var(--font-base);
+ background-color: var(--bg-screen);
+ color: var(--text-screen);
+ line-height: 1.4;
+ -webkit-font-smoothing: antialiased;
+ min-height: 100vh;
 }
 
 /* ==========================================================================
-   Screen Toolbar & Guidance
-   ========================================================================== */
+  Screen Toolbar & Guidance
+  ========================================================================== */
 .toolbar-wrap {
-  background: var(--surface-screen);
-  border-bottom: 1px solid var(--border-screen);
-  padding: 16px 24px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+ background: var(--surface-screen);
+ border-bottom: 1px solid var(--border-screen);
+ padding: 16px 24px;
+ position: sticky;
+ top: 0;
+ z-index: 100;
 }
 
 .toolbar-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+ max-width: 1200px;
+ margin: 0 auto;
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ justify-content: space-between;
+ gap: 16px;
 }
 
 .brand-header h1 {
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+ font-size: 1.15rem;
+ font-weight: 800;
+ letter-spacing: -0.01em;
+ display: flex;
+ align-items: center;
+ gap: 8px;
 }
 
 .brand-header h1 span {
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 2px 8px;
-  border-radius: 99px;
-  background: rgba(99, 102, 241, 0.2);
-  color: #818cf8;
-  border: 1px solid rgba(99, 102, 241, 0.3);
+ font-size: 0.8rem;
+ font-weight: 600;
+ padding: 2px 8px;
+ border-radius: 99px;
+ background: rgba(99, 102, 241, 0.2);
+ color: #818cf8;
+ border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
 .brand-header p {
-  font-size: 0.8rem;
-  color: var(--dim-screen);
-  margin-top: 2px;
+ font-size: 0.8rem;
+ color: var(--dim-screen);
+ margin-top: 2px;
 }
 
 .tool-controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
+ display: flex;
+ flex-wrap: wrap;
+ align-items: center;
+ gap: 10px;
 }
 
 .btn {
-  appearance: none;
-  border: 1px solid var(--border-screen);
-  background: rgba(255, 255, 255, 0.06);
-  color: #f1f5f9;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.15s ease;
-  font-family: inherit;
+ appearance: none;
+ border: 1px solid var(--border-screen);
+ background: rgba(255, 255, 255, 0.06);
+ color: #f1f5f9;
+ padding: 8px 16px;
+ border-radius: 8px;
+ font-size: 0.85rem;
+ font-weight: 600;
+ cursor: pointer;
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+ transition: all 0.15s ease;
+ font-family: inherit;
 }
 
 .btn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.25);
+ background: rgba(255, 255, 255, 0.12);
+ border-color: rgba(255, 255, 255, 0.25);
 }
 
 .btn.primary {
-  background: #3b82f6;
-  border-color: #3b82f6;
-  color: #fff;
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+ background: #3b82f6;
+ border-color: #3b82f6;
+ color: #fff;
+ box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
 }
 
 .btn.primary:hover {
-  background: #2563eb;
-  border-color: #2563eb;
+ background: #2563eb;
+ border-color: #2563eb;
 }
 
 .toggle-group {
-  display: flex;
-  background: rgba(0, 0, 0, 0.25);
-  padding: 3px;
-  border-radius: 8px;
-  border: 1px solid var(--border-screen);
+ display: flex;
+ background: rgba(0, 0, 0, 0.25);
+ padding: 3px;
+ border-radius: 8px;
+ border: 1px solid var(--border-screen);
 }
 
 .toggle-btn {
-  padding: 5px 12px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  border: none;
-  background: transparent;
-  color: var(--dim-screen);
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.15s ease;
+ padding: 5px 12px;
+ font-size: 0.8rem;
+ font-weight: 600;
+ border: none;
+ background: transparent;
+ color: var(--dim-screen);
+ border-radius: 6px;
+ cursor: pointer;
+ transition: all 0.15s ease;
 }
 
 .toggle-btn.active {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
+ background: rgba(255, 255, 255, 0.15);
+ color: #fff;
 }
 
 .main-preview {
-  max-width: 1200px;
-  margin: 36px auto;
-  padding: 0 20px 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px;
+ max-width: 1200px;
+ margin: 36px auto;
+ padding: 0 20px 60px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 40px;
 }
 
 .preview-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 36px;
-  width: 100%;
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ gap: 36px;
+ width: 100%;
 }
 
 .card-stage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 12px;
 }
 
 .stage-title {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #cbd5e1;
-  letter-spacing: 0.5px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+ font-size: 0.88rem;
+ font-weight: 700;
+ color: #cbd5e1;
+ letter-spacing: 0.5px;
+ display: flex;
+ align-items: center;
+ gap: 8px;
 }
 
 .stage-title .dim {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: #64748b;
+ font-size: 0.75rem;
+ font-weight: 500;
+ color: #64748b;
 }
 
 /* ==========================================================================
-   1:1 Physical Business Card Styles (90mm × 54mm / 92mm × 56mm)
-   ========================================================================== */
+  1:1 Physical Business Card Styles (90mm × 54mm / 92mm × 56mm)
+  ========================================================================== */
 .card-outer {
-  width: var(--card-w);
-  height: var(--card-h);
-  position: relative;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
-  border-radius: 0px; /* 實體名片印刷直角 */
-  background: #ffffff;
-  color: #111827;
-  overflow: hidden;
-  transition: width 0.2s, height 0.2s;
+ width: var(--card-w);
+ height: var(--card-h);
+ position: relative;
+ box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+ border-radius: 0px; /* 實體名片印刷直角 */
+ background: #ffffff;
+ color: #111827;
+ overflow: hidden;
+ transition: width 0.2s, height 0.2s;
 }
 
 /* 出血模式 (92mm × 56mm 含 1mm 出血) */
 .bleed-active .card-outer {
-  width: var(--bleed-w);
-  height: var(--bleed-h);
+ width: var(--bleed-w);
+ height: var(--bleed-h);
 }
 
 .card-inner {
-  width: 90mm;
-  height: 54mm;
-  padding: 3.2mm 4.5mm;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #ffffff;
-  box-sizing: border-box;
+ width: 90mm;
+ height: 54mm;
+ padding: 3.2mm 4.5mm;
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ background: #ffffff;
+ box-sizing: border-box;
 }
 
 /* 出血背景擴展 */
 .bleed-active .card-inner {
-  width: 92mm;
-  height: 56mm;
-  padding: 4.2mm 5.5mm;
+ width: 92mm;
+ height: 56mm;
+ padding: 4.2mm 5.5mm;
 }
 
 /* 出血十字裁切線 (Crop Marks) */
 .crop-mark {
-  position: absolute;
-  pointer-events: none;
-  display: none;
+ position: absolute;
+ pointer-events: none;
+ display: none;
 }
 
 .bleed-active .crop-mark {
-  display: block;
+ display: block;
 }
 
 .crop-tl { top: 0; left: 0; width: 1mm; height: 1mm; border-right: 0.2mm solid #ef4444; border-bottom: 0.2mm solid #ef4444; }
@@ -256,467 +265,467 @@ body {
 .crop-br { bottom: 0; right: 0; width: 1mm; height: 1mm; border-left: 0.2mm solid #ef4444; border-top: 0.2mm solid #ef4444; }
 
 /* --------------------------------------------------------------------------
-   Front Side Layout (Wind)
-   -------------------------------------------------------------------------- */
+  Front Side Layout (Wind)
+  -------------------------------------------------------------------------- */
 .card-front {
-  background: #ffffff;
-  color: #0f172a;
+ background: #ffffff;
+ color: #0f172a;
 }
 
 .front-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
 }
 
 .brand-row {
-  display: flex;
-  align-items: baseline;
-  gap: 2.2mm;
+ display: flex;
+ align-items: baseline;
+ gap: 2.2mm;
 }
 
 .name-main {
-  font-size: 12.5pt;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #0f172a;
-  line-height: 1;
+ font-size: 12.5pt;
+ font-weight: 800;
+ letter-spacing: -0.02em;
+ color: #0f172a;
+ line-height: 1;
 }
 
 .name-badge {
-  font-size: 6.5pt;
-  font-weight: 700;
-  padding: 0.6mm 2mm;
-  border-radius: 1.5mm;
-  background: #1e293b;
-  color: #f8fafc;
-  letter-spacing: 0.02em;
+ font-size: 6.5pt;
+ font-weight: 700;
+ padding: 0.6mm 2mm;
+ border-radius: 1.5mm;
+ background: #1e293b;
+ color: #f8fafc;
+ letter-spacing: 0.02em;
 }
 
 .front-headline {
-  margin-top: 1.0mm;
+ margin-top: 1.0mm;
 }
 
 .headline-text {
-  font-size: 8.2pt;
-  font-weight: 700;
-  color: #1e3a8a;
-  line-height: 1.2;
+ font-size: 8.2pt;
+ font-weight: 700;
+ color: #1e3a8a;
+ line-height: 1.2;
 }
 
 .sub-proof {
-  font-size: 6.8pt;
-  font-weight: 500;
-  color: #475569;
-  margin-top: 0.5mm;
-  line-height: 1.2;
+ font-size: 6.8pt;
+ font-weight: 500;
+ color: #475569;
+ margin-top: 0.5mm;
+ line-height: 1.2;
 }
 
 .tags-row {
-  display: flex;
-  gap: 1.2mm;
-  margin-top: 1.2mm;
+ display: flex;
+ gap: 1.2mm;
+ margin-top: 1.2mm;
 }
 
 .tag-pill {
-  font-size: 6.2pt;
-  font-weight: 600;
-  padding: 0.5mm 1.8mm;
-  border-radius: 1.2mm;
-  background: #f1f5f9;
-  color: #334155;
-  border: 0.2mm solid #cbd5e1;
-  line-height: 1.2;
+ font-size: 6.2pt;
+ font-weight: 600;
+ padding: 0.5mm 1.8mm;
+ border-radius: 1.2mm;
+ background: #f1f5f9;
+ color: #334155;
+ border: 0.2mm solid #cbd5e1;
+ line-height: 1.2;
 }
 
 .front-bottom {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  border-top: 0.25mm solid #e2e8f0;
-  padding-top: 1.5mm;
-  margin-top: 1.0mm;
+ display: flex;
+ align-items: flex-end;
+ justify-content: space-between;
+ border-top: 0.25mm solid #e2e8f0;
+ padding-top: 1.5mm;
+ margin-top: 1.0mm;
 }
 
 .contact-col {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8mm;
+ display: flex;
+ flex-direction: column;
+ gap: 0.8mm;
 }
 
 .contact-item {
-  font-size: 6.5pt;
-  line-height: 1.2;
-  color: #334155;
-  display: flex;
-  align-items: center;
-  gap: 1.2mm;
+ font-size: 6.5pt;
+ line-height: 1.2;
+ color: #334155;
+ display: flex;
+ align-items: center;
+ gap: 1.2mm;
 }
 
 .contact-item strong {
-  color: #0f172a;
-  font-weight: 700;
+ color: #0f172a;
+ font-weight: 700;
 }
 
 .contact-item .note {
-  font-size: 5.8pt;
-  color: #64748b;
+ font-size: 5.8pt;
+ color: #64748b;
 }
 
 .qr-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-shrink: 0;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ flex-shrink: 0;
 }
 
 .qr-img-wrap {
-  width: 14.5mm;
-  height: 14.5mm;
-  padding: 0.4mm;
-  background: #fff;
-  border: 0.2mm solid #e2e8f0;
-  border-radius: 0.8mm;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+ width: 14.5mm;
+ height: 14.5mm;
+ padding: 0.4mm;
+ background: #fff;
+ border: 0.2mm solid #e2e8f0;
+ border-radius: 0.8mm;
+ display: flex;
+ align-items: center;
+ justify-content: center;
 }
 
 .qr-img-wrap svg {
-  width: 100%;
-  height: 100%;
-  display: block;
+ width: 100%;
+ height: 100%;
+ display: block;
 }
 
 .qr-caption {
-  font-size: 5.2pt;
-  font-weight: 700;
-  color: #1e3a8a;
-  margin-top: 0.5mm;
-  letter-spacing: -0.01em;
-  line-height: 1;
+ font-size: 5.2pt;
+ font-weight: 700;
+ color: #1e3a8a;
+ margin-top: 0.5mm;
+ letter-spacing: -0.01em;
+ line-height: 1;
 }
 
 /* --------------------------------------------------------------------------
-   Back Side Layout (Feilu AI Enablement)
-   -------------------------------------------------------------------------- */
+  Back Side Layout (Feilu AI Enablement)
+  -------------------------------------------------------------------------- */
 .card-back {
-  background: #ffffff;
-  color: #0f172a;
+ background: #ffffff;
+ color: #0f172a;
 }
 
 .back-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
 }
 
 .back-brand-row {
-  display: flex;
-  align-items: baseline;
-  gap: 2.2mm;
+ display: flex;
+ align-items: baseline;
+ gap: 2.2mm;
 }
 
 .back-brand-name {
-  font-size: 12.5pt;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #065f46;
-  line-height: 1;
+ font-size: 12.5pt;
+ font-weight: 800;
+ letter-spacing: -0.02em;
+ color: #065f46;
+ line-height: 1;
 }
 
 .back-badge {
-  font-size: 6.5pt;
-  font-weight: 700;
-  padding: 0.6mm 2mm;
-  border-radius: 1.5mm;
-  background: #065f46;
-  color: #ecfdf5;
-  letter-spacing: 0.02em;
+ font-size: 6.5pt;
+ font-weight: 700;
+ padding: 0.6mm 2mm;
+ border-radius: 1.5mm;
+ background: #065f46;
+ color: #ecfdf5;
+ letter-spacing: 0.02em;
 }
 
 .back-headline {
-  margin-top: 1.0mm;
+ margin-top: 1.0mm;
 }
 
 .back-offer-text {
-  font-size: 8.2pt;
-  font-weight: 700;
-  color: #047857;
-  line-height: 1.2;
+ font-size: 8.2pt;
+ font-weight: 700;
+ color: #047857;
+ line-height: 1.2;
 }
 
 .back-usp {
-  font-size: 6.8pt;
-  font-weight: 600;
-  color: #b45309;
-  margin-top: 0.5mm;
-  line-height: 1.2;
+ font-size: 6.8pt;
+ font-weight: 600;
+ color: #b45309;
+ margin-top: 0.5mm;
+ line-height: 1.2;
 }
 
 .scope-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.8mm 2mm;
-  margin-top: 1.2mm;
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 0.8mm 2mm;
+ margin-top: 1.2mm;
 }
 
 .scope-item {
-  font-size: 6.2pt;
-  color: #334155;
-  display: flex;
-  align-items: center;
-  gap: 0.8mm;
-  background: #f8fafc;
-  padding: 0.4mm 1.2mm;
-  border-radius: 0.8mm;
-  border: 0.15mm solid #e2e8f0;
-  line-height: 1.15;
+ font-size: 6.2pt;
+ color: #334155;
+ display: flex;
+ align-items: center;
+ gap: 0.8mm;
+ background: #f8fafc;
+ padding: 0.4mm 1.2mm;
+ border-radius: 0.8mm;
+ border: 0.15mm solid #e2e8f0;
+ line-height: 1.15;
 }
 
 .scope-item strong {
-  color: #0f172a;
-  font-weight: 700;
+ color: #0f172a;
+ font-weight: 700;
 }
 
 .back-bottom {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  border-top: 0.25mm solid #e2e8f0;
-  padding-top: 1.5mm;
-  margin-top: 1.0mm;
+ display: flex;
+ align-items: flex-end;
+ justify-content: space-between;
+ border-top: 0.25mm solid #e2e8f0;
+ padding-top: 1.5mm;
+ margin-top: 1.0mm;
 }
 
 .back-qr-caption {
-  font-size: 5.2pt;
-  font-weight: 700;
-  color: #065f46;
-  margin-top: 0.5mm;
-  letter-spacing: -0.01em;
-  line-height: 1;
+ font-size: 5.2pt;
+ font-weight: 700;
+ color: #065f46;
+ margin-top: 0.5mm;
+ letter-spacing: -0.01em;
+ line-height: 1;
 }
 
 /* ==========================================================================
-   Dark Theme Variant (曜黑科技版)
-   ========================================================================== */
+  Dark Theme Variant (曜黑科技版)
+  ========================================================================== */
 .theme-dark .card-front,
 .theme-dark .card-back {
-  background: #090d16;
-  color: #f8fafc;
+ background: #090d16;
+ color: #f8fafc;
 }
 
 .theme-dark .card-outer {
-  background: #090d16;
+ background: #090d16;
 }
 
 .theme-dark .card-inner {
-  background: #090d16;
+ background: #090d16;
 }
 
 .theme-dark .name-main {
-  color: #ffffff;
+ color: #ffffff;
 }
 
 .theme-dark .name-badge {
-  background: #312e81;
-  color: #c7d2fe;
+ background: #312e81;
+ color: #c7d2fe;
 }
 
 .theme-dark .headline-text {
-  color: #93c5fd;
+ color: #93c5fd;
 }
 
 .theme-dark .sub-proof {
-  color: #94a3b8;
+ color: #94a3b8;
 }
 
 .theme-dark .tag-pill {
-  background: #1e293b;
-  color: #cbd5e1;
-  border-color: #334155;
+ background: #1e293b;
+ color: #cbd5e1;
+ border-color: #334155;
 }
 
 .theme-dark .front-bottom,
 .theme-dark .back-bottom {
-  border-color: #1e293b;
+ border-color: #1e293b;
 }
 
 .theme-dark .contact-item {
-  color: #94a3b8;
+ color: #94a3b8;
 }
 
 .theme-dark .contact-item strong {
-  color: #f8fafc;
+ color: #f8fafc;
 }
 
 .theme-dark .contact-item .note {
-  color: #64748b;
+ color: #64748b;
 }
 
 .theme-dark .qr-img-wrap {
-  background: #ffffff;
-  border-color: #334155;
+ background: #ffffff;
+ border-color: #334155;
 }
 
 .theme-dark .qr-caption {
-  color: #93c5fd;
+ color: #93c5fd;
 }
 
 .theme-dark .back-brand-name {
-  color: #34d399;
+ color: #34d399;
 }
 
 .theme-dark .back-badge {
-  background: #064e3b;
-  color: #6ee7b7;
+ background: #064e3b;
+ color: #6ee7b7;
 }
 
 .theme-dark .back-offer-text {
-  color: #6ee7b7;
+ color: #6ee7b7;
 }
 
 .theme-dark .back-usp {
-  color: #fbbf24;
+ color: #fbbf24;
 }
 
 .theme-dark .scope-item {
-  background: #111827;
-  color: #cbd5e1;
-  border-color: #1f2937;
+ background: #111827;
+ color: #cbd5e1;
+ border-color: #1f2937;
 }
 
 .theme-dark .scope-item strong {
-  color: #f3f4f6;
+ color: #f3f4f6;
 }
 
 .theme-dark .back-qr-caption {
-  color: #34d399;
+ color: #34d399;
 }
 
 /* ==========================================================================
-   Print CSS (@media print) - Standard 1:1 Page Size
-   ========================================================================== */
+  Print CSS (@media print) - Standard 1:1 Page Size
+  ========================================================================== */
 @media print {
-  @page {
-    size: 90mm 54mm;
-    margin: 0;
-  }
-  
-  html, body {
-    background: transparent !important;
-    color: #000 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  
-  .no-print {
-    display: none !important;
-  }
-  
-  .main-preview {
-    margin: 0 !important;
-    padding: 0 !important;
-    display: block !important;
-  }
-  
-  .preview-grid {
-    display: block !important;
-    margin: 0 !important;
-    gap: 0 !important;
-  }
-  
-  .card-stage {
-    margin: 0 !important;
-    padding: 0 !important;
-    page-break-after: always !important;
-    break-after: page !important;
-    display: block !important;
-  }
-  
-  .card-stage:last-child {
-    page-break-after: auto !important;
-    break-after: auto !important;
-  }
-  
-  .card-outer {
-    box-shadow: none !important;
-    margin: 0 !important;
-    width: 90mm !important;
-    height: 54mm !important;
-    position: relative !important;
-  }
-  
-  .bleed-active @page {
-    size: 92mm 56mm;
-    margin: 0;
-  }
-  
-  .bleed-active .card-outer {
-    width: 92mm !important;
-    height: 56mm !important;
-  }
-  
-  .stage-title {
-    display: none !important;
-  }
+ @page {
+  size: 90mm 54mm;
+  margin: 0;
+ }
+ 
+ html, body {
+  background: transparent !important;
+  color: #000 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+ }
+ 
+ .no-print {
+  display: none !important;
+ }
+ 
+ .main-preview {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+ }
+ 
+ .preview-grid {
+  display: block !important;
+  margin: 0 !important;
+  gap: 0 !important;
+ }
+ 
+ .card-stage {
+  margin: 0 !important;
+  padding: 0 !important;
+  page-break-after: always !important;
+  break-after: page !important;
+  display: block !important;
+ }
+ 
+ .card-stage:last-child {
+  page-break-after: auto !important;
+  break-after: auto !important;
+ }
+ 
+ .card-outer {
+  box-shadow: none !important;
+  margin: 0 !important;
+  width: 90mm !important;
+  height: 54mm !important;
+  position: relative !important;
+ }
+ 
+ .bleed-active @page {
+  size: 92mm 56mm;
+  margin: 0;
+ }
+ 
+ .bleed-active .card-outer {
+  width: 92mm !important;
+  height: 56mm !important;
+ }
+ 
+ .stage-title {
+  display: none !important;
+ }
 }
 
 @media (max-width: 768px) {
-  .toolbar-wrap {
-    padding: 12px 16px;
-  }
-  .toolbar-inner {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-  .tool-controls {
-    justify-content: flex-start;
-    gap: 8px;
-  }
-  .main-preview {
-    margin: 20px auto;
-    padding: 0 14px 40px;
-    gap: 28px;
-  }
-  .preview-grid {
-    gap: 28px;
-  }
+ .toolbar-wrap {
+  padding: 12px 16px;
+ }
+ .toolbar-inner {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+ }
+ .tool-controls {
+  justify-content: flex-start;
+  gap: 8px;
+ }
+ .main-preview {
+  margin: 20px auto;
+  padding: 0 14px 40px;
+  gap: 28px;
+ }
+ .preview-grid {
+  gap: 28px;
+ }
 }
 
 /* 提示訊息卡 */
 .info-box {
-  max-width: 800px;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-screen);
-  border-radius: 12px;
-  padding: 20px 24px;
-  font-size: 0.85rem;
-  color: var(--dim-screen);
-  line-height: 1.7;
+ max-width: 800px;
+ width: 100%;
+ background: rgba(255, 255, 255, 0.04);
+ border: 1px solid var(--border-screen);
+ border-radius: 12px;
+ padding: 20px 24px;
+ font-size: 0.85rem;
+ color: var(--dim-screen);
+ line-height: 1.7;
 }
 
 .info-box h3 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #f1f5f9;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+ font-size: 0.95rem;
+ font-weight: 700;
+ color: #f1f5f9;
+ margin-bottom: 8px;
+ display: flex;
+ align-items: center;
+ gap: 6px;
 }
 
 .info-box ul {
-  padding-left: 20px;
-  margin-top: 6px;
+ padding-left: 20px;
+ margin-top: 6px;
 }
 
 .info-box li {
-  margin-bottom: 4px;
+ margin-bottom: 4px;
 }
 </style>
 </head>
@@ -724,590 +733,633 @@ body {
 
 <!-- 頂部工具列 -->
 <header class="toolbar-wrap no-print">
-  <div class="toolbar-inner">
-    <div class="brand-header">
-      <h1>Wind × 飛律 <span>1:1 實體名片送印工具</span></h1>
-      <p>標準台灣名片一模尺寸（90×54mm / 出血 92×56mm）· 向量無損直接送印</p>
-    </div>
-    
-    <div class="tool-controls">
-      <!-- 主題切換 -->
-      <div class="toggle-group" title="切換印刷主題">
-        <button class="toggle-btn active" id="btnThemeLight" type="button">極簡白底商務版</button>
-        <button class="toggle-btn" id="btnThemeDark" type="button">曜黑科技版</button>
-      </div>
-
-      <!-- 出血切換 -->
-      <div class="toggle-group" title="切換送印規格">
-        <button class="toggle-btn active" id="btnModeTrim" type="button">成品 90×54mm</button>
-        <button class="toggle-btn" id="btnModeBleed" type="button">含出血 92×56mm</button>
-      </div>
-
-      <!-- 送印列印與匯出按鈕 -->
-      <button class="btn primary" id="btnPrintPDF" type="button">🖨️ 另存 1:1 PDF / 列印</button>
-      <button class="btn" id="btnDownloadFront" type="button">⬇ 下載正面 (PNG)</button>
-      <button class="btn" id="btnDownloadBack" type="button">⬇ 下載背面 (PNG)</button>
-    </div>
+ <div class="toolbar-inner">
+  <div class="brand-header">
+   <h1>Wind × 飛律 <span>1:1 實體名片送印工具</span></h1>
+   <p>標準台灣名片一模尺寸（90×54mm / 出血 92×56mm）· 向量無損直接送印</p>
   </div>
+  
+  <div class="tool-controls">
+   <!-- 主題切換 -->
+   <div class="toggle-group" title="切換印刷主題">
+    <button class="toggle-btn active" id="btnThemeLight" type="button">極簡白底商務版</button>
+    <button class="toggle-btn" id="btnThemeDark" type="button">曜黑科技版</button>
+   </div>
+
+   <!-- 出血切換 -->
+   <div class="toggle-group" title="切換送印規格">
+    <button class="toggle-btn active" id="btnModeTrim" type="button">成品 90×54mm</button>
+    <button class="toggle-btn" id="btnModeBleed" type="button">含出血 92×56mm</button>
+   </div>
+
+   <!-- 送印列印與匯出按鈕 -->
+   <button class="btn primary" id="btnPrintPDF" type="button">🖨️ 另存 1:1 PDF / 列印</button>
+   <button class="btn" id="btnDownloadFront" type="button">⬇ 下載正面 (PNG)</button>
+   <button class="btn" id="btnDownloadBack" type="button">⬇ 下載背面 (PNG)</button>
+  </div>
+ </div>
 </header>
 
 <!-- 主預覽區 -->
 <main class="main-preview" id="mainContainer">
-  <div class="preview-grid">
+ <div class="preview-grid">
+  
+  <!-- 正面 (Front) -->
+  <div class="card-stage">
+   <div class="stage-title no-print">
+    <span>📇 正面 (Front) — Wind 簽約交付｜統編 54730503</span>
+    <span class="dim" id="frontDimLabel">90mm × 54mm (成品尺寸)</span>
+   </div>
+   
+   <div class="card-outer" id="cardFront">
+    <div class="crop-mark crop-tl"></div>
+    <div class="crop-mark crop-tr"></div>
+    <div class="crop-mark crop-bl"></div>
+    <div class="crop-mark crop-br"></div>
     
-    <!-- 正面 (Front) -->
-    <div class="card-stage">
-      <div class="stage-title no-print">
-        <span>📇 正面 (Front) — Wind 全端接案架構師</span>
-        <span class="dim" id="frontDimLabel">90mm × 54mm (成品尺寸)</span>
+    <div class="card-inner card-front">
+     <!-- 頂部品牌 -->
+     <div class="front-top">
+      <div class="brand-row">
+       <span class="name-main">石顧問 Wind</span>
+       <span class="name-badge">簽約交付｜統編 54730503</span>
+      </div>
+     </div>
+     
+     <!-- 定位與旗艦實績 -->
+     <div class="front-headline">
+      <div class="headline-text">協助中小企業把營運雜事系統化</div>
+      <div class="sub-proof">19 項已上線實績｜金融·零售·製造 11+ 產業｜2020 起持續交付</div>
+      <div class="tags-row">
+       <span class="tag-pill">可簽約·可開立發票</span>
+       <span class="tag-pill">提供保固與原始碼交付</span>
+       <span class="tag-pill">19項案例可驗證</span>
+      </div>
+     </div>
+     
+     <!-- 底部聯絡資訊與 QR -->
+     <div class="front-bottom">
+      <div class="contact-col">
+       <div class="contact-item">
+        <span>💬 LINE / 電話：<strong>0980463400</strong></span>
+        <span class="note">(免費聊聊)</span>
+       </div>
+       <div class="contact-item">
+        <span>✉️ Email：<strong>rock90340@gmail.com</strong></span>
+       </div>
+       <div class="contact-item">
+        <span>🏢 統一編號：<strong>54730503</strong></span>
+        <span class="note">| 可開立發票·可簽約</span>
+       </div>
       </div>
       
-      <div class="card-outer" id="cardFront">
-        <div class="crop-mark crop-tl"></div>
-        <div class="crop-mark crop-tr"></div>
-        <div class="crop-mark crop-bl"></div>
-        <div class="crop-mark crop-br"></div>
-        
-        <div class="card-inner card-front">
-          <!-- 頂部品牌 -->
-          <div class="front-top">
-            <div class="brand-row">
-              <span class="name-main">石顧問 Wind</span>
-              <span class="name-badge">全端接案架構師</span>
-            </div>
-          </div>
-          
-          <!-- 定位與旗艦實績 -->
-          <div class="front-headline">
-            <div class="headline-text">跨產業全端接案開發 × 系統架構師</div>
-            <div class="sub-proof">19 項上線實績 · 橫跨 11+ 個產業</div>
-            <div class="tags-row">
-              <span class="tag-pill">金融風控系統</span>
-              <span class="tag-pill">20萬會員 LINE AI</span>
-              <span class="tag-pill">品牌電商 POS</span>
-            </div>
-          </div>
-          
-          <!-- 底部聯絡資訊與 QR -->
-          <div class="front-bottom">
-            <div class="contact-col">
-              <div class="contact-item">
-                <span>💬 LINE / 電話：<strong>0980463400</strong></span>
-                <span class="note">(免費聊聊)</span>
-              </div>
-              <div class="contact-item">
-                <span>✉️ Email：<strong>rock90340@gmail.com</strong></span>
-              </div>
-              <div class="contact-item">
-                <span>🏢 統一編號：<strong>54730503</strong></span>
-                <span class="note">| 可開立發票·可簽約</span>
-              </div>
-            </div>
-            
-            <div class="qr-box">
-              <div class="qr-img-wrap" id="qrFrontWrap">
-                <!-- 向量 SVG QR 注入 -->
-              </div>
-              <div class="qr-caption">👉 掃碼看 19 項作品</div>
-            </div>
-          </div>
-        </div>
+      <div class="qr-box">
+       <div class="qr-img-wrap" id="qrFrontWrap">
+        <!-- 向量 SVG QR 注入 -->
+       </div>
+       <div class="qr-caption">👉 掃碼看 19 項作品</div>
       </div>
+     </div>
     </div>
+   </div>
+  </div>
 
-    <!-- 背面 (Back) -->
-    <div class="card-stage">
-      <div class="stage-title no-print">
-        <span>📇 背面 (Back) — 飛律 Feilu AI 流程賦能</span>
-        <span class="dim" id="backDimLabel">90mm × 54mm (成品尺寸)</span>
+  <!-- 背面 (Back) -->
+  <div class="card-stage">
+   <div class="stage-title no-print">
+    <span>📇 背面 (Back) — 飛律 Feilu AI 流程賦能</span>
+    <span class="dim" id="backDimLabel">90mm × 54mm (成品尺寸)</span>
+   </div>
+   
+   <div class="card-outer" id="cardBack">
+    <div class="crop-mark crop-tl"></div>
+    <div class="crop-mark crop-tr"></div>
+    <div class="crop-mark crop-bl"></div>
+    <div class="crop-mark crop-br"></div>
+    
+    <div class="card-inner card-back">
+     <!-- 頂部品牌 -->
+     <div class="back-top">
+      <div class="back-brand-row">
+       <span class="back-brand-name">飛律 Feilu</span>
+       <span class="back-badge">AI 流程賦能</span>
+      </div>
+     </div>
+     
+     <!-- 定位與承諾 -->
+     <div class="back-headline">
+      <div class="back-offer-text">企業試用方案｜儲值 NT$1,000 交付 2 項模組（可簽約）</div>
+      <div class="back-usp">48h 交付 · 點數永久有效｜合約保障·發票開立</div>
+      <div class="scope-grid">
+       <div class="scope-item"><span>📋 <strong>財務對帳自動化</strong> </span></div>
+       <div class="scope-item"><span>💬 <strong>LINE 客服自動回覆</strong> </span></div>
+       <div class="scope-item"><span>📚 <strong>規章/合約秒級檢索</strong> </span></div>
+       <div class="scope-item"><span>🎯 <strong>政府標案自動監控</strong> </span></div>
+      </div>
+     </div>
+     
+     <!-- 底部聯絡資訊與 QR -->
+     <div class="back-bottom">
+      <div class="contact-col">
+       <div class="contact-item">
+        <span>💬 LINE / 預約：<strong>0980463400</strong></span>
+       </div>
+       <div class="contact-item">
+        <span>🔒 資安承諾：<strong>純離線 / 私有帳號直連 · 零中繼資料庫</strong></span>
+       </div>
+       <div class="contact-item">
+        <span>🏢 統一編號：<strong>54730503</strong></span>
+        <span class="note">| 可開立統一發票</span>
+       </div>
       </div>
       
-      <div class="card-outer" id="cardBack">
-        <div class="crop-mark crop-tl"></div>
-        <div class="crop-mark crop-tr"></div>
-        <div class="crop-mark crop-bl"></div>
-        <div class="crop-mark crop-br"></div>
-        
-        <div class="card-inner card-back">
-          <!-- 頂部品牌 -->
-          <div class="back-top">
-            <div class="back-brand-row">
-              <span class="back-brand-name">飛律 Feilu</span>
-              <span class="back-badge">AI 流程賦能</span>
-            </div>
-          </div>
-          
-          <!-- 定位與承諾 -->
-          <div class="back-headline">
-            <div class="back-offer-text">儲值 NT$ 1,000 交付 2 項自動化模組</div>
-            <div class="back-usp">🔥 48h 極速交付 · 點數永久有效 · 100% 自主控管</div>
-            <div class="scope-grid">
-              <div class="scope-item"><span>📋 <strong>財務自動勾稽</strong> (Google 試算表管線)</span></div>
-              <div class="scope-item"><span>💬 <strong>LINE 智慧秒回</strong> (24h 智能問答)</span></div>
-              <div class="scope-item"><span>📚 <strong>規章法規秒查</strong> (手冊 RAG 引述)</span></div>
-              <div class="scope-item"><span>🎯 <strong>標案情報監控</strong> (政府採購直送)</span></div>
-            </div>
-          </div>
-          
-          <!-- 底部聯絡資訊與 QR -->
-          <div class="back-bottom">
-            <div class="contact-col">
-              <div class="contact-item">
-                <span>💬 LINE / 預約：<strong>0980463400</strong></span>
-              </div>
-              <div class="contact-item">
-                <span>🔒 資安承諾：<strong>純離線 / 私有帳號直連 · 零中繼資料庫</strong></span>
-              </div>
-              <div class="contact-item">
-                <span>🏢 統一編號：<strong>54730503</strong></span>
-                <span class="note">| 可開立統一發票</span>
-              </div>
-            </div>
-            
-            <div class="qr-box">
-              <div class="qr-img-wrap" id="qrBackWrap">
-                <!-- 向量 SVG QR 注入 -->
-              </div>
-              <div class="back-qr-caption">👉 掃碼預約 NT$1,000 方案</div>
-            </div>
-          </div>
-        </div>
+      <div class="qr-box">
+       <div class="qr-img-wrap" id="qrBackWrap">
+        <!-- 向量 SVG QR 注入 -->
+       </div>
+       <div class="back-qr-caption">👉 掃碼查看合約範本與案例</div>
       </div>
+     </div>
     </div>
-
+   </div>
   </div>
 
-  <!-- 送印與列印指南說明 -->
-  <div class="info-box no-print">
-    <h3>💡 實體送印與列印操作指南</h3>
-    <ul>
-      <li><strong>送印印刷廠發包（健豪 / 藍格 / 卡之屋）</strong>：
-        點擊右上角「<strong>含出血 92×56mm</strong>」，再點擊「<strong>另存 1:1 PDF</strong>」，在列印設定中將邊界設為「無」，目標選擇「另存為 PDF」，即可直接取得 1:1 正反雙面送印檔。
-      </li>
-      <li><strong>紙張推薦</strong>：
-        建議選擇 <strong>300g 頂級象牙卡</strong>、<strong>300g 萊妮卡</strong> 或 <strong>頂級雙面霧膜卡</strong>，色彩飽和且質地沉穩。
-      </li>
-      <li><strong>QR Code 掃描保證</strong>：
-        本工具產出之 QR Code 採用純向量無失真繪製，並設有安全留白邊界，印在實體紙張上清晰度高，任何手機相機皆能秒掃秒開。
-      </li>
-    </ul>
-  </div>
+ </div>
+
+ <!-- 送印與列印指南說明 -->
+ <div class="info-box no-print">
+  <h3>💡 實體送印與列印操作指南</h3>
+  <ul>
+   <li><strong>送印印刷廠發包（健豪 / 藍格 / 卡之屋）</strong>：
+    點擊右上角「<strong>含出血 92×56mm</strong>」，再點擊「<strong>另存 1:1 PDF</strong>」，在列印設定中將邊界設為「無」，目標選擇「另存為 PDF」，即可直接取得 1:1 正反雙面送印檔。
+   </li>
+   <li><strong>紙張推薦</strong>：
+    建議選擇 <strong>300g 頂級象牙卡</strong>、<strong>300g 萊妮卡</strong> 或 <strong>頂級雙面霧膜卡</strong>，色彩飽和且質地沉穩。
+   </li>
+   <li><strong>QR Code 掃描保證</strong>：
+    本工具產出之 QR Code 採用純向量無失真繪製，並設有安全留白邊界，印在實體紙張上清晰度高，任何手機相機皆能秒掃秒開。
+   </li>
+  </ul>
+ </div>
 </main>
 
 <!-- ==========================================================================
-   標準 ISO/IEC 18004 QR Code 純前端向量生成引擎 (支援 Reed-Solomon Level M 糾錯)
-   ========================================================================== -->
+  標準 ISO/IEC 18004 QR Code 純前端向量生成引擎 (支援 Reed-Solomon Level M 糾錯)
+  ========================================================================== -->
 <script>
 const QRCodeGen = (function(){
-  const QRMode = { MODE_NUMBER: 1 << 0, MODE_ALPHA_NUM: 1 << 1, MODE_8BIT_BYTE: 1 << 2, MODE_KANJI: 1 << 3 };
-  const QRErrorCorrectLevel = { L: 1, M: 0, Q: 3, H: 2 };
-  const QRMaskPattern = { PATTERN000: 0, PATTERN001: 1, PATTERN010: 2, PATTERN011: 3, PATTERN100: 4, PATTERN101: 5, PATTERN110: 6, PATTERN111: 7 };
-  const QRMath = {
-    glog: function(n) { if (n < 1) throw new Error('glog(' + n + ')'); return QRMath.LOG_TABLE[n]; },
-    gexp: function(n) { while (n < 0) n += 255; while (n >= 255) n -= 255; return QRMath.EXP_TABLE[n]; },
-    EXP_TABLE: new Array(256),
-    LOG_TABLE: new Array(256)
-  };
-  for (let i = 0; i < 8; i++) QRMath.EXP_TABLE[i] = 1 << i;
-  for (let i = 8; i < 256; i++) QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4] ^ QRMath.EXP_TABLE[i - 5] ^ QRMath.EXP_TABLE[i - 6] ^ QRMath.EXP_TABLE[i - 8];
-  for (let i = 0; i < 255; i++) QRMath.LOG_TABLE[QRMath.EXP_TABLE[i]] = i;
+ const QRMode = { MODE_NUMBER: 1 << 0, MODE_ALPHA_NUM: 1 << 1, MODE_8BIT_BYTE: 1 << 2, MODE_KANJI: 1 << 3 };
+ const QRErrorCorrectLevel = { L: 1, M: 0, Q: 3, H: 2 };
+ const QRMaskPattern = { PATTERN000: 0, PATTERN001: 1, PATTERN010: 2, PATTERN011: 3, PATTERN100: 4, PATTERN101: 5, PATTERN110: 6, PATTERN111: 7 };
+ const QRMath = {
+  glog: function(n) { if (n < 1) throw new Error('glog(' + n + ')'); return QRMath.LOG_TABLE[n]; },
+  gexp: function(n) { while (n < 0) n += 255; while (n >= 255) n -= 255; return QRMath.EXP_TABLE[n]; },
+  EXP_TABLE: new Array(256),
+  LOG_TABLE: new Array(256)
+ };
+ for (let i = 0; i < 8; i++) QRMath.EXP_TABLE[i] = 1 << i;
+ for (let i = 8; i < 256; i++) QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4] ^ QRMath.EXP_TABLE[i - 5] ^ QRMath.EXP_TABLE[i - 6] ^ QRMath.EXP_TABLE[i - 8];
+ for (let i = 0; i < 255; i++) QRMath.LOG_TABLE[QRMath.EXP_TABLE[i]] = i;
 
-  function QRPolynomial(num, shift) {
-    let offset = 0;
-    while (offset < num.length && num[offset] === 0) offset++;
-    this.num = new Array(num.length - offset + shift);
-    for (let i = 0; i < num.length - offset; i++) this.num[i] = num[i + offset];
-    for (let i = num.length - offset; i < this.num.length; i++) this.num[i] = 0;
-  }
-  QRPolynomial.prototype = {
-    get: function(index) { return this.num[index]; },
-    getLength: function() { return this.num.length; },
-    multiply: function(e) {
-      const num = new Array(this.getLength() + e.getLength() - 1);
-      for (let i = 0; i < this.getLength(); i++) {
-        for (let j = 0; j < e.getLength(); j++) {
-          num[i + j] ^= QRMath.gexp(QRMath.glog(this.get(i)) + QRMath.glog(e.get(j)));
-        }
-      }
-      return new QRPolynomial(num, 0);
-    },
-    mod: function(e) {
-      if (this.getLength() - e.getLength() < 0) return this;
-      const ratio = QRMath.glog(this.get(0)) - QRMath.glog(e.get(0));
-      const num = new Array(this.getLength());
-      for (let i = 0; i < this.getLength(); i++) num[i] = this.get(i);
-      for (let i = 0; i < e.getLength(); i++) num[i] ^= QRMath.gexp(QRMath.glog(e.get(i)) + ratio);
-      return new QRPolynomial(num, 0).mod(e);
+ function QRPolynomial(num, shift) {
+  let offset = 0;
+  while (offset < num.length && num[offset] === 0) offset++;
+  this.num = new Array(num.length - offset + shift);
+  for (let i = 0; i < num.length - offset; i++) this.num[i] = num[i + offset];
+  for (let i = num.length - offset; i < this.num.length; i++) this.num[i] = 0;
+ }
+ QRPolynomial.prototype = {
+  get: function(index) { return this.num[index]; },
+  getLength: function() { return this.num.length; },
+  multiply: function(e) {
+   const num = new Array(this.getLength() + e.getLength() - 1);
+   for (let i = 0; i < this.getLength(); i++) {
+    for (let j = 0; j < e.getLength(); j++) {
+     num[i + j] ^= QRMath.gexp(QRMath.glog(this.get(i)) + QRMath.glog(e.get(j)));
     }
-  };
-
-  function QRRSBlock(totalCount, dataCount) {
-    this.totalCount = totalCount;
-    this.dataCount = dataCount;
+   }
+   return new QRPolynomial(num, 0);
+  },
+  mod: function(e) {
+   if (this.getLength() - e.getLength() < 0) return this;
+   const ratio = QRMath.glog(this.get(0)) - QRMath.glog(e.get(0));
+   const num = new Array(this.getLength());
+   for (let i = 0; i < this.getLength(); i++) num[i] = this.get(i);
+   for (let i = 0; i < e.getLength(); i++) num[i] ^= QRMath.gexp(QRMath.glog(e.get(i)) + ratio);
+   return new QRPolynomial(num, 0).mod(e);
   }
-  QRRSBlock.RS_BLOCK_TABLE = [
+ };
+
+ function QRRSBlock(totalCount, dataCount) {
+  this.totalCount = totalCount;
+  this.dataCount = dataCount;
+ }
+ QRRSBlock.RS_BLOCK_TABLE = [
     [1, 26, 19], [1, 26, 16], [1, 26, 13], [1, 26, 9],
     [1, 44, 34], [1, 44, 28], [1, 44, 22], [1, 44, 16],
     [1, 70, 55], [1, 70, 44], [2, 35, 17], [2, 35, 13],
     [1, 100, 80], [2, 50, 32], [2, 50, 24], [4, 25, 9],
     [1, 134, 108], [2, 67, 43], [2, 33, 15, 2, 34, 16], [2, 33, 11, 2, 34, 12],
-    [2, 86, 68], [4, 43, 27], [4, 43, 19], [4, 43, 15]
+    [2, 86, 68], [4, 43, 27], [4, 43, 19], [4, 43, 15],
+    [2, 98, 78], [4, 49, 31], [2, 32, 14, 4, 33, 15], [4, 39, 13, 1, 40, 14],
+    [2, 121, 97], [2, 60, 38, 2, 61, 39], [4, 40, 18, 2, 41, 19], [4, 40, 14, 2, 41, 15],
+    [2, 146, 116], [3, 58, 36, 2, 59, 37], [4, 36, 16, 4, 37, 17], [4, 36, 12, 4, 37, 13],
+    [2, 86, 68, 2, 87, 69], [4, 69, 43, 1, 70, 44], [6, 43, 19, 2, 44, 20], [6, 43, 15, 2, 44, 16],
+    [4, 101, 81], [1, 80, 50, 4, 81, 51], [4, 50, 22, 4, 51, 23], [3, 36, 12, 8, 37, 13],
+    [2, 116, 92, 2, 117, 93], [6, 58, 36, 2, 59, 37], [4, 46, 20, 6, 47, 21], [7, 42, 14, 4, 43, 15],
+    [4, 133, 107], [8, 59, 37, 1, 60, 38], [8, 44, 20, 4, 45, 21], [12, 33, 11, 4, 34, 12],
+    [3, 145, 115, 1, 146, 116], [4, 64, 40, 5, 65, 41], [11, 36, 16, 5, 37, 17], [11, 36, 12, 5, 37, 13],
+    [5, 109, 87, 1, 110, 88], [5, 65, 41, 5, 66, 42], [5, 54, 24, 7, 55, 25], [11, 36, 12, 7, 37, 13],
+    [5, 122, 98, 1, 123, 99], [7, 73, 45, 3, 74, 46], [15, 43, 19, 2, 44, 20], [3, 45, 15, 13, 46, 16],
+    [1, 135, 107, 5, 136, 108], [10, 74, 46, 1, 75, 47], [1, 50, 22, 15, 51, 23], [2, 42, 14, 17, 43, 15],
+    [5, 150, 120, 1, 151, 121], [9, 69, 43, 4, 70, 44], [17, 50, 22, 1, 51, 23], [2, 42, 14, 19, 43, 15],
+    [3, 141, 113, 4, 142, 114], [3, 70, 44, 11, 71, 45], [17, 47, 21, 4, 48, 22], [9, 39, 13, 16, 40, 14],
+    [3, 135, 107, 5, 136, 108], [3, 67, 41, 13, 68, 42], [15, 54, 24, 5, 55, 25], [15, 43, 15, 10, 44, 16],
+    [4, 144, 116, 4, 145, 117], [17, 68, 42], [17, 50, 22, 6, 51, 23], [19, 46, 16, 6, 47, 17],
+    [2, 139, 111, 7, 140, 112], [17, 74, 46], [7, 54, 24, 16, 55, 25], [34, 37, 13],
+    [4, 151, 121, 5, 152, 122], [4, 75, 47, 14, 76, 48], [11, 54, 24, 14, 55, 25], [16, 45, 15, 14, 46, 16],
+    [6, 147, 117, 4, 148, 118], [6, 73, 45, 14, 74, 46], [11, 54, 24, 16, 55, 25], [30, 46, 16, 2, 47, 17],
+    [8, 132, 106, 4, 133, 107], [8, 75, 47, 13, 76, 48], [7, 54, 24, 22, 55, 25], [22, 45, 15, 13, 46, 16],
+    [10, 142, 114, 2, 143, 115], [19, 74, 46, 4, 75, 47], [28, 50, 22, 6, 51, 23], [33, 46, 16, 4, 47, 17],
+    [8, 152, 122, 4, 153, 123], [22, 73, 45, 3, 74, 46], [8, 53, 23, 26, 54, 24], [12, 45, 15, 28, 46, 16],
+    [3, 147, 117, 10, 148, 118], [3, 73, 45, 23, 74, 46], [4, 54, 24, 31, 55, 25], [11, 45, 15, 31, 46, 16],
+    [7, 146, 116, 7, 147, 117], [21, 73, 45, 7, 74, 46], [1, 53, 23, 37, 54, 24], [19, 45, 15, 26, 46, 16],
+    [5, 145, 115, 10, 146, 116], [19, 75, 47, 10, 76, 48], [15, 54, 24, 25, 55, 25], [23, 45, 15, 25, 46, 16],
+    [13, 145, 115, 3, 146, 116], [2, 74, 46, 29, 75, 47], [42, 54, 24, 1, 55, 25], [23, 45, 15, 28, 46, 16],
+    [17, 145, 115], [10, 74, 46, 23, 75, 47], [10, 54, 24, 35, 55, 25], [19, 45, 15, 35, 46, 16],
+    [17, 145, 115, 1, 146, 116], [14, 74, 46, 21, 75, 47], [29, 54, 24, 19, 55, 25], [11, 45, 15, 46, 46, 16],
+    [13, 145, 115, 6, 146, 116], [14, 74, 46, 23, 75, 47], [44, 54, 24, 7, 55, 25], [59, 46, 16, 1, 47, 17],
+    [12, 151, 121, 7, 152, 122], [12, 75, 47, 26, 76, 48], [39, 54, 24, 14, 55, 25], [22, 45, 15, 41, 46, 16],
+    [6, 151, 121, 14, 152, 122], [6, 75, 47, 34, 76, 48], [46, 54, 24, 10, 55, 25], [2, 45, 15, 64, 46, 16],
+    [17, 152, 122, 4, 153, 123], [29, 74, 46, 14, 75, 47], [49, 54, 24, 10, 55, 25], [24, 45, 15, 46, 46, 16],
+    [4, 152, 122, 18, 153, 123], [13, 74, 46, 32, 75, 47], [48, 54, 24, 14, 55, 25], [42, 45, 15, 32, 46, 16],
+    [20, 147, 117, 4, 148, 118], [40, 75, 47, 7, 76, 48], [43, 54, 24, 22, 55, 25], [10, 45, 15, 67, 46, 16],
+    [19, 148, 118, 6, 149, 119], [18, 75, 47, 31, 76, 48], [34, 54, 24, 34, 55, 25], [20, 45, 15, 61, 46, 16]
   ];
-  QRRSBlock.getRSBlocks = function(typeNumber, errorCorrectLevel) {
-    const rsBlock = QRRSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
-    const length = rsBlock.length / 3;
-    const list = [];
-    for (let i = 0; i < length; i++) {
-      const count = rsBlock[i * 3 + 0];
-      const totalCount = rsBlock[i * 3 + 1];
-      const dataCount = rsBlock[i * 3 + 2];
-      for (let j = 0; j < count; j++) list.push(new QRRSBlock(totalCount, dataCount));
-    }
-    return list;
-  };
-  QRRSBlock.getRsBlockTable = function(typeNumber, errorCorrectLevel) {
-    switch (errorCorrectLevel) {
-      case QRErrorCorrectLevel.L: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
-      case QRErrorCorrectLevel.M: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
-      case QRErrorCorrectLevel.Q: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
-      case QRErrorCorrectLevel.H: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
-    }
-  };
-
-  function QRBitBuffer() {
-    this.buffer = [];
-    this.length = 0;
+ QRRSBlock.getRSBlocks = function(typeNumber, errorCorrectLevel) {
+  const rsBlock = QRRSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
+  const length = rsBlock.length / 3;
+  const list = [];
+  for (let i = 0; i < length; i++) {
+   const count = rsBlock[i * 3 + 0];
+   const totalCount = rsBlock[i * 3 + 1];
+   const dataCount = rsBlock[i * 3 + 2];
+   for (let j = 0; j < count; j++) list.push(new QRRSBlock(totalCount, dataCount));
   }
-  QRBitBuffer.prototype = {
-    get: function(index) {
-      const bufIndex = Math.floor(index / 8);
-      return ((this.buffer[bufIndex] >>> (7 - index % 8)) & 1) === 1;
-    },
-    put: function(num, length) {
-      for (let i = 0; i < length; i++) {
-        this.putBit(((num >>> (length - i - 1)) & 1) === 1);
-      }
-    },
-    putBit: function(bit) {
-      const bufIndex = Math.floor(this.length / 8);
-      if (this.buffer.length <= bufIndex) this.buffer.push(0);
-      if (bit) this.buffer[bufIndex] |= (0x80 >>> (this.length % 8));
-      this.length++;
-    }
-  };
-
-  function QRCodeModel(typeNumber, errorCorrectLevel) {
-    this.typeNumber = typeNumber;
-    this.errorCorrectLevel = errorCorrectLevel;
-    this.modules = null;
-    this.moduleCount = 0;
-    this.dataCache = null;
-    this.dataList = [];
+  return list;
+ };
+ QRRSBlock.getRsBlockTable = function(typeNumber, errorCorrectLevel) {
+  switch (errorCorrectLevel) {
+   case QRErrorCorrectLevel.L: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+   case QRErrorCorrectLevel.M: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+   case QRErrorCorrectLevel.Q: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+   case QRErrorCorrectLevel.H: return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
   }
-  QRCodeModel.prototype = {
-    addData: function(data) {
-      this.dataList.push({
-        mode: QRMode.MODE_8BIT_BYTE,
-        data: data,
-        getLength: function() { return encodeURI(data).replace(/%[0-9a-fA-F]{2}/g, 'a').length; },
-        write: function(buffer) {
-          for (let i = 0; i < data.length; i++) {
-            const c = data.charCodeAt(i);
-            if (c < 128) {
-              buffer.put(c, 8);
-            } else {
-              const bytes = unescape(encodeURIComponent(data[i]));
-              for (let b = 0; b < bytes.length; b++) buffer.put(bytes.charCodeAt(b), 8);
-            }
-          }
-        }
-      });
-      this.dataCache = null;
-    },
-    isDark: function(row, col) {
-      if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) return false;
-      return this.modules[row][col] === true;
-    },
-    getModuleCount: function() { return this.moduleCount; },
-    make: function() {
-      if (this.typeNumber < 1) {
-        for (let t = 1; t <= 40; t++) {
-          const rsBlocks = QRRSBlock.getRSBlocks(t, this.errorCorrectLevel);
-          const buffer = new QRBitBuffer();
-          let totalDataCount = 0;
-          for (let i = 0; i < rsBlocks.length; i++) totalDataCount += rsBlocks[i].dataCount;
-          for (let i = 0; i < this.dataList.length; i++) {
-            const data = this.dataList[i];
-            buffer.put(data.mode, 4);
-            buffer.put(data.getLength(), t < 10 ? 8 : 16);
-            data.write(buffer);
-          }
-          if (buffer.length <= totalDataCount * 8) {
-            this.typeNumber = t;
-            break;
-          }
-        }
-      }
-      this.makeImpl(false, this.getBestMaskPattern());
-    },
-    makeImpl: function(test, maskPattern) {
-      this.moduleCount = this.typeNumber * 4 + 17;
-      this.modules = new Array(this.moduleCount);
-      for (let row = 0; row < this.moduleCount; row++) {
-        this.modules[row] = new Array(this.moduleCount);
-        for (let col = 0; col < this.moduleCount; col++) this.modules[row][col] = null;
-      }
-      this.setupPositionProbePattern(0, 0);
-      this.setupPositionProbePattern(this.moduleCount - 7, 0);
-      this.setupPositionProbePattern(0, this.moduleCount - 7);
-      this.setupPositionAdjustPattern();
-      this.setupTimingPattern();
-      this.setupTypeInfo(test, maskPattern);
-      if (this.typeNumber >= 7) this.setupTypeNumber(test);
-      if (this.dataCache === null) this.dataCache = QRCodeModel.createData(this.typeNumber, this.errorCorrectLevel, this.dataList);
-      this.mapData(this.dataCache, maskPattern);
-    },
-    setupPositionProbePattern: function(row, col) {
-      for (let r = -1; r <= 7; r++) {
-        if (row + r <= -1 || this.moduleCount <= row + r) continue;
-        for (let c = -1; c <= 7; c++) {
-          if (col + c <= -1 || this.moduleCount <= col + c) continue;
-          if ((0 <= r && r <= 6 && (c === 0 || c === 6)) || (0 <= c && c <= 6 && (r === 0 || r === 6)) || (2 <= r && r <= 4 && 2 <= c && c <= 4)) {
-            this.modules[row + r][col + c] = true;
-          } else {
-            this.modules[row + r][col + c] = false;
-          }
-        }
-      }
-    },
-    getBestMaskPattern: function() {
-      let minLostPoint = 0;
-      let pattern = 0;
-      for (let i = 0; i < 8; i++) {
-        this.makeImpl(true, i);
-        const lostPoint = QRCodeModel.getLostPoint(this);
-        if (i === 0 || minLostPoint > lostPoint) {
-          minLostPoint = lostPoint;
-          pattern = i;
-        }
-      }
-      return pattern;
-    },
-    setupTimingPattern: function() {
-      for (let r = 8; r < this.moduleCount - 8; r++) {
-        if (this.modules[r][6] !== null) continue;
-        this.modules[r][6] = (r % 2 === 0);
-      }
-      for (let c = 8; c < this.moduleCount - 8; c++) {
-        if (this.modules[6][c] !== null) continue;
-        this.modules[6][c] = (c % 2 === 0);
-      }
-    },
-    setupPositionAdjustPattern: function() {
-      const pos = QRCodeModel.getPatternPosition(this.typeNumber);
-      for (let i = 0; i < pos.length; i++) {
-        for (let j = 0; j < pos.length; j++) {
-          const row = pos[i];
-          const col = pos[j];
-          if (this.modules[row][col] !== null) continue;
-          for (let r = -2; r <= 2; r++) {
-            for (let c = -2; c <= 2; c++) {
-              if (Math.abs(r) === 2 || Math.abs(c) === 2 || (r === 0 && c === 0)) {
-                this.modules[row + r][col + c] = true;
-              } else {
-                this.modules[row + r][col + c] = false;
-              }
-            }
-          }
-        }
-      }
-    },
-    setupTypeNumber: function(test) {
-      const bits = QRCodeModel.getBCHTypeNumber(this.typeNumber);
-      for (let i = 0; i < 18; i++) {
-        const mod = (!test && ((bits >> i) & 1) === 1);
-        this.modules[Math.floor(i / 3)][i % 3 + this.moduleCount - 8 - 3] = mod;
-        this.modules[i % 3 + this.moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
-      }
-    },
-    setupTypeInfo: function(test, maskPattern) {
-      const data = (this.errorCorrectLevel << 3) | maskPattern;
-      const bits = QRCodeModel.getBCHTypeInfo(data);
-      for (let i = 0; i < 15; i++) {
-        const mod = (!test && ((bits >> i) & 1) === 1);
-        if (i < 6) {
-          this.modules[i][8] = mod;
-        } else if (i < 8) {
-          this.modules[i + 1][8] = mod;
-        } else {
-          this.modules[this.moduleCount - 15 + i][8] = mod;
-        }
-        if (i < 8) {
-          this.modules[8][this.moduleCount - i - 1] = mod;
-        } else if (i < 9) {
-          this.modules[8][15 - i - 1 + 1] = mod;
-        } else {
-          this.modules[8][15 - i - 1] = mod;
-        }
-      }
-      this.modules[this.moduleCount - 8][8] = !test;
-    },
-    mapData: function(data, maskPattern) {
-      let inc = -1;
-      let row = this.moduleCount - 1;
-      let bitIndex = 7;
-      let byteIndex = 0;
-      const maskFunc = QRCodeModel.getMaskFunction(maskPattern);
-      for (let col = this.moduleCount - 1; col > 0; col -= 2) {
-        if (col === 6) col--;
-        while (true) {
-          for (let c = 0; c < 2; c++) {
-            if (this.modules[row][col - c] === null) {
-              let dark = false;
-              if (byteIndex < data.length) dark = (((data[byteIndex] >>> bitIndex) & 1) === 1);
-              const mask = maskFunc(row, col - c);
-              if (mask) dark = !dark;
-              this.modules[row][col - c] = dark;
-              bitIndex--;
-              if (bitIndex === -1) {
-                byteIndex++;
-                bitIndex = 7;
-              }
-            }
-          }
-          row += inc;
-          if (row < 0 || this.moduleCount <= row) {
-            row -= inc;
-            inc = -inc;
-            break;
-          }
-        }
-      }
-    }
-  };
+ };
 
-  QRCodeModel.getMaskFunction = function(maskPattern) {
-    switch (maskPattern) {
-      case QRMaskPattern.PATTERN000: return function(i, j) { return (i + j) % 2 === 0; };
-      case QRMaskPattern.PATTERN001: return function(i, j) { return i % 2 === 0; };
-      case QRMaskPattern.PATTERN010: return function(i, j) { return j % 3 === 0; };
-      case QRMaskPattern.PATTERN011: return function(i, j) { return (i + j) % 3 === 0; };
-      case QRMaskPattern.PATTERN100: return function(i, j) { return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 === 0; };
-      case QRMaskPattern.PATTERN101: return function(i, j) { return (i * j) % 2 + (i * j) % 3 === 0; };
-      case QRMaskPattern.PATTERN110: return function(i, j) { return ((i * j) % 2 + (i * j) % 3) % 2 === 0; };
-      case QRMaskPattern.PATTERN111: return function(i, j) { return ((i * j) % 3 + (i + j) % 2) % 2 === 0; };
-      default: throw new Error('bad maskPattern:' + maskPattern);
-    }
-  };
+ function QRBitBuffer() {
+  this.buffer = [];
+  this.length = 0;
+ }
+ QRBitBuffer.prototype = {
+  get: function(index) {
+   const bufIndex = Math.floor(index / 8);
+   return ((this.buffer[bufIndex] >>> (7 - index % 8)) & 1) === 1;
+  },
+  put: function(num, length) {
+   for (let i = 0; i < length; i++) {
+    this.putBit(((num >>> (length - i - 1)) & 1) === 1);
+   }
+  },
+  putBit: function(bit) {
+   const bufIndex = Math.floor(this.length / 8);
+   if (this.buffer.length <= bufIndex) this.buffer.push(0);
+   if (bit) this.buffer[bufIndex] |= (0x80 >>> (this.length % 8));
+   this.length++;
+  }
+ };
 
-  QRCodeModel.createData = function(typeNumber, errorCorrectLevel, dataList) {
-    const rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
-    const buffer = new QRBitBuffer();
-    for (let i = 0; i < dataList.length; i++) {
-      const data = dataList[i];
+ function QRCodeModel(typeNumber, errorCorrectLevel) {
+  this.typeNumber = typeNumber;
+  this.errorCorrectLevel = errorCorrectLevel;
+  this.modules = null;
+  this.moduleCount = 0;
+  this.dataCache = null;
+  this.dataList = [];
+ }
+ QRCodeModel.prototype = {
+  addData: function(data) {
+   this.dataList.push({
+    mode: QRMode.MODE_8BIT_BYTE,
+    data: data,
+    getLength: function() { return encodeURI(data).replace(/%[0-9a-fA-F]{2}/g, 'a').length; },
+    write: function(buffer) {
+     for (let i = 0; i < data.length; i++) {
+      const c = data.charCodeAt(i);
+      if (c < 128) {
+       buffer.put(c, 8);
+      } else {
+       const bytes = unescape(encodeURIComponent(data[i]));
+       for (let b = 0; b < bytes.length; b++) buffer.put(bytes.charCodeAt(b), 8);
+      }
+     }
+    }
+   });
+   this.dataCache = null;
+  },
+  isDark: function(row, col) {
+   if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) return false;
+   return this.modules[row][col] === true;
+  },
+  getModuleCount: function() { return this.moduleCount; },
+  make: function() {
+   if (this.typeNumber < 1) {
+    for (let t = 1; t <= 40; t++) {
+     const rsBlocks = QRRSBlock.getRSBlocks(t, this.errorCorrectLevel);
+     const buffer = new QRBitBuffer();
+     let totalDataCount = 0;
+     for (let i = 0; i < rsBlocks.length; i++) totalDataCount += rsBlocks[i].dataCount;
+     for (let i = 0; i < this.dataList.length; i++) {
+      const data = this.dataList[i];
       buffer.put(data.mode, 4);
-      buffer.put(data.getLength(), typeNumber < 10 ? 8 : 16);
+      buffer.put(data.getLength(), t < 10 ? 8 : 16);
       data.write(buffer);
+     }
+     if (buffer.length <= totalDataCount * 8) {
+      this.typeNumber = t;
+      break;
+     }
     }
-    let totalDataCount = 0;
-    for (let i = 0; i < rsBlocks.length; i++) totalDataCount += rsBlocks[i].dataCount;
-    if (buffer.length > totalDataCount * 8) throw new Error('code length overflow');
-    if (buffer.length + 4 <= totalDataCount * 8) buffer.put(0, 4);
-    while (buffer.length % 8 !== 0) buffer.putBit(false);
+   }
+   this.makeImpl(false, this.getBestMaskPattern());
+  },
+  makeImpl: function(test, maskPattern) {
+   this.moduleCount = this.typeNumber * 4 + 17;
+   this.modules = new Array(this.moduleCount);
+   for (let row = 0; row < this.moduleCount; row++) {
+    this.modules[row] = new Array(this.moduleCount);
+    for (let col = 0; col < this.moduleCount; col++) this.modules[row][col] = null;
+   }
+   this.setupPositionProbePattern(0, 0);
+   this.setupPositionProbePattern(this.moduleCount - 7, 0);
+   this.setupPositionProbePattern(0, this.moduleCount - 7);
+   this.setupPositionAdjustPattern();
+   this.setupTimingPattern();
+   this.setupTypeInfo(test, maskPattern);
+   if (this.typeNumber >= 7) this.setupTypeNumber(test);
+   if (this.dataCache === null) this.dataCache = QRCodeModel.createData(this.typeNumber, this.errorCorrectLevel, this.dataList);
+   this.mapData(this.dataCache, maskPattern);
+  },
+  setupPositionProbePattern: function(row, col) {
+   for (let r = -1; r <= 7; r++) {
+    if (row + r <= -1 || this.moduleCount <= row + r) continue;
+    for (let c = -1; c <= 7; c++) {
+     if (col + c <= -1 || this.moduleCount <= col + c) continue;
+     if ((0 <= r && r <= 6 && (c === 0 || c === 6)) || (0 <= c && c <= 6 && (r === 0 || r === 6)) || (2 <= r && r <= 4 && 2 <= c && c <= 4)) {
+      this.modules[row + r][col + c] = true;
+     } else {
+      this.modules[row + r][col + c] = false;
+     }
+    }
+   }
+  },
+  getBestMaskPattern: function() {
+   let minLostPoint = 0;
+   let pattern = 0;
+   for (let i = 0; i < 8; i++) {
+    this.makeImpl(true, i);
+    const lostPoint = QRCodeModel.getLostPoint(this);
+    if (i === 0 || minLostPoint > lostPoint) {
+     minLostPoint = lostPoint;
+     pattern = i;
+    }
+   }
+   return pattern;
+  },
+  setupTimingPattern: function() {
+   for (let r = 8; r < this.moduleCount - 8; r++) {
+    if (this.modules[r][6] !== null) continue;
+    this.modules[r][6] = (r % 2 === 0);
+   }
+   for (let c = 8; c < this.moduleCount - 8; c++) {
+    if (this.modules[6][c] !== null) continue;
+    this.modules[6][c] = (c % 2 === 0);
+   }
+  },
+  setupPositionAdjustPattern: function() {
+   const pos = QRCodeModel.getPatternPosition(this.typeNumber);
+   for (let i = 0; i < pos.length; i++) {
+    for (let j = 0; j < pos.length; j++) {
+     const row = pos[i];
+     const col = pos[j];
+     if (this.modules[row][col] !== null) continue;
+     for (let r = -2; r <= 2; r++) {
+      for (let c = -2; c <= 2; c++) {
+       if (Math.abs(r) === 2 || Math.abs(c) === 2 || (r === 0 && c === 0)) {
+        this.modules[row + r][col + c] = true;
+       } else {
+        this.modules[row + r][col + c] = false;
+       }
+      }
+     }
+    }
+   }
+  },
+  setupTypeNumber: function(test) {
+   const bits = QRCodeModel.getBCHTypeNumber(this.typeNumber);
+   for (let i = 0; i < 18; i++) {
+    const mod = (!test && ((bits >> i) & 1) === 1);
+    this.modules[Math.floor(i / 3)][i % 3 + this.moduleCount - 8 - 3] = mod;
+    this.modules[i % 3 + this.moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
+   }
+  },
+  setupTypeInfo: function(test, maskPattern) {
+   const data = (this.errorCorrectLevel << 3) | maskPattern;
+   const bits = QRCodeModel.getBCHTypeInfo(data);
+   for (let i = 0; i < 15; i++) {
+    const mod = (!test && ((bits >> i) & 1) === 1);
+    if (i < 6) {
+     this.modules[i][8] = mod;
+    } else if (i < 8) {
+     this.modules[i + 1][8] = mod;
+    } else {
+     this.modules[this.moduleCount - 15 + i][8] = mod;
+    }
+    if (i < 8) {
+     this.modules[8][this.moduleCount - i - 1] = mod;
+    } else if (i < 9) {
+     this.modules[8][15 - i - 1 + 1] = mod;
+    } else {
+     this.modules[8][15 - i - 1] = mod;
+    }
+   }
+   this.modules[this.moduleCount - 8][8] = !test;
+  },
+  mapData: function(data, maskPattern) {
+   let inc = -1;
+   let row = this.moduleCount - 1;
+   let bitIndex = 7;
+   let byteIndex = 0;
+   const maskFunc = QRCodeModel.getMaskFunction(maskPattern);
+   for (let col = this.moduleCount - 1; col > 0; col -= 2) {
+    if (col === 6) col--;
     while (true) {
-      if (buffer.length >= totalDataCount * 8) break;
-      buffer.put(0xEC, 8);
-      if (buffer.length >= totalDataCount * 8) break;
-      buffer.put(0x11, 8);
-    }
-    return QRCodeModel.createBytes(buffer, rsBlocks);
-  };
-
-  QRCodeModel.createBytes = function(buffer, rsBlocks) {
-    let offset = 0;
-    let maxDcCount = 0;
-    let maxEcCount = 0;
-    const dcdata = new Array(rsBlocks.length);
-    const ecdata = new Array(rsBlocks.length);
-    for (let r = 0; r < rsBlocks.length; r++) {
-      const dcCount = rsBlocks[r].dataCount;
-      const ecCount = rsBlocks[r].totalCount - dcCount;
-      maxDcCount = Math.max(maxDcCount, dcCount);
-      maxEcCount = Math.max(maxEcCount, ecCount);
-      dcdata[r] = new Array(dcCount);
-      for (let i = 0; i < dcdata[r].length; i++) dcdata[r][i] = 0xff & buffer.buffer[i + offset];
-      offset += dcCount;
-      const rsPoly = QRCodeModel.getErrorCorrectPolynomial(ecCount);
-      const rawPoly = new QRPolynomial(dcdata[r], rsPoly.getLength() - 1);
-      const modPoly = rawPoly.mod(rsPoly);
-      ecdata[r] = new Array(rsPoly.getLength() - 1);
-      for (let i = 0; i < ecdata[r].length; i++) {
-        const modIndex = i + modPoly.getLength() - ecdata[r].length;
-        ecdata[r][i] = (modIndex >= 0) ? modPoly.get(modIndex) : 0;
+     for (let c = 0; c < 2; c++) {
+      if (this.modules[row][col - c] === null) {
+       let dark = false;
+       if (byteIndex < data.length) dark = (((data[byteIndex] >>> bitIndex) & 1) === 1);
+       const mask = maskFunc(row, col - c);
+       if (mask) dark = !dark;
+       this.modules[row][col - c] = dark;
+       bitIndex--;
+       if (bitIndex === -1) {
+        byteIndex++;
+        bitIndex = 7;
+       }
       }
+     }
+     row += inc;
+     if (row < 0 || this.moduleCount <= row) {
+      row -= inc;
+      inc = -inc;
+      break;
+     }
     }
-    let totalCodeCount = 0;
-    for (let i = 0; i < rsBlocks.length; i++) totalCodeCount += rsBlocks[i].totalCount;
-    const data = new Array(totalCodeCount);
-    let index = 0;
-    for (let i = 0; i < maxDcCount; i++) {
-      for (let r = 0; r < rsBlocks.length; r++) {
-        if (i < dcdata[r].length) data[index++] = dcdata[r][i];
-      }
-    }
-    for (let i = 0; i < maxEcCount; i++) {
-      for (let r = 0; r < rsBlocks.length; r++) {
-        if (i < ecdata[r].length) data[index++] = ecdata[r][i];
-      }
-    }
-    return data;
-  };
+   }
+  }
+ };
 
-  QRCodeModel.getErrorCorrectPolynomial = function(errorCorrectLength) {
-    let a = new QRPolynomial([1], 0);
-    for (let i = 0; i < errorCorrectLength; i++) {
-      a = a.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0));
-    }
-    return a;
-  };
+ QRCodeModel.getMaskFunction = function(maskPattern) {
+  switch (maskPattern) {
+   case QRMaskPattern.PATTERN000: return function(i, j) { return (i + j) % 2 === 0; };
+   case QRMaskPattern.PATTERN001: return function(i, j) { return i % 2 === 0; };
+   case QRMaskPattern.PATTERN010: return function(i, j) { return j % 3 === 0; };
+   case QRMaskPattern.PATTERN011: return function(i, j) { return (i + j) % 3 === 0; };
+   case QRMaskPattern.PATTERN100: return function(i, j) { return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 === 0; };
+   case QRMaskPattern.PATTERN101: return function(i, j) { return (i * j) % 2 + (i * j) % 3 === 0; };
+   case QRMaskPattern.PATTERN110: return function(i, j) { return ((i * j) % 2 + (i * j) % 3) % 2 === 0; };
+   case QRMaskPattern.PATTERN111: return function(i, j) { return ((i * j) % 3 + (i + j) % 2) % 2 === 0; };
+   default: throw new Error('bad maskPattern:' + maskPattern);
+  }
+ };
 
-  QRCodeModel.getPatternPosition = function(typeNumber) {
+ QRCodeModel.createData = function(typeNumber, errorCorrectLevel, dataList) {
+  const rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
+  const buffer = new QRBitBuffer();
+  for (let i = 0; i < dataList.length; i++) {
+   const data = dataList[i];
+   buffer.put(data.mode, 4);
+   buffer.put(data.getLength(), typeNumber < 10 ? 8 : 16);
+   data.write(buffer);
+  }
+  let totalDataCount = 0;
+  for (let i = 0; i < rsBlocks.length; i++) totalDataCount += rsBlocks[i].dataCount;
+  if (buffer.length > totalDataCount * 8) throw new Error('code length overflow');
+  if (buffer.length + 4 <= totalDataCount * 8) buffer.put(0, 4);
+  while (buffer.length % 8 !== 0) buffer.putBit(false);
+  while (true) {
+   if (buffer.length >= totalDataCount * 8) break;
+   buffer.put(0xEC, 8);
+   if (buffer.length >= totalDataCount * 8) break;
+   buffer.put(0x11, 8);
+  }
+  return QRCodeModel.createBytes(buffer, rsBlocks);
+ };
+
+ QRCodeModel.createBytes = function(buffer, rsBlocks) {
+  let offset = 0;
+  let maxDcCount = 0;
+  let maxEcCount = 0;
+  const dcdata = new Array(rsBlocks.length);
+  const ecdata = new Array(rsBlocks.length);
+  for (let r = 0; r < rsBlocks.length; r++) {
+   const dcCount = rsBlocks[r].dataCount;
+   const ecCount = rsBlocks[r].totalCount - dcCount;
+   maxDcCount = Math.max(maxDcCount, dcCount);
+   maxEcCount = Math.max(maxEcCount, ecCount);
+   dcdata[r] = new Array(dcCount);
+   for (let i = 0; i < dcdata[r].length; i++) dcdata[r][i] = 0xff & buffer.buffer[i + offset];
+   offset += dcCount;
+   const rsPoly = QRCodeModel.getErrorCorrectPolynomial(ecCount);
+   const rawPoly = new QRPolynomial(dcdata[r], rsPoly.getLength() - 1);
+   const modPoly = rawPoly.mod(rsPoly);
+   ecdata[r] = new Array(rsPoly.getLength() - 1);
+   for (let i = 0; i < ecdata[r].length; i++) {
+    const modIndex = i + modPoly.getLength() - ecdata[r].length;
+    ecdata[r][i] = (modIndex >= 0) ? modPoly.get(modIndex) : 0;
+   }
+  }
+  let totalCodeCount = 0;
+  for (let i = 0; i < rsBlocks.length; i++) totalCodeCount += rsBlocks[i].totalCount;
+  const data = new Array(totalCodeCount);
+  let index = 0;
+  for (let i = 0; i < maxDcCount; i++) {
+   for (let r = 0; r < rsBlocks.length; r++) {
+    if (i < dcdata[r].length) data[index++] = dcdata[r][i];
+   }
+  }
+  for (let i = 0; i < maxEcCount; i++) {
+   for (let r = 0; r < rsBlocks.length; r++) {
+    if (i < ecdata[r].length) data[index++] = ecdata[r][i];
+   }
+  }
+  return data;
+ };
+
+ QRCodeModel.getErrorCorrectPolynomial = function(errorCorrectLength) {
+  let a = new QRPolynomial([1], 0);
+  for (let i = 0; i < errorCorrectLength; i++) {
+   a = a.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0));
+  }
+  return a;
+ };
+
+ QRCodeModel.getPatternPosition = function(typeNumber) {
     const PATTERN_POSITION_TABLE = [
       [], [6, 18], [6, 22], [6, 26], [6, 30], [6, 34],
       [6, 22, 38], [6, 24, 42], [6, 26, 46], [6, 28, 50], [6, 30, 54],
-      [6, 32, 58], [6, 34, 62], [6, 26, 46, 66], [6, 26, 48, 70]
+      [6, 32, 58], [6, 34, 62], [6, 26, 46, 66], [6, 26, 48, 70],
+      [6, 26, 50, 74], [6, 30, 54, 78], [6, 30, 56, 82], [6, 30, 58, 86],
+      [6, 34, 62, 90], [6, 28, 50, 72, 94], [6, 26, 50, 74, 98],
+      [6, 30, 54, 78, 102], [6, 28, 54, 80, 106], [6, 32, 58, 84, 110],
+      [6, 30, 58, 86, 114], [6, 34, 62, 90, 118], [6, 26, 50, 74, 98, 122],
+      [6, 30, 54, 78, 102, 126], [6, 26, 52, 78, 104, 130], [6, 30, 56, 82, 108, 134],
+      [6, 34, 60, 86, 112, 138], [6, 30, 58, 86, 114, 142], [6, 34, 62, 90, 118, 146],
+      [6, 30, 54, 78, 102, 126, 150], [6, 24, 50, 76, 102, 128, 154], [6, 28, 54, 80, 106, 132, 158],
+      [6, 32, 58, 84, 110, 136, 162], [6, 26, 54, 82, 110, 138, 166], [6, 30, 58, 86, 114, 142, 170]
     ];
-    return PATTERN_POSITION_TABLE[typeNumber - 1] || [];
-  };
+  return PATTERN_POSITION_TABLE[typeNumber - 1] || [];
+ };
 
-  QRCodeModel.getBCHTypeInfo = function(data) {
-    let d = data << 10;
-    while (QRCodeModel.getBCHDigit(d) - QRCodeModel.getBCHDigit(1335) >= 0) {
-      d ^= (1335 << (QRCodeModel.getBCHDigit(d) - QRCodeModel.getBCHDigit(1335)));
-    }
-    return ((data << 10) | d) ^ 21522;
-  };
+ QRCodeModel.getBCHTypeInfo = function(data) {
+  let d = data << 10;
+  while (QRCodeModel.getBCHDigit(d) - QRCodeModel.getBCHDigit(1335) >= 0) {
+   d ^= (1335 << (QRCodeModel.getBCHDigit(d) - QRCodeModel.getBCHDigit(1335)));
+  }
+  return ((data << 10) | d) ^ 21522;
+ };
 
-  QRCodeModel.getBCHTypeNumber = function(data) {
-    let d = data << 12;
-    while (QRCodeModel.getBCHDigit(d) - QRCodeModel.getBCHDigit(7973) >= 0) {
-      d ^= (7973 << (QRCodeModel.getBCHDigit(d) - QRCodeModel.getBCHDigit(7973)));
-    }
-    return (data << 12) | d;
-  };
+ QRCodeModel.getBCHTypeNumber = function(data) {
+  let d = data << 12;
+  while (QRCodeModel.getBCHDigit(d) - QRCodeModel.getBCHDigit(7973) >= 0) {
+   d ^= (7973 << (QRCodeModel.getBCHDigit(d) - QRCodeModel.getBCHDigit(7973)));
+  }
+  return (data << 12) | d;
+ };
 
-  QRCodeModel.getBCHDigit = function(data) {
-    let digit = 0;
-    while (data !== 0) {
-      digit++;
-      data >>>= 1;
-    }
-    return digit;
-  };
+ QRCodeModel.getBCHDigit = function(data) {
+  let digit = 0;
+  while (data !== 0) {
+   digit++;
+   data >>>= 1;
+  }
+  return digit;
+ };
 
-  QRCodeModel.getLostPoint = function(qrCode) {
+ QRCodeModel.getLostPoint = function(qrCode) {
     const moduleCount = qrCode.getModuleCount();
     let lostPoint = 0;
+    // LEVEL1
     for (let row = 0; row < moduleCount; row++) {
       for (let col = 0; col < moduleCount; col++) {
         let sameCount = 0;
@@ -1323,362 +1375,433 @@ const QRCodeGen = (function(){
         if (sameCount > 5) lostPoint += (3 + sameCount - 5);
       }
     }
+    // LEVEL2
+    for (let row = 0; row < moduleCount - 1; row++) {
+      for (let col = 0; col < moduleCount - 1; col++) {
+        let count = 0;
+        if (qrCode.isDark(row, col)) count++;
+        if (qrCode.isDark(row + 1, col)) count++;
+        if (qrCode.isDark(row, col + 1)) count++;
+        if (qrCode.isDark(row + 1, col + 1)) count++;
+        if (count === 0 || count === 4) lostPoint += 3;
+      }
+    }
+    // LEVEL3
+    for (let row = 0; row < moduleCount; row++) {
+      for (let col = 0; col < moduleCount - 6; col++) {
+        if (qrCode.isDark(row, col) && !qrCode.isDark(row, col + 1) && qrCode.isDark(row, col + 2) && qrCode.isDark(row, col + 3) && qrCode.isDark(row, col + 4) && !qrCode.isDark(row, col + 5) && qrCode.isDark(row, col + 6)) lostPoint += 40;
+      }
+    }
+    for (let col = 0; col < moduleCount; col++) {
+      for (let row = 0; row < moduleCount - 6; row++) {
+        if (qrCode.isDark(row, col) && !qrCode.isDark(row + 1, col) && qrCode.isDark(row + 2, col) && qrCode.isDark(row + 3, col) && qrCode.isDark(row + 4, col) && !qrCode.isDark(row + 5, col) && qrCode.isDark(row + 6, col)) lostPoint += 40;
+      }
+    }
+    // LEVEL4
+    let darkCount = 0;
+    for (let col = 0; col < moduleCount; col++) {
+      for (let row = 0; row < moduleCount; row++) {
+        if (qrCode.isDark(row, col)) darkCount++;
+      }
+    }
+    const ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+    lostPoint += ratio * 10;
     return lostPoint;
   };
 
-  function createSVG(url, color = '#000000') {
-    const qr = new QRCodeModel(0, QRErrorCorrectLevel.M);
-    qr.addData(url);
-    qr.make();
-    const n = qr.getModuleCount();
-    const margin = 1; // 靜區
-    const totalSize = n + margin * 2;
-    let pathData = '';
-    
-    for (let r = 0; r < n; r++) {
-      for (let c = 0; c < n; c++) {
-        if (qr.isDark(r, c)) {
-          pathData += `M${c + margin},${r + margin}h1v1h-1z `;
-        }
-      }
+ function createSVG(url, color = '#000000') {
+  const qr = new QRCodeModel(0, QRErrorCorrectLevel.M);
+  qr.addData(url);
+  qr.make();
+  const n = qr.getModuleCount();
+  const margin = 1; // 靜區
+  const totalSize = n + margin * 2;
+  let pathData = '';
+  
+  for (let r = 0; r < n; r++) {
+   for (let c = 0; c < n; c++) {
+    if (qr.isDark(r, c)) {
+     pathData += `M${c + margin},${r + margin}h1v1h-1z `;
     }
-    
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalSize} ${totalSize}" shape-rendering="crispEdges">
-      <rect width="${totalSize}" height="${totalSize}" fill="#ffffff"/>
-      <path d="${pathData}" fill="${color}"/>
-    </svg>`;
+   }
   }
+  
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalSize} ${totalSize}" shape-rendering="crispEdges">
+   <rect width="${totalSize}" height="${totalSize}" fill="#ffffff"/>
+   <path d="${pathData}" fill="${color}"/>
+  </svg>`;
+ }
 
-  function encodeQRMatrix(url) {
-    const qr = new QRCodeModel(0, QRErrorCorrectLevel.M);
-    qr.addData(url);
-    qr.make();
-    const n = qr.getModuleCount();
-    const m = [];
-    for (let r = 0; r < n; r++) {
-      const row = [];
-      for (let c = 0; c < n; c++) {
-        row.push(qr.isDark(r, c) ? 1 : 0);
-      }
-      m.push(row);
-    }
-    return m;
+ function encodeQRMatrix(url) {
+  const qr = new QRCodeModel(0, QRErrorCorrectLevel.M);
+  qr.addData(url);
+  qr.make();
+  const n = qr.getModuleCount();
+  const m = [];
+  for (let r = 0; r < n; r++) {
+   const row = [];
+   for (let c = 0; c < n; c++) {
+    row.push(qr.isDark(r, c) ? 1 : 0);
+   }
+   m.push(row);
   }
+  return m;
+ }
 
-  return {
-    createSVG,
-    encodeQRMatrix
-  };
+ return {
+  createSVG,
+  encodeQRMatrix
+ };
 })();
 
 // ==========================================================================
 // 原生 300+ DPI 實體名片 Canvas 渲染與下載模組
 // ==========================================================================
 function renderAndDownloadCard(type, filename) {
-  const isDark = document.body.classList.contains('theme-dark');
-  const isBleed = document.body.classList.contains('bleed-active');
-  const isFront = (type === 'front');
-  
-  const mmW = isBleed ? 92 : 90;
-  const mmH = isBleed ? 56 : 54;
-  const scale = 4; // 1mm = 11.811px * 4 = 47.244px (超高解析印刷品質)
-  const pxPerMm = 11.811 * scale;
-  
-  const canvas = document.createElement('canvas');
-  canvas.width = Math.round(mmW * pxPerMm);
-  canvas.height = Math.round(mmH * pxPerMm);
-  const ctx = canvas.getContext('2d');
-  
-  const bleedOffset = isBleed ? (1 * pxPerMm) : 0;
-  const padX = (isBleed ? 5.2 : 4.5) * pxPerMm;
-  const padY = (isBleed ? 4.2 : 3.2) * pxPerMm;
-  
-  // 1. 底色
-  ctx.fillStyle = isDark ? '#090d16' : '#ffffff';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  
-  // 2. 出血十字裁切線 (Crop Marks)
-  if (isBleed) {
-    const cropLen = 1 * pxPerMm;
-    ctx.strokeStyle = '#ef4444';
-    ctx.lineWidth = 1.5 * scale;
-    // 左上
-    ctx.strokeRect(0, 0, cropLen, cropLen);
-    // 右上
-    ctx.strokeRect(canvas.width - cropLen, 0, cropLen, cropLen);
-    // 左下
-    ctx.strokeRect(0, canvas.height - cropLen, cropLen, cropLen);
-    // 右下
-    ctx.strokeRect(canvas.width - cropLen, canvas.height - cropLen, cropLen, cropLen);
+ const isDark = document.body.classList.contains('theme-dark');
+ const isBleed = document.body.classList.contains('bleed-active');
+ const isFront = (type === 'front');
+ 
+ const mmW = isBleed ? 92 : 90;
+ const mmH = isBleed ? 56 : 54;
+ const scale = 4; // 1mm = 11.811px * 4 = 47.244px (超高解析印刷品質)
+ const pxPerMm = 11.811 * scale;
+ 
+ const canvas = document.createElement('canvas');
+ canvas.width = Math.round(mmW * pxPerMm);
+ canvas.height = Math.round(mmH * pxPerMm);
+ const ctx = canvas.getContext('2d');
+ 
+ const bleedOffset = isBleed ? (1 * pxPerMm) : 0;
+ const padX = (isBleed ? 5.2 : 4.5) * pxPerMm;
+ const padY = (isBleed ? 4.2 : 3.2) * pxPerMm;
+ 
+ // 1. 底色
+ ctx.fillStyle = isDark ? '#090d16' : '#ffffff';
+ ctx.fillRect(0, 0, canvas.width, canvas.height);
+ 
+ // 2. 出血十字裁切線 (Crop Marks)
+ if (isBleed) {
+  const cropLen = 1 * pxPerMm;
+  ctx.strokeStyle = '#ef4444';
+  ctx.lineWidth = 1.5 * scale;
+  // 左上
+  ctx.strokeRect(0, 0, cropLen, cropLen);
+  // 右上
+  ctx.strokeRect(canvas.width - cropLen, 0, cropLen, cropLen);
+  // 左下
+  ctx.strokeRect(0, canvas.height - cropLen, cropLen, cropLen);
+  // 右下
+  ctx.strokeRect(canvas.width - cropLen, canvas.height - cropLen, cropLen, cropLen);
+ }
+ 
+ // 輔助函式：圓角矩形
+ function drawRoundedRect(x, y, w, h, r, fill, stroke) {
+  ctx.beginPath();
+  ctx.roundRect(x, y, w, h, r);
+  if (fill) {
+   ctx.fillStyle = fill;
+   ctx.fill();
   }
-  
-  // 輔助函式：圓角矩形
-  function drawRoundedRect(x, y, w, h, r, fill, stroke) {
-    ctx.beginPath();
-    ctx.roundRect(x, y, w, h, r);
-    if (fill) {
-      ctx.fillStyle = fill;
-      ctx.fill();
-    }
-    if (stroke) {
-      ctx.strokeStyle = stroke;
-      ctx.lineWidth = 1 * scale;
-      ctx.stroke();
-    }
+  if (stroke) {
+   ctx.strokeStyle = stroke;
+   ctx.lineWidth = 1 * scale;
+   ctx.stroke();
   }
+ }
+ 
+ // 輔助函式：繪製 QR Code 矩陣
+ function drawQR(targetUrl, qrX, qrY, qrSize, qrColor) {
+  // 白底襯底
+  drawRoundedRect(qrX, qrY, qrSize, qrSize, 4 * scale, '#ffffff', isDark ? '#334155' : '#e2e8f0');
   
-  // 輔助函式：繪製 QR Code 矩陣
-  function drawQR(targetUrl, qrX, qrY, qrSize, qrColor) {
-    // 白底襯底
-    drawRoundedRect(qrX, qrY, qrSize, qrSize, 4 * scale, '#ffffff', isDark ? '#334155' : '#e2e8f0');
-    
-    const matrix = QRCodeGen.encodeQRMatrix(targetUrl);
-    const n = matrix.length;
-    const padding = 2.5 * scale;
-    const innerSize = qrSize - padding * 2;
-    const modSize = innerSize / n;
-    
-    ctx.fillStyle = qrColor;
-    for (let r = 0; r < n; r++) {
-      for (let c = 0; c < n; c++) {
-        if (matrix[r][c]) {
-          ctx.fillRect(qrX + padding + c * modSize, qrY + padding + r * modSize, modSize + 0.3, modSize + 0.3);
-        }
-      }
+  const matrix = QRCodeGen.encodeQRMatrix(targetUrl);
+  const n = matrix.length;
+  const padding = 2.5 * scale;
+  const innerSize = qrSize - padding * 2;
+  const modSize = innerSize / n;
+  
+  ctx.fillStyle = qrColor;
+  for (let r = 0; r < n; r++) {
+   for (let c = 0; c < n; c++) {
+    if (matrix[r][c]) {
+     ctx.fillRect(qrX + padding + c * modSize, qrY + padding + r * modSize, modSize + 0.3, modSize + 0.3);
     }
+   }
+  }
+ }
+
+ const fontSans = '"Plus Jakarta Sans", "Noto Sans TC", -apple-system, sans-serif';
+ const startX = padX;
+ const startY = padY;
+ const contentW = canvas.width - padX * 2;
+ const contentH = canvas.height - padY * 2;
+ 
+ if (isFront) {
+  // ==========================================
+  // 正面 (Wind 簽約交付｜統編 54730503)
+  // ==========================================
+  const frontUrl = 'https://rock903400-byte.github.io/wind/';
+  
+  // 頂部：品牌與職稱徽章
+  ctx.font = `800 ${28 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#ffffff' : '#0f172a';
+  ctx.textBaseline = 'top';
+  ctx.fillText('石顧問 Wind', startX, startY);
+  
+  const nameWidth = ctx.measureText('石顧問 Wind').width;
+  const badgeText = '簽約交付｜統編 54730503';
+  ctx.font = `700 ${14 * scale}px ${fontSans}`;
+  const badgeW = ctx.measureText(badgeText).width + 16 * scale;
+  const badgeH = 22 * scale;
+  const badgeX = startX + nameWidth + 12 * scale;
+  const badgeY = startY + 4 * scale;
+  drawRoundedRect(badgeX, badgeY, badgeW, badgeH, 4 * scale, isDark ? '#312e81' : '#1e293b');
+  ctx.fillStyle = isDark ? '#c7d2fe' : '#f8fafc';
+  ctx.fillText(badgeText, badgeX + 8 * scale, badgeY + 4 * scale);
+  
+  // 主標題
+  const line2Y = startY + 36 * scale;
+  ctx.font = `700 ${18 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#93c5fd' : '#1e3a8a';
+  ctx.fillText('協助中小企業把營運雜事系統化', startX, line2Y);
+  
+  // 實績副標
+  const line3Y = line2Y + 22 * scale;
+  ctx.font = `500 ${15 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#94a3b8' : '#475569';
+  ctx.fillText('19 項已上線實績｜金融·零售·製造 11+ 產業｜2020 起持續交付', startX, line3Y);
+  
+  // 三大旗艦標籤
+  const tags = ['可簽約·可開立發票', '提供保固與原始碼交付', '19項案例可驗證'];
+  let tagX = startX;
+  const tagY = line3Y + 22 * scale;
+  ctx.font = `600 ${13 * scale}px ${fontSans}`;
+  tags.forEach(t => {
+   const tw = ctx.measureText(t).width + 14 * scale;
+   const th = 20 * scale;
+   drawRoundedRect(tagX, tagY, tw, th, 3 * scale, isDark ? '#1e293b' : '#f1f5f9', isDark ? '#334155' : '#cbd5e1');
+   ctx.fillStyle = isDark ? '#cbd5e1' : '#334155';
+   ctx.fillText(t, tagX + 7 * scale, tagY + 3.5 * scale);
+   tagX += tw + 8 * scale;
+  });
+  
+  // 分隔線
+  const sepY = startY + contentH - 85 * scale;
+  ctx.strokeStyle = isDark ? '#1e293b' : '#e2e8f0';
+  ctx.lineWidth = 1 * scale;
+  ctx.beginPath();
+  ctx.moveTo(startX, sepY);
+  ctx.lineTo(startX + contentW, sepY);
+  ctx.stroke();
+  
+  // 底部聯絡資訊 (3行)
+  const c1Y = sepY + 10 * scale;
+  ctx.font = `500 ${14 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#94a3b8' : '#334155';
+  ctx.fillText('💬 LINE / 電話：', startX, c1Y);
+  const w1 = ctx.measureText('💬 LINE / 電話：').width;
+  ctx.font = `700 ${14 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#f8fafc' : '#0f172a';
+  ctx.fillText('0980463400', startX + w1, c1Y);
+  const wPhone = ctx.measureText('0980463400').width;
+  ctx.font = `400 ${12 * scale}px ${fontSans}`;
+  ctx.fillStyle = '#64748b';
+  ctx.fillText(' (免費聊聊)', startX + w1 + wPhone, c1Y + 1 * scale);
+  
+  const c2Y = c1Y + 18 * scale;
+  ctx.font = `500 ${14 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#94a3b8' : '#334155';
+  ctx.fillText('✉️ Email：', startX, c2Y);
+  const w2 = ctx.measureText('✉️ Email：').width;
+  ctx.font = `700 ${14 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#f8fafc' : '#0f172a';
+  ctx.fillText('rock90340@gmail.com', startX + w2, c2Y);
+  
+  const c3Y = c2Y + 18 * scale;
+  ctx.font = `500 ${14 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#94a3b8' : '#334155';
+  ctx.fillText('🏢 統一編號：', startX, c3Y);
+  const w3 = ctx.measureText('🏢 統一編號：').width;
+  ctx.font = `700 ${14 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#f8fafc' : '#0f172a';
+  ctx.fillText('54730503', startX + w3, c3Y);
+  const wTax = ctx.measureText('54730503').width;
+  ctx.font = `400 ${12 * scale}px ${fontSans}`;
+  ctx.fillStyle = '#64748b';
+  ctx.fillText(' | 可開立發票·可簽約', startX + w3 + wTax, c3Y + 1 * scale);
+  
+  // 右側 QR Code (14.5mm)
+  const qrSize = 14.5 * pxPerMm;
+  const qrX = startX + contentW - qrSize;
+  const qrY = sepY + 6 * scale;
+  drawQR(frontUrl, qrX, qrY, qrSize, '#0f172a');
+  
+  // QR Caption
+  ctx.font = `700 ${11 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#93c5fd' : '#1e3a8a';
+  ctx.textAlign = 'center';
+  ctx.fillText('👉 掃碼看 19 項作品', qrX + qrSize / 2, qrY + qrSize + 4 * scale);
+  ctx.textAlign = 'left';
+  
+ } else {
+  // ==========================================
+  // 背面 (飛律 Feilu AI 流程賦能)
+  // ==========================================
+  const backUrl = 'https://rock903400-byte.github.io/wind/ai-enablement.html';
+  
+  // 頂部：品牌與服務徽章
+  ctx.font = `800 ${28 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#34d399' : '#065f46';
+  ctx.textBaseline = 'top';
+  ctx.fillText('飛律 Feilu', startX, startY);
+  
+  const nameWidth = ctx.measureText('飛律 Feilu').width;
+  const badgeText = 'AI 流程賦能';
+  ctx.font = `700 ${14 * scale}px ${fontSans}`;
+  const badgeW = ctx.measureText(badgeText).width + 16 * scale;
+  const badgeH = 22 * scale;
+  const badgeX = startX + nameWidth + 12 * scale;
+  const badgeY = startY + 4 * scale;
+  drawRoundedRect(badgeX, badgeY, badgeW, badgeH, 4 * scale, isDark ? '#064e3b' : '#065f46');
+  ctx.fillStyle = isDark ? '#6ee7b7' : '#ecfdf5';
+  ctx.fillText(badgeText, badgeX + 8 * scale, badgeY + 4 * scale);
+  
+  // 主標題
+  const line2Y = startY + 36 * scale;
+  ctx.font = `700 ${18 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#6ee7b7' : '#047857';
+  ctx.fillText('企業試用方案｜儲值 NT$1,000 交付 2 項模組（可簽約）', startX, line2Y);
+  
+  // USP 承諾
+  const line3Y = line2Y + 22 * scale;
+  ctx.font = `600 ${15 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#fbbf24' : '#b45309';
+  ctx.fillText('48h 交付 · 點數永久有效｜合約保障·發票開立', startX, line3Y);
+  
+  // 四宮格交付模組
+  const scopes = [
+   '📋 財務對帳自動化 ',
+   '💬 LINE 客服自動回覆 ',
+   '📚 規章/合約秒級檢索 ',
+   '🎯 政府標案自動監控 '
+  ];
+  const gridW = (contentW - 14.5 * pxPerMm - 16 * scale) / 2;
+  const gridH = 19 * scale;
+  const gridStartY = line3Y + 22 * scale;
+  ctx.font = `600 ${12.5 * scale}px ${fontSans}`;
+  
+  scopes.forEach((sc, i) => {
+   const col = i % 2;
+   const row = Math.floor(i / 2);
+   const gx = startX + col * (gridW + 8 * scale);
+   const gy = gridStartY + row * (gridH + 5 * scale);
+   drawRoundedRect(gx, gy, gridW, gridH, 3 * scale, isDark ? '#111827' : '#f8fafc', isDark ? '#1f2937' : '#e2e8f0');
+   ctx.fillStyle = isDark ? '#cbd5e1' : '#334155';
+   ctx.fillText(sc, gx + 6 * scale, gy + 3 * scale);
+  });
+  
+  // 分隔線
+  const sepY = startY + contentH - 85 * scale;
+  ctx.strokeStyle = isDark ? '#1e293b' : '#e2e8f0';
+  ctx.lineWidth = 1 * scale;
+  ctx.beginPath();
+  ctx.moveTo(startX, sepY);
+  ctx.lineTo(startX + contentW, sepY);
+  ctx.stroke();
+  
+  // 底部資訊 (3行)
+  const c1Y = sepY + 10 * scale;
+  ctx.font = `500 ${14 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#94a3b8' : '#334155';
+  ctx.fillText('💬 LINE / 預約：', startX, c1Y);
+  const w1 = ctx.measureText('💬 LINE / 預約：').width;
+  ctx.font = `700 ${14 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#f8fafc' : '#0f172a';
+  ctx.fillText('0980463400', startX + w1, c1Y);
+  
+  const c2Y = c1Y + 18 * scale;
+  ctx.font = `500 ${13.5 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#94a3b8' : '#334155';
+  ctx.fillText('🔒 資安承諾：', startX, c2Y);
+  const w2 = ctx.measureText('🔒 資安承諾：').width;
+  ctx.font = `700 ${13.5 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#f8fafc' : '#0f172a';
+  ctx.fillText('純離線 / 私有帳號直連 · 零中繼資料庫', startX + w2, c2Y);
+  
+  const c3Y = c2Y + 18 * scale;
+  ctx.font = `500 ${14 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#94a3b8' : '#334155';
+  ctx.fillText('🏢 統一編號：', startX, c3Y);
+  const w3 = ctx.measureText('🏢 統一編號：').width;
+  ctx.font = `700 ${14 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#f8fafc' : '#0f172a';
+  ctx.fillText('54730503', startX + w3, c3Y);
+  const wTax = ctx.measureText('54730503').width;
+  ctx.font = `400 ${12 * scale}px ${fontSans}`;
+  ctx.fillStyle = '#64748b';
+  ctx.fillText(' | 可開立統一發票', startX + w3 + wTax, c3Y + 1 * scale);
+  
+  // 右側 QR Code (14.5mm)
+  const qrSize = 14.5 * pxPerMm;
+  const qrX = startX + contentW - qrSize;
+  const qrY = sepY + 6 * scale;
+  drawQR(backUrl, qrX, qrY, qrSize, '#065f46');
+  
+  // QR Caption
+  ctx.font = `700 ${11 * scale}px ${fontSans}`;
+  ctx.fillStyle = isDark ? '#34d399' : '#065f46';
+  ctx.textAlign = 'center';
+  ctx.fillText('👉 掃碼查看合約範本與案例', qrX + qrSize / 2, qrY + qrSize + 4 * scale);
+  ctx.textAlign = 'left';
+ }
+ 
+ // 輸出為 PNG 下載
+ canvas.toBlob((blob) => {
+  if (!blob) {
+   alert('產生圖片失敗，請重試');
+   return;
+  }
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => {
+   document.body.removeChild(a);
+   URL.revokeObjectURL(url);
+  }, 200);
+ }, 'image/png', 1.0);
+}
+
+/**
+ * 100% 像素級精準 DOM 快照下載引擎 (html2canvas 4x 採樣，與網頁畫面 1:1 完全一致)
+ */
+async function downloadDOMCardImage(cardEl, filename, btnEl) {
+ const isDark = document.body.classList.contains('theme-dark');
+ const originalText = btnEl ? btnEl.textContent : '';
+ if (btnEl) {
+  btnEl.textContent = '⏳ 產生高解析圖...';
+  btnEl.disabled = true;
+ }
+
+ try {
+  if (document.fonts && document.fonts.ready) {
+   await document.fonts.ready;
   }
 
-  const fontSans = '"Plus Jakarta Sans", "Noto Sans TC", -apple-system, sans-serif';
-  const startX = padX;
-  const startY = padY;
-  const contentW = canvas.width - padX * 2;
-  const contentH = canvas.height - padY * 2;
-  
-  if (isFront) {
-    // ==========================================
-    // 正面 (Wind 全端接案架構師)
-    // ==========================================
-    const frontUrl = 'https://rock903400-byte.github.io/wind/';
-    
-    // 頂部：品牌與職稱徽章
-    ctx.font = `800 ${28 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#ffffff' : '#0f172a';
-    ctx.textBaseline = 'top';
-    ctx.fillText('石顧問 Wind', startX, startY);
-    
-    const nameWidth = ctx.measureText('石顧問 Wind').width;
-    const badgeText = '全端接案架構師';
-    ctx.font = `700 ${14 * scale}px ${fontSans}`;
-    const badgeW = ctx.measureText(badgeText).width + 16 * scale;
-    const badgeH = 22 * scale;
-    const badgeX = startX + nameWidth + 12 * scale;
-    const badgeY = startY + 4 * scale;
-    drawRoundedRect(badgeX, badgeY, badgeW, badgeH, 4 * scale, isDark ? '#312e81' : '#1e293b');
-    ctx.fillStyle = isDark ? '#c7d2fe' : '#f8fafc';
-    ctx.fillText(badgeText, badgeX + 8 * scale, badgeY + 4 * scale);
-    
-    // 主標題
-    const line2Y = startY + 36 * scale;
-    ctx.font = `700 ${18 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#93c5fd' : '#1e3a8a';
-    ctx.fillText('跨產業全端接案開發 × 系統架構師', startX, line2Y);
-    
-    // 實績副標
-    const line3Y = line2Y + 22 * scale;
-    ctx.font = `500 ${15 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#94a3b8' : '#475569';
-    ctx.fillText('19 項上線實績 · 橫跨 11+ 個產業', startX, line3Y);
-    
-    // 三大旗艦標籤
-    const tags = ['金融風控系統', '20萬會員 LINE AI', '品牌電商 POS'];
-    let tagX = startX;
-    const tagY = line3Y + 22 * scale;
-    ctx.font = `600 ${13 * scale}px ${fontSans}`;
-    tags.forEach(t => {
-      const tw = ctx.measureText(t).width + 14 * scale;
-      const th = 20 * scale;
-      drawRoundedRect(tagX, tagY, tw, th, 3 * scale, isDark ? '#1e293b' : '#f1f5f9', isDark ? '#334155' : '#cbd5e1');
-      ctx.fillStyle = isDark ? '#cbd5e1' : '#334155';
-      ctx.fillText(t, tagX + 7 * scale, tagY + 3.5 * scale);
-      tagX += tw + 8 * scale;
-    });
-    
-    // 分隔線
-    const sepY = startY + contentH - 85 * scale;
-    ctx.strokeStyle = isDark ? '#1e293b' : '#e2e8f0';
-    ctx.lineWidth = 1 * scale;
-    ctx.beginPath();
-    ctx.moveTo(startX, sepY);
-    ctx.lineTo(startX + contentW, sepY);
-    ctx.stroke();
-    
-    // 底部聯絡資訊 (3行)
-    const c1Y = sepY + 10 * scale;
-    ctx.font = `500 ${14 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#94a3b8' : '#334155';
-    ctx.fillText('💬 LINE / 電話：', startX, c1Y);
-    const w1 = ctx.measureText('💬 LINE / 電話：').width;
-    ctx.font = `700 ${14 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#f8fafc' : '#0f172a';
-    ctx.fillText('0980463400', startX + w1, c1Y);
-    const wPhone = ctx.measureText('0980463400').width;
-    ctx.font = `400 ${12 * scale}px ${fontSans}`;
-    ctx.fillStyle = '#64748b';
-    ctx.fillText(' (免費聊聊)', startX + w1 + wPhone, c1Y + 1 * scale);
-    
-    const c2Y = c1Y + 18 * scale;
-    ctx.font = `500 ${14 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#94a3b8' : '#334155';
-    ctx.fillText('✉️ Email：', startX, c2Y);
-    const w2 = ctx.measureText('✉️ Email：').width;
-    ctx.font = `700 ${14 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#f8fafc' : '#0f172a';
-    ctx.fillText('rock90340@gmail.com', startX + w2, c2Y);
-    
-    const c3Y = c2Y + 18 * scale;
-    ctx.font = `500 ${14 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#94a3b8' : '#334155';
-    ctx.fillText('🏢 統一編號：', startX, c3Y);
-    const w3 = ctx.measureText('🏢 統一編號：').width;
-    ctx.font = `700 ${14 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#f8fafc' : '#0f172a';
-    ctx.fillText('54730503', startX + w3, c3Y);
-    const wTax = ctx.measureText('54730503').width;
-    ctx.font = `400 ${12 * scale}px ${fontSans}`;
-    ctx.fillStyle = '#64748b';
-    ctx.fillText(' | 可開立發票·可簽約', startX + w3 + wTax, c3Y + 1 * scale);
-    
-    // 右側 QR Code (14.5mm)
-    const qrSize = 14.5 * pxPerMm;
-    const qrX = startX + contentW - qrSize;
-    const qrY = sepY + 6 * scale;
-    drawQR(frontUrl, qrX, qrY, qrSize, '#0f172a');
-    
-    // QR Caption
-    ctx.font = `700 ${11 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#93c5fd' : '#1e3a8a';
-    ctx.textAlign = 'center';
-    ctx.fillText('👉 掃碼看 19 項作品', qrX + qrSize / 2, qrY + qrSize + 4 * scale);
-    ctx.textAlign = 'left';
-    
-  } else {
-    // ==========================================
-    // 背面 (飛律 Feilu AI 流程賦能)
-    // ==========================================
-    const backUrl = 'https://rock903400-byte.github.io/wind/ai-enablement.html';
-    
-    // 頂部：品牌與服務徽章
-    ctx.font = `800 ${28 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#34d399' : '#065f46';
-    ctx.textBaseline = 'top';
-    ctx.fillText('飛律 Feilu', startX, startY);
-    
-    const nameWidth = ctx.measureText('飛律 Feilu').width;
-    const badgeText = 'AI 流程賦能';
-    ctx.font = `700 ${14 * scale}px ${fontSans}`;
-    const badgeW = ctx.measureText(badgeText).width + 16 * scale;
-    const badgeH = 22 * scale;
-    const badgeX = startX + nameWidth + 12 * scale;
-    const badgeY = startY + 4 * scale;
-    drawRoundedRect(badgeX, badgeY, badgeW, badgeH, 4 * scale, isDark ? '#064e3b' : '#065f46');
-    ctx.fillStyle = isDark ? '#6ee7b7' : '#ecfdf5';
-    ctx.fillText(badgeText, badgeX + 8 * scale, badgeY + 4 * scale);
-    
-    // 主標題
-    const line2Y = startY + 36 * scale;
-    ctx.font = `700 ${18 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#6ee7b7' : '#047857';
-    ctx.fillText('儲值 NT$ 1,000 交付 2 項自動化模組', startX, line2Y);
-    
-    // USP 承諾
-    const line3Y = line2Y + 22 * scale;
-    ctx.font = `600 ${15 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#fbbf24' : '#b45309';
-    ctx.fillText('🔥 48h 極速交付 · 點數永久有效 · 100% 自主控管', startX, line3Y);
-    
-    // 四宮格交付模組
-    const scopes = [
-      '📋 財務自動勾稽 (Google 試算表管線)',
-      '💬 LINE 智慧秒回 (24h 智能問答)',
-      '📚 規章法規秒查 (手冊 RAG 引述)',
-      '🎯 標案情報監控 (政府採購直送)'
-    ];
-    const gridW = (contentW - 14.5 * pxPerMm - 16 * scale) / 2;
-    const gridH = 19 * scale;
-    const gridStartY = line3Y + 22 * scale;
-    ctx.font = `600 ${12.5 * scale}px ${fontSans}`;
-    
-    scopes.forEach((sc, i) => {
-      const col = i % 2;
-      const row = Math.floor(i / 2);
-      const gx = startX + col * (gridW + 8 * scale);
-      const gy = gridStartY + row * (gridH + 5 * scale);
-      drawRoundedRect(gx, gy, gridW, gridH, 3 * scale, isDark ? '#111827' : '#f8fafc', isDark ? '#1f2937' : '#e2e8f0');
-      ctx.fillStyle = isDark ? '#cbd5e1' : '#334155';
-      ctx.fillText(sc, gx + 6 * scale, gy + 3 * scale);
-    });
-    
-    // 分隔線
-    const sepY = startY + contentH - 85 * scale;
-    ctx.strokeStyle = isDark ? '#1e293b' : '#e2e8f0';
-    ctx.lineWidth = 1 * scale;
-    ctx.beginPath();
-    ctx.moveTo(startX, sepY);
-    ctx.lineTo(startX + contentW, sepY);
-    ctx.stroke();
-    
-    // 底部資訊 (3行)
-    const c1Y = sepY + 10 * scale;
-    ctx.font = `500 ${14 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#94a3b8' : '#334155';
-    ctx.fillText('💬 LINE / 預約：', startX, c1Y);
-    const w1 = ctx.measureText('💬 LINE / 預約：').width;
-    ctx.font = `700 ${14 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#f8fafc' : '#0f172a';
-    ctx.fillText('0980463400', startX + w1, c1Y);
-    
-    const c2Y = c1Y + 18 * scale;
-    ctx.font = `500 ${13.5 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#94a3b8' : '#334155';
-    ctx.fillText('🔒 資安承諾：', startX, c2Y);
-    const w2 = ctx.measureText('🔒 資安承諾：').width;
-    ctx.font = `700 ${13.5 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#f8fafc' : '#0f172a';
-    ctx.fillText('純離線 / 私有帳號直連 · 零中繼資料庫', startX + w2, c2Y);
-    
-    const c3Y = c2Y + 18 * scale;
-    ctx.font = `500 ${14 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#94a3b8' : '#334155';
-    ctx.fillText('🏢 統一編號：', startX, c3Y);
-    const w3 = ctx.measureText('🏢 統一編號：').width;
-    ctx.font = `700 ${14 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#f8fafc' : '#0f172a';
-    ctx.fillText('54730503', startX + w3, c3Y);
-    const wTax = ctx.measureText('54730503').width;
-    ctx.font = `400 ${12 * scale}px ${fontSans}`;
-    ctx.fillStyle = '#64748b';
-    ctx.fillText(' | 可開立統一發票', startX + w3 + wTax, c3Y + 1 * scale);
-    
-    // 右側 QR Code (14.5mm)
-    const qrSize = 14.5 * pxPerMm;
-    const qrX = startX + contentW - qrSize;
-    const qrY = sepY + 6 * scale;
-    drawQR(backUrl, qrX, qrY, qrSize, '#065f46');
-    
-    // QR Caption
-    ctx.font = `700 ${11 * scale}px ${fontSans}`;
-    ctx.fillStyle = isDark ? '#34d399' : '#065f46';
-    ctx.textAlign = 'center';
-    ctx.fillText('👉 掃碼預約 NT$1,000 方案', qrX + qrSize / 2, qrY + qrSize + 4 * scale);
-    ctx.textAlign = 'left';
-  }
-  
-  // 輸出為 PNG 下載
-  canvas.toBlob((blob) => {
-    if (!blob) {
-      alert('產生圖片失敗，請重試');
-      return;
-    }
+  if (typeof html2canvas !== 'undefined') {
+   const canvas = await html2canvas(cardEl, {
+    scale: 4, // 300+ DPI 超高解析度
+    useCORS: true,
+    allowTaint: true,
+    backgroundColor: isDark ? '#090d16' : '#ffffff',
+    logging: false
+   });
+
+   canvas.toBlob((blob) => {
+    if (!blob) throw new Error('圖片轉換失敗');
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -1686,146 +1809,106 @@ function renderAndDownloadCard(type, filename) {
     document.body.appendChild(a);
     a.click();
     setTimeout(() => {
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+     document.body.removeChild(a);
+     URL.revokeObjectURL(url);
     }, 200);
-  }, 'image/png', 1.0);
-}
 
-/**
- * 100% 像素級精準 DOM 快照下載引擎 (html2canvas 4x 採樣，與網頁畫面 1:1 完全一致)
- */
-async function downloadDOMCardImage(cardEl, filename, btnEl) {
-  const isDark = document.body.classList.contains('theme-dark');
-  const originalText = btnEl ? btnEl.textContent : '';
-  if (btnEl) {
-    btnEl.textContent = '⏳ 產生高解析圖...';
-    btnEl.disabled = true;
-  }
-
-  try {
-    if (document.fonts && document.fonts.ready) {
-      await document.fonts.ready;
-    }
-
-    if (typeof html2canvas !== 'undefined') {
-      const canvas = await html2canvas(cardEl, {
-        scale: 4, // 300+ DPI 超高解析度
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: isDark ? '#090d16' : '#ffffff',
-        logging: false
-      });
-
-      canvas.toBlob((blob) => {
-        if (!blob) throw new Error('圖片轉換失敗');
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(() => {
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        }, 200);
-
-        if (btnEl) {
-          btnEl.textContent = '✅ 已完成下載';
-          setTimeout(() => {
-            btnEl.textContent = originalText;
-            btnEl.disabled = false;
-          }, 1800);
-        }
-      }, 'image/png', 1.0);
-    } else {
-      // 離線備援方案
-      const cardType = (cardEl.id === 'cardFront') ? 'front' : 'back';
-      renderAndDownloadCard(cardType, filename);
-      if (btnEl) {
-        btnEl.textContent = originalText;
-        btnEl.disabled = false;
-      }
-    }
-  } catch (err) {
-    console.warn('html2canvas 執行異常，使用備援渲染器:', err);
-    const cardType = (cardEl.id === 'cardFront') ? 'front' : 'back';
-    renderAndDownloadCard(cardType, filename);
     if (btnEl) {
+     btnEl.textContent = '✅ 已完成下載';
+     setTimeout(() => {
       btnEl.textContent = originalText;
       btnEl.disabled = false;
+     }, 1800);
     }
+   }, 'image/png', 1.0);
+  } else {
+   // 離線備援方案
+   const cardType = (cardEl.id === 'cardFront') ? 'front' : 'back';
+   renderAndDownloadCard(cardType, filename);
+   if (btnEl) {
+    btnEl.textContent = originalText;
+    btnEl.disabled = false;
+   }
   }
+ } catch (err) {
+  console.warn('html2canvas 執行異常，使用備援渲染器:', err);
+  const cardType = (cardEl.id === 'cardFront') ? 'front' : 'back';
+  renderAndDownloadCard(cardType, filename);
+  if (btnEl) {
+   btnEl.textContent = originalText;
+   btnEl.disabled = false;
+  }
+ }
 }
 
 // ==========================================================================
 // 頁面互動與控制
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
-  const frontUrl = 'https://rock903400-byte.github.io/wind/';
-  const backUrl = 'https://rock903400-byte.github.io/wind/ai-enablement.html';
+ const frontUrl = 'https://rock903400-byte.github.io/wind/';
+ const backUrl = 'https://rock903400-byte.github.io/wind/ai-enablement.html';
 
+ document.getElementById('qrFrontWrap').innerHTML = QRCodeGen.createSVG(frontUrl, '#0f172a');
+ document.getElementById('qrBackWrap').innerHTML = QRCodeGen.createSVG(backUrl, '#065f46');
+
+ const btnLight = document.getElementById('btnThemeLight');
+ const btnDark = document.getElementById('btnThemeDark');
+
+ btnLight.addEventListener('click', () => {
+  document.body.classList.remove('theme-dark');
+  btnLight.classList.add('active');
+  btnDark.classList.remove('active');
   document.getElementById('qrFrontWrap').innerHTML = QRCodeGen.createSVG(frontUrl, '#0f172a');
   document.getElementById('qrBackWrap').innerHTML = QRCodeGen.createSVG(backUrl, '#065f46');
+ });
 
-  const btnLight = document.getElementById('btnThemeLight');
-  const btnDark = document.getElementById('btnThemeDark');
+ btnDark.addEventListener('click', () => {
+  document.body.classList.add('theme-dark');
+  btnDark.classList.add('active');
+  btnLight.classList.remove('active');
+  document.getElementById('qrFrontWrap').innerHTML = QRCodeGen.createSVG(frontUrl, '#000000');
+  document.getElementById('qrBackWrap').innerHTML = QRCodeGen.createSVG(backUrl, '#000000');
+ });
 
-  btnLight.addEventListener('click', () => {
-    document.body.classList.remove('theme-dark');
-    btnLight.classList.add('active');
-    btnDark.classList.remove('active');
-    document.getElementById('qrFrontWrap').innerHTML = QRCodeGen.createSVG(frontUrl, '#0f172a');
-    document.getElementById('qrBackWrap').innerHTML = QRCodeGen.createSVG(backUrl, '#065f46');
-  });
+ const btnTrim = document.getElementById('btnModeTrim');
+ const btnBleed = document.getElementById('btnModeBleed');
+ const frontLabel = document.getElementById('frontDimLabel');
+ const backLabel = document.getElementById('backDimLabel');
 
-  btnDark.addEventListener('click', () => {
-    document.body.classList.add('theme-dark');
-    btnDark.classList.add('active');
-    btnLight.classList.remove('active');
-    document.getElementById('qrFrontWrap').innerHTML = QRCodeGen.createSVG(frontUrl, '#000000');
-    document.getElementById('qrBackWrap').innerHTML = QRCodeGen.createSVG(backUrl, '#000000');
-  });
+ btnTrim.addEventListener('click', () => {
+  document.body.classList.remove('bleed-active');
+  btnTrim.classList.add('active');
+  btnBleed.classList.remove('active');
+  frontLabel.textContent = '90mm × 54mm (成品尺寸)';
+  backLabel.textContent = '90mm × 54mm (成品尺寸)';
+ });
 
-  const btnTrim = document.getElementById('btnModeTrim');
-  const btnBleed = document.getElementById('btnModeBleed');
-  const frontLabel = document.getElementById('frontDimLabel');
-  const backLabel = document.getElementById('backDimLabel');
+ btnBleed.addEventListener('click', () => {
+  document.body.classList.add('bleed-active');
+  btnBleed.classList.add('active');
+  btnTrim.classList.remove('active');
+  frontLabel.textContent = '92mm × 56mm (含 1mm 出血與裁切線)';
+  backLabel.textContent = '92mm × 56mm (含 1mm 出血與裁切線)';
+ });
 
-  btnTrim.addEventListener('click', () => {
-    document.body.classList.remove('bleed-active');
-    btnTrim.classList.add('active');
-    btnBleed.classList.remove('active');
-    frontLabel.textContent = '90mm × 54mm (成品尺寸)';
-    backLabel.textContent = '90mm × 54mm (成品尺寸)';
-  });
+ document.getElementById('btnPrintPDF').addEventListener('click', () => {
+  window.print();
+ });
 
-  btnBleed.addEventListener('click', () => {
-    document.body.classList.add('bleed-active');
-    btnBleed.classList.add('active');
-    btnTrim.classList.remove('active');
-    frontLabel.textContent = '92mm × 56mm (含 1mm 出血與裁切線)';
-    backLabel.textContent = '92mm × 56mm (含 1mm 出血與裁切線)';
-  });
+ const btnDlFront = document.getElementById('btnDownloadFront');
+ const btnDlBack = document.getElementById('btnDownloadBack');
 
-  document.getElementById('btnPrintPDF').addEventListener('click', () => {
-    window.print();
-  });
+ btnDlFront.addEventListener('click', () => {
+  const isBleed = document.body.classList.contains('bleed-active');
+  const filename = isBleed ? 'Wind_Card_Front_92x56_Bleed.png' : 'Wind_Card_Front_90x54.png';
+  downloadDOMCardImage(document.getElementById('cardFront'), filename, btnDlFront);
+ });
 
-  const btnDlFront = document.getElementById('btnDownloadFront');
-  const btnDlBack = document.getElementById('btnDownloadBack');
-
-  btnDlFront.addEventListener('click', () => {
-    const isBleed = document.body.classList.contains('bleed-active');
-    const filename = isBleed ? 'Wind_Card_Front_92x56_Bleed.png' : 'Wind_Card_Front_90x54.png';
-    downloadDOMCardImage(document.getElementById('cardFront'), filename, btnDlFront);
-  });
-
-  btnDlBack.addEventListener('click', () => {
-    const isBleed = document.body.classList.contains('bleed-active');
-    const filename = isBleed ? 'Feilu_Card_Back_92x56_Bleed.png' : 'Feilu_Card_Back_90x54.png';
-    downloadDOMCardImage(document.getElementById('cardBack'), filename, btnDlBack);
-  });
+ btnDlBack.addEventListener('click', () => {
+  const isBleed = document.body.classList.contains('bleed-active');
+  const filename = isBleed ? 'Feilu_Card_Back_92x56_Bleed.png' : 'Feilu_Card_Back_90x54.png';
+  downloadDOMCardImage(document.getElementById('cardBack'), filename, btnDlBack);
+ });
 });
 </script>
 
