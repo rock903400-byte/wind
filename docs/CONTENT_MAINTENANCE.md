@@ -84,9 +84,7 @@
   Google Fonts URL 的兩個 family 需維持字母序,`Noto Sans TC` 有載 600(多處中文用 `font-weight:600`,少載會變合成假粗體)。
 - JS 內所有捲動一律用 `SCROLL_BEHAVIOR`(IIFE 開頭依 `prefers-reduced-motion` 決定 `auto`/`smooth`),
   **不要寫死 `behavior:'smooth'`**——CSS 的 `html{scroll-behavior:auto}` 蓋不掉 JS 顯式傳入的選項。
-- hero 的綠色導流膠囊是 `.hero-promo-row` / `.hero-promo` / `.hero-promo-dot`(原為 inline style)。
-  `.hero-promo-row` 是 `.hero-inner` 的直接子元素,靠 `.hero-inner>*` 吃到 `rise` 進場,`animation-delay:.47s` 排在 hero p 與 scroll-cue 之間。
-- nav「免費聊聊」、`#contact` 的 LINE 按鈕與 footer LINE 連結皆指向 `https://lin.ee/pMv99Du`;更換 LINE 帳號時要同步改三處。
+- nav「免費聊聊」、`#contact` 的 LINE 按鈕與 footer LINE 連結皆指向 `https://line.me/ti/p/~0980463400` (LINE ID: 0980463400)。
 - 驗證:`python -m http.server` 或 `npx serve` 起 localhost 檢查(直接開 `file://` 部分瀏覽器會擋)。手機版可用 DevTools device toolbar 量 360 / 390px。
 
 ---
@@ -111,21 +109,8 @@
 
 # ai-enablement.html（飛律）維護說明
 
-
-## 品牌命名：Wind 與飛律是刻意的兩層
-
-`Wind`＝個人（作品集主體），`飛律 Feilu`＝服務品牌。**不要合併成一個**，
-但兩頁都必須看得出是同一主體，目前靠三處維持：
-
-1. `ai-enablement.html` 的 `.nav-badge`「Wind 的 AI 流程賦能服務」與 footer 同一句。
-2. `index.html` 服務卡標題「AI 流程賦能儲值制（飛律 Feilu）」。
-3. JSON-LD 用 `@id` 互指：
-   - `index.html` → `Person @id .../#wind`，帶 `makesOffer` 指向服務。
-   - `ai-enablement.html` → `Service @id .../ai-enablement.html#feilu`，帶 `provider` 指回 Person。
-   改任一頁的 `@id` 都要同步另一頁，否則 Google 會判成兩個不相干的實體。
-
-> `Service` 是刻意選的，**不要改回 `ProfessionalService`**——後者是 `LocalBusiness`
-> 子型別，`address` 為必填，會逼你公開實體地址，否則 Rich Results Test 直接報錯。
+## 獨立品牌定位：Wind 與飛律各自獨立
+`Wind`（作品集首頁）與 `飛律 Feilu`（AI 流程賦能銷售頁）各自獨立運作，互不互相跳轉導流，雙方各自聚焦專屬目標客群與業務線。
 
 ## 金融資歷的說法（兩頁必須一致）
 
