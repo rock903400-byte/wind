@@ -3,14 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>石誠風 | AI 流程賦能・輕量儲值制（儲值 1,000 交付 2 項）</title>
+  <title>飛律 | AI 流程賦能・輕量儲值制（儲值 1,000 交付 2 項）</title>
   <meta name="description" content="把繁瑣法規、帳務與行政流程，做成不必盯著也能跑的 AI 外掛。儲值 NT$ 1,000 交付 2 項自動化模組，48h 極速交付、資產 100% 自主。" />
-  <meta property="og:title" content="石誠風 | AI 流程賦能・輕量儲值制" />
-  <meta property="og:description" content="儲值 NT$ 1,000 交付 2 項輕量自動化模組，由懂金融內控與法規的非典型架構師親自交付。" />
+  <meta property="og:title" content="飛律 | AI 流程賦能・輕量儲值制" />
+  <meta property="og:description" content="儲值 NT$ 1,000 交付 2 項輕量自動化模組，由懂金融內控與法規的專業架構團隊交付。" />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Schema.org JSON-LD for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "name": "飛律 AI 流程賦能 (Feilu)",
+        "description": "把繁瑣法規、帳務與行政流程，做成不必盯著也能跑的 AI 外掛。儲值 NT$ 1,000 交付 2 項自動化模組，48h 極速交付、資產 100% 自主。",
+        "url": "https://rock903400-byte.github.io/wind/ai-enablement.html",
+        "priceRange": "NT$ 1,000 - NT$ 5,000",
+        "offers": {
+          "@type": "Offer",
+          "price": "1000",
+          "priceCurrency": "TWD",
+          "name": "AI 流程賦能破冰體驗（交付 2 項模組）",
+          "availability": "https://schema.org/InStock"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "什麼是「1 項標準任務」的範疇？如何判定？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "指可在 48 小時內收斂並交付測試的獨立輕量模組。例如：一組 Google 試算表自動勾稽腳本、一個 LINE 官方帳號查詢指令、一份規章檢索問答助手、一份司法院訴狀產生器、或一組 AHK 桌面填表外掛。若需求涉及多系統串接或跨部門流程，飛律會在提單當下協助你拆解為 2~3 個清晰模組分批提單驗收，每一點都花得清清楚楚。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "2 個額度有使用期限嗎？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "完全沒有期限。你可以現在做完第 1 項，等下個月或有新業務痛點時再提第 2 項，點數永久有效，不需背負每個月繳月費的心理壓力。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "我的帳冊或個資會不會外洩？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "絕不外洩。飛律團隊具備豐富的金融與司法系統建置經驗，提供純前端本機離線運算（Client-side）架構，機敏帳冊與個資可 100% 留在你的電腦瀏覽器中運算，絕不傳送至任何第三方雲端或外部伺服器。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "什麼是 BYOK？API 費用會很貴嗎？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "採 BYOK（Bring Your Own Key）原則，工具直接綁定在你的 Google Workspace 或 LINE 官方帳號中。一般中小企業輕量使用，OpenAI / Claude / Gemini API 的原廠費用每月通常不到 NT$ 50 ~ 100 元，實報實銷且完全自主。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "2 項額度用完後，想繼續委託怎麼辦？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "體驗滿意後，你可以選擇繼續購買「5 點輕量儲值包」（無使用期限、隨提隨做），或是升級為「無限提單的月度訂閱制（NT$ 5,000/月，單一線程持續衝刺）」，隨時根據團隊節奏自由切換，絕無強制續約壓力。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <style>
     :root {
@@ -553,6 +621,294 @@
       display: block;
     }
 
+    /* ---- Before & After Mini Badges on Cards ---- */
+    .card-ba-box {
+      margin-top: 1.1rem;
+      padding-top: 0.9rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.84rem;
+    }
+
+    .ba-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+      line-height: 1.5;
+    }
+
+    .ba-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.12rem 0.45rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .ba-tag.before {
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .ba-tag.after {
+      background: rgba(16, 185, 129, 0.18);
+      color: var(--accent-light);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .card-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.85rem;
+    }
+
+    .metric-pill {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--accent-light);
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 999px;
+      padding: 0.18rem 0.65rem;
+    }
+
+    /* ---- Showcase Window Mockups ---- */
+    .showcase-container {
+      background: #0d141a;
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.6);
+      margin-top: 1.25rem;
+    }
+
+    .showcase-tabs {
+      display: flex;
+      background: rgba(15, 23, 29, 0.95);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      padding: 0.5rem 0.75rem 0 0.75rem;
+      gap: 0.4rem;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      border-bottom: none;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 0.65rem 1.1rem;
+      border-top-left-radius: var(--radius-sm);
+      border-top-right-radius: var(--radius-sm);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tab-btn.active {
+      background: #0d141a;
+      border-color: var(--border-accent);
+      color: var(--accent-light);
+      font-weight: 700;
+    }
+
+    .showcase-panel {
+      display: none;
+      padding: 1.5rem;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .showcase-panel.active {
+      display: block;
+    }
+
+    .mockup-window {
+      background: rgba(8, 12, 15, 0.85);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .mockup-header {
+      background: #121b22;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mockup-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .mockup-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+    }
+
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+
+    .mockup-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+
+    .mockup-body {
+      padding: 1.25rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .mockup-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mockup-col {
+      background: rgba(18, 27, 34, 0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .mockup-col-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .mockup-col.before .mockup-col-title { color: #f87171; }
+    .mockup-col.after .mockup-col-title { color: var(--accent-light); }
+
+    .mockup-content {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 6px;
+      padding: 0.85rem;
+      font-family: monospace;
+      margin-bottom: 0.75rem;
+    }
+
+    .mockup-badge-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* ---- Scope Guard Section ---- */
+    .scope-guard-box {
+      background: linear-gradient(145deg, rgba(18, 27, 34, 0.85) 0%, rgba(13, 20, 26, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .scope-guard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .scope-guard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .scope-rule-card {
+      background: rgba(8, 12, 15, 0.6);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+
+    .scope-rule-card.single {
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-left: 4px solid var(--accent);
+    }
+
+    .scope-rule-card.complex {
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-left: 4px solid #38bdf8;
+    }
+
+    .scope-rule-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .scope-rule-card.single .scope-rule-title { color: var(--accent-light); }
+    .scope-rule-card.complex .scope-rule-title { color: #7dd3fc; }
+
+    .scope-rule-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      font-size: 0.88rem;
+      color: var(--text-sub);
+    }
+
+    .scope-rule-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+      line-height: 1.5;
+    }
+
+    .scope-rule-list li span.bullet {
+      font-weight: 700;
+    }
+
+    .scope-single-thread {
+      margin-top: 1.25rem;
+      padding: 0.9rem 1.2rem;
+      background: rgba(16, 185, 129, 0.06);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
     /* ---- Footer ---- */
     footer {
       margin-top: 6rem;
@@ -656,9 +1012,12 @@
   <nav>
     <div class="nav-container">
       <a href="#" class="nav-logo">
-        石誠風 <span>Shih</span> <span class="nav-badge">AI 流程架構師</span>
+        飛律 <span>Feilu</span> <span class="nav-badge">AI 流程賦能</span>
       </a>
-      <a href="#pricing" class="nav-btn">儲值體驗</a>
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <a href="index.html" style="color: var(--text-muted); font-size: 0.88rem; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">← 回作品集首頁</a>
+        <a href="#pricing" class="nav-btn">儲值體驗</a>
+      </div>
     </div>
   </nav>
 
@@ -696,15 +1055,15 @@
       <div class="bio-strip">
         <div class="bio-tag">TRUSTED EXPERT</div>
         <div class="bio-content">
-          <h4>由懂制度與內控的人親自交付 ｜ 石誠風 Shih Cheng-Feng</h4>
+          <h4>由懂制度與內控的專家親自交付 ｜ 飛律 Feilu</h4>
           <p>
-            儲蓄互助協會地區督導 × 林地經營者 × 一人全端 Agent 開發者。<br>
-            擁有金融內控、採購專業人員與政府法規實務背景。我不只是寫程式的工程師，而是能看懂帳冊借貸、讀透法規條文，並將判斷標準固化成穩定 AI 工作流的系統架構師。
+            深耕金融內控稽核 × 政府採購法規實務 × AI Agent 自動化流程架構。<br>
+            飛律不只是寫程式的工程團隊，而是能看懂帳冊借貸、讀透法規條文，並將判斷標準固化成穩定 AI 工作流的流程賦能專家。
           </p>
           <div class="bio-highlights">
-            <span class="bio-pill">🏦 10+ 年金融合作社內控與稽核</span>
-            <span class="bio-pill">📜 政府電子採購網最低標爬蟲實戰</span>
-            <span class="bio-pill">⚖️ 司法院標準訴狀與法催系統</span>
+            <span class="bio-pill">🏦 10+ 年金融合作社內控與稽核實戰</span>
+            <span class="bio-pill">📜 政府電子採購網最低標爬蟲系統</span>
+            <span class="bio-pill">⚖️ 司法院標準訴狀與法催自動化</span>
             <span class="bio-pill">🔒 100% 離線純本機零個資外洩技術</span>
           </div>
         </div>
@@ -713,7 +1072,7 @@
 
     <!-- Scope of Work (6 大實戰交付領域) -->
     <section>
-      <h2>你可以把哪些工作交給我？</h2>
+      <h2>你可以把哪些工作交給飛律？</h2>
       <p class="sec-desc">儲值 1,000 元獲得 2 個任務額度，任選 2 項需求依序交付：</p>
       
       <div class="grid grid-3">
@@ -722,36 +1081,260 @@
           <div class="icon">📋</div>
           <h3>1. Google 試算表 (GAS) 自動化</h3>
           <p>多表即時交叉勾稽、收支傳票自動整理、零用金報表防呆與每月例行報表一鍵產出。</p>
+          <div class="card-ba-box">
+            <div class="ba-line">
+              <span class="ba-tag before">過去</span>
+              <span>每月人工核對 3 本帳冊 4 小時，眼花易漏。</span>
+            </div>
+            <div class="ba-line">
+              <span class="ba-tag after">現在</span>
+              <span>一鍵跨表即時勾稽，3 秒標記異常並出表。</span>
+            </div>
+          </div>
+          <div class="card-metrics">
+            <span class="metric-pill">⚡ 工時省 98%</span>
+            <span class="metric-pill">🎯 0% 人工抄寫失誤</span>
+          </div>
         </div>
 
         <div class="card">
           <div class="icon">💬</div>
           <h3>2. LINE 官方帳號微型助手</h3>
           <p>串接 LLM 的常見業務問答、試算表資料即時查詢、重要異動自動推播通知。</p>
+          <div class="card-ba-box">
+            <div class="ba-line">
+              <span class="ba-tag before">過去</span>
+              <span>行政重複回答相同規章，頻繁被打斷。</span>
+            </div>
+            <div class="ba-line">
+              <span class="ba-tag after">現在</span>
+              <span>串接 LLM 與試算表，24h 秒回規章與庫存。</span>
+            </div>
+          </div>
+          <div class="card-metrics">
+            <span class="metric-pill">🤖 自動應答 80%+ 雜務</span>
+            <span class="metric-pill">📱 免裝 App 即開即用</span>
+          </div>
         </div>
 
         <div class="card">
           <div class="icon">📚</div>
           <h3>3. 規章手冊與內部知識庫</h3>
           <p>把厚重的 PDF/Word 作業手冊、法規條文與內部規範做成「可以用問的」助手，基層翻找不再迷航。</p>
+          <div class="card-ba-box">
+            <div class="ba-line">
+              <span class="ba-tag before">過去</span>
+              <span>數百頁作業手冊難查，新人老手翻找迷航。</span>
+            </div>
+            <div class="ba-line">
+              <span class="ba-tag after">現在</span>
+              <span>智慧對話精準定位法條，秒回條號與原文頁碼。</span>
+            </div>
+          </div>
+          <div class="card-metrics">
+            <span class="metric-pill">📚 縮短 90% 查核時間</span>
+            <span class="metric-pill">🔍 100% 精準溯源出處</span>
+          </div>
         </div>
 
         <div class="card">
           <div class="icon">🎯</div>
           <h3>4. 政府標案與情報監控雷達</h3>
           <p>每日自動爬取電子採購網或特定市場公開情報，精準篩選標案並自動推播至 LINE/Email。</p>
+          <div class="card-ba-box">
+            <div class="ba-line">
+              <span class="ba-tag before">過去</span>
+              <span>人工每日刷採購網易漏看，錯失截標期。</span>
+            </div>
+            <div class="ba-line">
+              <span class="ba-tag after">現在</span>
+              <span>每日過濾關鍵字，高關聯標案直送 LINE。</span>
+            </div>
+          </div>
+          <div class="card-metrics">
+            <span class="metric-pill">🎯 0 漏標風險</span>
+            <span class="metric-pill">⏰ 提早 48h 取得情報</span>
+          </div>
         </div>
 
         <div class="card">
           <div class="icon">⚖️</div>
           <h3>5. 智慧法務公文與時效鬧鐘</h3>
           <p>支付命令、存證信函與強制執行公文一鍵排版產出，連動行事曆建立消滅時效防呆鬧鐘。</p>
+          <div class="card-ba-box">
+            <div class="ba-line">
+              <span class="ba-tag before">過去</span>
+              <span>訴狀手動排版繁瑣，易錯過消滅時效。</span>
+            </div>
+            <div class="ba-line">
+              <span class="ba-tag after">現在</span>
+              <span>填表秒生司法院標準格式 + 連動行事曆。</span>
+            </div>
+          </div>
+          <div class="card-metrics">
+            <span class="metric-pill">⚖️ 訴狀排版 < 5 秒</span>
+            <span class="metric-pill">🔔 消滅時效 0 遺漏</span>
+          </div>
         </div>
 
         <div class="card">
           <div class="icon">🖥️</div>
           <h3>6. 舊系統無 API 桌面自動填表</h3>
           <p>針對老舊桌面進銷存或行政系統 (Access/FoxPro)，製作一鍵防呆自動貼入外掛 (AHK)。</p>
+          <div class="card-ba-box">
+            <div class="ba-line">
+              <span class="ba-tag before">過去</span>
+              <span>老舊 ERP 系統無 API，需人工重複鍵入。</span>
+            </div>
+            <div class="ba-line">
+              <span class="ba-tag after">現在</span>
+              <span>一鍵 AHK 外掛防呆自動對齊欄位貼入。</span>
+            </div>
+          </div>
+          <div class="card-metrics">
+            <span class="metric-pill">🖥️ 免動老舊系統架構</span>
+            <span class="metric-pill">⚡ 輸入速度提升 10 倍</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Real-world Showcase / Micro-Mockups (Before ➔ After 效益實測) -->
+    <section>
+      <h2>實戰賦能視窗・Before ➔ After 效益實測</h2>
+      <p class="sec-desc">點擊切換查看真實作業場景中的賦能成效與前後對比：</p>
+
+      <div class="showcase-container">
+        <div class="showcase-tabs">
+          <button class="tab-btn active" data-tab="tab-gas">📊 財務多表自動勾稽 (GAS)</button>
+          <button class="tab-btn" data-tab="tab-rag">📚 規章手冊 RAG 智慧問答</button>
+          <button class="tab-btn" data-tab="tab-legal">⚖️ 司法院訴狀與時效鬧鐘</button>
+        </div>
+
+        <!-- Tab 1: GAS -->
+        <div class="showcase-panel active" id="tab-gas">
+          <div class="mockup-window">
+            <div class="mockup-header">
+              <div class="mockup-dots">
+                <span class="mockup-dot dot-red"></span>
+                <span class="mockup-dot dot-yellow"></span>
+                <span class="mockup-dot dot-green"></span>
+              </div>
+              <span class="mockup-title">Google Sheets / Apps Script - 跨表自動勾稽與核銷.gs</span>
+            </div>
+            <div class="mockup-body">
+              <div class="mockup-col before">
+                <div class="mockup-col-title">❌ 傳統手動勾稽模式</div>
+                <div class="mockup-content">
+                  • 開啟 3 份 Excel 帳冊與銀行流水明細<br>
+                  • 人工肉眼核對 420 筆傳票與沖帳金額<br>
+                  • 常因看錯列或少加總導致月底結算對不上<br>
+                  • ⏱️ 人工作業耗時：約 3.5 ~ 4 小時 / 月
+                </div>
+                <div class="mockup-badge-bar">
+                  <span>痛點：繁瑣疲勞、人工眼花漏看</span>
+                  <span style="color: #ef4444; font-weight: 700;">高風險</span>
+                </div>
+              </div>
+              <div class="mockup-col after">
+                <div class="mockup-col-title">✨ 賦能後 1 鍵即時自動化</div>
+                <div class="mockup-content">
+                  ✓ [GAS 自動化腳本] 比對 420 筆流水帳...<br>
+                  ✓ 勾稽成功：418 筆自動對齊核銷標綠<br>
+                  ⚠️ 異常防呆：發現 2 筆金額不符（已亮黃底並加註差異）<br>
+                  ⚡ 執行耗時：2.8 秒完成
+                </div>
+                <div class="mockup-badge-bar">
+                  <span>效益：100% 精準防呆 · 節省 98% 工時</span>
+                  <span style="color: var(--accent-light); font-weight: 700;">即刻交付</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: RAG -->
+        <div class="showcase-panel" id="tab-rag">
+          <div class="mockup-window">
+            <div class="mockup-header">
+              <div class="mockup-dots">
+                <span class="mockup-dot dot-red"></span>
+                <span class="mockup-dot dot-yellow"></span>
+                <span class="mockup-dot dot-green"></span>
+              </div>
+              <span class="mockup-title">LINE Bot / Internal Knowledge Base - 內部規章精準問答</span>
+            </div>
+            <div class="mockup-body">
+              <div class="mockup-col before">
+                <div class="mockup-col-title">❌ 傳統翻找作業手冊</div>
+                <div class="mockup-content">
+                  • 翻找 280 頁 PDF「放款授信業務作業細則」<br>
+                  • Ctrl+F 搜尋「催告」出現 50+ 筆無關條文<br>
+                  • 被迫打電話問資深主管，打斷彼此工作節奏<br>
+                  • ⏱️ 每次查詢耗時：約 15 ~ 25 分鐘
+                </div>
+                <div class="mockup-badge-bar">
+                  <span>痛點：厚重難查、依賴資深前輩經驗</span>
+                  <span style="color: #ef4444; font-weight: 700;">耗時中斷</span>
+                </div>
+              </div>
+              <div class="mockup-col after">
+                <div class="mockup-col-title">✨ 賦能後 LINE 規章秒答助手</div>
+                <div class="mockup-content">
+                  👤 提問：「會員擔保品逾期未補鑑價，催告流程為何？」<br>
+                  🤖 AI：「依據【授信細則第 18 條第 2 項】：應於 14 日內發函催告並補辦鑑價，如逾期未補則扣減放款成數 10%（參見手冊 P.62）」<br>
+                  ⚡ 查詢耗時：1.5 秒秒回
+                </div>
+                <div class="mockup-badge-bar">
+                  <span>效益：100% 精準溯源條號與頁碼 · 零幻覺</span>
+                  <span style="color: var(--accent-light); font-weight: 700;">即刻交付</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Legal -->
+        <div class="showcase-panel" id="tab-legal">
+          <div class="mockup-window">
+            <div class="mockup-header">
+              <div class="mockup-dots">
+                <span class="mockup-dot dot-red"></span>
+                <span class="mockup-dot dot-yellow"></span>
+                <span class="mockup-dot dot-green"></span>
+              </div>
+              <span class="mockup-title">Legal Automation - 司法院標準支付命令與法催鬧鐘</span>
+            </div>
+            <div class="mockup-body">
+              <div class="mockup-col before">
+                <div class="mockup-col-title">❌ 傳統 Word 複製貼上</div>
+                <div class="mockup-content">
+                  • 複製舊案 Word 範本，常漏改債務人姓名或地址<br>
+                  • 違約金與年息 16% 需人工按計算機易算錯<br>
+                  • 票據 3 年 / 借款 15 年消滅時效常忘記登記<br>
+                  • ⏱️ 每件耗時：約 40 ~ 60 分鐘
+                </div>
+                <div class="mockup-badge-bar">
+                  <span>痛點：格式易被駁回、時效錯過無法補救</span>
+                  <span style="color: #ef4444; font-weight: 700;">法律風險</span>
+                </div>
+              </div>
+              <div class="mockup-col after">
+                <div class="mockup-col-title">✨ 賦能後智慧法務公文模組</div>
+                <div class="mockup-content">
+                  ✓ 輸入基本案由與金額，一鍵產出司法院標準聲請狀<br>
+                  ✓ 違約金與法定利息按日自動計算，附完整計算表<br>
+                  ✓ 自動串接 Google 日曆建立消滅時效防呆鬧鐘<br>
+                  ⚡ 產出耗時：5 秒完成
+                </div>
+                <div class="mockup-badge-bar">
+                  <span>效益：司法標準格式 · 消滅時效 0 遺漏</span>
+                  <span style="color: var(--accent-light); font-weight: 700;">即刻交付</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -828,6 +1411,89 @@
       </div>
     </section>
 
+    <!-- Scope Guard & Boundary Policy (任務範疇與提單邊界規範) -->
+    <section>
+      <h2>任務額度範疇與提單邊界規範</h2>
+      <p class="sec-desc">透明界定標準任務範疇，保障極速交付品質與雙方權益：</p>
+
+      <div class="scope-guard-box">
+        <div class="badge" style="margin-bottom: 0.75rem;">公平使用與規格拆解準則</div>
+        <p style="color: var(--text-sub); font-size: 0.95rem; margin-bottom: 1.25rem;">
+          為落實「48 小時極速交付」承諾並維持最高代碼品質，每一點任務額度皆有清晰的規格界定與彈性分拆機制：
+        </p>
+
+        <div class="scope-guard-grid">
+          
+          <div class="scope-rule-card single">
+            <div class="scope-rule-title">
+              <span>🟢 1 項標準任務額度（48h 快速交付）</span>
+            </div>
+            <ul class="scope-rule-list">
+              <li>
+                <span class="bullet">✓</span>
+                <span><strong>單一 Google 試算表 (GAS)</strong> 自動化腳本（如多表勾稽、傳票整理、日/月報生成）</span>
+              </li>
+              <li>
+                <span class="bullet">✓</span>
+                <span><strong>單一 LINE 官方帳號微型問答</strong> 或 Google 試算表即時查詢端點</span>
+              </li>
+              <li>
+                <span class="bullet">✓</span>
+                <span><strong>單一規章/知識庫 RAG 檢索問答</strong> 微模組（支援 PDF/Word/文字規章）</span>
+              </li>
+              <li>
+                <span class="bullet">✓</span>
+                <span><strong>單一網站/政府採購網情報爬蟲</strong> 與每日定時推播腳本</span>
+              </li>
+              <li>
+                <span class="bullet">✓</span>
+                <span><strong>單一套司法院標準訴狀/存證信函</strong> 自動排版產生器</span>
+              </li>
+              <li>
+                <span class="bullet">✓</span>
+                <span><strong>單一老舊桌面進銷存 (Access/FoxPro)</strong> AHK 防呆自動填表外掛</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="scope-rule-card complex">
+            <div class="scope-rule-title">
+              <span>🟡 複合型 / 大型專案（模組化分拆交付）</span>
+            </div>
+            <ul class="scope-rule-list">
+              <li>
+                <span class="bullet">🔹</span>
+                <span>若需求為跨多系統、多部門之大型專案，將<strong>透明拆解為獨立模組分批提單</strong>。</span>
+              </li>
+              <li>
+                <span class="bullet">🔹</span>
+                <span><strong>範例：全套進銷存與 LINE 會員系統</strong><br>
+                可拆為「① 資料庫自動化架構 (1點) + ② LINE 查詢端點 (1點) + ③ 庫存推播與報表 (1點)」，共 3 點依序交付。</span>
+              </li>
+              <li>
+                <span class="bullet">🔹</span>
+                <span><strong>範例：跨平台多 API 雙向大型整合</strong><br>
+                依資料流向拆解為 2~3 個階段交付驗收。</span>
+              </li>
+              <li>
+                <span class="bullet">🔹</span>
+                <span><strong>最大優勢：</strong> 零合約綁定壓力，每完成一項模組驗收才扣 1 點，進度與預算 100% 掌握在手。</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="scope-single-thread">
+          <span style="font-size: 1.25rem;">🛡️</span>
+          <div>
+            <strong>單一線程（Single-Thread）衝刺承諾：</strong>
+            一次專注交付 1 項任務，交付驗收通過扣除 1 點後，再立即啟動下一項任務。確保每一次交付都經過嚴格測試、資安審查與完整防呆。
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Pricing Section -->
     <section id="pricing">
       <div class="pricing-box">
@@ -863,7 +1529,7 @@
           </div>
         </div>
 
-        <a href="mailto:rock90340@gmail.com?subject=預約AI賦能儲值體驗(NT$1,000交付2項)&body=石誠風您好，我想預約NT$1,000儲值體驗（交付2項模組）。%0D%0A%0D%0A我的公司/單位名稱：%0D%0A目前想解決的第1個流程痛點：%0D%0A聯絡人電話/LINE ID：" class="btn-primary" style="font-size: 1.15rem; padding: 1.1rem 2.8rem;">
+        <a href="mailto:rock90340@gmail.com?subject=預約AI賦能儲值體驗(NT$1,000交付2項)&body=飛律團隊您好，我想預約NT$1,000儲值體驗（交付2項模組）。%0D%0A%0D%0A我的公司/單位名稱：%0D%0A目前想解決的第1個流程痛點：%0D%0A聯絡人電話/LINE ID：" class="btn-primary" style="font-size: 1.15rem; padding: 1.1rem 2.8rem;">
           立即預約 2 項額度 ➔
         </a>
 
@@ -882,11 +1548,11 @@
         
         <div class="faq-item open">
           <div class="faq-header">
-            <span>Q1：什麼是「1 項任務」的範疇？</span>
+            <span>Q1：什麼是「1 項標準任務」的範疇？如何判定？</span>
             <span class="faq-icon">+</span>
           </div>
           <div class="faq-body">
-            指可在 48 小時內交付的獨立輕量模組。例如：一組 Google 試算表自動勾稽腳本、一個 LINE 官方帳號查詢指令、一份規章檢索問答助手、或一份法務公文生成器。若為跨部門大型系統，可拆解為多個階段模組分批提單。
+            指可在 48 小時內收斂並交付測試的獨立輕量模組。例如：一組 Google 試算表自動勾稽腳本、一個 LINE 官方帳號查詢指令、一份規章檢索問答助手、一份司法院訴狀產生器、或一組 AHK 桌面填表外掛。若需求涉及多系統串接或跨部門流程，飛律會在提單當下協助你拆解為 2~3 個清晰模組分批提單驗收，每一點都花得清清楚楚。
           </div>
         </div>
 
@@ -906,7 +1572,7 @@
             <span class="faq-icon">+</span>
           </div>
           <div class="faq-body">
-            絕不外洩。我有豐富的金融與司法系統建置經驗，提供<strong>純前端本機離線運算（Client-side）架構</strong>，機敏帳冊與個資可 100% 留在你的電腦瀏覽器中運算，絕不傳送至任何第三方雲端或外部伺服器。
+            絕不外洩。飛律團隊具備豐富的金融與司法系統建置經驗，提供<strong>純前端本機離線運算（Client-side）架構</strong>，機敏帳冊與個資可 100% 留在你的電腦瀏覽器中運算，絕不傳送至任何第三方雲端或外部伺服器。
           </div>
         </div>
 
@@ -926,7 +1592,7 @@
             <span class="faq-icon">+</span>
           </div>
           <div class="faq-body">
-            體驗滿意後，你可以選擇繼續購買 5 點儲值包（無期限彈性使用），或是升級為「無限提單的月度訂閱制（NT$ 5,000/月）」，隨時根據團隊節奏自由調整。
+            體驗滿意後，你可以選擇繼續購買「5 點輕量儲值包」（無使用期限、隨提隨做），或是升級為「無限提單的月度訂閱制（NT$ 5,000/月，單一線程持續衝刺）」，隨時根據團隊節奏自由切換，絕無強制續約壓力。
           </div>
         </div>
 
@@ -936,7 +1602,7 @@
     <!-- Footer -->
     <footer>
       <p style="margin-bottom: 0.75rem;">
-        © 2026 石誠風 Shih Cheng-Feng ｜ 把規則想清楚，把系統建起來，剩下的交給時間。
+        © 2026 飛律 Feilu ｜ 把規則想清楚，把系統建起來，剩下的交給時間。
       </p>
       <p style="font-size: 0.8rem; color: #64748b;">
         <a href="https://github.com/rock903400-byte" target="_blank" rel="noopener">GitHub</a> · 
@@ -985,6 +1651,18 @@
         const y = e.clientY - rect.top;
         card.style.setProperty('--mouse-x', `${x}px`);
         card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    // 4. Tab Switcher for Showcase Mockup Window
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.showcase-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const targetId = btn.getAttribute('data-tab');
+        const targetPanel = document.getElementById(targetId);
+        if (targetPanel) targetPanel.classList.add('active');
       });
     });
   </script>
