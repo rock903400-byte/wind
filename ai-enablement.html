@@ -1411,40 +1411,6 @@
       }
     }
 
-    /* ---- Google Forms 嵌入區 (B1) ---- */
-    .google-form-section { margin-top: 3.5rem; }
-    .google-form-box {
-      background: linear-gradient(180deg, rgba(24, 34, 42, 0.9) 0%, rgba(15, 23, 29, 0.98) 100%);
-      border: 1px solid rgba(16, 185, 129, 0.28);
-      border-radius: 20px;
-      padding: 2.5rem 1.75rem;
-      box-shadow: 0 20px 50px -15px rgba(16, 185, 129, 0.18), 0 0 0 1px rgba(16, 185, 129, 0.12);
-      overflow: hidden; position: relative;
-    }
-    .google-form-box::before {
-      content: ''; position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
-      width: 70%; height: 80%; background: radial-gradient(circle, rgba(16,185,129,0.10) 0%, transparent 70%); pointer-events: none;
-    }
-    .google-form-header { text-align: center; position: relative; z-index: 1; margin-bottom: 1.5rem; }
-    .google-form-header h2 { margin-bottom: 0.4rem; }
-    .google-form-wrap {
-      position: relative; z-index: 1; background: rgba(8,12,15,0.55);
-      border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; min-height: 560px;
-    }
-    .google-form-wrap iframe { display: block; width: 100%; min-height: 560px; border: 0; background: #fff; }
-    .google-form-skeleton {
-      padding: 2rem 1.25rem; text-align: center; color: var(--text-muted); font-size: 0.88rem; line-height: 1.7;
-    }
-    .google-form-skeleton .skeleton-bar {
-      height: 12px; background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 75%);
-      background-size: 200% 100%; animation: skeletonShimmer 1.4s infinite; border-radius: 999px; margin: 0.75rem auto; max-width: 320px;
-    }
-    @keyframes skeletonShimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-    @media (max-width: 640px) {
-      .google-form-box { padding: 1.75rem 1.1rem; }
-      .google-form-wrap iframe { min-height: 640px; }
-    }
-
     /* ---- 尊重「減少動態」系統偏好 ---- */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -1487,7 +1453,7 @@
         <a href="#faq" class="nav-chapter-link">❓ 常見問題</a>
       </div>
       <div style="display: flex; align-items: center; gap: 1rem;">
-        <a href="#lead-form-google" class="nav-btn" data-analytics="cta_nav_google_form">儲值體驗</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScxZUEHsd_8CdnbxDGLQ2c22XGzq0bBTfgJSa6Xt5TXEAUwDA/viewform" target="_blank" rel="noopener" class="nav-btn" data-analytics="cta_nav_google_form_external">儲值體驗</a>
       </div>
     </div>
   </nav>
@@ -1512,7 +1478,7 @@
       </p>
 
       <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; width: 100%;">
-        <a href="#lead-form-google" class="btn-primary" data-analytics="cta_hero_google_form">
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScxZUEHsd_8CdnbxDGLQ2c22XGzq0bBTfgJSa6Xt5TXEAUwDA/viewform" target="_blank" rel="noopener" class="btn-primary" data-analytics="cta_hero_google_form_external">
           儲值 NT$ 1,000 交付 2 項模組 ➔
         </a>
         <div class="hero-trust-pills">
@@ -2111,28 +2077,6 @@
       </div>
     </section>
 
-    <!-- Google Forms 預約備援區塊 (去重簡化) -->
-    <section id="lead-form-google" class="google-form-section">
-      <div class="google-form-box" style="padding: 2rem 1.5rem;">
-        <div class="google-form-header" style="margin-bottom: 1.1rem;">
-          <div class="badge" style="margin-bottom: 0.6rem;">備援聯絡・同樣 24h 內回覆</div>
-          <h2 style="font-size: clamp(1.25rem, 3.5vw, 1.55rem);">不方便填表單？</h2>
-          <p class="sec-desc" style="margin-bottom: 0;">主轉化已在上方 Pricing 直連 Google 表單，此區提供備援聯絡（不重複主鈕）</p>
-        </div>
-        <div style="display: flex; flex-wrap: wrap; gap: 0.85rem; justify-content: center; font-size: 0.9rem; color: var(--text-muted);">
-          <a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" data-analytics="cta_form_alt_line" style="color: var(--accent-light); font-weight:700; text-decoration:none; background: rgba(16,185,129,0.10); border: 1px solid rgba(16,185,129,0.25); padding: 0.55rem 1.1rem; border-radius: 999px;">💬 加 LINE (ID: 0980463400)</a>
-          <a href="mailto:rock90340@gmail.com?subject=預約AI賦能儲值體驗(NT$1,000交付2項)" data-analytics="cta_form_alt_mail" style="color: var(--accent-light); font-weight:700; text-decoration:none; background: rgba(16,185,129,0.10); border: 1px solid rgba(16,185,129,0.25); padding: 0.55rem 1.1rem; border-radius: 999px;">✉️ Email rock90340@gmail.com</a>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLScxZUEHsd_8CdnbxDGLQ2c22XGzq0bBTfgJSa6Xt5TXEAUwDA/viewform" target="_blank" rel="noopener" data-analytics="cta_google_form_external2" style="color: var(--text-sub); font-weight:600; text-decoration: none; border: 1px solid var(--border); padding: 0.55rem 1.1rem; border-radius: 999px; background: rgba(255,255,255,0.04);">↗ 開啟表單獨立頁</a>
-        </div>
-        <div style="text-align: center; margin-top: 1rem;">
-          <a href="privacy.html" style="color: var(--text-muted); font-weight:600; text-decoration: underline; text-underline-offset: 3px; font-size: 0.82rem;">隱私權政策</a>
-          <span style="color: var(--border); margin: 0 0.4rem;">·</span>
-          <a href="https://docs.google.com/spreadsheets/d/1F6SJIz4_QQwy_hRByCCwNfXiTEo6bXcsH95dcf9aUsk/edit" target="_blank" rel="noopener" style="color: var(--text-muted); font-size: 0.82rem;">回應試算表</a>
-        </div>
-        <p class="fine-print" style="text-align: center; margin-top: 0.7rem;">此區為備援，主填寫請點上方「立即預約 2 項額度」直達 Google 表單</p>
-      </div>
-    </section>
-
     <!-- FAQ Section (Interactive Accordion) -->
     <section id="faq">
       <h2>常見問題</h2>
@@ -2238,7 +2182,7 @@
       <span class="mobile-sticky-title">AI 流程賦能儲值體驗</span>
       <span class="mobile-sticky-price">NT$ 1,000 <span>(2 項模組)</span></span>
     </div>
-    <a href="#lead-form-google" class="mobile-sticky-btn" data-analytics="cta_sticky_google_form">立即預約 ➔</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScxZUEHsd_8CdnbxDGLQ2c22XGzq0bBTfgJSa6Xt5TXEAUwDA/viewform" target="_blank" rel="noopener" class="mobile-sticky-btn" data-analytics="cta_sticky_google_form_external">立即預約 ➔</a>
   </div>
 
   <!-- Interactive JavaScript -->
@@ -2547,20 +2491,6 @@
           try { trackEvent('showcase_tab', { tab: btn.getAttribute('data-tab') }); } catch (e) {}
         };
       }
-      // Google Forms 曝光追蹤
-      (function() {
-        var sec = document.getElementById('lead-form-google');
-        if (!sec || !('IntersectionObserver' in window)) return;
-        var fired = false;
-        var io = new IntersectionObserver(function(entries) {
-          if (entries[0].isIntersecting && !fired) {
-            fired = true;
-            trackEvent('google_form_view', {});
-            io.disconnect();
-          }
-        }, { threshold: 0.25 });
-        io.observe(sec);
-      })();
     })();
   </script>
 
