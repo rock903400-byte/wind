@@ -169,6 +169,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 1rem;
     }
 
     .nav-logo {
@@ -180,6 +181,7 @@
       align-items: center;
       gap: 0.5rem;
       letter-spacing: -0.01em;
+      flex-shrink: 0;
     }
 
     .nav-logo span {
@@ -197,6 +199,37 @@
       margin-left: 0.35rem;
     }
 
+    /* ---- Chapter Fast Switcher (頂部章節快速跳轉列) ---- */
+    .nav-chapters {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.84rem;
+    }
+
+    .nav-chapter-link {
+      padding: 0.32rem 0.75rem;
+      border-radius: 999px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .nav-chapter-link:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .nav-chapter-link.active {
+      color: #fff;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.24), rgba(5, 150, 105, 0.24));
+      border-color: rgba(16, 185, 129, 0.48);
+      font-weight: 700;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
+    }
+
     .nav-btn {
       background: var(--accent);
       color: #04130d;
@@ -205,6 +238,7 @@
       padding: 0.45rem 1.1rem;
       border-radius: 999px;
       text-decoration: none;
+      flex-shrink: 0;
       /* 不可用 transition:all —— 會把 outline 一起過渡，焦點框變成 200ms 才浮現 */
       transition: background 0.2s ease, transform 0.2s ease;
     }
@@ -221,7 +255,6 @@
       transition: color 0.2s;
     }
 
-    /* 原本是 inline onmouseover/onmouseout：鍵盤使用者完全沒有提示，CSP 下也會失效 */
     .nav-back:hover,
     .nav-back:focus-visible {
       color: #fff;
@@ -430,22 +463,63 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
-    .card h3 {
-      font-size: 1.18rem;
-      margin-bottom: 0.65rem;
-      color: #fff;
-      font-weight: 700;
+    /* ---- Scenario Filter Switcher (6 大領域情境切換器) ---- */
+    .scope-filter-wrap {
+      margin: 1.4rem 0 2rem 0;
+      display: flex;
+      justify-content: center;
     }
 
-    .card p {
+    .scope-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .scope-filter-btn {
+      appearance: none;
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
       color: var(--text-muted);
-      font-size: 0.92rem;
-      line-height: 1.7;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* ---- Section Spacing ---- */
+    .scope-filter-btn:hover {
+      color: var(--text-main);
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .scope-filter-btn.active {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: rgba(16, 185, 129, 0.55);
+      color: var(--accent-light);
+      font-weight: 700;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
+    }
+
+    .scope-filter-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .card.scope-hidden {
+      display: none;
+    }
+
+    /* ---- Section Spacing & Scroll Margin ---- */
     section {
       margin-top: 4.5rem;
+      scroll-margin-top: 80px;
     }
 
     /* ---- Trust Anchor / Bio Card ---- */
@@ -1184,6 +1258,36 @@
     }
 
     /* ---- Mobile Responsive Rules ---- */
+    @media (max-width: 860px) {
+      .nav-container {
+        flex-wrap: wrap;
+        row-gap: 8px;
+        padding: 8px 16px;
+      }
+      .nav-chapters {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        padding: 4px 4px 6px;
+        -webkit-mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 12px), transparent);
+        mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 12px), transparent);
+      }
+      .nav-chapters::-webkit-scrollbar {
+        display: none;
+      }
+      .nav-chapter-link {
+        font-size: 0.8rem;
+        padding: 0.32rem 0.7rem;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      section {
+        scroll-margin-top: 108px;
+      }
+    }
+
     @media (max-width: 768px) {
       .container {
         padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
@@ -1208,6 +1312,27 @@
       }
       .scroll-hint {
         display: block;
+      }
+      .scope-filter-wrap {
+        justify-content: flex-start;
+        margin: 1rem -1.25rem 1.75rem -1.25rem;
+        padding: 0 1.25rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        -webkit-mask-image: linear-gradient(to right, transparent, black 14px, black calc(100% - 14px), transparent);
+        mask-image: linear-gradient(to right, transparent, black 14px, black calc(100% - 14px), transparent);
+      }
+      .scope-filter-wrap::-webkit-scrollbar {
+        display: none;
+      }
+      .scope-filter-bar {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+      }
+      .scope-filter-btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.85rem;
       }
       .pricing-box {
         padding: 2.2rem 1.25rem;
@@ -1308,6 +1433,13 @@
       <a href="#" class="nav-logo">
         飛律 <span>Feilu</span> <span class="nav-badge">AI 流程賦能</span>
       </a>
+      <div class="nav-chapters" id="navChapters" role="navigation" aria-label="章節快速跳轉">
+        <a href="#scope" class="nav-chapter-link">⚡ 賦能領域</a>
+        <a href="#showcase" class="nav-chapter-link">📊 效益實測</a>
+        <a href="#boundary" class="nav-chapter-link">🛡️ 任務邊界</a>
+        <a href="#pricing" class="nav-chapter-link">💰 儲值方案</a>
+        <a href="#faq" class="nav-chapter-link">❓ 常見問題</a>
+      </div>
       <div style="display: flex; align-items: center; gap: 1rem;">
         <a href="#pricing" class="nav-btn">儲值體驗</a>
       </div>
@@ -1374,13 +1506,26 @@
     </section>
 
     <!-- Scope of Work (6 大實戰交付領域) -->
-    <section>
+    <section id="scope">
       <h2>你可以把哪些工作交給飛律？</h2>
       <p class="sec-desc">儲值 1,000 元獲得 2 個任務額度，任選 2 項需求依序交付：</p>
+
+      <!-- 6 大領域痛點情境切換器 -->
+      <div class="scope-filter-wrap">
+        <div class="scope-filter-bar" role="tablist" aria-label="領域情境篩選">
+          <button type="button" class="scope-filter-btn active" data-cat="all" role="tab" aria-selected="true">全部模組 (6)</button>
+          <button type="button" class="scope-filter-btn" data-cat="fin" role="tab" aria-selected="false">📊 財務會計</button>
+          <button type="button" class="scope-filter-btn" data-cat="line" role="tab" aria-selected="false">💬 客服業務</button>
+          <button type="button" class="scope-filter-btn" data-cat="rag" role="tab" aria-selected="false">📚 規章問答</button>
+          <button type="button" class="scope-filter-btn" data-cat="gov" role="tab" aria-selected="false">🎯 採購標案</button>
+          <button type="button" class="scope-filter-btn" data-cat="legal" role="tab" aria-selected="false">⚖️ 法務公文</button>
+          <button type="button" class="scope-filter-btn" data-cat="legacy" role="tab" aria-selected="false">🖥️ 舊系統填表</button>
+        </div>
+      </div>
       
-      <div class="grid grid-3">
+      <div class="grid grid-3" id="scopeGrid">
         
-        <div class="card">
+        <div class="card" data-cat="fin">
           <div class="icon">📋</div>
           <h3>1. Google Workspace / 試算表自動勾稽</h3>
           <p>跨表即時交叉比對、收支傳票自動清洗、進銷存防呆驗證與例行月報一鍵出圖。</p>
@@ -1400,7 +1545,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-cat="line">
           <div class="icon">💬</div>
           <h3>2. LINE 官方帳號微型助手</h3>
           <p>串接 LLM 的常見業務問答、試算表資料即時查詢、重要異動自動推播通知。</p>
@@ -1420,7 +1565,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-cat="rag">
           <div class="icon">📚</div>
           <h3>3. 規章手冊與內部知識庫</h3>
           <p>把厚重的 PDF/Word 作業手冊、法規條文與內部規範做成「可以用問的」助手，基層翻找不再迷航。</p>
@@ -1440,7 +1585,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-cat="gov">
           <div class="icon">🎯</div>
           <h3>4. 政府標案與情報監控雷達</h3>
           <p>每日自動爬取電子採購網或特定市場公開情報，精準篩選標案並自動推播至 LINE/Email。</p>
@@ -1460,7 +1605,7 @@
           </div>
         </div>
 
-        <div class="card">
+        <div class="card" data-cat="legal">
           <div class="icon">⚖️</div>
           <h3>5. 法務文書排版與時效鬧鐘</h3>
           <p>支付命令、存證信函與強制執行公文一鍵排版產出，連動行事曆建立消滅時效防呆鬧鐘。</p>
@@ -1481,7 +1626,7 @@
           <p class="fine-print">※ 本模組為文書排版自動化工具，不提供法律意見；個案請洽執業律師。</p>
         </div>
 
-        <div class="card">
+        <div class="card" data-cat="legacy">
           <div class="icon">🖥️</div>
           <h3>6. 舊系統無 API 桌面自動填表</h3>
           <p>針對老舊桌面進銷存或行政系統 (Access/FoxPro)，製作一鍵防呆自動貼入外掛 (AHK)。</p>
@@ -1505,7 +1650,7 @@
     </section>
 
     <!-- Real-world Showcase / Micro-Mockups (Before ➔ After 效益實測) -->
-    <section>
+    <section id="showcase">
       <h2>實戰賦能視窗・賦能前後對照</h2>
       <p class="sec-desc">點擊切換查看典型作業場景的前後差異（畫面為情境示意，非特定客戶真實資料）：</p>
 
@@ -1671,7 +1816,7 @@
     </section>
 
     <!-- Comparison Table -->
-    <section>
+    <section id="comparison">
       <h2>為什麼選擇「AI 流程賦能儲值制」？</h2>
       <p class="sec-desc">打破傳統外包高門檻與全職人員固定包袱：</p>
       
@@ -1719,7 +1864,7 @@
     </section>
 
     <!-- Scope Guard & Boundary Policy (任務範疇與提單邊界規範) -->
-    <section>
+    <section id="boundary">
       <h2>任務額度範疇與提單邊界規範</h2>
       <p class="sec-desc">透明界定標準任務範疇，保障極速交付品質與雙方權益：</p>
 
@@ -1915,7 +2060,7 @@
     </section>
 
     <!-- FAQ Section (Interactive Accordion) -->
-    <section>
+    <section id="faq">
       <h2>常見問題</h2>
       <p class="sec-desc">關於儲值、交付與資安的關鍵細節：</p>
       
@@ -2023,8 +2168,7 @@
 
   <!-- Interactive JavaScript -->
   <script>
-    // 1. FAQ 手風琴（.faq-header 是 <button>：Enter/Space 由瀏覽器原生處理，
-    //    這裡只需要把 aria-expanded 跟著 .open 一起翻）
+    // 1. FAQ 手風琴（.faq-header 是 <button>：Enter/Space 由瀏覽器原生處理）
     document.querySelectorAll('.faq-header').forEach(header => {
       header.addEventListener('click', () => {
         const open = header.parentElement.classList.toggle('open');
@@ -2032,8 +2176,7 @@
       });
     });
 
-    // 2. 手機黏底行動列（rAF 節流；另補 resize，否則從手機寬拉回桌機寬時
-    //    要等下一次捲動才會收起來）
+    // 2. 手機黏底行動列（rAF 節流）
     const stickyBar = document.getElementById('mobileStickyBar');
     let stickyTicking = false;
     function updateStickyBar() {
@@ -2067,7 +2210,6 @@
         const on = (b === btn);
         b.classList.toggle('active', on);
         b.setAttribute('aria-selected', on ? 'true' : 'false');
-        // 漫遊 tabindex：整組 tab 在 Tab 鍵序列裡只佔一格，組內改用左右鍵移動
         b.tabIndex = on ? 0 : -1;
       });
       tabPanels.forEach(p => p.classList.remove('active'));
@@ -2087,10 +2229,88 @@
         if (next) { e.preventDefault(); activateTab(next, true); }
       });
     });
-    // HTML 只標了 aria-selected，漫遊 tabindex 在這裡初始化（沒 JS 時全部保持可聚焦）
     tabBtns.forEach(b => { b.tabIndex = b.classList.contains('active') ? 0 : -1; });
 
-    // 5. 一鍵複製 Email 工具
+    // 5. 頂部章節 Scrollspy 快速切換連動與平滑置中
+    const navChapters = document.getElementById('navChapters');
+    const chapterLinks = document.querySelectorAll('.nav-chapter-link');
+    const sectionsToTrack = [
+      document.getElementById('scope'),
+      document.getElementById('showcase'),
+      document.getElementById('boundary'),
+      document.getElementById('pricing'),
+      document.getElementById('faq')
+    ].filter(Boolean);
+
+    let scrollspyTicking = false;
+    function updateScrollspy() {
+      scrollspyTicking = false;
+      const scrollPos = window.scrollY + 140;
+      let currentSectionId = '';
+
+      for (let i = sectionsToTrack.length - 1; i >= 0; i--) {
+        const sec = sectionsToTrack[i];
+        if (sec.offsetTop <= scrollPos) {
+          currentSectionId = sec.getAttribute('id');
+          break;
+        }
+      }
+
+      let activeLink = null;
+      chapterLinks.forEach(link => {
+        const href = link.getAttribute('href').replace('#', '');
+        const isMatch = href === currentSectionId;
+        link.classList.toggle('active', isMatch);
+        if (isMatch) activeLink = link;
+      });
+
+      // 在手機端橫向滑動時自動將選中項平滑置中
+      if (activeLink && navChapters && window.innerWidth <= 860) {
+        const containerWidth = navChapters.offsetWidth;
+        const linkLeft = activeLink.offsetLeft;
+        const linkWidth = activeLink.offsetWidth;
+        navChapters.scrollTo({
+          left: linkLeft - containerWidth / 2 + linkWidth / 2,
+          behavior: 'smooth'
+        });
+      }
+    }
+
+    function onScrollspyEvent() {
+      if (!scrollspyTicking) {
+        scrollspyTicking = true;
+        requestAnimationFrame(updateScrollspy);
+      }
+    }
+    window.addEventListener('scroll', onScrollspyEvent, { passive: true });
+    window.addEventListener('resize', onScrollspyEvent, { passive: true });
+    updateScrollspy();
+
+    // 6. 6 大領域「痛點情境快速過濾切換器」
+    const filterBtns = document.querySelectorAll('.scope-filter-btn');
+    const scopeCards = document.querySelectorAll('#scopeGrid .card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetCat = btn.getAttribute('data-cat');
+        filterBtns.forEach(b => {
+          const isActive = (b === btn);
+          b.classList.toggle('active', isActive);
+          b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        scopeCards.forEach(card => {
+          const cardCat = card.getAttribute('data-cat');
+          if (targetCat === 'all' || cardCat === targetCat) {
+            card.classList.remove('scope-hidden');
+          } else {
+            card.classList.add('scope-hidden');
+          }
+        });
+      });
+    });
+
+    // 7. 一鍵複製 Email 工具
     let toastTimer = null;
     function showToast() {
       const toast = document.getElementById('copyToast');
