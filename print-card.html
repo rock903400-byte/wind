@@ -664,6 +664,29 @@ body {
   }
 }
 
+@media (max-width: 768px) {
+  .toolbar-wrap {
+    padding: 12px 16px;
+  }
+  .toolbar-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .tool-controls {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  .main-preview {
+    margin: 20px auto;
+    padding: 0 14px 40px;
+    gap: 28px;
+  }
+  .preview-grid {
+    gap: 28px;
+  }
+}
+
 /* 提示訊息卡 */
 .info-box {
   max-width: 800px;
@@ -819,7 +842,7 @@ body {
             <div class="back-offer-text">儲值 NT$ 1,000 交付 2 項自動化模組</div>
             <div class="back-usp">🔥 48h 極速交付 · 點數永久有效 · 100% 自主控管</div>
             <div class="scope-grid">
-              <div class="scope-item"><span>📋 <strong>財務自動對帳</strong> (多表交叉勾稽)</span></div>
+              <div class="scope-item"><span>📋 <strong>財務自動勾稽</strong> (Google 試算表管線)</span></div>
               <div class="scope-item"><span>💬 <strong>LINE 智慧秒回</strong> (24h 智能問答)</span></div>
               <div class="scope-item"><span>📚 <strong>規章法規秒查</strong> (手冊 RAG 引述)</span></div>
               <div class="scope-item"><span>🎯 <strong>標案情報監控</strong> (政府採購直送)</span></div>
@@ -1575,7 +1598,7 @@ function renderAndDownloadCard(type, filename) {
     
     // 四宮格交付模組
     const scopes = [
-      '📋 財務自動對帳 (多表交叉勾稽)',
+      '📋 財務自動勾稽 (Google 試算表管線)',
       '💬 LINE 智慧秒回 (24h 智能問答)',
       '📚 規章法規秒查 (手冊 RAG 引述)',
       '🎯 標案情報監控 (政府採購直送)'
