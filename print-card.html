@@ -7,7 +7,7 @@
 <title>Wind × 飛律 — 3D 電子名片與 1:1 實體商務名片送印工具</title>
 <meta name="description" content="Wind 簽約交付｜統編 54730503 × 飛律 Feilu AI 流程賦能 3D 互動電子名片與 1:1 實體標準名片送印檔 (90×54mm / 出血 92×56mm)">
 <meta property="og:type" content="profile">
-<meta property="og:title" content="石顧問 Wind × 飛律 Feilu — 3D 電子名片與 1:1 實體商務名片">
+<meta property="og:title" content="石誠風 Wind × 飛律 Feilu — 3D 電子名片與 1:1 實體商務名片">
 <meta property="og:description" content="19 項已上線實績｜簽約交付｜統編 54730503。可簽約·可開立發票。">
 <meta property="og:url" content="https://rock903400-byte.github.io/wind/print-card.html">
 <meta property="og:image" content="https://rock903400-byte.github.io/wind/assets/og-cover.jpg">
@@ -71,11 +71,13 @@
 
 body {
   font-family: var(--font-base);
-  background-color: var(--bg-screen);
+  background: radial-gradient(circle at 50% 18%, rgba(59, 130, 246, 0.07) 0%, transparent 65%), var(--bg-screen);
   color: var(--text-screen);
   line-height: 1.4;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ==========================================================================
@@ -84,7 +86,7 @@ body {
 .toolbar-wrap {
  background: var(--surface-screen);
  border-bottom: 1px solid var(--border-screen);
- padding: 16px 24px;
+ padding: 14px 24px;
  position: sticky;
  top: 0;
  z-index: 100;
@@ -101,7 +103,7 @@ body {
 }
 
 .brand-header h1 {
- font-size: 1.15rem;
+ font-size: 1.05rem;
  font-weight: 800;
  letter-spacing: -0.01em;
  display: flex;
@@ -193,25 +195,67 @@ body {
 
 .main-preview {
  max-width: 1200px;
- margin: 32px auto;
- padding: 0 20px 60px;
+ margin: 0 auto;
+ padding: 48px 20px 48px;
  display: flex;
  flex-direction: column;
  align-items: center;
- gap: 36px;
+ justify-content: center;
+ flex: 1;
+ width: 100%;
 }
 
 /* ==========================================================================
   視圖模式切換控制
   ========================================================================== */
+.view-mode-ecard .toolbar-wrap {
+ display: none !important;
+}
 .view-mode-ecard #printViewSection {
  display: none !important;
 }
 .view-mode-print #ecardViewSection {
  display: none !important;
 }
-.view-mode-ecard .print-only-control {
+.view-mode-print .ecard-footer {
  display: none !important;
+}
+
+/* 頁尾精緻微標記與隱藏送印入口 */
+.ecard-footer {
+ margin-top: 36px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 12px;
+ text-align: center;
+}
+
+.footer-brand {
+ font-size: 0.82rem;
+ color: #64748b;
+ font-weight: 500;
+ letter-spacing: 0.02em;
+}
+
+.btn-print-toggle {
+ appearance: none;
+ background: transparent;
+ border: 1px solid rgba(255, 255, 255, 0.1);
+ color: #64748b;
+ padding: 6px 16px;
+ border-radius: 99px;
+ font-size: 0.78rem;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.2s ease;
+ font-family: inherit;
+}
+
+.btn-print-toggle:hover {
+ background: rgba(255, 255, 255, 0.06);
+ color: #94a3b8;
+ border-color: rgba(255, 255, 255, 0.22);
 }
 
 /* ==========================================================================
@@ -966,20 +1010,16 @@ body {
 <body class="view-mode-ecard">
 <a href="#mainContainer" class="skip-link">跳至主要內容</a>
 
-<!-- 頂部工具列 -->
+<!-- 頂部送印專用工具列 (展開送印視圖時顯示) -->
 <header class="toolbar-wrap no-print">
  <div class="toolbar-inner">
   <div class="brand-header">
-   <h1>Wind × 飛律 <span>商務電子名片與送印工具</span></h1>
-   <p>3D 擬真電子名片 · 標準台灣名片一模尺寸（90×54mm / 出血 92×56mm）</p>
+   <h1>Wind × 飛律 <span>實體商務名片送印工具</span></h1>
+   <p>標準台灣名片一模尺寸（90×54mm / 出血 92×56mm）</p>
   </div>
   
   <div class="tool-controls">
-   <!-- 模式切換 -->
-   <div class="toggle-group" title="切換名片檢視模式">
-    <button class="toggle-btn active" id="btnViewEcard" type="button">📱 3D 電子名片</button>
-    <button class="toggle-btn" id="btnViewPrint" type="button">🖨️ 送印展開預覽</button>
-   </div>
+   <button class="btn" id="btnBackToEcard" type="button">📱 返回 3D 電子名片</button>
 
    <!-- 主題切換 -->
    <div class="toggle-group" title="切換名片視覺主題">
@@ -987,16 +1027,16 @@ body {
     <button class="toggle-btn" id="btnThemeDark" type="button">曜黑科技版</button>
    </div>
 
-   <!-- 出血切換 (僅送印模式顯示) -->
-   <div class="toggle-group print-only-control" title="切換送印規格">
+   <!-- 出血切換 -->
+   <div class="toggle-group" title="切換送印規格">
     <button class="toggle-btn active" id="btnModeTrim" type="button">成品 90×54mm</button>
     <button class="toggle-btn" id="btnModeBleed" type="button">含出血 92×56mm</button>
    </div>
 
-   <!-- 送印列印與匯出按鈕 (僅送印模式顯示) -->
-   <button class="btn primary print-only-control" id="btnPrintPDF" type="button">🖨️ 另存 1:1 PDF / 列印</button>
-   <button class="btn print-only-control" id="btnDownloadFront" type="button">⬇ 下載正面 (PNG)</button>
-   <button class="btn print-only-control" id="btnDownloadBack" type="button">⬇ 下載背面 (PNG)</button>
+   <!-- 送印列印與匯出按鈕 -->
+   <button class="btn primary" id="btnPrintPDF" type="button">🖨️ 另存 1:1 PDF / 列印</button>
+   <button class="btn" id="btnDownloadFront" type="button">⬇ 下載正面 (PNG)</button>
+   <button class="btn" id="btnDownloadBack" type="button">⬇ 下載背面 (PNG)</button>
   </div>
  </div>
 </header>
@@ -1016,18 +1056,18 @@ body {
     <div class="card-inner card-front">
      <div class="front-top">
       <div class="brand-row">
-       <span class="name-main">石顧問 Wind</span>
-       <span class="name-badge">簽約交付｜統編 54730503</span>
+       <span class="name-main">石誠風 Wind</span>
+       <span class="name-badge">全端系統架構師 · 簽約交付</span>
       </div>
      </div>
      
      <div class="front-headline">
       <div class="headline-text">協助中小企業把營運雜事系統化</div>
-      <div class="sub-proof">19 項已上線實績｜跨 11+ 產業｜10+ 年金融合作社內控底子</div>
+      <div class="sub-proof">19 項已上線實績 · 橫跨 11+ 產業｜10+ 年金融內控底子</div>
       <div class="tags-row">
-       <span class="tag-pill">可簽約·可開立發票</span>
-       <span class="tag-pill">提供保固與原始碼交付</span>
-       <span class="tag-pill">19項案例可驗證</span>
+       <span class="tag-pill">100% 原始碼交付</span>
+       <span class="tag-pill">提供上線保固與維運</span>
+       <span class="tag-pill">合約保障·開立發票</span>
       </div>
      </div>
      
@@ -1042,13 +1082,13 @@ body {
        </div>
        <div class="contact-item">
         <span>🏢 統一編號：<strong>54730503</strong></span>
-        <span class="note">| 可開立發票·可簽約</span>
+        <span class="note">(開立統一發票)</span>
        </div>
       </div>
       
       <div class="qr-box">
        <div class="qr-img-wrap" id="qr3DFrontWrap"></div>
-       <div class="qr-caption">👉 掃碼看 19 項作品</div>
+       <div class="qr-caption">👉 掃碼看 19 項作品集</div>
       </div>
      </div>
     </div>
@@ -1065,33 +1105,33 @@ body {
      </div>
      
      <div class="back-headline">
-      <div class="back-offer-text">企業試用方案｜儲值 NT$1,000 交付 2 項模組（可簽約）</div>
-      <div class="back-usp">48h 交付 · 點數永久有效｜合約保障·發票開立</div>
+      <div class="back-offer-text">企業試用方案｜儲值 NT$1,000 交付 2 項模組</div>
+      <div class="back-usp">48h 極速交付 · 點數永久有效 · 零中繼資安架構</div>
       <div class="scope-grid">
-       <div class="scope-item"><span>📋 <strong>財務對帳自動化</strong> </span></div>
-       <div class="scope-item"><span>💬 <strong>LINE 客服自動回覆</strong> </span></div>
-       <div class="scope-item"><span>📚 <strong>規章/合約秒級檢索</strong> </span></div>
-       <div class="scope-item"><span>🎯 <strong>政府標案自動監控</strong> </span></div>
+       <div class="scope-item"><span>📋 <strong>財務發票自動對帳</strong> </span></div>
+       <div class="scope-item"><span>💬 <strong>LINE 20萬粉級秒回</strong> </span></div>
+       <div class="scope-item"><span>📚 <strong>內部規章/合約秒查</strong> </span></div>
+       <div class="scope-item"><span>🎯 <strong>政府標案情報監控</strong> </span></div>
       </div>
      </div>
      
      <div class="back-bottom">
       <div class="contact-col">
        <div class="contact-item">
-        <span>💬 LINE / 預約：<strong>0980463400</strong></span>
+        <span>💬 LINE / 諮詢：<strong>0980463400</strong></span>
        </div>
        <div class="contact-item">
         <span>🔒 資安承諾：<strong>純離線 / 私有帳號直連 · 零中繼資料庫</strong></span>
        </div>
        <div class="contact-item">
         <span>🏢 統一編號：<strong>54730503</strong></span>
-        <span class="note">| 可開立統一發票</span>
+        <span class="note">(合約保障·開立發票)</span>
        </div>
       </div>
       
       <div class="qr-box">
        <div class="qr-img-wrap" id="qr3DBackWrap"></div>
-       <div class="back-qr-caption">👉 掃碼查看合約範本與案例</div>
+       <div class="back-qr-caption">👉 掃碼查看方案與合約範本</div>
       </div>
      </div>
     </div>
@@ -1116,6 +1156,12 @@ body {
     📤 分享名片
    </button>
   </div>
+
+  <!-- 頁尾微標記與送印工具開關 -->
+  <footer class="ecard-footer no-print">
+   <div class="footer-brand">石誠風 Wind × 飛律 Feilu ｜ 統編 54730503</div>
+   <button type="button" class="btn-print-toggle" id="btnTogglePrintToolbox">🖨️ 實體名片送印與匯出工具</button>
+  </footer>
  </section>
 
  <!-- ==========================================================================
@@ -1131,18 +1177,18 @@ body {
      <span class="dim" id="frontDimLabel">90mm × 54mm (成品尺寸)</span>
     </div>
     
-    <div class="card-outer" id="cardFront" role="img" aria-label="名片正面：石顧問 Wind，簽約交付｜統編 54730503，19項已上線實績">
+    <div class="card-outer" id="cardFront" role="img" aria-label="名片正面：石誠風 Wind，全端系統架構師 · 簽約交付，19項已上線實績">
      <div class="crop-mark crop-tl"></div>
      <div class="crop-mark crop-tr"></div>
      <div class="crop-mark crop-bl"></div>
      <div class="crop-mark crop-br"></div>
      
      <div class="card-inner card-front">
-      <h2 class="sr-only">石顧問 Wind 名片正面 — 全端系統架構師 · 簽約交付</h2>
+      <h2 class="sr-only">石誠風 Wind 名片正面 — 全端系統架構師 · 簽約交付</h2>
       <!-- 頂部品牌 -->
       <div class="front-top">
        <div class="brand-row">
-        <span class="name-main">石顧問 Wind</span>
+        <span class="name-main">石誠風 Wind</span>
         <span class="name-badge">全端系統架構師 · 簽約交付</span>
        </div>
       </div>
@@ -1909,9 +1955,9 @@ function renderAndDownloadCard(type, filename) {
   ctx.font = `800 ${28 * scale}px ${fontSans}`;
   ctx.fillStyle = isDark ? '#ffffff' : '#0f172a';
   ctx.textBaseline = 'top';
-  ctx.fillText('石顧問 Wind', startX, startY);
+  ctx.fillText('石誠風 Wind', startX, startY);
   
-  const nameWidth = ctx.measureText('石顧問 Wind').width;
+  const nameWidth = ctx.measureText('石誠風 Wind').width;
   const badgeText = '全端系統架構師 · 簽約交付';
   ctx.font = `700 ${14 * scale}px ${fontSans}`;
   const badgeW = ctx.measureText(badgeText).width + 16 * scale;
@@ -2310,84 +2356,119 @@ document.addEventListener('DOMContentLoaded', () => {
     btnFlipCard.addEventListener('click', toggleCardFlip);
   }
 
-  // 4. ⚡ 行動快捷列：分享名片與 Toast 提示
+  // 4. ⚡ 行動快捷列：智慧分享名片與全相容剪貼簿引擎
   const toast = document.getElementById('toast');
   function showToast(msg) {
     if (!toast) return;
     toast.textContent = msg;
     toast.classList.add('show');
-    setTimeout(() => {
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => {
       toast.classList.remove('show');
     }, 2500);
   }
 
-  const btnShare = document.getElementById('btnActionShare');
-  if (btnShare) {
-    btnShare.addEventListener('click', async () => {
-      const shareData = {
-        title: '石顧問 Wind × 飛律 Feilu — 3D 電子名片',
-        text: '石顧問 Wind（全端接案架構師 · 19 項上線實績 · 統編 54730503）× 飛律 Feilu（AI 流程賦能）',
-        url: window.location.href
-      };
+  function getShareUrl() {
+    if (window.location.protocol === 'file:') {
+      return 'https://rock903400-byte.github.io/wind/print-card.html';
+    }
+    return window.location.href;
+  }
 
-      if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
-        try {
-          await navigator.share(shareData);
-        } catch (err) {
-          if (err.name !== 'AbortError') {
-            copyShareLink();
-          }
+  function copyToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise((resolve, reject) => {
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.top = '-9999px';
+        textArea.style.left = '-9999px';
+        textArea.style.opacity = '0';
+        textArea.setAttribute('readonly', '');
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        if (successful) {
+          resolve();
+        } else {
+          reject(new Error('execCommand failed'));
         }
-      } else {
-        copyShareLink();
+      } catch (err) {
+        reject(err);
       }
     });
   }
 
-  function copyShareLink() {
-    const url = window.location.href;
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(url).then(() => {
-        showToast('✅ 名片網址已複製至剪貼簿！');
-      }).catch(() => {
-        fallbackCopyText(url);
-      });
-    } else {
-      fallbackCopyText(url);
-    }
-  }
+  const btnShare = document.getElementById('btnActionShare');
+  if (btnShare) {
+    const originalBtnHtml = btnShare.innerHTML;
+    btnShare.addEventListener('click', async () => {
+      const shareUrl = getShareUrl();
+      const shareData = {
+        title: '石誠風 Wind × 飛律 Feilu — 3D 電子名片',
+        text: '石誠風 Wind（全端系統架構師 · 19 項上線實績 · 統編 54730503）× 飛律 Feilu（AI 流程賦能）',
+        url: shareUrl
+      };
 
-  function fallbackCopyText(text) {
-    const input = document.createElement('input');
-    input.value = text;
-    document.body.appendChild(input);
-    input.select();
-    try {
-      document.execCommand('copy');
-      showToast('✅ 名片網址已複製至剪貼簿！');
-    } catch (e) {
-      showToast('請手動複製網址：' + text);
-    }
-    document.body.removeChild(input);
+      // 手機裝置優先調用原生 Web Share
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (isMobile && navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+        try {
+          await navigator.share(shareData);
+          return;
+        } catch (err) {
+          if (err.name === 'AbortError') return;
+        }
+      }
+
+      // 桌機 / 本機 file:/// / 不支援 Web Share 時：一鍵複製並提供即時反饋
+      try {
+        await copyToClipboard(shareUrl);
+        btnShare.innerHTML = '✅ 已複製名片連結！';
+        btnShare.style.background = 'rgba(16, 185, 129, 0.25)';
+        btnShare.style.borderColor = '#10b981';
+        btnShare.style.color = '#6ee7b7';
+        showToast('✅ 名片網址已複製至剪貼簿！');
+      } catch (err) {
+        prompt('請手動複製名片網址：', shareUrl);
+      }
+
+      setTimeout(() => {
+        btnShare.innerHTML = originalBtnHtml;
+        btnShare.style.background = '';
+        btnShare.style.borderColor = '';
+        btnShare.style.color = '';
+      }, 2200);
+    });
   }
 
   // 5. 視圖模式切換（3D 電子名片 vs 送印展開預覽）
-  const btnViewEcard = document.getElementById('btnViewEcard');
-  const btnViewPrint = document.getElementById('btnViewPrint');
+  const btnTogglePrint = document.getElementById('btnTogglePrintToolbox');
+  const btnBackToEcard = document.getElementById('btnBackToEcard');
 
-  btnViewEcard.addEventListener('click', () => {
+  function switchToEcardMode() {
     document.body.classList.remove('view-mode-print');
     document.body.classList.add('view-mode-ecard');
-    btnViewEcard.classList.add('active');
-    btnViewPrint.classList.remove('active');
-  });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-  btnViewPrint.addEventListener('click', () => {
+  function switchToPrintMode() {
     document.body.classList.remove('view-mode-ecard');
     document.body.classList.add('view-mode-print');
-    btnViewPrint.classList.add('active');
-    btnViewEcard.classList.remove('active');
-  });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  if (btnTogglePrint) {
+    btnTogglePrint.addEventListener('click', switchToPrintMode);
+  }
+  if (btnBackToEcard) {
+    btnBackToEcard.addEventListener('click', switchToEcardMode);
+  }
 
   // 6. 主題切換（極簡白底商務版 / 曜黑科技版）
   const btnLight = document.getElementById('btnThemeLight');
