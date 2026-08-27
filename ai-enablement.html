@@ -23,6 +23,8 @@
         "description": "把繁瑣法規、帳務與行政流程，做成不必盯著也能跑的 AI 外掛。儲值 NT$ 1,000 交付 2 項自動化模組，48h 極速交付、資產 100% 自主。",
         "url": "https://rock903400-byte.github.io/wind/ai-enablement.html",
         "priceRange": "NT$ 1,000 - NT$ 5,000",
+        "areaServed": "TW",
+        "email": "rock90340@gmail.com",
         "offers": {
           "@type": "Offer",
           "price": "1000",
@@ -55,7 +57,7 @@
             "name": "我的帳冊或個資會不會外洩？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "絕不外洩。飛律團隊具備豐富的金融與司法系統建置經驗，提供純前端本機離線運算（Client-side）架構，機敏帳冊與個資可 100% 留在你的電腦瀏覽器中運算，絕不傳送至任何第三方雲端或外部伺服器。"
+              "text": "資料流向依模組型態分三種，提單時會先向你說明清楚，不會含糊帶過：① 純離線型（AHK 桌面外掛、純前端試算工具）：全部運算在你的電腦本機完成，資料不經過網路。② Google 生態型（GAS 試算表自動化）：資料留在你自己的 Google Workspace 帳號內，權限由你控管。③ BYOK LLM 型（規章 RAG、LINE 問答）：會將回答所需的必要片段，送往你自己 API 金鑰所對應的服務；LINE 訊息則經 LINE 官方伺服器轉送——這是這類模組的架構本質，我不會假裝它是離線的。三種型態飛律端一律不留存客戶資料副本、不建立中繼資料庫。若你的帳冊或個資完全不能離開本機，提單時直接指定第 ① 種，我會以純離線架構實作。"
             }
           },
           {
@@ -63,7 +65,7 @@
             "name": "什麼是 BYOK？API 費用會很貴嗎？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "採 BYOK（Bring Your Own Key）原則，工具直接綁定在你的 Google Workspace 或 LINE 官方帳號中。一般中小企業輕量使用，OpenAI / Claude / Gemini API 的原廠費用每月通常不到 NT$ 50 ~ 100 元，實報實銷且完全自主。"
+              "text": "採 BYOK（Bring Your Own Key）原則，API 金鑰與帳單都在你自己手上，用多少付多少、隨時可停，不經過我的帳戶。費用完全取決於使用量：以每月數百次輕量問答估算，OpenAI / Claude / Gemini 的原廠費用多在每月數十至數百元之間；若是每日全文檢索、大量文件嵌入或高頻推播，成本會再往上。交付前我會依你的實際用量先算一次預估給你，不會讓帳單超出預期。"
             }
           },
           {
@@ -71,7 +73,15 @@
             "name": "2 項額度用完後，想繼續委託怎麼辦？",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "體驗滿意後，你可以選擇繼續購買「5 點輕量儲值包」（無使用期限、隨提隨做），或是升級為「無限提單的月度訂閱制（NT$ 5,000/月，單一線程持續衝刺）」，隨時根據團隊節奏自由切換，絕無強制續約壓力。"
+              "text": "體驗滿意後有兩條路，依你的需求密度選：① 5 點輕量儲值包 NT$ 3,500（每點 NT$ 700）—— 無使用期限、隨提隨做，適合需求零星出現的團隊。② 月度訂閱制 NT$ 5,000／月 —— 期間內不限提單數，單一線程持續衝刺，適合已經有連續需求、想把一整條流程做完的團隊。兩者可依團隊節奏自由切換，無強制續約、無最低綁約期。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "48 小時怎麼算？做出來不滿意會扣點嗎？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "48 小時自「需求規格確認完成」起算，不包含等待你回覆或提供資料的時間；若同時有多筆提單，依單一線程原則排序，提單當下就會告訴你預計啟動時間。交付後有 7 天驗收期，期間包含 2 輪規格內調整。驗收通過才扣 1 點；若調整後仍未達成當初確認的規格，該點不扣。若評估後確認技術上無法達成（例如目標系統封鎖自動化行為），我會在動工前就告訴你，同樣不扣點。"
             }
           }
         ]
@@ -909,6 +919,35 @@
       line-height: 1.6;
     }
 
+    .scope-rule-card.terms {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-left: 4px solid var(--text-muted);
+    }
+
+    .scope-rule-card.terms .scope-rule-title { color: var(--text-sub); }
+
+    .scope-rule-card.exclude {
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      border-left: 4px solid #ef4444;
+    }
+
+    .scope-rule-card.exclude .scope-rule-title { color: #fca5a5; }
+
+    .fine-print {
+      margin-top: 0.9rem;
+      font-size: 0.76rem;
+      line-height: 1.6;
+      color: #7c8b9a;
+    }
+
+    .mockup-note {
+      margin-top: 0.9rem;
+      font-size: 0.76rem;
+      line-height: 1.6;
+      color: #7c8b9a;
+      text-align: center;
+    }
+
     /* ---- Footer ---- */
     footer {
       margin-top: 6rem;
@@ -1044,27 +1083,32 @@
         <a href="#pricing" class="btn-primary">
           儲值 NT$ 1,000 交付 2 項模組 ➔
         </a>
-        <a href="mailto:rock90340@gmail.com?subject=預約AI賦能諮詢" class="btn-sub">
-          ✉️ 或直接來信討論你的作業痛點 (rock90340@gmail.com)
-        </a>
+        <div style="display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1rem;">
+          <a href="https://lin.ee/pMv99Du" target="_blank" rel="noopener" class="btn-sub" style="margin-top: 0;">
+            💬 用 LINE 直接聊聊你的作業痛點
+          </a>
+          <a href="mailto:rock90340@gmail.com?subject=預約AI賦能諮詢" class="btn-sub" style="margin-top: 0;">
+            ✉️ 或來信 rock90340@gmail.com
+          </a>
+        </div>
       </div>
     </header>
 
     <!-- Trust Anchor / Profile -->
     <section>
       <div class="bio-strip">
-        <div class="bio-tag">TRUSTED EXPERT</div>
+        <div class="bio-tag">FINANCE · LEGAL · AUTOMATION</div>
         <div class="bio-content">
-          <h4>由懂制度與內控的專家親自交付 ｜ 飛律 Feilu</h4>
+          <h4>一人專職交付，從頭到尾都是同一個人 ｜ 飛律 Feilu</h4>
           <p>
             深耕金融內控稽核 × 政府採購法規實務 × AI Agent 自動化流程架構。<br>
-            飛律不只是寫程式的工程團隊，而是能看懂帳冊借貸、讀透法規條文，並將判斷標準固化成穩定 AI 工作流的流程賦能專家。
+            飛律不是外包團隊轉包給你不認識的工程師，而是由我一個人從需求訪談、開發到交付驗收全程負責——這也是「單一線程一次只衝刺一項」的原因：我看得懂帳冊借貸、讀得透法規條文，並把判斷標準固化成穩定的 AI 工作流。
           </p>
           <div class="bio-highlights">
             <span class="bio-pill">🏦 10+ 年金融合作社內控與稽核實戰</span>
             <span class="bio-pill">📜 政府電子採購網最低標爬蟲系統</span>
             <span class="bio-pill">⚖️ 司法院標準訴狀與法催自動化</span>
-            <span class="bio-pill">🔒 100% 離線純本機零個資外洩技術</span>
+            <span class="bio-pill">🔒 離線／BYOK 雙軌資料架構</span>
           </div>
         </div>
       </div>
@@ -1092,8 +1136,8 @@
             </div>
           </div>
           <div class="card-metrics">
-            <span class="metric-pill">⚡ 工時省 98%</span>
-            <span class="metric-pill">🎯 0% 人工抄寫失誤</span>
+            <span class="metric-pill">⚡ 4 小時月結作業縮短至數秒</span>
+            <span class="metric-pill">🎯 消除人工轉錄環節</span>
           </div>
         </div>
 
@@ -1112,7 +1156,7 @@
             </div>
           </div>
           <div class="card-metrics">
-            <span class="metric-pill">🤖 自動應答 80%+ 雜務</span>
+            <span class="metric-pill">🤖 常見規章問答自動應答</span>
             <span class="metric-pill">📱 免裝 App 即開即用</span>
           </div>
         </div>
@@ -1132,8 +1176,8 @@
             </div>
           </div>
           <div class="card-metrics">
-            <span class="metric-pill">📚 縮短 90% 查核時間</span>
-            <span class="metric-pill">🔍 100% 精準溯源出處</span>
+            <span class="metric-pill">📚 數百頁手冊即問即答</span>
+            <span class="metric-pill">🔍 每則回答附條號與頁碼</span>
           </div>
         </div>
 
@@ -1152,14 +1196,14 @@
             </div>
           </div>
           <div class="card-metrics">
-            <span class="metric-pill">🎯 0 漏標風險</span>
-            <span class="metric-pill">⏰ 提早 48h 取得情報</span>
+            <span class="metric-pill">🎯 每日定時掃描不間斷</span>
+            <span class="metric-pill">⏰ 公告當日自動推播</span>
           </div>
         </div>
 
         <div class="card">
           <div class="icon">⚖️</div>
-          <h3>5. 智慧法務公文與時效鬧鐘</h3>
+          <h3>5. 法務文書排版與時效鬧鐘</h3>
           <p>支付命令、存證信函與強制執行公文一鍵排版產出，連動行事曆建立消滅時效防呆鬧鐘。</p>
           <div class="card-ba-box">
             <div class="ba-line">
@@ -1172,9 +1216,10 @@
             </div>
           </div>
           <div class="card-metrics">
-            <span class="metric-pill">⚖️ 訴狀排版 < 5 秒</span>
-            <span class="metric-pill">🔔 消滅時效 0 遺漏</span>
+            <span class="metric-pill">⚖️ 制式文書秒級產出</span>
+            <span class="metric-pill">🔔 時效日自動進行事曆</span>
           </div>
+          <p class="fine-print">※ 本模組為文書排版自動化工具，不提供法律意見；個案請洽執業律師。</p>
         </div>
 
         <div class="card">
@@ -1193,7 +1238,7 @@
           </div>
           <div class="card-metrics">
             <span class="metric-pill">🖥️ 免動老舊系統架構</span>
-            <span class="metric-pill">⚡ 輸入速度提升 10 倍</span>
+            <span class="metric-pill">⚡ 大幅縮短重複鍵入工時</span>
           </div>
         </div>
 
@@ -1202,14 +1247,14 @@
 
     <!-- Real-world Showcase / Micro-Mockups (Before ➔ After 效益實測) -->
     <section>
-      <h2>實戰賦能視窗・Before ➔ After 效益實測</h2>
-      <p class="sec-desc">點擊切換查看真實作業場景中的賦能成效與前後對比：</p>
+      <h2>實戰賦能視窗・賦能前後對照</h2>
+      <p class="sec-desc">點擊切換查看典型作業場景的前後差異（畫面為情境示意，非特定客戶真實資料）：</p>
 
       <div class="showcase-container">
         <div class="showcase-tabs">
           <button class="tab-btn active" data-tab="tab-gas">📊 財務多表自動勾稽 (GAS)</button>
           <button class="tab-btn" data-tab="tab-rag">📚 規章手冊 RAG 智慧問答</button>
-          <button class="tab-btn" data-tab="tab-legal">⚖️ 司法院訴狀與時效鬧鐘</button>
+          <button class="tab-btn" data-tab="tab-legal">⚖️ 法務文書排版與時效鬧鐘</button>
         </div>
 
         <!-- Tab 1: GAS -->
@@ -1246,7 +1291,7 @@
                   ⚡ 執行耗時：2.8 秒完成
                 </div>
                 <div class="mockup-badge-bar">
-                  <span>效益：100% 精準防呆 · 節省 98% 工時</span>
+                  <span>效益：差異自動標記 · 月結工時大幅壓縮</span>
                   <span style="color: var(--accent-light); font-weight: 700;">即刻交付</span>
                 </div>
               </div>
@@ -1269,7 +1314,7 @@
               <div class="mockup-col before">
                 <div class="mockup-col-title">❌ 傳統翻找作業手冊</div>
                 <div class="mockup-content">
-                  • 翻找 280 頁 PDF「放款授信業務作業細則」<br>
+                  • 翻找 280 頁 PDF「授信業務作業細則（示意規章）」<br>
                   • Ctrl+F 搜尋「催告」出現 50+ 筆無關條文<br>
                   • 被迫打電話問資深主管，打斷彼此工作節奏<br>
                   • ⏱️ 每次查詢耗時：約 15 ~ 25 分鐘
@@ -1284,10 +1329,11 @@
                 <div class="mockup-content">
                   👤 提問：「會員擔保品逾期未補鑑價，催告流程為何？」<br>
                   🤖 AI：「依據【授信細則第 18 條第 2 項】：應於 14 日內發函催告並補辦鑑價，如逾期未補則扣減放款成數 10%（參見手冊 P.62）」<br>
+                  ↳ 每則回答一律附條號與頁碼，可直接翻回原文核對<br>
                   ⚡ 查詢耗時：1.5 秒秒回
                 </div>
                 <div class="mockup-badge-bar">
-                  <span>效益：100% 精準溯源條號與頁碼 · 零幻覺</span>
+                  <span>效益：每則回答附條號與頁碼，可回查原文</span>
                   <span style="color: var(--accent-light); font-weight: 700;">即刻交付</span>
                 </div>
               </div>
@@ -1329,15 +1375,17 @@
                   ⚡ 產出耗時：5 秒完成
                 </div>
                 <div class="mockup-badge-bar">
-                  <span>效益：司法標準格式 · 消滅時效 0 遺漏</span>
+                  <span>效益：制式格式套用 · 時效日自動入行事曆</span>
                   <span style="color: var(--accent-light); font-weight: 700;">即刻交付</span>
                 </div>
               </div>
             </div>
           </div>
+          <p class="fine-print" style="text-align: center;">※ 本模組為文書排版自動化工具，不提供法律意見；個案請洽執業律師。</p>
         </div>
 
       </div>
+      <p class="mockup-note">以上三組畫面與數據皆為典型作業場景的情境示意，非任何特定客戶的真實資料；實際成效依你的資料量與流程複雜度而異。</p>
     </section>
 
     <!-- How it works (Pillars) -->
@@ -1353,7 +1401,7 @@
         <div class="card">
           <div class="icon">⚡</div>
           <h3>2. 單一線程 48h 極速交付</h3>
-          <p>一次專注衝刺 1 項任務，標準模組 48 小時內交付測試。驗收通過扣除 1 點，再啟動下一項。</p>
+          <p>一次專注衝刺 1 項任務，自規格確認完成起算 48 小時內交付測試。驗收通過才扣除 1 點，再啟動下一項。</p>
         </div>
         <div class="card">
           <div class="icon">🛡️</div>
@@ -1382,10 +1430,10 @@
             </thead>
             <tbody>
               <tr>
-                <td><strong>費用門檻</strong></td>
-                <td>單案 80,000+ 起跳</td>
-                <td>薪資+勞健保 35,000+/月</td>
-                <td class="highlight-col highlight-text">NT$ 1,000（交付 2 項模組）</td>
+                <td><strong>起步門檻與風險</strong></td>
+                <td>單案 80,000+ 起跳，先簽約先付訂金</td>
+                <td>薪資+勞健保 35,000+/月的長期固定支出</td>
+                <td class="highlight-col highlight-text">NT$ 1,000 起步驗證，驗收通過才扣點</td>
               </tr>
               <tr>
                 <td><strong>溝通與交付</strong></td>
@@ -1447,7 +1495,7 @@
               </li>
               <li>
                 <span class="bullet">✓</span>
-                <span><strong>單一套司法院標準訴狀/存證信函</strong> 自動排版產生器</span>
+                <span><strong>單一套司法院標準訴狀／存證信函</strong> 自動排版產生器（文書排版，不含法律意見）</span>
               </li>
               <li>
                 <span class="bullet">✓</span>
@@ -1491,13 +1539,73 @@
             一次專注交付 1 項任務，交付驗收通過扣除 1 點後，再立即啟動下一項任務。確保每一次交付都經過嚴格測試、資安審查與完整防呆。
           </div>
         </div>
+
+        <div class="scope-guard-grid">
+
+          <div class="scope-rule-card terms">
+            <div class="scope-rule-title">
+              <span>⏱️ 交付、驗收與扣點條款</span>
+            </div>
+            <ul class="scope-rule-list">
+              <li>
+                <span class="bullet">·</span>
+                <span><strong>48 小時起算點：</strong>自「需求規格確認完成」起算，不含等待你回覆或提供資料的時間。</span>
+              </li>
+              <li>
+                <span class="bullet">·</span>
+                <span><strong>排隊規則：</strong>同時有多筆提單時依單一線程原則排序，提單當下就會告訴你預計啟動時間。</span>
+              </li>
+              <li>
+                <span class="bullet">·</span>
+                <span><strong>驗收期：</strong>交付後 7 天驗收期，期間包含 <strong>2 輪規格內調整</strong>。</span>
+              </li>
+              <li>
+                <span class="bullet">·</span>
+                <span><strong>扣點時機：</strong>驗收通過才扣 1 點。若調整後仍未達成當初確認的規格，<strong>該點不扣</strong>。</span>
+              </li>
+              <li>
+                <span class="bullet">·</span>
+                <span><strong>技術不可行：</strong>若評估後確認做不到（例如目標系統封鎖自動化行為），會在動工前告知，不扣點。</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="scope-rule-card exclude">
+            <div class="scope-rule-title">
+              <span>🚫 不承接範圍（誠實說在前面）</span>
+            </div>
+            <ul class="scope-rule-list">
+              <li>
+                <span class="bullet">×</span>
+                <span>金流串接、第三方支付與信用卡收單（涉及金流法遵與 PCI 規範，非輕量模組能承擔）</span>
+              </li>
+              <li>
+                <span class="bullet">×</span>
+                <span>規避他站反爬機制、破解登入或違反服務條款的抓取行為</span>
+              </li>
+              <li>
+                <span class="bullet">×</span>
+                <span>代客撰擬法律文件、代為判斷個案法律關係或代辦司法程序（僅提供排版自動化工具）</span>
+              </li>
+              <li>
+                <span class="bullet">×</span>
+                <span>需通過正式資安稽核、金管會或主管機關認證的正式營運系統</span>
+              </li>
+              <li>
+                <span class="bullet">×</span>
+                <span>需要 7×24 值班待命或簽署 SLA 保證可用率的維運服務</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
       </div>
     </section>
 
     <!-- Pricing Section -->
     <section id="pricing">
       <div class="pricing-box">
-        <div class="badge">新手破冰儲值・點數永久有效</div>
+        <div class="badge">破冰儲值・點數永久有效</div>
         <h2>輕量儲值體驗</h2>
         
         <div class="price-tag">
@@ -1505,6 +1613,11 @@
           <span class="price-number">1,000</span>
           <span class="price-unit">/ 交付 2 項模組</span>
         </div>
+
+        <p style="color: var(--text-sub); font-size: 0.9rem; max-width: 500px; margin: -0.75rem auto 2rem auto; line-height: 1.8;">
+          門檻刻意壓到最低，不是因為工不值錢，而是因為我要的不是這 1,000 元——<br>
+          而是讓你用最小的成本親眼確認交付品質，再決定要不要把更重的流程交給我。
+        </p>
 
         <div class="price-features">
           <div class="price-feature-item">
@@ -1525,7 +1638,7 @@
           </div>
           <div class="price-feature-item">
             <span class="check-icon">✓</span>
-            <span>可開發票、可報帳・正式合作有保障</span>
+            <span>銀行匯款付款・<strong>可開立統一發票（附統編）</strong>，可正式報帳</span>
           </div>
         </div>
 
@@ -1533,8 +1646,11 @@
           立即預約 2 項額度 ➔
         </a>
 
-        <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 1.25rem;">
-          點擊直接開啟 Email 預約，或加寄信至 <code style="color: var(--accent-light);">rock90340@gmail.com</code>
+        <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 1.5rem;">
+          不方便寄信？<a href="https://lin.ee/pMv99Du" target="_blank" rel="noopener" style="color: var(--accent-light); font-weight: 700; text-decoration: none;">💬 用 LINE 直接找我</a>，或寄信至 <a href="mailto:rock90340@gmail.com" style="color: var(--accent-light); text-decoration: none;">rock90340@gmail.com</a>
+        </p>
+        <p class="fine-print" style="text-align: center;">
+          先討論確認需求可行、規格談定後再付款，不需先付訂金。
         </p>
       </div>
     </section>
@@ -1572,7 +1688,11 @@
             <span class="faq-icon">+</span>
           </div>
           <div class="faq-body">
-            絕不外洩。飛律團隊具備豐富的金融與司法系統建置經驗，提供<strong>純前端本機離線運算（Client-side）架構</strong>，機敏帳冊與個資可 100% 留在你的電腦瀏覽器中運算，絕不傳送至任何第三方雲端或外部伺服器。
+資料流向依模組型態分三種，提單時會先向你說明清楚，不會含糊帶過：<br><br>
+            <strong>① 純離線型</strong>（AHK 桌面外掛、純前端試算工具）：全部運算在你的電腦本機完成，資料不經過網路。<br>
+            <strong>② Google 生態型</strong>（GAS 試算表自動化）：資料留在你自己的 Google Workspace 帳號內，權限由你控管。<br>
+            <strong>③ BYOK LLM 型</strong>（規章 RAG、LINE 問答）：會將回答所需的必要片段，送往<strong>你自己 API 金鑰所對應的服務</strong>；LINE 訊息則經 LINE 官方伺服器轉送——這是這類模組的架構本質，我不會假裝它是離線的。<br><br>
+            三種型態<strong>飛律端一律不留存客戶資料副本、不建立中繼資料庫</strong>。若你的帳冊或個資完全不能離開本機，提單時直接指定第 ① 種，我會以純離線架構實作。
           </div>
         </div>
 
@@ -1582,7 +1702,8 @@
             <span class="faq-icon">+</span>
           </div>
           <div class="faq-body">
-            採 BYOK（Bring Your Own Key）原則，工具直接綁定在你的 Google Workspace 或 LINE 官方帳號中。一般中小企業輕量使用，OpenAI / Claude / Gemini API 的原廠費用每月通常<strong>不到 NT$ 50 ~ 100 元</strong>，實報實銷且完全自主。
+採 BYOK（Bring Your Own Key）原則，<strong>API 金鑰與帳單都在你自己手上</strong>，用多少付多少、隨時可停，不經過我的帳戶。<br><br>
+            費用完全取決於使用量：以每月數百次輕量問答估算，OpenAI / Claude / Gemini 的原廠費用多在<strong>每月數十至數百元</strong>之間；若是每日全文檢索、大量文件嵌入或高頻推播，成本會再往上。交付前我會依你的實際用量先算一次預估給你，不會讓帳單超出預期。
           </div>
         </div>
 
@@ -1592,7 +1713,21 @@
             <span class="faq-icon">+</span>
           </div>
           <div class="faq-body">
-            體驗滿意後，你可以選擇繼續購買「5 點輕量儲值包」（無使用期限、隨提隨做），或是升級為「無限提單的月度訂閱制（NT$ 5,000/月，單一線程持續衝刺）」，隨時根據團隊節奏自由切換，絕無強制續約壓力。
+體驗滿意後有兩條路，依你的需求密度選：<br><br>
+            <strong>① 5 點輕量儲值包 NT$ 3,500</strong>（每點 NT$ 700）—— 無使用期限、隨提隨做，適合需求零星出現的團隊。<br>
+            <strong>② 月度訂閱制 NT$ 5,000／月</strong> —— 期間內不限提單數，單一線程持續衝刺，適合已經有連續需求、想把一整條流程做完的團隊。<br><br>
+            兩者可依團隊節奏自由切換，<strong>無強制續約、無最低綁約期</strong>。
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-header">
+            <span>Q6：48 小時怎麼算？做出來不滿意會扣點嗎？</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-body">
+            <strong>48 小時自「需求規格確認完成」起算</strong>，不包含等待你回覆或提供資料的時間；若同時有多筆提單，依單一線程原則排序，提單當下就會告訴你預計啟動時間。<br><br>
+            交付後有 <strong>7 天驗收期，期間包含 2 輪規格內調整</strong>。<strong>驗收通過才扣 1 點</strong>；若調整後仍未達成當初確認的規格，該點不扣。若評估後確認技術上無法達成（例如目標系統封鎖自動化行為），我會在動工前就告訴你，同樣不扣點。
           </div>
         </div>
 
@@ -1604,7 +1739,11 @@
       <p style="margin-bottom: 0.75rem;">
         © 2026 飛律 Feilu ｜ 把規則想清楚，把系統建起來，剩下的交給時間。
       </p>
+      <p style="font-size: 0.78rem; color: #64748b; max-width: 640px; margin: 0 auto 1.25rem auto; line-height: 1.7;">
+        本頁所有前後對照畫面與數據皆為典型作業場景的情境示意，非特定客戶真實資料，實際成效依資料量與流程複雜度而異。法務相關模組僅提供文書排版自動化，不提供法律意見，個案請洽執業律師。
+      </p>
       <p style="font-size: 0.8rem; color: #64748b;">
+        <a href="https://lin.ee/pMv99Du" target="_blank" rel="noopener">LINE</a> · 
         <a href="https://github.com/rock903400-byte" target="_blank" rel="noopener">GitHub</a> · 
         <a href="https://rock903400-byte.github.io/wind/" target="_blank" rel="noopener">作品集首頁</a> · 
         <a href="mailto:rock90340@gmail.com">rock90340@gmail.com</a>
