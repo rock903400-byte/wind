@@ -13,6 +13,9 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="飛律 | AI 流程賦能・輕量儲值制" />
+  <meta name="twitter:description" content="儲值 NT$ 1,000 交付 2 項輕量自動化模組，48h 極速交付、資產 100% 自主。" />
+  <meta name="twitter:image" content="https://rock903400-byte.github.io/wind/assets/og-cover.jpg" />
   <link rel="canonical" href="https://rock903400-byte.github.io/wind/ai-enablement.html" />
   <meta name="theme-color" content="#080c0f" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -587,6 +590,8 @@
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+      scrollbar-width: thin;
     }
 
     .scroll-hint {
@@ -1397,6 +1402,139 @@
       .mockup-body {
         padding: 0.9rem;
       }
+      table {
+        min-width: 520px;
+      }
+      th, td {
+        padding: 0.85rem 0.85rem;
+        font-size: 0.86rem;
+      }
+    }
+
+    /* ---- Lead Form (Tally 嵌入區) ---- */
+    .lead-form-section {
+      margin-top: 3.5rem;
+    }
+    .lead-form-box {
+      background: linear-gradient(180deg, rgba(24, 34, 42, 0.9) 0%, rgba(15, 23, 29, 0.98) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.28);
+      border-radius: 20px;
+      padding: 2.5rem 1.75rem;
+      box-shadow: 0 20px 50px -15px rgba(16, 185, 129, 0.18), 0 0 0 1px rgba(16, 185, 129, 0.12);
+      overflow: hidden;
+      position: relative;
+    }
+    .lead-form-box::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70%;
+      height: 80%;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .lead-form-header {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1.5rem;
+    }
+    .lead-form-header h2 {
+      margin-bottom: 0.4rem;
+    }
+    .lead-form-header .sec-desc {
+      margin-bottom: 0;
+    }
+    .lead-form-alts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1.25rem;
+      position: relative;
+      z-index: 1;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .lead-form-alts a {
+      color: var(--accent-light);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .lead-form-alts a:hover { text-decoration: underline; }
+    .lead-form-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 1.5rem 0 0.75rem 0;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      position: relative;
+      z-index: 1;
+    }
+    .lead-form-divider::before,
+    .lead-form-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .tally-embed-wrap {
+      position: relative;
+      z-index: 1;
+      background: rgba(8, 12, 15, 0.55);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      min-height: 420px;
+    }
+    .tally-embed-wrap iframe {
+      display: block;
+      width: 100%;
+      min-height: 520px;
+      border: 0;
+      background: transparent;
+    }
+    .tally-fallback {
+      padding: 1.25rem;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      border-top: 1px solid var(--border);
+      background: rgba(8, 12, 15, 0.7);
+    }
+    .tally-fallback a {
+      color: var(--accent-light);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .tally-skeleton {
+      padding: 2rem 1.25rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      line-height: 1.7;
+    }
+    .tally-skeleton .skeleton-bar {
+      height: 12px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 75%);
+      background-size: 200% 100%;
+      animation: skeletonShimmer 1.4s infinite;
+      border-radius: 999px;
+      margin: 0.75rem auto;
+      max-width: 320px;
+    }
+    @keyframes skeletonShimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    @media (max-width: 640px) {
+      .lead-form-box { padding: 1.75rem 1.1rem; }
+      .tally-embed-wrap iframe { min-height: 620px; }
     }
 
     /* ---- 尊重「減少動態」系統偏好 ---- */
@@ -1441,7 +1579,7 @@
         <a href="#faq" class="nav-chapter-link">❓ 常見問題</a>
       </div>
       <div style="display: flex; align-items: center; gap: 1rem;">
-        <a href="#pricing" class="nav-btn">儲值體驗</a>
+        <a href="#lead-form" class="nav-btn" data-analytics="cta_nav_lead_form">儲值體驗</a>
       </div>
     </div>
   </nav>
@@ -1466,7 +1604,7 @@
       </p>
 
       <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; width: 100%;">
-        <a href="#pricing" class="btn-primary">
+        <a href="#lead-form" class="btn-primary" data-analytics="cta_hero_lead_form">
           儲值 NT$ 1,000 交付 2 項模組 ➔
         </a>
         <div class="hero-trust-pills">
@@ -1475,10 +1613,10 @@
           <span class="trust-pill">🎯 驗收通過才扣點</span>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 0.75rem;">
-          <a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" class="btn-sub" style="margin-top: 0;">
+          <a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" class="btn-sub" style="margin-top: 0;" data-analytics="cta_hero_line">
             💬 加 LINE 傳截圖或講痛點，直接聊聊（ID: 0980463400）
           </a>
-          <a href="mailto:rock90340@gmail.com?subject=預約AI賦能諮詢" class="btn-sub" style="margin-top: 0;">
+          <a href="mailto:rock90340@gmail.com?subject=預約AI賦能諮詢" class="btn-sub" style="margin-top: 0;" data-analytics="cta_hero_mail">
             ✉️ 或來信 rock90340@gmail.com
           </a>
         </div>
@@ -2046,15 +2184,115 @@
           </div>
         </div>
 
-        <a href="mailto:rock90340@gmail.com?subject=預約AI賦能儲值體驗(NT$1,000交付2項)&body=飛律團隊您好，我想預約NT$1,000儲值體驗（交付2項模組）。%0D%0A%0D%0A我的公司/單位名稱：%0D%0A目前想解決的第1個流程痛點：%0D%0A聯絡人電話/LINE ID：" class="btn-primary" style="font-size: 1.15rem; padding: 1.1rem 2.8rem;">
-          立即預約 2 項額度 ➔
-        </a>
+        <!-- 主 CTA 改為表單錨點 (轉化可追蹤)，mailto 降為次選 -->
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 0.9rem;">
+          <a href="#lead-form" class="btn-primary" style="font-size: 1.15rem; padding: 1.1rem 2.8rem;" data-analytics="cta_pricing_lead_form">
+            立即預約 2 項額度 ➔
+          </a>
+          <a href="mailto:rock90340@gmail.com?subject=預約AI賦能儲值體驗(NT$1,000交付2項)&body=飛律團隊您好，我想預約NT$1,000儲值體驗（交付2項模組）。%0D%0A%0D%0A我的公司/單位名稱：%0D%0A目前想解決的第1個流程痛點：%0D%0A聯絡人電話/LINE ID：" style="color: var(--text-muted); font-size: 0.88rem; text-decoration: none; border-bottom: 1px dashed rgba(148,163,184,0.5); padding-bottom: 2px;" data-analytics="cta_pricing_mail">
+            或直接用 Email 寄送需求 →
+          </a>
+        </div>
 
         <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 1.5rem;">
-          不方便寄信？<a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" style="color: var(--accent-light); font-weight: 700; text-decoration: none;">💬 加 LINE 直接找我 (ID: 0980463400)</a>，或寄信至 <a href="mailto:rock90340@gmail.com" style="color: var(--accent-light); text-decoration: none;">rock90340@gmail.com</a><button type="button" class="copy-email-btn" onclick="copyEmail(this)" aria-label="複製電子郵件地址">📋 複製 Email</button>
+          不方便填表單？<a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" style="color: var(--accent-light); font-weight: 700; text-decoration: none;" data-analytics="cta_pricing_line">💬 加 LINE 直接找我 (ID: 0980463400)</a>，或寄信至 <a href="mailto:rock90340@gmail.com" style="color: var(--accent-light); text-decoration: none;" data-analytics="cta_pricing_mail2">rock90340@gmail.com</a><button type="button" class="copy-email-btn" onclick="copyEmail(this)" aria-label="複製電子郵件地址" data-analytics="cta_copy_email">📋 複製 Email</button>
         </p>
         <p class="fine-print" style="text-align: center;">
-          先討論確認需求可行、規格談定後再付款，不需先付訂金。
+          先討論確認需求可行、規格談定後再付款，不需先付訂金。表單送出後 24h 內回覆。<br>
+          <a href="privacy.html" style="color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px;">隱私權政策</a> · 資料僅用於聯絡與交付，不作其他用途。
+        </p>
+      </div>
+    </section>
+
+    <!-- Lead Form Section (Tally 嵌入 - 主轉化) -->
+    <section id="lead-form" class="lead-form-section">
+      <div class="lead-form-box">
+        <div class="lead-form-header">
+          <div class="badge" style="margin-bottom: 0.75rem;">30 秒快速預約・24h 內回覆</div>
+          <h2>預約 NT$ 1,000 / 2 項模組</h2>
+          <p class="sec-desc" style="margin-bottom: 0;">填寫後自動同步至專屬追蹤表單，同步寄送 Email 通知，免擔心漏信</p>
+        </div>
+
+        <div class="tally-embed-wrap" id="tallyWrap">
+          <!-- Tally ID: MepPXg 已設定完成
+               若需更換：在此與下方 2 處 https://tally.so/r/MepPXg 一併替換
+               已預設隱藏標題與透明背景以融合深色主題，若需淺色請移除 transparentBackground=1 -->
+          <iframe
+            id="tallyFrame"
+            data-tally-src="https://tally.so/embed/MepPXg?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+            loading="lazy"
+            width="100%"
+            height="520"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="飛律 AI 流程賦能預約表單"
+            allow="clipboard-write"
+          ></iframe>
+          <div class="tally-skeleton" id="tallySkeleton">
+            <div>表單載入中…</div>
+            <div class="skeleton-bar" style="width: 85%"></div>
+            <div class="skeleton-bar" style="width: 65%"></div>
+            <div class="skeleton-bar" style="width: 75%"></div>
+            <div style="margin-top: 1rem; font-size: 0.8rem; color: #7c8b9a;">若 3 秒後仍未顯示，<a href="https://tally.so/r/MepPXg" target="_blank" rel="noopener" style="color: var(--accent-light); font-weight: 700;">點此開啟獨立表單頁 →</a></div>
+          </div>
+          <noscript>
+            <div class="tally-fallback">
+              你的瀏覽器已停用 JavaScript，請 <a href="https://tally.so/r/MepPXg" target="_blank" rel="noopener">點此開啟獨立表單頁</a> 或改用 <a href="mailto:rock90340@gmail.com?subject=預約AI賦能儲值體驗(NT$1,000交付2項)">Email 寄送</a>／<a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener">LINE</a> 聯絡。
+            </div>
+          </noscript>
+        </div>
+        <script>
+          // Tally iframe 延遲載入：避免首屏阻塞，IntersectionObserver 觸發後才賦值 src
+          (function() {
+            var wrap = document.getElementById('tallyWrap');
+            var frame = document.getElementById('tallyFrame');
+            var skeleton = document.getElementById('tallySkeleton');
+            if (!wrap || !frame) return;
+            var loaded = false;
+            function load() {
+              if (loaded) return;
+              loaded = true;
+              var src = frame.getAttribute('data-tally-src');
+              // 已設定真實 ID (MepPXg)，直接載入；若日後改回佔位則不發請求
+              if (src && src.indexOf('MepPXg') !== -1) {
+                frame.src = src;
+                frame.addEventListener('load', function() { if (skeleton) skeleton.style.display = 'none'; });
+              } else {
+                if (skeleton) {
+                  skeleton.innerHTML = '表單載入失敗，請 <a href="https://tally.so/r/MepPXg" target="_blank" rel="noopener" style="color: var(--accent-light); font-weight:700;">點此開啟獨立表單頁 →</a><br>或改用 <a href="mailto:rock90340@gmail.com?subject=預約AI賦能儲值體驗" style="color: var(--accent-light);">Email</a>／<a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" style="color: var(--accent-light);">LINE</a> 聯絡。';
+                }
+                frame.style.display = 'none';
+              }
+            }
+            if ('IntersectionObserver' in window) {
+              var io = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting) { load(); io.disconnect(); }
+              }, { rootMargin: '320px' });
+              io.observe(wrap);
+            } else {
+              // 無 IO 的舊瀏覽器：延遲 1.2s 後載入
+              setTimeout(load, 1200);
+            }
+            // 3 秒後若仍在 placeholder， skeleton 會引導至獨立頁，不卡住
+            setTimeout(function() { if (!loaded && skeleton) skeleton.style.opacity = '1'; }, 3000);
+            // 接收 Tally 動態高度 (Tally embed 會 postMessage 高度)
+            window.addEventListener('message', function(e) {
+              if (!e.data || typeof e.data !== 'string') return;
+              if (e.data.indexOf('Tally.FormLoaded') !== -1 && skeleton) skeleton.style.display = 'none';
+            });
+          })();
+        </script>
+        <div class="lead-form-divider">或</div>
+        <div class="lead-form-alts">
+          <a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" data-analytics="cta_form_alt_line">💬 加 LINE (ID: 0980463400)</a>
+          <span style="color: var(--border);">·</span>
+          <a href="mailto:rock90340@gmail.com?subject=預約AI賦能儲值體驗(NT$1,000交付2項)" data-analytics="cta_form_alt_mail">✉️ Email rock90340@gmail.com</a>
+          <span style="color: var(--border);">·</span>
+          <a href="privacy.html" style="color: var(--text-muted); font-weight: 600;">隱私權政策</a>
+        </div>
+        <p class="fine-print" style="text-align: center; margin-top: 0.85rem;">
+          送出即表示同意僅為本次諮詢與交付目的處理你的聯絡資訊。 Tally 欄位已同步至 Google Sheets，可隨時要求刪除。
         </p>
       </div>
     </section>
@@ -2149,21 +2387,22 @@
         本頁所有前後對照畫面與數據皆為典型作業場景的情境示意，非特定客戶真實資料，實際成效依資料量與流程複雜度而異。法務相關模組僅提供文書排版自動化，不提供法律意見，個案請洽執業律師。
       </p>
       <p style="font-size: 0.8rem; color: var(--text-muted);">
-        <a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener">LINE (ID: 0980463400)</a> · 
+        <a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" data-analytics="cta_footer_line">LINE (ID: 0980463400)</a> · 
         <a href="https://github.com/rock903400-byte" target="_blank" rel="noopener">GitHub</a> · 
-        <a href="mailto:rock90340@gmail.com">rock90340@gmail.com</a>
+        <a href="mailto:rock90340@gmail.com" data-analytics="cta_footer_mail">rock90340@gmail.com</a> · 
+        <a href="privacy.html" style="text-decoration: underline; text-underline-offset: 3px;">隱私權政策</a>
       </p>
     </footer>
 
   </div>
 
-  <!-- Mobile Sticky Bottom Action Bar -->
+  <!-- Mobile Sticky Bottom Action Bar (主轉化導向表單) -->
   <div class="mobile-sticky-bar" id="mobileStickyBar">
     <div class="mobile-sticky-info">
       <span class="mobile-sticky-title">AI 流程賦能儲值體驗</span>
       <span class="mobile-sticky-price">NT$ 1,000 <span>(2 項模組)</span></span>
     </div>
-    <a href="#pricing" class="mobile-sticky-btn">立即預約 ➔</a>
+    <a href="#lead-form" class="mobile-sticky-btn" data-analytics="cta_sticky_lead_form">立即預約 ➔</a>
   </div>
 
   <!-- Interactive JavaScript -->
@@ -2189,17 +2428,26 @@
     window.addEventListener('scroll', onStickyEvent, { passive: true });
     window.addEventListener('resize', onStickyEvent, { passive: true });
 
-    // 3. Spotlight Mouse Tracking on Cards (Desktop)
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
+    // 3. Spotlight Mouse Tracking on Cards (Desktop only, rAF throttled)
+    // 觸控裝置 (hover:none) 不綁 mousemove，節省主執行緒
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        let rafId = 0;
+        let pendingX = 0, pendingY = 0;
+        function flush() {
+          rafId = 0;
+          card.style.setProperty('--mouse-x', pendingX + 'px');
+          card.style.setProperty('--mouse-y', pendingY + 'px');
+        }
+        card.addEventListener('pointermove', (e) => {
+          const rect = card.getBoundingClientRect();
+          pendingX = e.clientX - rect.left;
+          pendingY = e.clientY - rect.top;
+          if (!rafId) rafId = requestAnimationFrame(flush);
+        }, { passive: true });
       });
-    });
+    }
 
     // 4. Showcase 分頁（role=tablist）
     const tabBtns = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
@@ -2321,6 +2569,8 @@
           toast.classList.remove('show');
         }, 2200);
       }
+      // 供分析追蹤
+      try { trackEvent('copy_email', { location: 'pricing' }); } catch (e) {}
     }
     function fallbackCopy(text) {
       const ta = document.createElement('textarea');
@@ -2344,6 +2594,160 @@
         fallbackCopy(email);
       }
     };
+
+    // 8. UTM 承接 (query → sessionStorage → localStorage 備援) + 表單隱藏欄位注入
+    (function() {
+      const UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+      const STORAGE_KEY = 'feilu_utm';
+      function parseQuery() {
+        const params = new URLSearchParams(window.location.search);
+        const out = {};
+        let has = false;
+        UTM_KEYS.forEach(k => {
+          const v = params.get(k);
+          if (v) { out[k] = v; has = true; }
+        });
+        // 記錄來源頁與時間
+        if (has) {
+          out._landing = window.location.pathname;
+          out._ts = Date.now();
+          try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(out)); localStorage.setItem(STORAGE_KEY, JSON.stringify(out)); } catch (e) {}
+        }
+        return out;
+      }
+      function getStored() {
+        try {
+          const s = sessionStorage.getItem(STORAGE_KEY) || localStorage.getItem(STORAGE_KEY);
+          return s ? JSON.parse(s) : {};
+        } catch (e) { return {}; }
+      }
+      const current = parseQuery();
+      const stored = getStored();
+      const utm = Object.keys(current).length ? current : stored;
+      // 暴露給其他腳本與除錯
+      window.__FEILU_UTM = utm;
+
+      // 將 UTM 塞進所有 mailto 連結的 body 尾端 (不破壞原有 body)
+      function appendUtmToMailto() {
+        if (!utm.utm_source && !utm.utm_medium && !utm.utm_campaign) return;
+        const utmStr = UTM_KEYS.filter(k => utm[k]).map(k => k + '=' + utm[k]).join('&');
+        if (!utmStr) return;
+        document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
+          const href = a.getAttribute('href');
+          if (href.indexOf('utm_') !== -1) return; // 已附加
+          const sep = href.indexOf('?') !== -1 ? (href.indexOf('body=') !== -1 ? '%0D%0A%0D%0A[來源:' + encodeURIComponent(utmStr) + ']' : '&body=' + encodeURIComponent('[來源:' + utmStr + ']')) : '?body=' + encodeURIComponent('[來源:' + utmStr + ']');
+          // 若已有 body，追加；否則新增 body
+          if (href.indexOf('body=') !== -1) {
+            a.setAttribute('href', href + encodeURIComponent('\n\n[來源:' + utmStr + ']'));
+          }
+        });
+      }
+      appendUtmToMailto();
+
+      // Tally 會透過 URL 參數自動帶入 hidden fields：若 Tally 欄位命名為 utm_source 等，iframe src 追加參數
+      function appendUtmToTally() {
+        const frame = document.getElementById('tallyFrame');
+        if (!frame) return;
+        const src = frame.getAttribute('data-tally-src');
+        if (!src || src.indexOf('MepPXg') === -1) return;
+        const qs = UTM_KEYS.filter(k => utm[k]).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(utm[k])).join('&');
+        if (!qs) return;
+        const sep = src.indexOf('?') !== -1 ? '&' : '?';
+        frame.setAttribute('data-tally-src', src + sep + qs);
+      }
+      appendUtmToTally();
+
+      // 將當前 scope 篩選也帶給 Tally (若有對應 hidden field)
+      window.__FEILU_getScopeCat = function() {
+        const active = document.querySelector('.scope-filter-btn.active');
+        return active ? active.getAttribute('data-cat') : 'all';
+      };
+    })();
+
+    // 9. 本機自訂事件 (無 Cookie、無外部依賴)
+    // 已移除 Cloudflare Beacon，僅保留 localStorage + console 除錯
+    // 需雲端儀表板時再加回 beacon，此處 10 行即可復原
+    (function() {
+      // 輕量事件追蹤：寫 localStorage 供本機除錯
+      window.trackEvent = function(name, params) {
+        params = params || {};
+        params._path = location.pathname;
+        params._utm = window.__FEILU_UTM || {};
+        params._scope = (window.__FEILU_getScopeCat && window.__FEILU_getScopeCat()) || 'all';
+        // 本機除錯
+        try {
+          const key = 'feilu_analytics';
+          const arr = JSON.parse(localStorage.getItem(key) || '[]');
+          arr.push({ name, params, ts: Date.now() });
+          // 僅保留最近 100 筆
+          if (arr.length > 100) arr.splice(0, arr.length - 100);
+          localStorage.setItem(key, JSON.stringify(arr));
+        } catch (e) {}
+        // 控制台可見（F12 → Console）
+        if (window.console && console.debug) console.debug('[feilu track]', name, params);
+      };
+      // 全域 CTA 委派：所有 [data-analytics] 點擊自動上報
+      document.addEventListener('click', function(e) {
+        const el = e.target.closest('[data-analytics]');
+        if (!el) return;
+        const name = el.getAttribute('data-analytics');
+        const href = el.getAttribute('href') || '';
+        const text = (el.textContent || '').trim().slice(0, 40);
+        trackEvent(name, { href, text });
+        // FAQ 與 Filter 的專屬事件已在各自監聽中補發，此處僅處理 CTA
+      }, { passive: true });
+
+      // 補強：FAQ 展開、Scope 篩選、Showcase 切換 的語意事件
+      document.querySelectorAll('.faq-header').forEach(h => {
+        h.addEventListener('click', function() {
+          const q = (h.textContent || '').trim().slice(0, 40);
+          const willOpen = !h.parentElement.classList.contains('open');
+          // 注意：此時 open 尚未切換 (外層監聽先後順序)，用 willOpen 判斷
+          // 延遲一 tick 再讀最終狀態
+          setTimeout(function() {
+            const isOpen = h.parentElement.classList.contains('open');
+            trackEvent(isOpen ? 'faq_open' : 'faq_close', { q });
+          }, 0);
+        });
+      });
+      document.querySelectorAll('.scope-filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          trackEvent('scope_filter', { cat: btn.getAttribute('data-cat'), label: (btn.textContent||'').trim().slice(0,20) });
+        });
+      });
+      // Showcase 需在 activateTab 內補發，透過包裝原函式
+      if (typeof activateTab === 'function') {
+        const _origActivateTab = activateTab;
+        window.activateTab = function(btn, moveFocus) {
+          _origActivateTab(btn, moveFocus);
+          try { trackEvent('showcase_tab', { tab: btn.getAttribute('data-tab') }); } catch (e) {}
+        };
+      }
+      // Tally 表單載入成功視為 lead_form_view
+      window.addEventListener('message', function(e) {
+        if (e.data && typeof e.data === 'string' && e.data.indexOf('Tally.FormLoaded') !== -1) {
+          trackEvent('lead_form_view', {});
+        }
+        // Tally 提交成功事件 (若表單設定 redirect 為 false，Tally 會 postMessage)
+        if (e.data && typeof e.data === 'string' && e.data.indexOf('Tally.FormSubmitted') !== -1) {
+          trackEvent('lead_form_submit', { via: 'tally' });
+        }
+      });
+      // 曝光：lead-form 進入視口
+      (function() {
+        const sec = document.getElementById('lead-form');
+        if (!sec || !('IntersectionObserver' in window)) return;
+        let fired = false;
+        const io = new IntersectionObserver(function(entries) {
+          if (entries[0].isIntersecting && !fired) {
+            fired = true;
+            trackEvent('lead_form_viewport', {});
+            io.disconnect();
+          }
+        }, { threshold: 0.25 });
+        io.observe(sec);
+      })();
+    })();
   </script>
 
   <!-- 複製成功提示 Toast -->

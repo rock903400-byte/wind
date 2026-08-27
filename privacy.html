@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>飛律 | 隱私權政策</title>
+  <meta name="description" content="飛律隱私權政策：說明預約表單、聯絡資訊的蒐集目的、利用方式、保存期限與當事人權利。資料僅用於諮詢與交付，不作其他用途。" />
+  <meta property="og:title" content="飛律 | 隱私權政策" />
+  <meta property="og:description" content="資料僅用於諮詢與交付，Tally 欄位同步至 Google Sheets，可隨時要求刪除。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rock903400-byte.github.io/wind/privacy.html" />
+  <meta property="og:image" content="https://rock903400-byte.github.io/wind/assets/og-cover.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="飛律 | 隱私權政策" />
+  <meta name="twitter:description" content="資料僅用於諮詢與交付，可隨時要求刪除。" />
+  <meta name="twitter:image" content="https://rock903400-byte.github.io/wind/assets/og-cover.jpg" />
+  <link rel="canonical" href="https://rock903400-byte.github.io/wind/privacy.html" />
+  <meta name="theme-color" content="#080c0f" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-primary: #080c0f;
+      --bg-secondary: #0f171d;
+      --bg-card: rgba(18, 27, 34, 0.72);
+      --border: rgba(255, 255, 255, 0.09);
+      --border-accent: rgba(16, 185, 129, 0.35);
+      --accent: #10b981;
+      --accent-light: #6ee7b7;
+      --text-main: #f8fafc;
+      --text-sub: #cbd5e1;
+      --text-muted: #94a3b8;
+      --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font);
+      line-height: 1.75;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.10) 0%, transparent 50%),
+        linear-gradient(to bottom, transparent, rgba(8, 12, 15, 0.95));
+      background-attachment: fixed;
+    }
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      background: rgba(8, 12, 15, 0.82);
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 1.25rem;
+    }
+    .nav-container { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .nav-logo { font-weight: 800; font-size: 1.05rem; color: var(--text-main); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; letter-spacing: -0.01em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-back { color: var(--text-muted); font-size: 0.88rem; text-decoration: none; }
+    .nav-back:hover { color: #fff; }
+    .nav-btn { background: var(--accent); color: #04130d; font-weight: 700; font-size: 0.88rem; padding: 0.45rem 1.1rem; border-radius: 999px; text-decoration: none; }
+    .container { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.25rem 5rem 1.25rem; }
+    .badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16,185,129,0.12); color: var(--accent-light); border: 1px solid rgba(16,185,129,0.28); padding: 0.35rem 0.85rem; border-radius: 999px; font-size: 0.82rem; font-weight: 600; margin-bottom: 1rem; }
+    h1 { font-size: clamp(1.7rem, 4.5vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.6rem; }
+    .lead { color: var(--text-sub); font-size: 0.96rem; margin-bottom: 2rem; line-height: 1.8; }
+    .card { background: var(--bg-card); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.75rem; margin-bottom: 1.25rem; }
+    .card h2 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.6rem; color: #fff; }
+    .card h3 { font-size: 1rem; font-weight: 700; margin: 1.1rem 0 0.4rem 0; color: var(--text-main); }
+    .card p, .card li { color: var(--text-sub); font-size: 0.93rem; line-height: 1.85; }
+    .card ul { padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.4rem; }
+    .card a { color: var(--accent-light); text-decoration: underline; text-underline-offset: 3px; }
+    .fine-print { font-size: 0.78rem; color: #7c8b9a; line-height: 1.7; text-align: center; margin-top: 2rem; }
+    footer { margin-top: 3rem; text-align: center; color: var(--text-muted); font-size: 0.88rem; border-top: 1px solid var(--border); padding: 2.5rem 1.25rem; }
+    footer a { color: var(--text-sub); text-decoration: none; }
+    footer a:hover { color: var(--accent-light); }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 3px; border-radius: 4px; }
+    @media (max-width: 640px) { .container { padding-top: 1.5rem; } .card { padding: 1.35rem 1.15rem; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <nav aria-label="主要導覽">
+    <div class="nav-container">
+      <a href="ai-enablement.html" class="nav-logo">飛律 <span>· AI 流程賦能</span></a>
+      <div style="display:flex; gap:1rem; align-items:center;">
+        <a href="ai-enablement.html" class="nav-back">← 回銷售頁</a>
+        <a href="ai-enablement.html#lead-form" class="nav-btn">立即預約</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="badge">🔒 資料僅用於諮詢與交付</div>
+    <h1>隱私權政策</h1>
+    <p class="lead">
+      飛律（下稱「我們」）重視你的隱私。本政策說明在 <a href="ai-enablement.html">ai-enablement.html</a> 與預約表單中，我們如何蒐集、利用、保存你的個人資料，以及你可以如何行使權利。<br>
+      最後更新：2026-05-11 · 聯絡信箱：<a href="mailto:rock90340@gmail.com">rock90340@gmail.com</a> · 統編：54730503
+    </p>
+
+    <div class="card">
+      <h2>一、蒐集的資料與來源</h2>
+      <p>僅在你主動填寫預約表單（Tally）、加 LINE 或寄 Email 時蒐集：</p>
+      <ul>
+        <li><strong>聯絡資料：</strong>稱呼、公司／單位、LINE ID／電話、Email</li>
+        <li><strong>需求資料：</strong>你描述的流程痛點、想交付的模組類型（對應 6 大領域 data-cat）、預算／時程</li>
+        <li><strong>技術資料：</strong>UTM 來源參數（utm_source/medium/campaign）、到訪頁面、裝置瀏覽器基本資訊（僅以本機 localStorage 暫存除錯，不含跨站追蹤）</li>
+      </ul>
+      <p>我們不會主動蒐集身分證字號、信用卡等敏感資料；亦不會在你未送出表單前讀取輸入框內容。</p>
+    </div>
+
+    <div class="card">
+      <h2>二、利用目的與法遵依據</h2>
+      <ul>
+        <li>回覆你的預約與諮詢、確認需求規格與可行性、安排單一線程交付與驗收聯絡</li>
+        <li>統計到訪與轉化來源（UTM）以優化說明與投放，不作其他行銷用途</li>
+        <li>開立發票與合約所需之必要聯絡（僅在你確認委託後）</li>
+      </ul>
+      <p>法遵依據：你的同意（送出表單即表示同意本政策）與契約履行必要範圍。</p>
+    </div>
+
+    <div class="card">
+      <h2>三、第三方處理與存放</h2>
+      <p>為維持「私有帳號直連」與 GitHub Pages 純靜態架構，我們委由下列服務處理資料，皆已開啟最小權限：</p>
+      <ul>
+        <li><strong>Tally.so（表單）：</strong>預約資料的原始存放處。已開啟 Email 即時通知與 Google Sheets 同步，資料留存於 Tally 與你我共用的 Google Sheet。可隨時要求刪除。</li>
+        <li><strong>Google Sheets：</strong>作為 Tally 的備援與追蹤表，存放於我們的 Google Workspace，僅用於排程與聯絡。</li>
+        <li><strong>LINE / Email 服務商：</strong>當你選擇加 LINE 或寄信，訊息將經 LINE 官方伺服器或郵件服務商轉送，屬該服務的本質流程。</li>
+      </ul>
+      <p>除上述外，不會將你的資料提供予其他第三方或用於廣告投放。若日後新增處理者，將更新本政策並於表單處揭示。</p>
+      <h3>保存期限</h3>
+      <p>未成案的諮詢資料最長保存 1 年；成案交付資料依合約與發票法令保存 5 年，期滿刪除或去識別化。本地除錯用的 <code>localStorage:feilu_analytics</code> 僅存於你的瀏覽器，可隨時清除。</p>
+    </div>
+
+    <div class="card">
+      <h2>四、當事人權利</h2>
+      <p>你可隨時來信 <a href="mailto:rock90340@gmail.com?subject=請求刪除個資">rock90340@gmail.com</a> 行使下列權利，我們將於 7 日內回覆處理：</p>
+      <ul>
+        <li>查詢、閱覽、請求複製本</li>
+        <li>請求補充、更正</li>
+        <li>請求停止蒐集、處理、利用或刪除（刪除後將同步自 Tally 與 Google Sheets 移除）</li>
+        <li>拒絕行銷（我們本身不做行銷推播，此條備而不用）</li>
+      </ul>
+      <p>若你使用 Tally 表單，也可直接在 Tally 的確認信中要求刪除該筆回覆。</p>
+    </div>
+
+    <div class="card">
+      <h2>五、安全措施</h2>
+      <ul>
+        <li>表單與同步表單皆啟用 Google / Tally 帳號的兩步驟驗證，僅 飛律 本人可存取</li>
+        <li>不留存客戶帳冊、規章全文或向量索引於我們端（依銷售頁 Q3 所述，索引一律建於你的帳號）</li>
+        <li>傳輸全程 HTTPS；不建立中繼資料庫</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>六、Cookie 與追蹤</h2>
+      <p>本站不使用廣告 Cookie。僅使用：</p>
+      <ul>
+        <li><code>sessionStorage / localStorage:feilu_utm / feilu_analytics</code>：暫存 UTM 來源與本機除錯事件，關閉分頁後可清除，不作跨站追蹤</li>
+      </ul>
+      <p>你可在瀏覽器設定封鎖 localStorage 或使用無痕模式，表單仍可正常送出。</p>
+    </div>
+
+    <div class="card">
+      <h2>七、未成年人</h2>
+      <p>本服務對象為企業與工作團隊，無意蒐集未成年人資料。若發現誤蒐，將立即刪除。</p>
+      <h3>八、政策更新</h3>
+      <p>本政策更新時將同步更新本頁「最後更新」日期，重大變更將於銷售頁表單上方以提示條說明。繼續使用即表示接受更新後內容。</p>
+      <h3>九、聯絡我們</h3>
+      <p>
+        飛律（AI 流程賦能）<br>
+        Email：<a href="mailto:rock90340@gmail.com">rock90340@gmail.com</a> · LINE ID：0980463400<br>
+        統編：54730503<br>
+        若對本政策有疑義，歡迎先以 Email 或 LINE 與我們聯絡，我們會在 7 日內回覆。
+      </p>
+    </div>
+
+    <p class="fine-print">
+      本政策僅適用於 rock903400-byte.github.io/wind 下的 飛律 銷售頁與預約流程。<br>
+      法務相關模組僅提供文書排版自動化，不提供法律意見，個案請洽執業律師。
+    </p>
+
+    <footer>
+      <p style="margin-bottom: 0.6rem;">© 2026 飛律 ｜ AI 流程賦能 ｜ 把規則想清楚，把系統建起來。</p>
+      <p style="font-size: 0.78rem; color: var(--text-muted);">
+        <a href="ai-enablement.html">回銷售頁</a> · 
+        <a href="ai-enablement.html#lead-form">立即預約</a> · 
+        <a href="mailto:rock90340@gmail.com">rock90340@gmail.com</a>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
