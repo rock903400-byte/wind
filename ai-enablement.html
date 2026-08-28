@@ -109,8 +109,8 @@
 }
   </script>
 
-  <link rel="stylesheet" href="assets/tokens.css?v=20260828" />
-  <link rel="stylesheet" href="assets/ai-enablement.css?v=20260828" />
+  <link rel="stylesheet" href="assets/tokens.css?v=20260829" />
+  <link rel="stylesheet" href="assets/ai-enablement.css?v=20260829" />
   <noscript><style>
     /* FAQ 收合與 tab 切換全靠 JS：沒 JS 時 6 題只剩第 1 題、3 個情境只剩第 1 個，
        其餘內容永久不可達 —— 直接全部攤開，並隱藏點不動的控制項。 */
@@ -168,7 +168,7 @@
       </p>
 
       <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; width: 100%;">
-        <a href="#pricing" class="btn-primary" data-analytics="cta_hero_pricing">
+        <a href="#booking" class="btn-primary" data-analytics="cta_hero_booking">
           NT$ 1,000 預約 2 項模組 ➔
         </a>
         <div class="hero-trust-pills">
@@ -177,14 +177,22 @@
           <span class="trust-pill">🎯 驗收通過才扣點</span>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 0.75rem;">
-          <a href="#scope" class="btn-sub" style="margin-top: 0;" data-analytics="cta_hero_explore">
-            探索 6 大賦能模組與方案 ↓
+          <a href="#pricing" class="btn-sub" style="margin-top: 0;" data-analytics="cta_hero_pricing">
+            先看方案與價格 ↓
           </a>
           <a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" class="btn-sub" style="margin-top: 0;" data-analytics="cta_hero_line">
             💬 加 LINE 傳截圖或講痛點，直接聊聊（ID: 0980463400）
           </a>
           <a href="mailto:rock90340@gmail.com?subject=預約AI賦能諮詢" class="btn-sub" style="margin-top: 0;" data-analytics="cta_hero_mail">
             ✉️ 或來信 rock90340@gmail.com
+          </a>
+        </div>
+        <div class="hero-proof-strip">
+          <p class="hero-proof-text">3 套已上線運作的真實系統 · 其中 2 套現在就能點開驗證 ↓</p>
+          <a href="#portfolio-bridge" class="hero-proof-thumbs" data-analytics="cta_hero_proof">
+            <picture><source srcset="assets/cu-risk-dashboard.webp" type="image/webp"><img src="assets/cu-risk-dashboard.jpg" alt="儲蓄互助社風險監控儀表板，顯示跨機構比較與趨勢追蹤" decoding="async" loading="lazy" width="720" height="440"></picture>
+            <picture><source srcset="assets/line-ai-ecosystem.webp" type="image/webp"><img src="assets/line-ai-ecosystem.jpg" alt="LINE AI 生態系首頁主視覺" decoding="async" loading="lazy" width="720" height="440"></picture>
+            <picture><source srcset="assets/foreclosure-analyzer.webp" type="image/webp"><img src="assets/foreclosure-analyzer.jpg" alt="法拍補償試算工具的案件列表與篩選介面" decoding="async" loading="lazy" width="720" height="440"></picture>
           </a>
         </div>
       </div>
@@ -1071,6 +1079,7 @@
           不方便寄信？<a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" style="color: var(--accent-light); font-weight: 700; text-decoration: none;" data-analytics="cta_pricing_line">💬 加 LINE 直接找我 (ID: 0980463400)</a>，或寄信至 <a href="mailto:rock90340@gmail.com" style="color: var(--accent-light); text-decoration: none;" data-analytics="cta_pricing_mail2">rock90340@gmail.com</a><button type="button" class="copy-email-btn" id="btnCopyEmail" aria-label="複製電子郵件地址" data-analytics="cta_copy_email">📋 複製 Email</button>
         </p>
         <p class="fine-print" style="text-align: center;">
+          本方案為破冰體驗價（每項 NT$ 500）；後續續購為 5 點包 NT$ 3,500（每點 NT$ 700）或月訂閱 NT$ 5,000／月，詳見下方常見問題 Q5。<br>
           先討論確認需求可行、規格談定後再付款，不需先付訂金。<br>
           <a href="privacy.html" style="color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px;">隱私權政策</a> · 資料僅用於聯絡與交付，不作其他用途。
         </p>
@@ -1087,7 +1096,7 @@
     -->
     <section id="booking">
       <h2>預約 2 項模組額度</h2>
-      <p class="sec-desc">填完約 60 秒，24 小時內回覆。先談定規格、確認可行後才付款。</p>
+      <p class="sec-desc">5 個必填欄位，約 2 分鐘。24 小時內回覆，先談定規格、確認可行後才付款。</p>
 
       <div class="booking-shell" id="booking-shell">
         <form class="booking-form" id="booking-form" method="POST" target="feilu-sink" novalidate>
@@ -1404,11 +1413,11 @@
       <span class="mobile-sticky-title">AI 流程賦能儲值體驗</span>
       <span class="mobile-sticky-price">NT$ 1,000 <span>(2 項模組)</span></span>
     </div>
-    <a href="#pricing" class="mobile-sticky-btn" data-analytics="cta_sticky_pricing">立即預約 ➔</a>
+    <a href="#booking" class="mobile-sticky-btn" data-analytics="cta_sticky_booking">立即預約 ➔</a>
   </div>
 
   <!-- Interactive JavaScript -->
-  <script src="assets/booking.js?v=20260828" defer></script>
+  <script src="assets/booking.js?v=20260829" defer></script>
 
   <!-- 複製成功提示 Toast -->
   <div class="copy-toast" id="copyToast" role="status" aria-live="polite">✓ 已複製信箱 rock90340@gmail.com</div>
