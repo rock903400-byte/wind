@@ -448,4 +448,39 @@ describe('實機與瀏覽器行為自動化驗證測試套件', () => {
       assert.equal(clientUrl, 'https://wind.rock903400.workers.dev/client-balance.html?token=testtoken123');
     });
   });
+
+  describe('F-1: 舊版示範資料指紋回推測試', () => {
+    it('舊瀏覽器 localStorage 存有示範資料但無 _demo 欄位時，loadDatabase 自動識別並補上 _demo: true', () => {
+      const { evalInCtx, storage } = createDOMSandbox();
+      
+      const legacyDemoDB = {
+        members: [{ id: 'MEM-2026-001', name: '林秘書長', token: 'a1b2c3d4e5f6789012345678abcdef01' }],
+        recharges: [],
+        tasks: []
+        // 注意：無 _demo 欄位
+      };
+      storage.set('feilu_member_system_v1', JSON.stringify(legacyDemoDB));
+
+      evalInCtx('loadDatabase()');
+
+      const db = evalInCtx('DB');
+      assert.equal(db._demo, true, '應自動識別 DEMO_TOKENS 並設定 _demo: true');
+    });
+
+    it('一般正式會員資料且無 _demo 欄位時，loadDatabase 正確設定 _demo: false', () => {
+      const { evalInCtx, storage } = createDOMSandbox();
+      
+      const realDB = {
+        members: [{ id: 'MEM-2026-999', name: '真實客戶', token: 'realrandomtoken99999999999999999' }],
+        recharges: [],
+        tasks: []
+      };
+      storage.set('feilu_member_system_v1', JSON.stringify(realDB));
+
+      evalInCtx('loadDatabase()');
+
+      const db = evalInCtx('DB');
+      assert.equal(db._demo, false, '真實資料不應誤標為 _demo');
+    });
+  });
 });
