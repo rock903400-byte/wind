@@ -1,5 +1,5 @@
 # ==============================================================================
-# Cloudflare Pages Redirects Configuration
+# Cloudflare Pages / Workers Redirects Configuration
 # ==============================================================================
 
 # 短網址別名跳轉 (302 Temporary Redirect)
@@ -8,8 +8,3 @@
 /balance     /member-balance.html  302
 /member      /member-balance.html  302
 /contact     /#contact             302
-
-# 規範化 Clean URL 跳轉 (301 Permanent Redirect)
-/ai-enablement   /ai-enablement.html   301
-/privacy         /privacy.html         301
-/member-balance  /member-balance.html  301
