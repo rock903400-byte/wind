@@ -33,6 +33,11 @@ section{padding:64px 0 48px;scroll-margin-top:76px}
 .sec-title{text-align:center;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;margin-bottom:8px;letter-spacing:-.02em}
 .sec-sub{text-align:center;color:var(--dim);font-size:.95rem;line-height:1.75;margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto}
 
+/* ---- skip link ---- */
+.skip-link{position:fixed;left:-9999px;top:0;z-index:100;padding:10px 20px;border-radius:0 0 var(--radius) 0;background:var(--accent1);color:#fff;font-size:.88rem;font-weight:600}
+.skip-link:focus{left:0;outline:2px solid #8fa4ff;outline-offset:2px}
+#main{scroll-margin-top:76px}
+
 /* ---- top nav ---- */
 .site-nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;max-width:1100px;margin:0 auto;background:rgba(10,14,26,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
 .site-brand{font-weight:800;font-size:1.05rem;letter-spacing:.5px}
@@ -74,17 +79,6 @@ a.hero-badge:focus-visible{outline:2px solid #8fa4ff;outline-offset:3px}
 .scroll-cue:focus-visible{outline:2px solid #8fa4ff;outline-offset:3px}
 @keyframes breathe{0%,100%{opacity:.6;transform:translateY(0)}50%{opacity:1;transform:translateY(5px)}}
 
-/* hero 內的 AI 流程賦能導流膠囊。動畫節奏排在 hero p(.38s) 與 scroll-cue(.56s) 之間 */
-.hero-promo-row{display:flex;justify-content:center;margin:-10px 0 16px;animation-delay:.47s}
-.hero-promo{display:inline-flex;align-items:center;gap:8px;padding:6px 18px;border-radius:99px;
-  background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.35);color:#6ee7b7;
-  font-size:.85rem;font-weight:600;box-shadow:0 0 16px rgba(16,185,129,.15);
-  transition:background .2s,border-color .2s,box-shadow .2s,transform .2s}
-.hero-promo:hover{color:#6ee7b7;background:rgba(16,185,129,.2);border-color:rgba(16,185,129,.6);
-  box-shadow:0 0 22px rgba(16,185,129,.3);transform:translateY(-1px)}
-.hero-promo:focus-visible{outline:2px solid #6ee7b7;outline-offset:3px}
-.hero-promo-dot{flex:none;width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981}
-
 /* ---- tech marquee ---- */
 .marquee-wrap{overflow:hidden;padding:16px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);
   background:rgba(17,24,39,.3);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
@@ -114,8 +108,12 @@ a.hero-badge:focus-visible{outline:2px solid #8fa4ff;outline-offset:3px}
 /* picture fallback：讓 picture 不產生額外盒子，img 仍以 .preview-box 為定位容器 */
 .preview-box picture{display:contents}
 .preview-box picture img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.9;transition:opacity .5s,transform .7s cubic-bezier(.22,.61,.36,1)}
-.work-card:focus-visible{outline:2px solid #8fa4ff;outline-offset:3px;border-color:rgba(143,164,255,.5)}
-.work-card:focus-visible::before{opacity:1}
+/* 卡片本身不再是 role="link"／不可 focus，焦點落在卡內的 .btn-demo 上。
+   :has() 讓整張卡跟著亮起來當視覺定位；瀏覽器不支援 :has() 時，
+   .btn-demo 自己的外框仍在，焦點不會消失。 */
+.btn-demo:focus-visible{outline:2px solid #8fa4ff;outline-offset:3px;border-radius:4px}
+.work-card:has(.btn-demo:focus-visible){border-color:rgba(143,164,255,.5)}
+.work-card:has(.btn-demo:focus-visible)::before{opacity:1}
 
 .work-info{padding:22px;flex:1;display:flex;flex-direction:column;gap:12px;position:relative;z-index:2}
 .tag-row{display:flex;gap:6px;flex-wrap:wrap}
@@ -372,7 +370,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 /* ---- 觸控回饋與微互動 ---- */
-.filter-btn:active,.show-all-btn:active,.btn-primary:active,.btn-secondary:active,.nav-cta:active,.hero-promo:active,.scroll-cue:active,.back-to-top:active,.svc-jump:active{
+.filter-btn:active,.show-all-btn:active,.btn-primary:active,.btn-secondary:active,.nav-cta:active,.scroll-cue:active,.back-to-top:active,.svc-jump:active{
   transform:scale(.96);
 }
 .work-card:active,.strength-card:active,.svc-card:active{
@@ -414,7 +412,7 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   .site-links a{white-space:nowrap;padding:6px 14px;border-radius:99px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);display:inline-flex;align-items:center;min-height:34px}
   .site-links a.active{background:linear-gradient(135deg,rgba(102,126,234,.28),rgba(118,75,162,.28));border-color:rgba(143,164,255,.5);color:#fff;font-weight:700;box-shadow:0 0 14px rgba(102,126,234,.3)}
   /* nav 變兩列 → 錨點必須跟著加高 */
-  section{scroll-margin-top:108px}
+  section,#main{scroll-margin-top:108px}
   .process-grid{grid-template-columns:1fr 1fr}
   .step::after{display:none}
 }

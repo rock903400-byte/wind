@@ -22,9 +22,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/line-ai-ecosystem.webp" type="image/webp" fetchpriority="high">
-<link rel="preload" as="image" href="assets/cu-risk-dashboard.webp" type="image/webp" fetchpriority="high">
-<link rel="preload" as="image" href="assets/foreclosure-analyzer.webp" type="image/webp" fetchpriority="high">
 <link rel="stylesheet" href="assets/style.css">
 <noscript><style>
   /* .reveal 初始 opacity:0，靠捲動掃描顯示；沒 JS 就整個作品區空白 */
@@ -326,19 +323,23 @@
 </head>
 <body>
 
+<a class="skip-link" href="#main">跳至主要內容</a>
+
 <!-- ============ TOP NAV ============ -->
 <nav class="site-nav" aria-label="主要導覽">
-  <a class="site-brand" href="#" aria-label="Wind 首頁">Wind</a>
+  <a class="site-brand" href="./" aria-label="Wind 首頁">Wind</a>
   <div class="site-links">
     <a href="#services">我能做什麼</a>
     <a href="#works">作品實績</a>
     <a href="#about">關於</a>
+    <a href="#process">合作流程</a>
     <a href="#strengths">為什麼選我</a>
+    <a href="#contact">聯絡</a>
   </div>
   <a class="nav-cta" href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener noreferrer">免費聊聊</a>
 </nav>
 
-<main>
+<main id="main">
 
 <!-- ============ HERO ============ -->
 <section class="hero">
@@ -435,23 +436,23 @@
   <h2 class="sec-title reveal">作品實績</h2>
   <p class="sec-sub reveal">標「已上線運作」的每天都有人在用，其餘為可實際操作的系統架構展示與核心引擎——涵蓋金融風控、不動產科技、LINE AI、電商與地方產業。</p>
 
-  <div class="filter-row reveal" role="group" aria-label="作品篩選" aria-describedby="filterCount">
-    <button class="filter-btn active" data-cat="all" aria-pressed="true" type="button">全部</button>
-    <button class="filter-btn" data-cat="brand" aria-pressed="false" type="button">品牌形象</button>
-    <button class="filter-btn" data-cat="ecom" aria-pressed="false" type="button">電商</button>
-    <button class="filter-btn" data-cat="aiapp" aria-pressed="false" type="button">AI・App</button>
-    <button class="filter-btn" data-cat="fin" aria-pressed="false" type="button">金融・工具</button>
-    <button class="filter-btn" data-cat="demo" aria-pressed="false" type="button">展示・Demo</button>
+  <div class="filter-row reveal" role="group" aria-label="作品篩選">
+    <button class="filter-btn active" data-cat="all" aria-controls="worksGrid" aria-pressed="true" type="button">全部</button>
+    <button class="filter-btn" data-cat="brand" aria-controls="worksGrid" aria-pressed="false" type="button">品牌形象</button>
+    <button class="filter-btn" data-cat="ecom" aria-controls="worksGrid" aria-pressed="false" type="button">電商</button>
+    <button class="filter-btn" data-cat="aiapp" aria-controls="worksGrid" aria-pressed="false" type="button">AI・App</button>
+    <button class="filter-btn" data-cat="fin" aria-controls="worksGrid" aria-pressed="false" type="button">金融・工具</button>
+    <button class="filter-btn" data-cat="demo" aria-controls="worksGrid" aria-pressed="false" type="button">展示・Demo</button>
   </div>
   <p class="filter-count reveal" id="filterCount" aria-live="polite" role="status"></p>
 
   <div class="works-grid collapsed" id="worksGrid">
 
     <!-- 1 LINE AI 生態系 -->
-    <div class="work-card featured reveal" role="link" tabindex="0" data-cat="aiapp" aria-label="查看作品：LINE AI 互助經濟網絡系統，開啟 Live 系統">
+    <div class="work-card featured reveal" data-cat="aiapp">
       <div class="preview-box">
         <span class="flagship-badge">★ 旗艦案例</span>
-        <picture><source srcset="assets/line-ai-ecosystem.webp" type="image/webp"><img src="assets/line-ai-ecosystem.jpg" alt="LINE AI 生態系首頁主視覺" fetchpriority="high" decoding="async" width="720" height="440"></picture>
+        <picture><source srcset="assets/line-ai-ecosystem.webp" type="image/webp"><img src="assets/line-ai-ecosystem.jpg" alt="LINE AI 生態系首頁主視覺" decoding="async" loading="lazy" width="720" height="440"></picture>
       </div>
       <div class="work-info">
         <div class="tag-row">
@@ -473,10 +474,10 @@
     </div>
 
     <!-- 2 儲互社風險儀表板 -->
-    <div class="work-card featured reveal" role="link" tabindex="0" data-cat="fin" aria-label="查看作品：儲蓄互助社風險監控儀表板，開啟 Live 系統">
+    <div class="work-card featured reveal" data-cat="fin">
       <div class="preview-box">
         <span class="flagship-badge">★ 旗艦案例</span>
-        <picture><source srcset="assets/cu-risk-dashboard.webp" type="image/webp"><img src="assets/cu-risk-dashboard.jpg" alt="儲互社風險儀表板，顯示跨機構比較與趨勢追蹤" fetchpriority="high" decoding="async" width="720" height="440"></picture>
+        <picture><source srcset="assets/cu-risk-dashboard.webp" type="image/webp"><img src="assets/cu-risk-dashboard.jpg" alt="儲互社風險儀表板，顯示跨機構比較與趨勢追蹤" decoding="async" loading="lazy" width="720" height="440"></picture>
       </div>
       <div class="work-info">
         <div class="tag-row">
@@ -496,10 +497,10 @@
     </div>
 
     <!-- 3 法拍補償試算 -->
-    <div class="work-card featured reveal" role="link" tabindex="0" data-cat="fin" aria-label="查看作品：全台法拍公告即時監控與 ROI 試算，開啟 Live 系統">
+    <div class="work-card featured reveal" data-cat="fin">
       <div class="preview-box">
         <span class="flagship-badge">★ 旗艦案例</span>
-        <picture><source srcset="assets/foreclosure-analyzer.webp" type="image/webp"><img src="assets/foreclosure-analyzer.jpg" alt="法拍補償試算工具的案件列表與篩選介面" fetchpriority="high" decoding="async" width="720" height="440"></picture>
+        <picture><source srcset="assets/foreclosure-analyzer.webp" type="image/webp"><img src="assets/foreclosure-analyzer.jpg" alt="法拍補償試算工具的案件列表與篩選介面" decoding="async" loading="lazy" width="720" height="440"></picture>
       </div>
       <div class="work-info">
         <div class="tag-row">
@@ -520,7 +521,7 @@
     </div>
 
     <!-- 4 信用評分系統 -->
-    <div class="work-card reveal" role="link" tabindex="0" data-cat="fin" aria-label="查看作品：放款信用評分與審查報告產生器，開啟 Live 系統">
+    <div class="work-card reveal" data-cat="fin">
       <div class="preview-box">
         <picture><source srcset="assets/credit-score-system.webp" type="image/webp"><img decoding="async" src="assets/credit-score-system.jpg" alt="信用評分與核貸試算系統輸入介面" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -538,7 +539,7 @@
     </div>
 
     <!-- 5 AI 財務分析報告產生器 -->
-    <div class="work-card reveal" role="link" tabindex="0" data-cat="aiapp" aria-label="查看作品：AI 企業財務體質分析報告系統，開啟 Live 系統">
+    <div class="work-card reveal" data-cat="aiapp">
       <div class="preview-box">
         <picture><source srcset="assets/report-generator-demo.webp" type="image/webp"><img decoding="async" src="assets/report-generator-demo.jpg" alt="財務分析報告產生器操作介面" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -556,7 +557,7 @@
     </div>
 
     <!-- 6 勞恩布妮的家 -->
-    <div class="work-card reveal" role="link" tabindex="0" data-cat="brand" aria-label="查看作品：野溪溫泉民宿官網與房況訂房系統，開啟 Live 系統">
+    <div class="work-card reveal" data-cat="brand">
       <div class="preview-box">
         <picture><source srcset="assets/laoenbuni.webp" type="image/webp"><img decoding="async" src="assets/laoenbuni.jpg" alt="勞恩布妮的家民宿官網首頁，秀巒溪谷與楓紅主視覺" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -574,7 +575,7 @@
     </div>
 
     <!-- 7 員工福利商店 App -->
-    <div class="work-card reveal" role="link" tabindex="0" data-cat="aiapp" aria-label="查看作品：跨平台特約商店 App (PWA)，開啟 Live 系統">
+    <div class="work-card reveal" data-cat="aiapp">
       <div class="preview-box">
         <picture><source srcset="assets/tekiyou-store.webp" type="image/webp"><img decoding="async" src="assets/tekiyou-store.jpg" alt="員工福利商店 App 首頁，顯示特約商家數量與功能選單" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -593,7 +594,7 @@
     </div>
 
     <!-- 8 FitLog AI -->
-    <div class="work-card reveal" role="link" tabindex="0" data-cat="aiapp" aria-label="查看作品：FitLog AI 智慧飲食熱量分析 App，開啟 Live 系統">
+    <div class="work-card reveal" data-cat="aiapp">
       <div class="preview-box">
         <picture><source srcset="assets/fitlog-ai.webp" type="image/webp"><img decoding="async" src="assets/fitlog-ai.jpg" alt="FitLog AI 主畫面，顯示每日熱量環、TDEE 計算與飲食紀錄輸入" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -611,7 +612,7 @@
     </div>
 
     <!-- 9 MONO CLASSICS -->
-    <div class="work-card reveal" role="link" tabindex="0" data-cat="ecom" aria-label="查看作品：古董相機商三合一營運系統，開啟 Live 系統">
+    <div class="work-card reveal" data-cat="ecom">
       <div class="preview-box">
         <picture><source srcset="assets/mono-classics.webp" type="image/webp"><img decoding="async" src="assets/mono-classics.jpg" alt="MONO CLASSICS 藏品庫存管理介面" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -629,7 +630,7 @@
     </div>
 
     <!-- 10 旅遊行程估價系統 -->
-    <div class="work-card extra reveal" role="link" tabindex="0" data-cat="demo" aria-label="查看作品：旅遊行程逐日估價與成本隔離系統，開啟 Live 系統">
+    <div class="work-card extra reveal" data-cat="demo">
       <div class="preview-box">
         <picture><source srcset="assets/ttq-estimator.webp" type="image/webp"><img decoding="async" src="assets/ttq-estimator.jpg" alt="旅遊行程估價系統操作介面，左側逐日行程、右側即時報價總結" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -647,7 +648,7 @@
     </div>
 
     <!-- 11 LiveHub 多路直播監看 -->
-    <div class="work-card extra reveal" role="link" tabindex="0" data-cat="demo" aria-label="查看作品：LiveHub 16 路多畫面無延遲直播監看，開啟 Live 系統">
+    <div class="work-card extra reveal" data-cat="demo">
       <div class="preview-box">
         <picture><source srcset="assets/livehub.webp" type="image/webp"><img decoding="async" src="assets/livehub.jpg" alt="LiveHub 多路直播監看首頁，多路直播並排播放" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -665,7 +666,7 @@
     </div>
 
     <!-- 12 學術展覽互動網站 -->
-    <div class="work-card extra reveal" role="link" tabindex="0" data-cat="demo" aria-label="查看作品：學術展覽線上數位策展互動網站，開啟 Live 系統">
+    <div class="work-card extra reveal" data-cat="demo">
       <div class="preview-box">
         <picture><source srcset="assets/academic-exhibition.webp" type="image/webp"><img decoding="async" src="assets/academic-exhibition.jpg" alt="學術展覽網站首頁主視覺" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -683,7 +684,7 @@
     </div>
 
     <!-- 13 伯鐸儲蓄互助社 -->
-    <div class="work-card extra reveal" role="link" tabindex="0" data-cat="brand" aria-label="查看作品：伯鐸儲蓄互助社企業官方網站，開啟 Live 系統">
+    <div class="work-card extra reveal" data-cat="brand">
       <div class="preview-box">
         <picture><source srcset="assets/boduosavings.webp" type="image/webp"><img decoding="async" src="assets/boduosavings.jpg" alt="伯鐸儲蓄互助社官網首頁，誠信互助在地深耕主視覺" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -701,7 +702,7 @@
     </div>
 
     <!-- 14 果醬女孩 Jam Girl -->
-    <div class="work-card extra reveal" role="link" tabindex="0" data-cat="ecom" aria-label="查看作品：果醬女孩無添加果醬品牌電商官網，開啟 Live 系統">
+    <div class="work-card extra reveal" data-cat="ecom">
       <div class="preview-box">
         <picture><source srcset="assets/jamgirl.webp" type="image/webp"><img decoding="async" src="assets/jamgirl.jpg" alt="果醬女孩電商官網首頁，季節限定果醬主視覺" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -719,7 +720,7 @@
     </div>
 
     <!-- 15 艾比兒甜點 -->
-    <div class="work-card extra reveal" role="link" tabindex="0" data-cat="ecom" aria-label="查看作品：艾比兒甜點人氣烘焙品牌官網，開啟 Live 系統">
+    <div class="work-card extra reveal" data-cat="ecom">
       <div class="preview-box">
         <picture><source srcset="assets/alexsarah-bakery.webp" type="image/webp"><img decoding="async" src="assets/alexsarah-bakery.jpg" alt="艾比兒甜點官網首頁，東門市場甜點主視覺" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -737,7 +738,7 @@
     </div>
 
     <!-- 16 臺中市林業生產合作社 -->
-    <div class="work-card extra reveal" role="link" tabindex="0" data-cat="brand" aria-label="查看作品：臺中市林業生產合作社・森活樂校，開啟 Live 系統">
+    <div class="work-card extra reveal" data-cat="brand">
       <div class="preview-box">
         <picture><source srcset="assets/taichung-forestry-coop.webp" type="image/webp"><img decoding="async" src="assets/taichung-forestry-coop.jpg" alt="臺中市林業生產合作社官網首頁，森活樂校森林主視覺" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -755,7 +756,7 @@
     </div>
 
     <!-- 17 陶茶雅舍 -->
-    <div class="work-card extra reveal" role="link" tabindex="0" data-cat="brand" aria-label="查看作品：陶茶雅舍手捏壺職人品牌官網，開啟 Live 系統">
+    <div class="work-card extra reveal" data-cat="brand">
       <div class="preview-box">
         <picture><source srcset="assets/tao-tea-house.webp" type="image/webp"><img decoding="async" src="assets/tao-tea-house.jpg" alt="陶茶雅舍網站首頁，茶藝課程主視覺" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -773,7 +774,7 @@
     </div>
 
     <!-- 18 眉序修眉 -->
-    <div class="work-card extra reveal" role="link" tabindex="0" data-cat="brand" aria-label="查看作品：眉序開運修眉高轉換預約單頁官網，開啟 Live 系統">
+    <div class="work-card extra reveal" data-cat="brand">
       <div class="preview-box">
         <picture><source srcset="assets/meixu.webp" type="image/webp"><img decoding="async" src="assets/meixu.jpg" alt="眉序修眉官網首頁，台南開運修眉主視覺" loading="lazy" width="720" height="440"></picture>
       </div>
@@ -791,7 +792,7 @@
     </div>
 
     <!-- 19 台中建德浸信會 -->
-    <div class="work-card extra reveal" role="link" tabindex="0" data-cat="brand" aria-label="查看作品：台中建德浸信會五十週年官方網站，開啟 Live 系統">
+    <div class="work-card extra reveal" data-cat="brand">
       <div class="preview-box">
         <picture><source srcset="assets/chienteh-church-site.webp" type="image/webp"><img decoding="async" src="assets/chienteh-church-site.jpg" alt="台中建德浸信會官網首頁，教會歡迎主視覺" loading="lazy" width="720" height="440"></picture>
       </div>

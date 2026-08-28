@@ -156,7 +156,9 @@
     });
   });
 
-  // 卡片整卡可點：點到非連結區域 → 以卡片內 btn-demo 的目標開新分頁
+  // 卡片整卡可點：點到非連結區域 → 以卡片內 btn-demo 的目標開新分頁。
+  // 只服務滑鼠：卡片本身不是 role="link"（link 角色裡再包一個 link 不合法，
+  // 螢幕閱讀器會把同一個目標念兩次），鍵盤與輔助技術一律走卡內的 .btn-demo。
   grid.addEventListener('click', function(e){
     if(e.target.closest('a')) return;
     // 拖曳選取卡片文字，放開滑鼠一樣會派送 click —— 不擋掉會變成「想複製卻被開新分頁」
@@ -169,21 +171,6 @@
     if(!href) return;
     // window.open(url,'_blank',features) 帶 features 字串會被部分瀏覽器當彈窗擋掉，
     // 改用暫時 anchor 觸發，走的是一般連結路徑。
-    var a = document.createElement('a');
-    a.href = href;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    a.click();
-  });
-  // 鍵盤支援：work-card 有 role="link" tabindex="0"，需支援 Enter / Space 開啟
-  grid.addEventListener('keydown', function(e){
-    var card = e.target.closest('.work-card');
-    if(!card) return;
-    if(e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
-    e.preventDefault();
-    var demo = card.querySelector('.btn-demo');
-    var href = demo && demo.getAttribute('href');
-    if(!href) return;
     var a = document.createElement('a');
     a.href = href;
     a.target = '_blank';

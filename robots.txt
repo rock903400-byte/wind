@@ -1,0 +1,8 @@
+# 注意：本站目前是 GitHub Project Pages（/wind/ 子路徑），
+# 爬蟲只讀網域根目錄的 robots.txt，也就是 github.io/robots.txt，
+# 這個檔案要等綁上自訂網域（根目錄）後才會真正生效。
+# sitemap.xml 不受此限，可直接在 Search Console 提交。
+User-agent: *
+Allow: /
+
+Sitemap: https://rock903400-byte.github.io/wind/sitemap.xml
