@@ -168,7 +168,11 @@ a.hero-badge:focus-visible{outline:2px solid var(--accent-light);outline-offset:
 .btn-demo-locked{display:inline-flex;align-items:center;gap:6px;color:var(--dim);font-size:.85rem;font-weight:500;margin-top:4px;cursor:default;user-select:none}
 
 /* ---- 旗艦作品卡 ---- */
-.work-card.featured:not(.hidden){grid-column:1 / -1;display:flex;flex-direction:row;align-items:stretch;border-color:rgba(var(--accent-light-rgb),.28);box-shadow:0 18px 44px -24px rgba(var(--accent-rgb),.5)}
+.work-card.featured{grid-column:1 / -1;display:flex;flex-direction:row;align-items:stretch;border-color:rgba(var(--accent-light-rgb),.28);box-shadow:0 18px 44px -24px rgba(var(--accent-rgb),.5)}
+/* 上一條與 .work-card.hidden（style.css:72）同為 (0,2,0)，但寫在後面會贏，導致旗艦卡在分類篩選下藏不掉。
+   這裡用 (0,3,0) 的複合選擇器把 display:none 搶回來——刻意「不」在上一條加 :not(.hidden)，
+   因為 :not() 會把它抬到 (0,3,0)，反而壓掉 L532 / L558 兩條行動版覆寫（媒體查詢靠同 specificity + 後者勝運作）。 */
+.work-card.featured.hidden{display:none}
 .work-card.featured .preview-box{width:44%;min-height:270px;height:auto;flex-shrink:0}
 .work-card.featured .work-info{padding:28px 32px;flex:1;display:flex;flex-direction:column;justify-content:center}
 .work-card.featured .work-info h3{font-size:1.35rem;letter-spacing:-.01em}
