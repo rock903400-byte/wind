@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>飛律 | 會員點數餘額與任務進度查詢中心</title>
+  <meta name="description" content="飛律 AI 流程賦能・會員點數餘額與交付進度自主查詢中心。48 小時交付、7 天驗收通過才扣點、點數永久有效。" />
+  <meta name="theme-color" content="#080c0f" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-primary: #080c0f;
+      --bg-secondary: #0f171d;
+      --bg-card: rgba(18, 27, 34, 0.85);
+      --bg-elevated: #15212b;
+      --border: rgba(255, 255, 255, 0.09);
+      --border-focus: rgba(16, 185, 129, 0.5);
+      --accent: #10b981;
+      --accent-hover: #059669;
+      --accent-glow: rgba(16, 185, 129, 0.25);
+      --accent-light: #6ee7b7;
+      --cyan: #0ea5e9;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --text-main: #f8fafc;
+      --text-sub: #cbd5e1;
+      --text-muted: #94a3b8;
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 8px;
+      --shadow-card: 0 15px 35px -5px rgba(0, 0, 0, 0.6);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.65;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image:
+        radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 85% 50%, rgba(14, 165, 233, 0.06) 0%, transparent 40%),
+        linear-gradient(to bottom, transparent, rgba(8, 12, 15, 0.98));
+      background-attachment: fixed;
+    }
+
+    /* ---- Navbar ---- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(8, 12, 15, 0.85);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+    }
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .brand-logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-logo span { color: var(--accent); }
+    .badge-portal {
+      font-size: 0.725rem;
+      font-weight: 600;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--accent-light);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    /* ---- Main Container ---- */
+    main {
+      max-width: 820px;
+      width: 100%;
+      margin: 2rem auto 4rem;
+      padding: 0 1.25rem;
+      flex: 1;
+    }
+
+    /* ---- Search / Login Header Card ---- */
+    .query-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(16px);
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .query-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--cyan));
+    }
+    .query-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    .query-desc {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      max-width: 540px;
+      margin: 0 auto 1.5rem;
+    }
+    .query-form {
+      display: flex;
+      gap: 0.6rem;
+      max-width: 520px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .query-input {
+      flex: 1;
+      background: rgba(8, 12, 15, 0.9);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1.1rem;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .query-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .btn-submit {
+      background: var(--accent);
+      color: #042f20;
+      font-weight: 700;
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 0.75rem 1.4rem;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 14px var(--accent-glow);
+      white-space: nowrap;
+    }
+    .btn-submit:hover {
+      background: #34d399;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+    }
+    .btn-submit:active { transform: scale(0.98); }
+
+    /* ---- Result Section ---- */
+    #result-section {
+      display: none;
+      animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Client Profile Card */
+    .profile-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-card);
+      position: relative;
+    }
+    .profile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .company-name {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .client-name {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      margin-top: 0.2rem;
+    }
+    .client-badges {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.775rem;
+      font-weight: 600;
+    }
+    .tag-emerald { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .tag-amber { background: rgba(245, 158, 11, 0.15); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .tag-cyan { background: rgba(14, 165, 233, 0.15); color: #7dd3fc; border: 1px solid rgba(14, 165, 233, 0.3); }
+    .tag-gray { background: rgba(255, 255, 255, 0.08); color: var(--text-sub); border: 1px solid rgba(255, 255, 255, 0.12); }
+
+    /* Big Balance Spotlight */
+    .balance-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(14, 165, 233, 0.08) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+    .balance-left {
+      display: flex;
+      flex-direction: column;
+    }
+    .balance-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .balance-num {
+      font-size: 2.75rem;
+      font-weight: 800;
+      color: #fff;
+      font-family: var(--font-mono);
+      line-height: 1.1;
+      margin: 0.25rem 0;
+      text-shadow: 0 0 25px var(--accent-glow);
+    }
+    .balance-note {
+      font-size: 0.775rem;
+      color: var(--text-sub);
+    }
+    .balance-actions {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.6rem 1rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-action-primary {
+      background: var(--accent);
+      color: #042f20;
+    }
+    .btn-action-primary:hover { background: #34d399; }
+    .btn-action-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+    }
+    .btn-action-secondary:hover { background: rgba(255, 255, 255, 0.15); }
+
+    /* Section Cards */
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-card);
+    }
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* In-Progress Task Items */
+    .task-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      transition: border-color 0.2s;
+    }
+    .task-item:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .task-title {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+    .task-module {
+      font-size: 0.775rem;
+      color: var(--cyan);
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .task-meta {
+      font-size: 0.775rem;
+      color: var(--text-muted);
+    }
+
+    /* History Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-top: 1rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0.5rem; bottom: 0.5rem; left: 0.45rem; width: 2px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .timeline-node {
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+    .timeline-icon {
+      position: absolute;
+      left: -1.5rem;
+      top: 0.3rem;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+    .timeline-icon.deduct {
+      background: var(--rose);
+      box-shadow: 0 0 8px var(--rose);
+    }
+    .timeline-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+    }
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    .timeline-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* Guarantees Callout */
+    .guarantee-box {
+      background: rgba(16, 185, 129, 0.05);
+      border: 1px dashed rgba(16, 185, 129, 0.3);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-sub);
+    }
+    .guarantee-box strong { color: var(--accent-light); }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    footer a { color: var(--text-sub); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+
+    @media (max-width: 600px) {
+      .query-form { flex-direction: column; }
+      .balance-banner { flex-direction: column; align-items: flex-start; }
+      .task-item { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="ai-enablement.html" class="brand-logo">
+        Wind <span>× 飛律</span>
+      </a>
+      <span class="badge-portal">會員自主查詢中心</span>
+    </div>
+  </nav>
+
+  <!-- Main Area -->
+  <main>
+    <!-- Query Box -->
+    <div class="query-card" id="query-box">
+      <div class="query-title">🔍 查詢會員點數餘額與任務進度</div>
+      <div class="query-desc">
+        輸入您預約或提單時留下的 <strong>電子信箱 (Email)</strong>、<strong>統一編號</strong> 或 <strong>手機號碼</strong>，即可即時查詢點數餘額與交付狀態。
+      </div>
+      <form class="query-form" onsubmit="handleQuery(event)">
+        <input
+          type="text"
+          id="search-input"
+          class="query-input"
+          placeholder="例：boduosavings@example.com 或 54730503"
+          required
+        />
+        <button type="submit" class="btn-submit">
+          <span>查詢餘額 ➔</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Error/Notice Alert -->
+    <div id="query-alert" style="display: none; padding: 1rem 1.25rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-size: 0.9rem; text-align: center;"></div>
+
+    <!-- Result Dashboard -->
+    <div id="result-section">
+      <!-- Profile Header -->
+      <div class="profile-card">
+        <div class="profile-header">
+          <div>
+            <div class="company-name" id="client-company">○○有限公司</div>
+            <div class="client-name" id="client-name">聯絡人：王經理</div>
+          </div>
+          <div class="client-badges">
+            <span class="tag tag-emerald" id="client-tier">輕量儲值會員</span>
+            <span class="tag tag-gray" id="client-tax">統編：—</span>
+          </div>
+        </div>
+
+        <!-- Big Balance Box -->
+        <div class="balance-banner">
+          <div class="balance-left">
+            <span class="balance-label">目前可用任務點數 (Available Balance)</span>
+            <div class="balance-num" id="client-balance">💎 0 點</div>
+            <div class="balance-note">✨ 點數永久有效・48h 極速交付・7 天驗收通過才扣點</div>
+          </div>
+          <div class="balance-actions">
+            <a href="https://line.me/ti/p/~0980463400" target="_blank" class="btn-action btn-action-primary">
+              <span>💬 LINE 提單 (0980463400)</span>
+            </a>
+            <a href="ai-enablement.html" class="btn-action btn-action-secondary">
+              <span>⚡ 查看更多 AI 模組</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- In-Progress Tasks Section -->
+        <div class="section-title">
+          <span>⚡ 進行中 / 驗收中任務</span>
+        </div>
+        <div id="active-tasks-list">
+          <!-- Injected by JS -->
+        </div>
+
+        <!-- History Timeline Section -->
+        <div class="section-title" style="margin-top: 1.75rem;">
+          <span>📜 點數儲值與扣點歷史歷程</span>
+        </div>
+        <div class="timeline" id="history-timeline">
+          <!-- Injected by JS -->
+        </div>
+
+        <!-- Trust & Guarantees -->
+        <div class="guarantee-box">
+          <strong>🛡️ 飛律 AI 流程賦能三大承諾：</strong><br>
+          1. <strong>永久有效</strong>：點數無使用期限，隨提隨做，不背負每個月繳月費的心理壓力。<br>
+          2. <strong>安心驗收</strong>：交付後享有 7 天驗收期（含 2 輪規格內調整），驗收通過才正式扣點；未達規格或技術無法達成免扣點。<br>
+          3. <strong>資產自主</strong>：產出腳本、試算表與原始碼 100% 歸您所有，無廠商鎖定。
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div style="margin-bottom: 0.5rem;">
+      <a href="ai-enablement.html">飛律 AI 流程賦能</a> · 
+      <a href="privacy.html">隱私權政策</a> · 
+      <a href="https://line.me/ti/p/~0980463400" target="_blank">LINE 客服 (ID: 0980463400)</a>
+    </div>
+    <div>MIT License © 2026 Wind × 飛律</div>
+  </footer>
+
+  <!-- Script Logic -->
+  <script>
+    const STORAGE_KEY = 'feilu_member_system_v1';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // 檢查 URL 參數是否有 ?token=MEM-XXX 或 ?email=xxx
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('token') || params.get('id') || params.get('email') || params.get('taxId');
+      if (token) {
+        document.getElementById('search-input').value = token;
+        runSearch(token);
+      }
+    });
+
+    function handleQuery(e) {
+      e.preventDefault();
+      const input = document.getElementById('search-input').value.trim();
+      if (!input) return;
+      runSearch(input);
+    }
+
+    function runSearch(keyword) {
+      const alertBox = document.getElementById('query-alert');
+      const resultSection = document.getElementById('result-section');
+      alertBox.style.display = 'none';
+
+      // 取得資料庫
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) {
+        showError('系統資料庫尚無會員資料。若您剛完成預約，飛律專案人員將於 24 小時內為您建檔並透過 LINE/Email 通知！');
+        return;
+      }
+
+      let db;
+      try {
+        db = JSON.parse(saved);
+      } catch (err) {
+        showError('讀取資料庫錯誤，請重新整理頁面。');
+        return;
+      }
+
+      const q = keyword.toLowerCase();
+      // 搜尋會員
+      const member = db.members.find(m => 
+        m.id.toLowerCase() === q ||
+        m.email.toLowerCase() === q ||
+        (m.taxId && m.taxId.toLowerCase() === q) ||
+        (m.line && m.line.toLowerCase() === q) ||
+        (m.company && m.company.toLowerCase() === q) ||
+        (m.name && m.name.toLowerCase() === q)
+      );
+
+      if (!member) {
+        showError(`🔍 查無與「${keyword}」相符的會員資料。請確認輸入的 Email 或統編是否正確，或直接加 LINE (ID: 0980463400) 由專人協助查詢！`);
+        resultSection.style.display = 'none';
+        return;
+      }
+
+      // 計算統計
+      const recharges = (db.recharges || []).filter(r => r.memberId === member.id);
+      const tasks = (db.tasks || []).filter(t => t.memberId === member.id);
+
+      const totalRechargePts = recharges.reduce((s, r) => s + (parseFloat(r.points) || 0), 0);
+      const completedPts = tasks.filter(t => t.status === 'completed').reduce((s, t) => s + (parseFloat(t.points) || 0), 0);
+      const availablePts = Math.max(0, totalRechargePts - completedPts);
+
+      const activeTasks = tasks.filter(t => t.status === 'in_progress' || t.status === 'acceptance');
+
+      // 渲染畫面
+      document.getElementById('client-company').innerText = member.company;
+      document.getElementById('client-name').innerText = `稱呼：${member.name} (${member.email})`;
+      document.getElementById('client-tier').innerText = member.tier || '輕量儲值會員';
+      document.getElementById('client-tax').innerText = member.taxId ? `統編：${member.taxId}` : '統一編號：未填寫';
+      document.getElementById('client-balance').innerText = `💎 ${availablePts} 點`;
+
+      // 渲染進行中任務
+      const activeContainer = document.getElementById('active-tasks-list');
+      if (activeTasks.length === 0) {
+        activeContainer.innerHTML = `
+          <div style="text-align: center; padding: 1.5rem; color: var(--text-muted); background: rgba(255,255,255,0.02); border-radius: var(--radius-sm); border: 1px dashed var(--border);">
+            目前無進行中或驗收中的任務。隨時歡迎加 LINE 提出新流程需求！
+          </div>
+        `;
+      } else {
+        activeContainer.innerHTML = activeTasks.map(t => {
+          let badge = t.status === 'in_progress'
+            ? '<span class="tag tag-amber">⚡ 48h 開發中</span>'
+            : '<span class="tag tag-cyan">⏳ 7 天驗收中</span>';
+
+          return `
+            <div class="task-item">
+              <div>
+                <div class="task-module">${escapeHTML(t.module)}</div>
+                <div class="task-title">${escapeHTML(t.title)}</div>
+                <div class="task-meta">提單日期：${t.date} · 預計扣點：${t.points} 點</div>
+                ${t.notes ? `<div style="font-size: 0.8rem; color: var(--text-sub); margin-top: 0.35rem;">💬 備註：${escapeHTML(t.notes)}</div>` : ''}
+              </div>
+              <div style="text-align: right;">
+                ${badge}
+                ${t.url ? `<div style="margin-top: 0.4rem;"><a href="${escapeHTML(t.url)}" target="_blank" style="color: var(--cyan); text-decoration: none; font-size: 0.8rem;">🔗 檢視成果 ↗</a></div>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 渲染歷史歷程
+      const historyContainer = document.getElementById('history-timeline');
+      const allEvents = [];
+
+      recharges.forEach(r => {
+        allEvents.push({
+          type: 'recharge',
+          date: r.date,
+          title: `💰 儲值入帳：${r.plan}`,
+          badge: `+${r.points} 點`,
+          sub: `實收 NT$ ${Number(r.amount).toLocaleString()} ${r.invoice ? `(發票: ${r.invoice})` : ''}`
+        });
+      });
+
+      tasks.forEach(t => {
+        let statusText = '進行中';
+        if (t.status === 'completed') statusText = '已驗收扣點';
+        else if (t.status === 'acceptance') statusText = '7 天驗收期';
+        else if (t.status === 'waived') statusText = '未通過免扣點';
+
+        allEvents.push({
+          type: 'task',
+          date: t.date,
+          title: `🛠️ ${t.title}`,
+          badge: t.status === 'completed' ? `-${t.points} 點` : `${statusText}`,
+          sub: `${t.module} · ${statusText}`
+        });
+      });
+
+      // 排序倒序
+      allEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (allEvents.length === 0) {
+        historyContainer.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem;">尚無歷史明細</div>';
+      } else {
+        historyContainer.innerHTML = allEvents.map(ev => `
+          <div class="timeline-node">
+            <div class="timeline-icon ${ev.type === 'recharge' ? '' : 'deduct'}"></div>
+            <div class="timeline-box">
+              <div class="timeline-header">
+                <span style="color: var(--text-main);">${escapeHTML(ev.title)}</span>
+                <span style="color: ${ev.type === 'recharge' ? '#6ee7b7' : 'var(--rose)'}; font-family: var(--font-mono); font-weight: 700;">${escapeHTML(ev.badge)}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.25rem;">
+                <span style="font-size: 0.775rem; color: var(--text-sub);">${escapeHTML(ev.sub)}</span>
+                <span class="timeline-date">${ev.date}</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      resultSection.style.display = 'block';
+    }
+
+    function showError(msg) {
+      const alertBox = document.getElementById('query-alert');
+      alertBox.style.display = 'block';
+      alertBox.style.background = 'rgba(244, 63, 94, 0.12)';
+      alertBox.style.border = '1px solid rgba(244, 63, 94, 0.3)';
+      alertBox.style.color = '#fda4af';
+      alertBox.innerText = msg;
+    }
+
+    function escapeHTML(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+  </script>
+</body>
+</html>

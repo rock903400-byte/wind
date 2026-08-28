@@ -1,0 +1,31 @@
+# ==============================================================================
+# Cloudflare Pages Custom Headers Configuration
+# ==============================================================================
+
+# 1. 全站通用安全標頭 (Security Headers)
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# 2. 靜態資源長效快取 (Images, Stylesheets, Scripts, WebP, SVG) - 快取 1 年
+/assets/*
+  Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# 3. HTML 網頁及時重新驗證快取 (確保 push 更新立即生效)
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# 4. 搜尋引擎相關檔案 (1 天快取)
+/robots.txt
+  Cache-Control: public, max-age=86400, s-maxage=86400
+  Access-Control-Allow-Origin: *
+
+/sitemap.xml
+  Cache-Control: public, max-age=86400, s-maxage=86400
+  Access-Control-Allow-Origin: *

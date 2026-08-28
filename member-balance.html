@@ -1,0 +1,2104 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>飛律 | 會員儲值與餘額管理總後台</title>
+  <meta name="description" content="飛律 AI 流程賦能・會員儲值與餘額追蹤系統，即時掌握客戶點數餘額、儲值流水帳、任務提單與 7 天驗收扣點狀態。" />
+  <meta name="theme-color" content="#080c0f" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-primary: #080c0f;
+      --bg-secondary: #0f171d;
+      --bg-card: rgba(18, 27, 34, 0.75);
+      --bg-card-hover: rgba(24, 36, 46, 0.9);
+      --bg-elevated: #16222c;
+      --border: rgba(255, 255, 255, 0.09);
+      --border-focus: rgba(16, 185, 129, 0.5);
+      --accent: #10b981;
+      --accent-hover: #059669;
+      --accent-glow: rgba(16, 185, 129, 0.2);
+      --accent-light: #6ee7b7;
+      --cyan: #0ea5e9;
+      --cyan-glow: rgba(14, 165, 233, 0.18);
+      --amber: #f59e0b;
+      --amber-glow: rgba(245, 158, 11, 0.18);
+      --rose: #f43f5e;
+      --rose-glow: rgba(244, 63, 94, 0.18);
+      --purple: #a855f7;
+      --text-main: #f8fafc;
+      --text-sub: #cbd5e1;
+      --text-muted: #94a3b8;
+      --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(circle at 10% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 20%, rgba(14, 165, 233, 0.06) 0%, transparent 40%),
+        linear-gradient(to bottom, transparent, rgba(8, 12, 15, 0.95));
+      background-attachment: fixed;
+    }
+
+    /* ---- Header / Nav ---- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(8, 12, 15, 0.85);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 1.5rem;
+    }
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .brand-logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-logo span { color: var(--accent); }
+    .badge-admin {
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--accent-light);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      letter-spacing: 0.03em;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    /* ---- Buttons ---- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.55rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary {
+      background: var(--accent);
+      color: #042f20;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      background: #34d399;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      border-color: var(--border);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .btn-cyan {
+      background: rgba(14, 165, 233, 0.15);
+      color: #38bdf8;
+      border-color: rgba(14, 165, 233, 0.35);
+    }
+    .btn-cyan:hover {
+      background: rgba(14, 165, 233, 0.25);
+    }
+    .btn-amber {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+    .btn-amber:hover {
+      background: rgba(245, 158, 11, 0.25);
+    }
+    .btn-sm {
+      padding: 0.35rem 0.65rem;
+      font-size: 0.8rem;
+    }
+    .btn-icon {
+      padding: 0.45rem;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ---- Main Container ---- */
+    main {
+      max-width: 1400px;
+      margin: 1.5rem auto 4rem;
+      padding: 0 1.25rem;
+    }
+
+    /* ---- KPI Cards ---- */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: var(--card-accent, var(--accent));
+      opacity: 0.85;
+    }
+    .kpi-card.emerald { --card-accent: var(--accent); }
+    .kpi-card.cyan { --card-accent: var(--cyan); }
+    .kpi-card.amber { --card-accent: var(--amber); }
+    .kpi-card.purple { --card-accent: var(--purple); }
+
+    .kpi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .kpi-title {
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .kpi-icon {
+      font-size: 1.2rem;
+    }
+    .kpi-value {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      letter-spacing: -0.03em;
+    }
+    .kpi-sub {
+      font-size: 0.775rem;
+      color: var(--text-sub);
+      margin-top: 0.25rem;
+    }
+
+    /* ---- Navigation Tabs ---- */
+    .tabs-bar {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.75rem 1.1rem;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+      position: relative;
+      white-space: nowrap;
+    }
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .tab-btn.active {
+      color: var(--accent-light);
+    }
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0; height: 2px;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+    .tab-badge {
+      font-size: 0.72rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-sub);
+    }
+    .tab-btn.active .tab-badge {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--accent-light);
+    }
+
+    /* ---- Search & Controls Toolbar ---- */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+      max-width: 480px;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 1rem 0.6rem 2.4rem;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .search-icon {
+      position: absolute;
+      left: 0.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      pointer-events: none;
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-select {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 0.9rem;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.875rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* ---- Tables ---- */
+    .table-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.875rem;
+    }
+    .data-table th {
+      background: rgba(15, 23, 29, 0.95);
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.775rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .data-table td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-sub);
+      vertical-align: middle;
+    }
+    .data-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-main);
+    }
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Badges & Tags */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .tag-emerald { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .tag-amber { background: rgba(245, 158, 11, 0.15); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .tag-rose { background: rgba(244, 63, 94, 0.15); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.3); }
+    .tag-cyan { background: rgba(14, 165, 233, 0.15); color: #7dd3fc; border: 1px solid rgba(14, 165, 233, 0.3); }
+    .tag-purple { background: rgba(168, 85, 247, 0.15); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.3); }
+    .tag-gray { background: rgba(255, 255, 255, 0.06); color: var(--text-muted); border: 1px solid rgba(255, 255, 255, 0.1); }
+
+    .balance-pill {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-sm);
+      display: inline-block;
+    }
+    .balance-pill.high { color: #6ee7b7; background: rgba(16, 185, 129, 0.12); }
+    .balance-pill.low { color: #fbbf24; background: rgba(245, 158, 11, 0.12); }
+    .balance-pill.empty { color: #f43f5e; background: rgba(244, 63, 94, 0.12); }
+
+    .member-name-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .member-title {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 0.925rem;
+    }
+    .member-company {
+      font-size: 0.775rem;
+      color: var(--text-muted);
+    }
+
+    /* ---- Modals ---- */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-card {
+      background: var(--bg-elevated);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-lg);
+      max-width: 620px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      transform: translateY(20px) scale(0.98);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .modal-overlay.active .modal-card {
+      transform: translateY(0) scale(1);
+    }
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      cursor: pointer;
+      padding: 0.25rem;
+      line-height: 1;
+    }
+    .modal-close:hover { color: var(--text-main); }
+    .modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      background: rgba(15, 23, 29, 0.6);
+    }
+
+    /* ---- Forms Inside Modal ---- */
+    .form-group {
+      margin-bottom: 1.15rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.825rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      margin-bottom: 0.4rem;
+    }
+    .form-label .req { color: var(--rose); margin-left: 0.2rem; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.65rem 0.85rem;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .form-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    /* ---- Drawer (Member Details) ---- */
+    .drawer-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 90;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s ease;
+    }
+    .drawer-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .drawer-panel {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: 100%;
+      max-width: 580px;
+      background: var(--bg-elevated);
+      border-left: 1px solid rgba(255, 255, 255, 0.12);
+      z-index: 95;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+    }
+    .drawer-panel.active {
+      transform: translateX(0);
+    }
+    .drawer-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 29, 0.85);
+    }
+    .drawer-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    /* Statement preview box */
+    .statement-box {
+      background: #090e13;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.825rem;
+      color: #a7f3d0;
+      white-space: pre-wrap;
+      max-height: 220px;
+      overflow-y: auto;
+      line-height: 1.5;
+    }
+
+    /* Timeline items */
+    .timeline {
+      position: relative;
+      padding-left: 1.25rem;
+      margin-top: 1rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0.5rem; bottom: 0.5rem; left: 0.35rem; width: 2px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: -1.25rem;
+      top: 0.3rem;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+    .timeline-dot.recharge { background: var(--accent); }
+    .timeline-dot.deduct { background: var(--rose); box-shadow: 0 0 8px var(--rose); }
+    .timeline-dot.in-progress { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+    .timeline-content {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 0.9rem;
+    }
+    .timeline-title {
+      font-weight: 600;
+      font-size: 0.875rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .timeline-time {
+      font-size: 0.725rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    /* Toast notifications */
+    .toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .toast {
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-left: 4px solid var(--accent);
+      padding: 0.75rem 1.2rem;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      color: var(--text-muted);
+    }
+    .empty-state-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      opacity: 0.6;
+    }
+
+    @media (max-width: 768px) {
+      .header-inner { flex-direction: column; align-items: flex-start; }
+      .header-actions { width: 100%; justify-content: flex-start; }
+      .form-row { grid-template-columns: 1fr; }
+      .drawer-panel { max-width: 100%; }
+      .data-table th:nth-child(4), .data-table td:nth-child(4) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Navigation -->
+  <header>
+    <div class="header-inner">
+      <div class="brand-group">
+        <a href="ai-enablement.html" class="brand-logo">
+          Wind <span>× 飛律</span>
+        </a>
+        <span class="badge-admin">會員儲值與餘額管理總後台</span>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-primary btn-sm" onclick="openRechargeModal()">
+          <span>💰 快速儲值</span>
+        </button>
+        <button class="btn btn-amber btn-sm" onclick="openTaskModal()">
+          <span>⚡ 任務提單/扣點</span>
+        </button>
+        <button class="btn btn-secondary btn-sm" onclick="openMemberModal()">
+          <span>👤 新增會員</span>
+        </button>
+        <a href="client-balance.html" target="_blank" class="btn btn-cyan btn-sm">
+          <span>🌐 開啟前台查詢端 ↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- KPI Overview Cards -->
+    <section class="kpi-grid">
+      <div class="kpi-card emerald">
+        <div class="kpi-header">
+          <span class="kpi-title">全站可用剩餘總點數</span>
+          <span class="kpi-icon">💎</span>
+        </div>
+        <div class="kpi-value" id="kpi-total-points">0</div>
+        <div class="kpi-sub">流通可兌換之任務額度</div>
+      </div>
+
+      <div class="kpi-card cyan">
+        <div class="kpi-header">
+          <span class="kpi-title">累計儲值總營收 (TWD)</span>
+          <span class="kpi-icon">💵</span>
+        </div>
+        <div class="kpi-value" id="kpi-total-revenue">NT$ 0</div>
+        <div class="kpi-sub" id="kpi-recharge-count">共 0 筆儲值入帳</div>
+      </div>
+
+      <div class="kpi-card amber">
+        <div class="kpi-header">
+          <span class="kpi-title">進行中 / 驗收中任務</span>
+          <span class="kpi-icon">⚡</span>
+        </div>
+        <div class="kpi-value" id="kpi-active-tasks">0</div>
+        <div class="kpi-sub" id="kpi-task-sub">含 48h 開發與 7 天驗收中</div>
+      </div>
+
+      <div class="kpi-card purple">
+        <div class="kpi-header">
+          <span class="kpi-title">總會員數 / 活躍客戶</span>
+          <span class="kpi-icon">👥</span>
+        </div>
+        <div class="kpi-value" id="kpi-total-members">0</div>
+        <div class="kpi-sub" id="kpi-low-balance-alert">0 位餘額偏低 (≤1點)</div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" onclick="switchTab('members')">
+        <span>👥 會員名冊與餘額</span>
+        <span class="tab-badge" id="badge-members-count">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('recharges')">
+        <span>💰 儲值流水帳</span>
+        <span class="tab-badge" id="badge-recharges-count">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('tasks')">
+        <span>🛠️ 任務扣點履歷</span>
+        <span class="tab-badge" id="badge-tasks-count">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('settings')">
+        <span>⚙️ 資料管理與備份</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: 會員名冊與餘額 -->
+    <div id="tab-members" class="tab-pane">
+      <div class="toolbar">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="member-search" class="search-input" placeholder="搜尋會員姓名、公司、統編、Email、LINE..." oninput="renderMembers()" />
+        </div>
+        <div class="filter-group">
+          <select id="member-filter-status" class="filter-select" onchange="renderMembers()">
+            <option value="all">全部狀態</option>
+            <option value="high">餘額充裕 (>1點)</option>
+            <option value="low">餘額偏低 (1點)</option>
+            <option value="empty">點數耗盡 (0點)</option>
+          </select>
+          <button class="btn btn-secondary btn-sm" onclick="exportMembersCSV()">
+            <span>📥 匯出會員 CSV</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>會員 / 公司單位</th>
+              <th>統編 / 聯絡方式</th>
+              <th>方案類型</th>
+              <th>累計儲值</th>
+              <th>可用餘額</th>
+              <th>進行中任務</th>
+              <th style="text-align: right;">操作</th>
+            </tr>
+          </thead>
+          <tbody id="members-table-body">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 2: 儲值流水帳 -->
+    <div id="tab-recharges" class="tab-pane" style="display: none;">
+      <div class="toolbar">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="recharge-search" class="search-input" placeholder="搜尋儲值會員、發票號碼、備註..." oninput="renderRecharges()" />
+        </div>
+        <div class="filter-group">
+          <button class="btn btn-primary btn-sm" onclick="openRechargeModal()">
+            <span>+ 新增儲值紀錄</span>
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="exportRechargesCSV()">
+            <span>📥 匯出儲值 CSV</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>儲值日期</th>
+              <th>會員 / 公司</th>
+              <th>方案名稱</th>
+              <th>實收金額</th>
+              <th>增加點數</th>
+              <th>付款方式 / 發票</th>
+              <th>備註</th>
+              <th style="text-align: right;">操作</th>
+            </tr>
+          </thead>
+          <tbody id="recharges-table-body">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: 任務扣點履歷 -->
+    <div id="tab-tasks" class="tab-pane" style="display: none;">
+      <div class="toolbar">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="task-search" class="search-input" placeholder="搜尋任務名稱、會員、模組類型..." oninput="renderTasks()" />
+        </div>
+        <div class="filter-group">
+          <select id="task-filter-status" class="filter-select" onchange="renderTasks()">
+            <option value="all">全部狀態</option>
+            <option value="in_progress">進行中 / 48h 開發中</option>
+            <option value="acceptance">7 天驗收中</option>
+            <option value="completed">驗收通過 (已扣點)</option>
+            <option value="waived">未過免扣 / 已取消</option>
+          </select>
+          <button class="btn btn-amber btn-sm" onclick="openTaskModal()">
+            <span>+ 提單 / 扣點</span>
+          </button>
+          <button class="btn btn-secondary btn-sm" onclick="exportTasksCSV()">
+            <span>📥 匯出任務 CSV</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>提單日期</th>
+              <th>會員 / 公司</th>
+              <th>模組類型與任務名稱</th>
+              <th>扣除點數</th>
+              <th>任務狀態</th>
+              <th>交付成果 / 備註</th>
+              <th style="text-align: right;">操作</th>
+            </tr>
+          </thead>
+          <tbody id="tasks-table-body">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 4: 資料管理與備份 -->
+    <div id="tab-settings" class="tab-pane" style="display: none;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+        <!-- Backup & Restore Card -->
+        <div class="kpi-card">
+          <h3 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">💾 本機資料備份與還原</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+            系統資料即時保存在本機瀏覽器（LocalStorage），可隨時匯出完整 JSON 備份檔，或跨電腦匯入還原。
+          </p>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="exportDatabaseJSON()">
+              <span>📤 匯出完整備份 (JSON)</span>
+            </button>
+            <label class="btn btn-secondary" style="cursor: pointer;">
+              <span>📥 匯入還原 (JSON)</span>
+              <input type="file" id="import-json-file" accept=".json" style="display: none;" onchange="importDatabaseJSON(event)" />
+            </label>
+          </div>
+        </div>
+
+        <!-- Demo Data & Reset Card -->
+        <div class="kpi-card">
+          <h3 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">🧪 測試資料與重置</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+            可一鍵載入「飛律 AI 流程賦能」典型業務示範資料進行預覽與體驗，亦可隨時清空重設。
+          </p>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button class="btn btn-cyan" onclick="loadDemoData()">
+              <span>✨ 載入示範資料</span>
+            </button>
+            <button class="btn btn-secondary" style="color: var(--rose);" onclick="confirmResetDatabase()">
+              <span>⚠️ 清空所有資料</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- Modal: 新增/編輯會員 -->
+  <div class="modal-overlay" id="modal-member">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-member-title">👤 新增會員客戶</div>
+        <button class="modal-close" onclick="closeModal('modal-member')">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-member" onsubmit="handleSaveMember(event)">
+          <input type="hidden" id="member-id" />
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">會員稱呼 / 聯絡人 <span class="req">*</span></label>
+              <input type="text" id="member-name" class="form-input" placeholder="例：林經理、王小姐" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">公司 / 單位名稱 <span class="req">*</span></label>
+              <input type="text" id="member-company" class="form-input" placeholder="例：伯鐸儲蓄互助社" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">統一編號 (統編)</label>
+              <input type="text" id="member-tax-id" class="form-input" placeholder="例：54730503" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">會員類型</label>
+              <select id="member-tier" class="form-select">
+                <option value="破冰體驗戶">破冰體驗戶 (2點)</option>
+                <option value="輕量儲值會員">輕量儲值會員 (5點包)</option>
+                <option value="月度訂閱客戶">月度訂閱客戶 (NT$ 5,000/月)</option>
+                <option value="企業客製專案">企業客製專案</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">電子信箱 (Email) <span class="req">*</span></label>
+              <input type="email" id="member-email" class="form-input" placeholder="client@example.com" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">LINE ID / 電話</label>
+              <input type="text" id="member-line" class="form-input" placeholder="例：0980463400" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">備註 / 需求偏好</label>
+            <textarea id="member-notes" class="form-textarea" placeholder="客戶主要痛點或備忘資訊..."></textarea>
+          </div>
+
+          <div class="modal-footer" style="margin: 1.5rem -1.5rem -1.5rem; padding: 1rem 1.5rem;">
+            <button type="button" class="btn btn-secondary" onclick="closeModal('modal-member')">取消</button>
+            <button type="submit" class="btn btn-primary">儲存會員</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 快速儲值 -->
+  <div class="modal-overlay" id="modal-recharge">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">💰 記錄會員儲值入帳</div>
+        <button class="modal-close" onclick="closeModal('modal-recharge')">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-recharge" onsubmit="handleSaveRecharge(event)">
+          <div class="form-group">
+            <label class="form-label">選擇儲值會員 <span class="req">*</span></label>
+            <select id="recharge-member-id" class="form-select" required>
+              <!-- Populated by JS -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">選擇方案模板</label>
+            <select id="recharge-plan-template" class="form-select" onchange="applyPlanTemplate()">
+              <option value="icebreak">破冰體驗包 (NT$ 1,000 / 2 點)</option>
+              <option value="pack5">5 點輕量儲值包 (NT$ 3,500 / 5 點)</option>
+              <option value="monthly">月度訂閱制 (NT$ 5,000 / 不限提單)</option>
+              <option value="custom">客製金額與點數</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">實收金額 (TWD NT$) <span class="req">*</span></label>
+              <input type="number" id="recharge-amount" class="form-input" min="0" value="1000" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">獲得任務點數 (點) <span class="req">*</span></label>
+              <input type="number" id="recharge-points" class="form-input" min="0" step="0.5" value="2" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">儲值日期 <span class="req">*</span></label>
+              <input type="date" id="recharge-date" class="form-input" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">付款管道</label>
+              <select id="recharge-method" class="form-select">
+                <option value="銀行轉帳">銀行轉帳</option>
+                <option value="綠界信用卡/LINE Pay">綠界信用卡 / LINE Pay</option>
+                <option value="現金/支票">現金 / 支票</option>
+                <option value="其他">其他</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">發票號碼 / 收據編號</label>
+            <input type="text" id="recharge-invoice" class="form-input" placeholder="例：AB-12345678" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">備註</label>
+            <input type="text" id="recharge-notes" class="form-input" placeholder="例：2026 Q3 預約第一期" />
+          </div>
+
+          <div class="modal-footer" style="margin: 1.5rem -1.5rem -1.5rem; padding: 1rem 1.5rem;">
+            <button type="button" class="btn btn-secondary" onclick="closeModal('modal-recharge')">取消</button>
+            <button type="submit" class="btn btn-primary">確認儲值入帳</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 任務提單與扣點 -->
+  <div class="modal-overlay" id="modal-task">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">⚡ 記錄任務提單與扣點狀態</div>
+        <button class="modal-close" onclick="closeModal('modal-task')">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="form-task" onsubmit="handleSaveTask(event)">
+          <div class="form-group">
+            <label class="form-label">委託會員 <span class="req">*</span></label>
+            <select id="task-member-id" class="form-select" required>
+              <!-- Populated by JS -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">飛律核心 AI 模組分類 <span class="req">*</span></label>
+            <select id="task-module" class="form-select" required>
+              <option value="試算表自動勾稽">試算表自動勾稽（跨表核帳、比對、資料清洗）</option>
+              <option value="LINE 官方帳號微型助手">LINE 官方帳號微型助手（訂單查詢、常見問答）</option>
+              <option value="規章手冊 RAG 知識庫">規章手冊 RAG 檢索（作業手冊、法規問答）</option>
+              <option value="政府標案與情報監控雷達">政府標案與公告雷達（關鍵字監控、每日推播）</option>
+              <option value="智慧法務公文與時效鬧鐘">智慧法務公文（訴狀套版、時效行事曆）</option>
+              <option value="舊系統桌面自動填表">舊系統桌面自動填表（跨系統 AHK 批次防呆）</option>
+              <option value="客製化輕量自動化">其他／客製化輕量自動化</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">任務名稱 / 具體交付需求 <span class="req">*</span></label>
+            <input type="text" id="task-title" class="form-input" placeholder="例：收支傳票自動清洗與跨表勾稽腳本" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">扣除任務點數 <span class="req">*</span></label>
+              <input type="number" id="task-points" class="form-input" min="0" step="0.5" value="1" required />
+              <div class="form-hint">標準任務每項 1 點；驗收通過才正式扣點。</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">任務狀態 <span class="req">*</span></label>
+              <select id="task-status" class="form-select" required>
+                <option value="in_progress">進行中 (48h 快速開發中)</option>
+                <option value="acceptance">7 天驗收期 (客戶測試中)</option>
+                <option value="completed">驗收通過 (正式扣點)</option>
+                <option value="waived">驗收未過/技術不符 (免扣點)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">提單日期 <span class="req">*</span></label>
+              <input type="date" id="task-date" class="form-input" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">成果交付/試算表連結</label>
+              <input type="url" id="task-url" class="form-input" placeholder="https://..." />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">交付備註與備忘</label>
+            <textarea id="task-notes" class="form-textarea" placeholder="交付成果細節、驗收意見或調整紀錄..."></textarea>
+          </div>
+
+          <div class="modal-footer" style="margin: 1.5rem -1.5rem -1.5rem; padding: 1rem 1.5rem;">
+            <button type="button" class="btn btn-secondary" onclick="closeModal('modal-task')">取消</button>
+            <button type="submit" class="btn btn-amber">儲存任務履歷</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DRAWER: 會員詳情與專屬對帳單 ==================== -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+  <div class="drawer-panel" id="drawer-panel">
+    <div class="drawer-header">
+      <div style="display: flex; align-items: center; gap: 0.6rem;">
+        <span style="font-size: 1.25rem;">📋</span>
+        <h3 id="drawer-member-name" style="font-size: 1.1rem; color: var(--text-main);">會員明細</h3>
+      </div>
+      <button class="modal-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-body" id="drawer-content">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ==================== LOGIC / JAVASCRIPT ==================== -->
+  <script>
+    // 預設資料結構金鑰
+    const STORAGE_KEY = 'feilu_member_system_v1';
+
+    // 狀態管理物件
+    let DB = {
+      members: [],
+      recharges: [],
+      tasks: []
+    };
+
+    // 初始化載入
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDatabase();
+      setDefaultDates();
+      renderAll();
+    });
+
+    function setDefaultDates() {
+      const today = new Date().toISOString().split('T')[0];
+      const rDate = document.getElementById('recharge-date');
+      const tDate = document.getElementById('task-date');
+      if (rDate) rDate.value = today;
+      if (tDate) tDate.value = today;
+    }
+
+    // ── 資料持久化 ─────────────────────────────────────────
+    function loadDatabase() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          DB = JSON.parse(saved);
+        } catch (e) {
+          console.error('Failed to parse DB:', e);
+          initEmptyDB();
+        }
+      } else {
+        // 初次進入若無資料，載入初始示範資料
+        loadDemoData(false);
+      }
+    }
+
+    function saveDatabase() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(DB));
+    }
+
+    function initEmptyDB() {
+      DB = { members: [], recharges: [], tasks: [] };
+      saveDatabase();
+    }
+
+    // ── 示範資料載入 ───────────────────────────────────────
+    function loadDemoData(notify = true) {
+      DB = {
+        members: [
+          {
+            id: 'MEM-2026-001',
+            name: '林秘書長',
+            company: '伯鐸儲蓄互助社',
+            taxId: '54730503',
+            email: 'boduosavings@example.com',
+            line: '0980463400',
+            tier: '輕量儲值會員',
+            notes: '主要需求為每月收支傳票自動清洗與跨表勾稽。',
+            createdAt: '2026-08-15'
+          },
+          {
+            id: 'MEM-2026-002',
+            name: '謝創辦人',
+            company: '果醬女孩 Jam Girl',
+            taxId: '88291023',
+            email: 'jamgirl@example.com',
+            line: 'jamgirl_official',
+            tier: '破冰體驗戶',
+            notes: '希望建立 LINE 官方帳號物流與訂單自動查詢助手。',
+            createdAt: '2026-08-20'
+          },
+          {
+            id: 'MEM-2026-003',
+            name: '張律師',
+            company: '誠律法律事務所',
+            taxId: '49201948',
+            email: 'chang.law@example.com',
+            line: 'lawyer_chang',
+            tier: '月度訂閱客戶',
+            notes: '司法院標準支付命令與民事起訴狀自動套版外掛。',
+            createdAt: '2026-08-25'
+          }
+        ],
+        recharges: [
+          {
+            id: 'REC-001',
+            memberId: 'MEM-2026-001',
+            date: '2026-08-15',
+            plan: '5 點輕量儲值包',
+            amount: 3500,
+            points: 5,
+            method: '銀行轉帳',
+            invoice: 'AB-88291039',
+            notes: '首期儲值 5 點'
+          },
+          {
+            id: 'REC-002',
+            memberId: 'MEM-2026-002',
+            date: '2026-08-20',
+            plan: '破冰體驗包',
+            amount: 1000,
+            points: 2,
+            method: '綠界信用卡/LINE Pay',
+            invoice: 'AB-99201944',
+            notes: '體驗方案 2 點'
+          },
+          {
+            id: 'REC-003',
+            memberId: 'MEM-2026-003',
+            date: '2026-08-25',
+            plan: '月度訂閱制',
+            amount: 5000,
+            points: 5,
+            method: '銀行轉帳',
+            invoice: 'AB-10293847',
+            notes: '8 月份訂閱款'
+          }
+        ],
+        tasks: [
+          {
+            id: 'TSK-001',
+            memberId: 'MEM-2026-001',
+            date: '2026-08-16',
+            module: '試算表自動勾稽',
+            title: '出納帳冊與銀行對帳單自動交叉核帳管線',
+            points: 1,
+            status: 'completed',
+            url: 'https://docs.google.com/spreadsheets/d/demo1',
+            notes: '48h 極速交付，客戶已驗收通過'
+          },
+          {
+            id: 'TSK-002',
+            memberId: 'MEM-2026-001',
+            date: '2026-08-22',
+            module: '舊系統桌面自動填表',
+            title: '互助社老舊 FoxPro 授信資料一鍵匯入試算表 AHK 外掛',
+            points: 1,
+            status: 'acceptance',
+            url: 'https://github.com/demo/ahk-script',
+            notes: '已交付測試版，7 天驗收期進行中'
+          },
+          {
+            id: 'TSK-003',
+            memberId: 'MEM-2026-002',
+            date: '2026-08-26',
+            module: 'LINE 官方帳號微型助手',
+            title: '果醬現貨庫存與宅配單號 24h 自動回覆機器人',
+            points: 1,
+            status: 'in_progress',
+            url: '',
+            notes: '開發中，預計明晚交付測試'
+          }
+        ]
+      };
+      saveDatabase();
+      renderAll();
+      if (notify) showToast('✨ 成功載入飛律業務示範資料！');
+    }
+
+    function confirmResetDatabase() {
+      if (confirm('確定要清空所有會員、儲值與任務資料嗎？此動作無法復原（建議先匯出 JSON 備份）。')) {
+        initEmptyDB();
+        renderAll();
+        showToast('⚠️ 資料庫已清空。');
+      }
+    }
+
+    // ── 餘額與 KPI 計算引擎 ────────────────────────────────
+    function getMemberStats(memberId) {
+      const recharges = DB.recharges.filter(r => r.memberId === memberId);
+      const tasks = DB.tasks.filter(t => t.memberId === memberId);
+
+      const totalRechargedPoints = recharges.reduce((sum, r) => sum + (parseFloat(r.points) || 0), 0);
+      const totalAmountPaid = recharges.reduce((sum, r) => sum + (parseFloat(r.amount) || 0), 0);
+
+      // 已驗收扣點
+      const completedPoints = tasks
+        .filter(t => t.status === 'completed')
+        .reduce((sum, t) => sum + (parseFloat(t.points) || 0), 0);
+
+      // 進行中 / 驗收中佔用
+      const pendingPoints = tasks
+        .filter(t => t.status === 'in_progress' || t.status === 'acceptance')
+        .reduce((sum, t) => sum + (parseFloat(t.points) || 0), 0);
+
+      // 可用餘額 = 總購買點數 - 已扣點數
+      const availablePoints = Math.max(0, totalRechargedPoints - completedPoints);
+
+      return {
+        totalRechargedPoints,
+        totalAmountPaid,
+        completedPoints,
+        pendingPoints,
+        availablePoints,
+        activeTasksCount: tasks.filter(t => t.status === 'in_progress' || t.status === 'acceptance').length
+      };
+    }
+
+    function renderKPIs() {
+      let totalAvailable = 0;
+      let totalRevenue = 0;
+      let activeTasks = 0;
+      let lowBalanceCount = 0;
+
+      DB.members.forEach(m => {
+        const stats = getMemberStats(m.id);
+        totalAvailable += stats.availablePoints;
+        totalRevenue += stats.totalAmountPaid;
+        activeTasks += stats.activeTasksCount;
+        if (stats.availablePoints <= 1) lowBalanceCount++;
+      });
+
+      document.getElementById('kpi-total-points').innerText = totalAvailable;
+      document.getElementById('kpi-total-revenue').innerText = 'NT$ ' + totalRevenue.toLocaleString();
+      document.getElementById('kpi-recharge-count').innerText = `共 ${DB.recharges.length} 筆儲值入帳`;
+      document.getElementById('kpi-active-tasks').innerText = activeTasks;
+      document.getElementById('kpi-total-members').innerText = DB.members.length;
+      document.getElementById('kpi-low-balance-alert').innerText = `${lowBalanceCount} 位客戶餘額偏低 (≤1點)`;
+
+      document.getElementById('badge-members-count').innerText = DB.members.length;
+      document.getElementById('badge-recharges-count').innerText = DB.recharges.length;
+      document.getElementById('badge-tasks-count').innerText = DB.tasks.length;
+    }
+
+    // ── 畫面渲染 ───────────────────────────────────────────
+    function renderAll() {
+      renderKPIs();
+      renderMembers();
+      renderRecharges();
+      renderTasks();
+      populateMemberSelects();
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+      const pane = document.getElementById('tab-' + tabId);
+      if (pane) pane.style.display = 'block';
+
+      event.currentTarget.classList.add('active');
+    }
+
+    // ── TAB 1: 會員名冊 ────────────────────────────────────
+    function renderMembers() {
+      const tbody = document.getElementById('members-table-body');
+      const search = (document.getElementById('member-search').value || '').trim().toLowerCase();
+      const statusFilter = document.getElementById('member-filter-status').value;
+
+      let filtered = DB.members.filter(m => {
+        const matchText = (m.name + ' ' + m.company + ' ' + (m.taxId || '') + ' ' + m.email + ' ' + (m.line || '')).toLowerCase();
+        if (search && !matchText.includes(search)) return false;
+
+        const stats = getMemberStats(m.id);
+        if (statusFilter === 'high' && stats.availablePoints <= 1) return false;
+        if (statusFilter === 'low' && stats.availablePoints !== 1) return false;
+        if (statusFilter === 'empty' && stats.availablePoints !== 0) return false;
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="empty-state">
+              <div class="empty-state-icon">👥</div>
+              <div>查無符合條件之會員</div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(m => {
+        const stats = getMemberStats(m.id);
+        let pillClass = 'high';
+        if (stats.availablePoints === 0) pillClass = 'empty';
+        else if (stats.availablePoints <= 1) pillClass = 'low';
+
+        return `
+          <tr>
+            <td>
+              <div class="member-name-cell">
+                <span class="member-title">${escapeHTML(m.name)}</span>
+                <span class="member-company">${escapeHTML(m.company)}</span>
+              </div>
+            </td>
+            <td>
+              <div style="font-size: 0.825rem;">
+                ${m.taxId ? `<span class="tag tag-gray">統編 ${escapeHTML(m.taxId)}</span><br>` : ''}
+                <span style="color: var(--text-muted);">📧 ${escapeHTML(m.email)}</span>
+                ${m.line ? `<br><span style="color: var(--text-muted);">💬 LINE: ${escapeHTML(m.line)}</span>` : ''}
+              </div>
+            </td>
+            <td><span class="tag tag-purple">${escapeHTML(m.tier || '儲值會員')}</span></td>
+            <td>
+              <strong style="color: var(--text-main); font-family: var(--font-mono);">NT$ ${stats.totalAmountPaid.toLocaleString()}</strong>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">已購 ${stats.totalRechargedPoints} 點</div>
+            </td>
+            <td>
+              <span class="balance-pill ${pillClass}">💎 ${stats.availablePoints} 點</span>
+            </td>
+            <td>
+              ${stats.activeTasksCount > 0
+                ? `<span class="tag tag-amber">⚡ ${stats.activeTasksCount} 項進行中</span>`
+                : `<span style="color: var(--text-muted); font-size: 0.8rem;">無進行中任務</span>`}
+            </td>
+            <td style="text-align: right;">
+              <button class="btn btn-secondary btn-sm" onclick="openMemberDrawer('${m.id}')" title="查看明細與產生對帳單">
+                <span>📋 明細 / 對帳</span>
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="editMember('${m.id}')" title="編輯資料">
+                <span>✏️</span>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // ── TAB 2: 儲值流水帳 ──────────────────────────────────
+    function renderRecharges() {
+      const tbody = document.getElementById('recharges-table-body');
+      const search = (document.getElementById('recharge-search').value || '').trim().toLowerCase();
+
+      let filtered = DB.recharges.filter(r => {
+        const member = DB.members.find(m => m.id === r.memberId);
+        const memberName = member ? (member.name + ' ' + member.company) : '';
+        const matchText = (r.plan + ' ' + memberName + ' ' + (r.invoice || '') + ' ' + (r.notes || '')).toLowerCase();
+        return !search || matchText.includes(search);
+      });
+
+      // 依日期倒序
+      filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="empty-state">
+              <div class="empty-state-icon">💰</div>
+              <div>尚無儲值流水帳紀錄</div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(r => {
+        const member = DB.members.find(m => m.id === r.memberId);
+        return `
+          <tr>
+            <td style="font-family: var(--font-mono);">${r.date}</td>
+            <td>
+              <strong>${member ? escapeHTML(member.name) : '已移除會員'}</strong>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">${member ? escapeHTML(member.company) : ''}</div>
+            </td>
+            <td><span class="tag tag-emerald">${escapeHTML(r.plan)}</span></td>
+            <td><strong style="color: #6ee7b7; font-family: var(--font-mono);">NT$ ${Number(r.amount).toLocaleString()}</strong></td>
+            <td><span class="tag tag-cyan">+${r.points} 點</span></td>
+            <td>
+              <div>${escapeHTML(r.method || '轉帳')}</div>
+              ${r.invoice ? `<div style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);">${escapeHTML(r.invoice)}</div>` : ''}
+            </td>
+            <td style="font-size: 0.8rem; color: var(--text-muted);">${escapeHTML(r.notes || '—')}</td>
+            <td style="text-align: right;">
+              <button class="btn btn-secondary btn-sm" onclick="deleteRecharge('${r.id}')" title="刪除紀錄" style="color: var(--rose);">
+                <span>🗑️</span>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // ── TAB 3: 任務扣點履歷 ────────────────────────────────
+    function renderTasks() {
+      const tbody = document.getElementById('tasks-table-body');
+      const search = (document.getElementById('task-search').value || '').trim().toLowerCase();
+      const statusFilter = document.getElementById('task-filter-status').value;
+
+      let filtered = DB.tasks.filter(t => {
+        const member = DB.members.find(m => m.id === t.memberId);
+        const memberName = member ? (member.name + ' ' + member.company) : '';
+        const matchText = (t.title + ' ' + t.module + ' ' + memberName + ' ' + (t.notes || '')).toLowerCase();
+        if (search && !matchText.includes(search)) return false;
+        if (statusFilter !== 'all' && t.status !== statusFilter) return false;
+        return true;
+      });
+
+      filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="empty-state">
+              <div class="empty-state-icon">🛠️</div>
+              <div>尚無任務履歷紀錄</div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(t => {
+        const member = DB.members.find(m => m.id === t.memberId);
+        let statusBadge = '';
+        if (t.status === 'in_progress') statusBadge = '<span class="tag tag-amber">⚡ 48h 開發中</span>';
+        else if (t.status === 'acceptance') statusBadge = '<span class="tag tag-cyan">⏳ 7 天驗收期</span>';
+        else if (t.status === 'completed') statusBadge = '<span class="tag tag-emerald">✅ 驗收通過 (扣點)</span>';
+        else if (t.status === 'waived') statusBadge = '<span class="tag tag-gray">↩️ 未過免扣</span>';
+
+        return `
+          <tr>
+            <td style="font-family: var(--font-mono);">${t.date}</td>
+            <td>
+              <strong>${member ? escapeHTML(member.name) : '已移除會員'}</strong>
+              <div style="font-size: 0.75rem; color: var(--text-muted);">${member ? escapeHTML(member.company) : ''}</div>
+            </td>
+            <td>
+              <span class="tag tag-purple" style="margin-bottom: 0.2rem;">${escapeHTML(t.module)}</span>
+              <div style="font-weight: 600; color: var(--text-main);">${escapeHTML(t.title)}</div>
+            </td>
+            <td><strong style="color: var(--rose); font-family: var(--font-mono);">-${t.points} 點</strong></td>
+            <td>${statusBadge}</td>
+            <td>
+              ${t.url ? `<a href="${escapeHTML(t.url)}" target="_blank" style="color: var(--cyan); text-decoration: none; font-size: 0.8rem;">🔗 交付成果 ↗</a><br>` : ''}
+              <span style="font-size: 0.775rem; color: var(--text-muted);">${escapeHTML(t.notes || '')}</span>
+            </td>
+            <td style="text-align: right;">
+              <button class="btn btn-secondary btn-sm" onclick="changeTaskStatus('${t.id}')" title="變更驗收狀態">
+                <span>🔄 狀態</span>
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="deleteTask('${t.id}')" title="刪除紀錄" style="color: var(--rose);">
+                <span>🗑️</span>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // ── 下拉選單同步 ───────────────────────────────────────
+    function populateMemberSelects() {
+      const rechargeSelect = document.getElementById('recharge-member-id');
+      const taskSelect = document.getElementById('task-member-id');
+
+      const options = DB.members.map(m => `
+        <option value="${m.id}">${escapeHTML(m.name)} - ${escapeHTML(m.company)}</option>
+      `).join('');
+
+      if (rechargeSelect) rechargeSelect.innerHTML = options || '<option value="">請先新增會員</option>';
+      if (taskSelect) taskSelect.innerHTML = options || '<option value="">請先新增會員</option>';
+    }
+
+    // ── 方案模板自動帶入 ───────────────────────────────────
+    function applyPlanTemplate() {
+      const tpl = document.getElementById('recharge-plan-template').value;
+      const amountInput = document.getElementById('recharge-amount');
+      const pointsInput = document.getElementById('recharge-points');
+      const notesInput = document.getElementById('recharge-notes');
+
+      if (tpl === 'icebreak') {
+        amountInput.value = 1000;
+        pointsInput.value = 2;
+        notesInput.value = '破冰體驗包（交付 2 項）';
+      } else if (tpl === 'pack5') {
+        amountInput.value = 3500;
+        pointsInput.value = 5;
+        notesInput.value = '5 點輕量儲值包（每點 NT$700）';
+      } else if (tpl === 'monthly') {
+        amountInput.value = 5000;
+        pointsInput.value = 5;
+        notesInput.value = '月度訂閱制（單一線程連續交付）';
+      }
+    }
+
+    // ── MODAL 顯示與儲存處理 ──────────────────────────────
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    function openMemberModal() {
+      document.getElementById('form-member').reset();
+      document.getElementById('member-id').value = '';
+      document.getElementById('modal-member-title').innerText = '👤 新增會員客戶';
+      openModal('modal-member');
+    }
+
+    function editMember(memberId) {
+      const member = DB.members.find(m => m.id === memberId);
+      if (!member) return;
+
+      document.getElementById('member-id').value = member.id;
+      document.getElementById('member-name').value = member.name;
+      document.getElementById('member-company').value = member.company;
+      document.getElementById('member-tax-id').value = member.taxId || '';
+      document.getElementById('member-tier').value = member.tier || '破冰體驗戶';
+      document.getElementById('member-email').value = member.email;
+      document.getElementById('member-line').value = member.line || '';
+      document.getElementById('member-notes').value = member.notes || '';
+
+      document.getElementById('modal-member-title').innerText = '✏️ 編輯會員資料';
+      openModal('modal-member');
+    }
+
+    function handleSaveMember(e) {
+      e.preventDefault();
+      const id = document.getElementById('member-id').value;
+      const name = document.getElementById('member-name').value.trim();
+      const company = document.getElementById('member-company').value.trim();
+      const taxId = document.getElementById('member-tax-id').value.trim();
+      const tier = document.getElementById('member-tier').value;
+      const email = document.getElementById('member-email').value.trim();
+      const line = document.getElementById('member-line').value.trim();
+      const notes = document.getElementById('member-notes').value.trim();
+
+      if (id) {
+        // Update
+        const idx = DB.members.findIndex(m => m.id === id);
+        if (idx !== -1) {
+          DB.members[idx] = { ...DB.members[idx], name, company, taxId, tier, email, line, notes };
+        }
+        showToast('✅ 會員資料已更新');
+      } else {
+        // Create
+        const newId = 'MEM-' + Date.now().toString().slice(-6);
+        const newMember = {
+          id: newId,
+          name, company, taxId, tier, email, line, notes,
+          createdAt: new Date().toISOString().split('T')[0]
+        };
+        DB.members.push(newMember);
+        showToast('🎉 新會員已成功建立！');
+      }
+
+      saveDatabase();
+      closeModal('modal-member');
+      renderAll();
+    }
+
+    function openRechargeModal() {
+      if (DB.members.length === 0) {
+        alert('請先建立至少一位會員！');
+        openMemberModal();
+        return;
+      }
+      populateMemberSelects();
+      setDefaultDates();
+      applyPlanTemplate();
+      openModal('modal-recharge');
+    }
+
+    function handleSaveRecharge(e) {
+      e.preventDefault();
+      const memberId = document.getElementById('recharge-member-id').value;
+      const template = document.getElementById('recharge-plan-template');
+      const planName = template.options[template.selectedIndex].text.split(' (')[0];
+      const amount = parseFloat(document.getElementById('recharge-amount').value) || 0;
+      const points = parseFloat(document.getElementById('recharge-points').value) || 0;
+      const date = document.getElementById('recharge-date').value;
+      const method = document.getElementById('recharge-method').value;
+      const invoice = document.getElementById('recharge-invoice').value.trim();
+      const notes = document.getElementById('recharge-notes').value.trim();
+
+      const newRecharge = {
+        id: 'REC-' + Date.now().toString().slice(-6),
+        memberId,
+        date,
+        plan: planName,
+        amount,
+        points,
+        method,
+        invoice,
+        notes
+      };
+
+      DB.recharges.push(newRecharge);
+      saveDatabase();
+      closeModal('modal-recharge');
+      renderAll();
+      showToast(`💰 成功入帳 NT$ ${amount.toLocaleString()}（+${points} 點）！`);
+    }
+
+    function openTaskModal() {
+      if (DB.members.length === 0) {
+        alert('請先建立至少一位會員！');
+        openMemberModal();
+        return;
+      }
+      populateMemberSelects();
+      setDefaultDates();
+      openModal('modal-task');
+    }
+
+    function handleSaveTask(e) {
+      e.preventDefault();
+      const memberId = document.getElementById('task-member-id').value;
+      const module = document.getElementById('task-module').value;
+      const title = document.getElementById('task-title').value.trim();
+      const points = parseFloat(document.getElementById('task-points').value) || 1;
+      const status = document.getElementById('task-status').value;
+      const date = document.getElementById('task-date').value;
+      const url = document.getElementById('task-url').value.trim();
+      const notes = document.getElementById('task-notes').value.trim();
+
+      const newTask = {
+        id: 'TSK-' + Date.now().toString().slice(-6),
+        memberId,
+        date,
+        module,
+        title,
+        points,
+        status,
+        url,
+        notes
+      };
+
+      DB.tasks.push(newTask);
+      saveDatabase();
+      closeModal('modal-task');
+      renderAll();
+      showToast('⚡ 任務已記錄！');
+    }
+
+    function changeTaskStatus(taskId) {
+      const task = DB.tasks.find(t => t.id === taskId);
+      if (!task) return;
+
+      const nextStatus = {
+        'in_progress': 'acceptance',
+        'acceptance': 'completed',
+        'completed': 'waived',
+        'waived': 'in_progress'
+      };
+
+      task.status = nextStatus[task.status] || 'in_progress';
+      saveDatabase();
+      renderAll();
+      showToast(`🔄 任務狀態已變更為：${getStatusName(task.status)}`);
+    }
+
+    function getStatusName(status) {
+      if (status === 'in_progress') return '進行中 (48h 開發中)';
+      if (status === 'acceptance') return '7 天驗收中';
+      if (status === 'completed') return '驗收通過 (已正式扣點)';
+      if (status === 'waived') return '驗收未過/技術不符 (免扣點)';
+      return status;
+    }
+
+    function deleteRecharge(id) {
+      if (confirm('確定要刪除這筆儲值紀錄嗎？')) {
+        DB.recharges = DB.recharges.filter(r => r.id !== id);
+        saveDatabase();
+        renderAll();
+        showToast('🗑️ 儲值紀錄已刪除');
+      }
+    }
+
+    function deleteTask(id) {
+      if (confirm('確定要刪除這筆任務履歷嗎？')) {
+        DB.tasks = DB.tasks.filter(t => t.id !== id);
+        saveDatabase();
+        renderAll();
+        showToast('🗑️ 任務履歷已刪除');
+      }
+    }
+
+    // ── DRAWER: 會員專屬明細與對帳單 ────────────────────────
+    function openMemberDrawer(memberId) {
+      const member = DB.members.find(m => m.id === memberId);
+      if (!member) return;
+
+      const stats = getMemberStats(member.id);
+      const recharges = DB.recharges.filter(r => r.memberId === memberId).sort((a,b) => new Date(b.date) - new Date(a.date));
+      const tasks = DB.tasks.filter(t => t.memberId === memberId).sort((a,b) => new Date(b.date) - new Date(a.date));
+
+      document.getElementById('drawer-member-name').innerText = `${member.name} (${member.company})`;
+
+      // 產生前台專屬查詢連結
+      const clientUrl = `${window.location.origin}${window.location.pathname.replace('member-balance.html', 'client-balance.html')}?token=${encodeURIComponent(member.id)}`;
+
+      // 產生 LINE / Email 格式化對帳文字
+      const statementText = generateStatementText(member, stats, recharges, tasks);
+
+      const content = `
+        <!-- Summary Cards in Drawer -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem;">
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 0.9rem; border-radius: var(--radius-sm);">
+            <div style="font-size: 0.75rem; color: var(--text-muted);">當前可用餘額</div>
+            <div style="font-size: 1.75rem; font-weight: 800; color: #6ee7b7; font-family: var(--font-mono);">💎 ${stats.availablePoints} 點</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 0.9rem; border-radius: var(--radius-sm);">
+            <div style="font-size: 0.75rem; color: var(--text-muted);">累計儲值總額</div>
+            <div style="font-size: 1.4rem; font-weight: 800; color: var(--text-main); font-family: var(--font-mono); margin-top: 0.2rem;">NT$ ${stats.totalAmountPaid.toLocaleString()}</div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; gap: 0.6rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+          <button class="btn btn-primary btn-sm" onclick="copyStatementToClipboard()">
+            <span>📋 複製 LINE 對帳單文字</span>
+          </button>
+          <button class="btn btn-cyan btn-sm" onclick="copyClientLink('${escapeHTML(clientUrl)}')">
+            <span>🔗 複製客戶專屬查詢連結</span>
+          </button>
+        </div>
+
+        <!-- Statement Preview Box -->
+        <div style="margin-bottom: 1.5rem;">
+          <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-sub); margin-bottom: 0.4rem;">對帳單文字預覽（點擊上方按鈕秒複製）：</div>
+          <div class="statement-box" id="statement-preview">${escapeHTML(statementText)}</div>
+        </div>
+
+        <!-- Client Timeline History -->
+        <h4 style="font-size: 0.95rem; color: var(--text-main); margin-bottom: 0.75rem;">📜 歷史履歷與異動時間軸</h4>
+        <div class="timeline">
+          ${tasks.map(t => `
+            <div class="timeline-item">
+              <div class="timeline-dot deduct"></div>
+              <div class="timeline-content">
+                <div class="timeline-title">
+                  <span>${escapeHTML(t.title)}</span>
+                  <span style="color: var(--rose); font-family: var(--font-mono);">-${t.points} 點</span>
+                </div>
+                <div class="timeline-time">${t.date} · 狀態：${getStatusName(t.status)}</div>
+                ${t.notes ? `<div style="font-size: 0.775rem; color: var(--text-muted); margin-top: 0.25rem;">${escapeHTML(t.notes)}</div>` : ''}
+              </div>
+            </div>
+          `).join('')}
+
+          ${recharges.map(r => `
+            <div class="timeline-item">
+              <div class="timeline-dot recharge"></div>
+              <div class="timeline-content">
+                <div class="timeline-title">
+                  <span>💰 儲值入帳：${escapeHTML(r.plan)}</span>
+                  <span style="color: #6ee7b7; font-family: var(--font-mono);">+${r.points} 點</span>
+                </div>
+                <div class="timeline-time">${r.date} · 實收 NT$ ${Number(r.amount).toLocaleString()} ${r.invoice ? `(${r.invoice})` : ''}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+
+      document.getElementById('drawer-content').innerHTML = content;
+      document.getElementById('drawer-overlay').classList.add('active');
+      document.getElementById('drawer-panel').classList.add('active');
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawer-overlay').classList.remove('active');
+      document.getElementById('drawer-panel').classList.remove('active');
+    }
+
+    function generateStatementText(member, stats, recharges, tasks) {
+      const activeTasks = tasks.filter(t => t.status === 'in_progress' || t.status === 'acceptance');
+      return `【飛律 AI 流程賦能・會員點數對帳明細】
+━━━━━━━━━━━━━━━━━━━━
+貴客戶：${member.company}（${member.name}）
+目前可用點數：💎 ${stats.availablePoints} 點
+累計儲值總額：NT$ ${stats.totalAmountPaid.toLocaleString()}（共 ${stats.totalRechargedPoints} 點）
+━━━━━━━━━━━━━━━━━━━━
+⚡ 進行中 / 驗收中任務：
+${activeTasks.length > 0 
+  ? activeTasks.map(t => `・${t.title}（狀態：${getStatusName(t.status)}）`).join('\n')
+  : '・目前無進行中任務，隨時歡迎提單！'}
+
+💰 最近儲值明細：
+${recharges.slice(0, 3).map(r => `・${r.date} ${r.plan}（+${r.points} 點 / NT$ ${Number(r.amount).toLocaleString()}）`).join('\n')}
+
+📜 最近已交付任務：
+${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date} ${t.title}（-${t.points} 點）`).join('\n') || '・尚未有已結案任務'}
+━━━━━━━━━━━━━━━━━━━━
+💡 飛律承諾：點數永久有效、驗收通過才扣點。有新需求隨時回傳 LINE 提單！`;
+    }
+
+    function copyStatementToClipboard() {
+      const text = document.getElementById('statement-preview').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋 LINE 對帳單文字已複製到剪貼簿！');
+      });
+    }
+
+    function copyClientLink(url) {
+      navigator.clipboard.writeText(url).then(() => {
+        showToast('🔗 客戶專屬免登入查詢連結已複製！');
+      });
+    }
+
+    // ── CSV 匯出引擎 ───────────────────────────────────────
+    function exportMembersCSV() {
+      const headers = ['會員ID', '姓名稱呼', '公司單位', '統一編號', '方案類型', 'Email', 'LINE/電話', '累計金額', '已購點數', '已扣點數', '可用餘額', '建立日期'];
+      const rows = DB.members.map(m => {
+        const stats = getMemberStats(m.id);
+        return [
+          m.id, m.name, m.company, m.taxId || '', m.tier || '',
+          m.email, m.line || '', stats.totalAmountPaid, stats.totalRechargedPoints,
+          stats.completedPoints, stats.availablePoints, m.createdAt
+        ];
+      });
+      downloadCSV('feilu_members_' + getTimestamp() + '.csv', headers, rows);
+    }
+
+    function exportRechargesCSV() {
+      const headers = ['儲值ID', '會員ID', '會員姓名', '公司', '儲值日期', '方案名稱', '金額TWD', '獲得點數', '付款方式', '發票號碼', '備註'];
+      const rows = DB.recharges.map(r => {
+        const m = DB.members.find(mem => mem.id === r.memberId);
+        return [
+          r.id, r.memberId, m ? m.name : '', m ? m.company : '',
+          r.date, r.plan, r.amount, r.points, r.method, r.invoice || '', r.notes || ''
+        ];
+      });
+      downloadCSV('feilu_recharges_' + getTimestamp() + '.csv', headers, rows);
+    }
+
+    function exportTasksCSV() {
+      const headers = ['任務ID', '會員ID', '會員姓名', '公司', '提單日期', '模組類型', '任務名稱', '扣除點數', '狀態', '成果連結', '備註'];
+      const rows = DB.tasks.map(t => {
+        const m = DB.members.find(mem => mem.id === t.memberId);
+        return [
+          t.id, t.memberId, m ? m.name : '', m ? m.company : '',
+          t.date, t.module, t.title, t.points, getStatusName(t.status), t.url || '', t.notes || ''
+        ];
+      });
+      downloadCSV('feilu_tasks_' + getTimestamp() + '.csv', headers, rows);
+    }
+
+    function downloadCSV(filename, headers, rows) {
+      let csvContent = '\uFEFF' + headers.map(h => `"${h}"`).join(',') + '\n';
+      rows.forEach(row => {
+        csvContent += row.map(val => `"${String(val).replace(/"/g, '""')}"`).join(',') + '\n';
+      });
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      link.click();
+      showToast(`📥 已成功匯出報表：${filename}`);
+    }
+
+    // ── JSON 備份與還原 ────────────────────────────────────
+    function exportDatabaseJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(DB, null, 2));
+      const downloadAnchor = document.createElement('a');
+      const filename = `feilu_backup_${getTimestamp()}.json`;
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", filename);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast(`💾 完整備份檔已匯出：${filename}`);
+    }
+
+    function importDatabaseJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (imported.members && Array.isArray(imported.members)) {
+            DB = imported;
+            saveDatabase();
+            renderAll();
+            showToast('🎉 資料庫備份還原成功！');
+          } else {
+            alert('檔案格式不相符，無法還原。');
+          }
+        } catch (err) {
+          alert('解析 JSON 檔案失敗：' + err.message);
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+
+    // ── 輔助工具 ───────────────────────────────────────────
+    function getTimestamp() {
+      const d = new Date();
+      return d.toISOString().split('T')[0].replace(/-/g, '');
+    }
+
+    function showToast(msg) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerText = msg;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    function escapeHTML(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+  </script>
+</body>
+</html>
