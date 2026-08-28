@@ -1,8 +1,29 @@
-# 注意：本站目前是 GitHub Project Pages（/wind/ 子路徑），
-# 爬蟲只讀網域根目錄的 robots.txt，也就是 github.io/robots.txt，
-# 這個檔案要等綁上自訂網域（根目錄）後才會真正生效。
-# sitemap.xml 不受此限，可直接在 Search Console 提交。
+# ==============================================================================
+# robots.txt - Wind × 飛律 (Feilu)
+# ==============================================================================
+
 User-agent: *
 Allow: /
 
+# 主流 AI 爬蟲明確允許 (OpenAI, Perplexity, Anthropic, Google, Apple, etc.)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemap 站點地圖
+Sitemap: https://wind.pages.dev/sitemap.xml
 Sitemap: https://rock903400-byte.github.io/wind/sitemap.xml

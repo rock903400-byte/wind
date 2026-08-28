@@ -1,0 +1,50 @@
+# Wind × 飛律 (Feilu)
+
+> 跨產業全端接案開發 × AI 流程賦能輕量儲值制。以臺灣臺中市為基地，全台遠端合作。
+> 官方網站: https://wind.pages.dev/
+> 備用網站: https://rock903400-byte.github.io/wind/
+> 聯絡 LINE: https://line.me/ti/p/~0980463400 (LINE ID: 0980463400)
+> 電子郵件: rock90340@gmail.com
+> 統一編號/發票/合約: 可開立正式發票、可簽訂正式法律效力合約
+
+## 核心服務 1: 飛律 AI 流程賦能・輕量儲值制
+- 服務網址: https://wind.pages.dev/ai-enablement.html
+- 會員儲值查詢: https://wind.pages.dev/member-balance.html
+- 收費方案: 儲值 NT$ 1,000 交付 2 項輕量自動化模組（單項折合 NT$ 500，48 小時極速交付、資產 100% 自主、點數永久有效）
+- 核心自動化模組項目:
+  1. Google Workspace / 試算表自動勾稽: 跨試算表即時交叉比對、收支傳票自動清洗、進銷存防呆防錯與月報一鍵出圖。
+  2. LINE 官方帳號微型助手: 串接大型語言模型 (LLM) 與 Google 試算表，24 小時秒回規章、產品問答與即時庫存查詢。
+  3. 內部規章 RAG 知識庫: 數百頁作業手冊、公司規程與內規秒查，精準引述條號、章節與頁碼。
+  4. 政府標案與情報監控雷達: 每日自動爬取政府電子採購網，精準篩選高關聯標案並直送 LINE 或 Email。
+  5. 智慧法務公文與時效鬧鐘: 司法院標準支付命令聲請狀一鍵自動生成 + 請求權消滅時效 Google 行事曆鬧鐘。
+  6. 舊系統無 API 桌面自動填表: 老舊進銷存、人事或行政系統 (Access/FoxPro) 透過 AutoHotkey 一鍵防呆貼入。
+
+## 核心服務 2: 跨產業全端與客製化系統開發
+- 服務介紹: 靠 AI Agent 快速進入各陌生行業領域，用白話溝通交出立即可用的系統與網頁。
+- 19 項已上線專案實績:
+  1. 伯鐸儲蓄互助社: 形象官網 (https://boduosavings-group-site.pages.dev/)
+  2. 果醬女孩 Jam Girl: 電商品牌商城 (https://jamgirl-website.pages.dev/)
+  3. 眉序修眉: 品牌形象網站 (https://meixu-site.pages.dev/)
+  4. 陶茶雅舍: 品牌形象網站
+  5. MONO CLASSICS: 復古相機電商與門市 POS 系統
+  6. LINE AI 生態系: LINE 官方帳號 AI 智慧應用生態
+  7. 信用評分系統: 金融授信與信用風險評估工具
+  8. 儲互社風險儀表板: 金融資料視覺化與逾期監控系統
+  9. FitLog AI: 健身紀錄與訓練追蹤 Web App / PWA
+  10. 法拍補償試算: 房地產拍賣補償金精算工具
+  11. 學術展覽互動網站: 數位策展與學術成果展示
+  12. 員工福利商店 App: PWA 點餐與福利兌換系統
+  13. AI 財務分析報告產生器: 一鍵生成財報分析與洞察報告
+  14. LiveHub 多路直播監看: 多視角即時串流監控控制台
+  15. 旅遊行程估價系統: 客製化旅遊行程快速報價與利潤分析
+  16. 勞恩布妮的家: 品牌官網與民宿訂房系統 (https://laoenbuni.pages.dev/)
+  17. 艾比兒甜點: 手作甜點電商官網
+  18. 臺中市林業生產合作社: 林業品牌與產品官網
+  19. 台中建德浸信會: 教會品牌形象官網
+
+## 網站完整頁面索引 (Sitemap)
+- 首頁 / 作品集主頁: https://wind.pages.dev/
+- 飛律 AI 流程賦能介紹: https://wind.pages.dev/ai-enablement.html
+- 會員儲值與任務自主查詢: https://wind.pages.dev/member-balance.html
+- 實體名片 1:1 PDF 產生工具: https://wind.pages.dev/print-card.html
+- 隱私權保護政策: https://wind.pages.dev/privacy.html

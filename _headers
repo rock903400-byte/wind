@@ -29,3 +29,8 @@
 /sitemap.xml
   Cache-Control: public, max-age=86400, s-maxage=86400
   Access-Control-Allow-Origin: *
+
+/llms.txt
+  Cache-Control: public, max-age=86400, s-maxage=86400
+  Access-Control-Allow-Origin: *
+  Content-Type: text/plain; charset=utf-8
