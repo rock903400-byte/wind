@@ -64,7 +64,12 @@ def check_html_standards(errors, warnings):
         if 'assets/tokens.css' not in content:
             errors.append(f"❌ [{filename}] 缺少 assets/tokens.css 引入")
 
-        # 4. 檢查是否有殘留的舊主網域
+        # 4. 檢查 member-balance.html 之 JS 版本號
+        if filename == "member-balance.html":
+            if 'src="assets/member-balance.js?v=' not in content:
+                errors.append("❌ [member-balance.html] assets/member-balance.js 引用必須帶 ?v= 版本號")
+
+        # 5. 檢查是否有殘留的舊主網域
         if "https://rock903400-byte.github.io/wind/" in content and filename not in ["llms.txt"]:
             errors.append(f"❌ [{filename}] 仍殘留舊主網域 https://rock903400-byte.github.io/wind/")
 
@@ -174,6 +179,10 @@ def check_heading_and_security_logic(errors, warnings):
     mb_js = (ROOT_DIR / "assets" / "member-balance.js").read_text(encoding="utf-8")
     if "sanitizeMemberData" not in mb_js:
         errors.append("❌ [assets/member-balance.js] 缺少 sanitizeMemberData 函式")
+    if "new URL(" not in mb_js or "client-balance.html?token=" not in mb_js:
+        errors.append("❌ [assets/member-balance.js] 客戶連結必須包含 new URL 與 client-balance.html?token=")
+    if "pathname.replace('member-balance.html'" in mb_js:
+        errors.append("❌ [assets/member-balance.js] 客戶連結不可依賴 pathname.replace，請用 new URL 相對解析")
 
     # 檢查 repo 內無任何 ADMIN_KEY 字面密碼洩露
     for root, _, files in os.walk(ROOT_DIR):
@@ -236,6 +245,8 @@ def check_headers_and_security(errors, warnings):
         errors.append("❌ _headers CSP 缺少 frame-src 放行 Google 表單")
     if "X-Content-Type-Options: nosniff" not in content:
         errors.append("❌ _headers 缺少 X-Content-Type-Options 標頭")
+    if "/assets/*.js" not in content or "must-revalidate" not in content:
+        errors.append("❌ _headers 未將 /assets/*.js 設為 must-revalidate，JS 更新會被舊快取卡住")
 
     redirects_file = ROOT_DIR / "_redirects"
     if redirects_file.exists():
