@@ -125,7 +125,8 @@ a.hero-badge:focus-visible{outline:2px solid var(--accent-light);outline-offset:
 
 /* ---- works grid ---- */
 .works-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;
-  /* 旗艦卡 span 2 會讓 sparse 流留下永久空洞（後續項目不回填），必須 dense */
+  /* 旗艦卡佔 grid-column:1/-1 整列，會在它前面留下未填滿的尾列；
+     dense 讓後續普通卡回頭補進那些空格，避免右側出現垂直空洞 */
   grid-auto-flow:dense}
 .works-grid.collapsed .work-card.extra{display:none}
 .work-card{position:relative;background:var(--surface);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;will-change:transform;
