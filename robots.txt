@@ -8,21 +8,27 @@ Allow: /
 
 # 主流 AI 爬蟲明確允許 (OpenAI, Perplexity, Anthropic, Google, Apple, etc.)
 User-agent: GPTBot
+Disallow: /member-balance.html
 Allow: /
 
 User-agent: OAI-SearchBot
+Disallow: /member-balance.html
 Allow: /
 
 User-agent: PerplexityBot
+Disallow: /member-balance.html
 Allow: /
 
 User-agent: ClaudeBot
+Disallow: /member-balance.html
 Allow: /
 
 User-agent: Google-Extended
+Disallow: /member-balance.html
 Allow: /
 
 User-agent: Applebot-Extended
+Disallow: /member-balance.html
 Allow: /
 
 # Sitemap 站點地圖

@@ -24,3 +24,12 @@ jobs:
       - name: Run Full Site Integrity & Broken Link Check
         run: |
           python scripts/verify-site.py
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Shared Utilities Unit Tests
+        run: |
+          node --test

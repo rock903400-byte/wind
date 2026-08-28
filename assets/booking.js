@@ -230,11 +230,12 @@
         if (!utmStr) return;
         document.querySelectorAll('a[href^="mailto:"]').forEach(a => {
           const href = a.getAttribute('href');
-          if (href.indexOf('utm_') !== -1) return; // 已附加
-          const sep = href.indexOf('?') !== -1 ? (href.indexOf('body=') !== -1 ? '%0D%0A%0D%0A[來源:' + encodeURIComponent(utmStr) + ']' : '&body=' + encodeURIComponent('[來源:' + utmStr + ']')) : '?body=' + encodeURIComponent('[來源:' + utmStr + ']');
-          // 若已有 body，追加；否則新增 body
+          if (href.indexOf('utm_') !== -1) return; // 已附加過
+          const tag = '[來源:' + utmStr + ']';
           if (href.indexOf('body=') !== -1) {
-            a.setAttribute('href', href + encodeURIComponent('\n\n[來源:' + utmStr + ']'));
+            a.setAttribute('href', href + encodeURIComponent('\n\n' + tag));
+          } else {
+            a.setAttribute('href', href + (href.indexOf('?') !== -1 ? '&' : '?') + 'body=' + encodeURIComponent(tag));
           }
         });
       }

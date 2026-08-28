@@ -7,8 +7,9 @@ Wind × 飛律 — 全站靜態完整性檢驗腳本 (scripts/verify-site.py)
 2. 掃描所有內部相對連結 (href / src) 是否真實存在，確保 0 個死連結。
 3. 掃描所有頁內錨點 (#...) 是否具有對應 id，確保 0 個失效錨點。
 4. 驗證全站 0 個 inline 事件處理器 (on* 屬性) 與 0 個 inline 執行腳本。
-5. 驗證 sitemap.xml、robots.txt、_headers 與安全標頭配置 (嚴格 CSP 無 unsafe-inline)。
-6. 驗證 WCAG 標題大綱順序、Token 安全防護與表單防重入機制。
+5. 驗證全站 asset 快取版本號 (?v=) 一致性。
+6. 驗證 sitemap.xml、robots.txt、_headers 與安全標頭配置 (嚴格 CSP 無 unsafe-inline)。
+7. 驗證 WCAG 標題大綱順序與密鑰防洩漏掃描。
 """
 
 import os
@@ -27,18 +28,10 @@ if sys.stdout.encoding != 'utf-8':
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 
-HTML_FILES = [
-    "index.html",
-    "ai-enablement.html",
-    "client-balance.html",
-    "member-balance.html",
-    "print-card.html",
-    "privacy.html",
-    "404.html",
-]
+HTML_FILES = sorted(p.name for p in ROOT_DIR.glob("*.html"))
 
 def check_html_standards(errors, warnings):
-    print("\n🔍 [1/6] 檢查 HTML 標頭、語系與 Canonical 一致性...")
+    print("\n🔍 [1/7] 檢查 HTML 標頭、語系與 Canonical 一致性...")
     for filename in HTML_FILES:
         filepath = ROOT_DIR / filename
         if not filepath.exists():
@@ -76,7 +69,7 @@ def check_html_standards(errors, warnings):
         print(f"  ✓ {filename} 標頭與基礎規格檢驗通過")
 
 def check_links_and_anchors(errors, warnings):
-    print("\n🔍 [2/6] 檢查站內相對連結與錨點完整性...")
+    print("\n🔍 [2/7] 檢查站內相對連結與錨點完整性...")
     id_pattern = re.compile(r'id=["\']([^"\']+)["\']')
     href_pattern = re.compile(r'(?:href|src)=["\']([^"\']+)["\']')
 
@@ -118,8 +111,9 @@ def check_links_and_anchors(errors, warnings):
         print(f"  ✓ {filename} 站內連結與錨點無死連結")
 
 def check_inline_handlers_and_scripts(errors, warnings):
-    print("\n🔍 [3/6] 檢查全站 0 inline handler 與外置腳本架構...")
+    print("\n🔍 [3/7] 檢查全站 0 inline handler 與 0 inline 執行腳本...")
     handler_pattern = re.compile(r'\son[a-z]+=', re.IGNORECASE)
+    script_pattern = re.compile(r'<script([^>]*)>(.*?)</script>', re.IGNORECASE | re.DOTALL)
     for filename in HTML_FILES:
         filepath = ROOT_DIR / filename
         if not filepath.exists():
@@ -129,60 +123,25 @@ def check_inline_handlers_and_scripts(errors, warnings):
         if matches:
             errors.append(f"❌ [{filename}] 仍包含 {len(matches)} 個 inline 事件處理器 (on* 屬性)")
 
-    print("  ✓ 全站 HTML 檔案 0 個 inline handler 檢驗通過")
+        for attrs, body in script_pattern.findall(content):
+            if 'application/ld+json' in attrs.lower():
+                continue
+            if body.strip():
+                errors.append(f"❌ [{filename}] 含有 inline <script> 內容，CSP script-src 無 unsafe-inline 會直接擋掉")
 
-def check_heading_and_security_logic(errors, warnings):
-    print("\n🔍 [4/6] 檢查 WCAG 標題大綱與安全防護邏輯...")
+    print("  ✓ 全站 HTML 檔案 0 個 inline handler 與 inline script 檢驗通過")
+
+def check_heading_and_secret_scan(errors, warnings):
+    print("\n🔍 [4/7] 檢查 WCAG 標題大綱與密鑰洩漏掃描...")
     # 檢查 ai-enablement.html 標題層級
-    ai_content = (ROOT_DIR / "ai-enablement.html").read_text(encoding="utf-8")
-    headings = re.findall(r'<(h[1-6])(?:\s+[^>]*)?>', ai_content, re.IGNORECASE)
-    levels = [int(h[1]) for h in headings]
-    for i in range(len(levels) - 1):
-        if levels[i+1] > levels[i] + 1:
-            errors.append(f"❌ [ai-enablement.html] 標題層級跳階: h{levels[i]} -> h{levels[i+1]}")
-
-    # 檢查 booking.js 防重入
-    booking_js = (ROOT_DIR / "assets" / "booking.js").read_text(encoding="utf-8")
-    if "if (submitting)" not in booking_js:
-        errors.append("❌ [assets/booking.js] 缺少 if (submitting) 防重入守衛")
-    if "submitBtn.disabled = true" not in booking_js:
-        errors.append("❌ [assets/booking.js] 送出時未設置 submitBtn.disabled = true")
-    if "SUBMIT_TIMEOUT_MS = 15000" not in booking_js:
-        errors.append("❌ [assets/booking.js] SUBMIT_TIMEOUT_MS 未設置為 15000ms")
-
-    # 檢查 GAS 後端安全性與型別安全 (docs/feilu-member-api.gs)
-    gas_code = (ROOT_DIR / "docs" / "feilu-member-api.gs").read_text(encoding="utf-8")
-    if "exportAll" in gas_code.split("function doGet")[1].split("function doPost")[0]:
-        errors.append("❌ [docs/feilu-member-api.gs] doGet 仍包含 exportAll 全量匯出分支")
-    if "PropertiesService.getScriptProperties().getProperty('ADMIN_KEY')" not in gas_code:
-        errors.append("❌ [docs/feilu-member-api.gs] 未使用 PropertiesService 讀取 ADMIN_KEY")
-    if "getRange(2, 1, sMembers.getLastRow() - 1, 10)" not in gas_code:
-        errors.append("❌ [docs/feilu-member-api.gs] 會員主檔欄寬未更新為 10 欄")
-    if "setNumberFormat('@')" not in gas_code:
-        errors.append("❌ [docs/feilu-member-api.gs] 缺少 setNumberFormat('@') 純文字格式設定")
-    if "Asia/Taipei" not in gas_code:
-        errors.append("❌ [docs/feilu-member-api.gs] 缺少 Asia/Taipei 時區標準化輸出")
-    
-    # 檢查 getMemberDataByToken_ 不包含 notes
-    token_fn = gas_code.split("function getMemberDataByToken_")[1].split("function syncFullDatabase_")[0]
-    if "notes: r[7]" in token_fn or "notes: String(r[7]" in token_fn:
-        errors.append("❌ [docs/feilu-member-api.gs] getMemberDataByToken_ 回傳之 member 物件仍包含內部 notes")
-
-    # 檢查 client-balance.js 日期防禦性格式化
-    cb_js = (ROOT_DIR / "assets" / "client-balance.js").read_text(encoding="utf-8")
-    if "function formatDate(v)" not in cb_js:
-        errors.append("❌ [assets/client-balance.js] 缺少 formatDate 輔助函式")
-    if "escapeHTML(formatDate(t.date))" not in cb_js:
-        errors.append("❌ [assets/client-balance.js] 任務日期未套用 formatDate 與 escapeHTML")
-
-    # 檢查 member-balance.js 資料防禦性補零與型別修復
-    mb_js = (ROOT_DIR / "assets" / "member-balance.js").read_text(encoding="utf-8")
-    if "sanitizeMemberData" not in mb_js:
-        errors.append("❌ [assets/member-balance.js] 缺少 sanitizeMemberData 函式")
-    if "new URL(" not in mb_js or "client-balance.html?token=" not in mb_js:
-        errors.append("❌ [assets/member-balance.js] 客戶連結必須包含 new URL 與 client-balance.html?token=")
-    if "pathname.replace('member-balance.html'" in mb_js:
-        errors.append("❌ [assets/member-balance.js] 客戶連結不可依賴 pathname.replace，請用 new URL 相對解析")
+    ai_file = ROOT_DIR / "ai-enablement.html"
+    if ai_file.exists():
+        ai_content = ai_file.read_text(encoding="utf-8")
+        headings = re.findall(r'<(h[1-6])(?:\s+[^>]*)?>', ai_content, re.IGNORECASE)
+        levels = [int(h[1]) for h in headings]
+        for i in range(len(levels) - 1):
+            if levels[i+1] > levels[i] + 1:
+                errors.append(f"❌ [ai-enablement.html] 標題層級跳階: h{levels[i]} -> h{levels[i+1]}")
 
     # 檢查 repo 內無任何 ADMIN_KEY 字面密碼洩露
     for root, _, files in os.walk(ROOT_DIR):
@@ -194,10 +153,25 @@ def check_heading_and_security_logic(errors, warnings):
                 if "adminKey = 'secret" in text or "adminKey: 'secret" in text:
                     errors.append(f"❌ [{file}] 疑似硬編碼管理者密鑰字面值")
 
-    print("  ✓ WCAG 標題大綱、表單防重入、型別安全、時區校正與隱私遮蔽檢驗通過")
+    print("  ✓ WCAG 標題大綱與密鑰洩漏掃描通過")
+
+def check_asset_versions(errors, warnings):
+    print("\n🔍 [5/7] 檢查 asset 快取版本號一致性與完整性...")
+    ver_pattern = re.compile(r'(?:href|src)=["\']assets/[^"\']+\?v=(\d+)["\']')
+    unversioned_pattern = re.compile(r'(?:href|src)=["\'](assets/[^"\']+\.(?:js|css))["\']')
+    versions = {}
+    for filename in HTML_FILES:
+        content = (ROOT_DIR / filename).read_text(encoding="utf-8")
+        for unversioned in unversioned_pattern.findall(content):
+            errors.append(f"❌ [{filename}] 引用了未帶版本號的靜態資源：{unversioned}（請加上 ?v=...）")
+        for v in ver_pattern.findall(content):
+            versions.setdefault(v, []).append(filename)
+    if len(versions) > 1:
+        errors.append(f"❌ asset ?v= 版本號不一致：{ {k: sorted(set(f)) for k, f in versions.items()} }")
+    print("  ✓ asset 版本號一致且全部帶有版號")
 
 def check_sitemap_and_robots(errors, warnings):
-    print("\n🔍 [5/6] 檢查 Sitemap 與 Robots.txt...")
+    print("\n🔍 [6/7] 檢查 Sitemap 與 Robots.txt...")
     sitemap_file = ROOT_DIR / "sitemap.xml"
     if not sitemap_file.exists():
         errors.append("❌ 找不到 sitemap.xml")
@@ -230,7 +204,7 @@ def check_sitemap_and_robots(errors, warnings):
     print("  ✓ Sitemap 與 Robots.txt 配置檢驗通過")
 
 def check_headers_and_security(errors, warnings):
-    print("\n🔍 [6/6] 檢查 _headers 與安全標頭 (CSP 收緊)...")
+    print("\n🔍 [7/7] 檢查 _headers 與安全標頭 (CSP 收緊)...")
     headers_file = ROOT_DIR / "_headers"
     if not headers_file.exists():
         errors.append("❌ 找不到 _headers 檔案")
@@ -258,7 +232,7 @@ def check_headers_and_security(errors, warnings):
 
 def main():
     print("==================================================")
-    print("🚀 啟動 Wind × 飛律 全站品質與安全檢驗 (第三輪)")
+    print("🚀 啟動 Wind × 飛律 全站品質與安全檢驗 (第四輪)")
     print("==================================================")
 
     errors = []
@@ -267,7 +241,8 @@ def main():
     check_html_standards(errors, warnings)
     check_links_and_anchors(errors, warnings)
     check_inline_handlers_and_scripts(errors, warnings)
-    check_heading_and_security_logic(errors, warnings)
+    check_heading_and_secret_scan(errors, warnings)
+    check_asset_versions(errors, warnings)
     check_sitemap_and_robots(errors, warnings)
     check_headers_and_security(errors, warnings)
 

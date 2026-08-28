@@ -12,7 +12,7 @@
  *      - 點選左側齒輪「專案設定 (Project Settings)」。
  *      - 於「指令碼屬性 (Script Properties)」點擊「新增指令碼屬性」。
  *      - 屬性名稱填入：ADMIN_KEY
- *      - 屬性值填入：您自訂的高強度密鑰（例如 32 字元隨機字串）。
+ *      - 屬性值填入：高強度隨機密鑰（請執行 checkAdminKeyStrength 產生，不可自行想好記密碼）。
  *   4. 首次執行：函式選擇 setupSheets 並點擊「執行」，建立工作表與格式化文字欄位。
  *   5. 建立部署作業：
  *      - 點選右上角「部署」→「管理部署作業」→ 編輯目前版本或新增版本。
@@ -23,6 +23,11 @@
 var SHEET_MEMBERS   = '會員主檔';
 var SHEET_RECHARGES = '儲值流水帳';
 var SHEET_TASKS     = '任務扣點履歷';
+var SHEET_AUDIT     = '稽核日誌';
+
+var LOCKOUT_CACHE_KEY  = 'admin_auth_failures';
+var LOCKOUT_THRESHOLD  = 10;
+var LOCKOUT_WINDOW_SEC = 900;   // 15 分鐘
 
 /**
  * 首次初始化工作表與標題列，並設定電話、統編與發票欄位為純文字格式 (@)
@@ -59,6 +64,13 @@ function setupSheets() {
     sTasks.appendRow(['任務ID', '會員ID', '提單日期', '模組分類', '任務名稱', '扣除點數', '狀態', '成果連結', '備註']);
     sTasks.getRange(1, 1, 1, 9).setFontWeight('bold').setBackground('#f59e0b').setFontColor('#ffffff');
   }
+
+  // 4. 稽核日誌 (7 欄，append-only，永不清空)
+  var sAudit = ss.getSheetByName(SHEET_AUDIT) || ss.insertSheet(SHEET_AUDIT);
+  if (sAudit.getLastRow() === 0) {
+    sAudit.appendRow(['時間', '動作', '對象', '對象ID', '摘要', '變更前', '變更後']);
+    sAudit.getRange(1, 1, 1, 7).setFontWeight('bold').setBackground('#6366f1').setFontColor('#ffffff');
+  }
 }
 
 /**
@@ -93,27 +105,65 @@ function doGet(e) {
 function doPost(e) {
   var result = { success: false, message: '未授權' };
   try {
+    if (isLockedOut_()) {
+      result.message = '嘗試次數過多，請稍後再試';
+      return respondJSON_(result);
+    }
+
     var payload = JSON.parse(e.postData.contents || '{}');
     var expectedKey = PropertiesService.getScriptProperties().getProperty('ADMIN_KEY');
 
     if (!expectedKey || !payload.adminKey || String(payload.adminKey).trim() !== expectedKey.trim()) {
+      var n = recordAuthFailure_();
+      appendAudit_('AUTH_FAIL', 'system', '', '密鑰驗證失敗（本視窗第 ' + n + ' 次）', '', '');
       result.message = '未授權：管理者密鑰錯誤或未設定';
       return respondJSON_(result);
     }
+    clearAuthFailures_();   // 驗證成功即歸零
 
     if (payload.action === 'syncAll' && payload.db) {
-      syncFullDatabase_(payload.db);
-      result.success = true;
-      result.message = '資料庫同步成功';
+      var lock = LockService.getScriptLock();
+      if (!lock.tryLock(30000)) {
+        result.message = '另一個同步作業進行中，請稍候再試';
+        return respondJSON_(result);
+      }
+      try {
+        var backup = backupBeforeSync_();
+        var beforeCounts = '會員 ' + backup.snapshot.members.length +
+          ' / 儲值 ' + backup.snapshot.recharges.length +
+          ' / 任務 ' + backup.snapshot.tasks.length;
+        var afterCounts = '會員 ' + (payload.db.members || []).length +
+          ' / 儲值 ' + (payload.db.recharges || []).length +
+          ' / 任務 ' + (payload.db.tasks || []).length;
+
+        syncFullDatabase_(payload.db);
+
+        appendAudit_('SYNC_ALL', 'database', '',
+          '全量覆寫（備份表：' + backup.sheetName + '）', beforeCounts, afterCounts);
+
+        result.success = true;
+        result.message = '資料庫同步成功';
+      } finally {
+        lock.releaseLock();
+      }
     } else if (payload.action === 'exportAll' || payload.action === 'getDB') {
+      var data = exportFullDatabase_();
       result.success = true;
       result.message = '資料庫匯出成功';
-      result.data = exportFullDatabase_();
+      result.data = data;
+      var exportCounts = '會員 ' + data.members.length +
+        ' / 儲值 ' + data.recharges.length +
+        ' / 任務 ' + data.tasks.length;
+      appendAudit_('EXPORT_ALL', 'database', '', '全量匯出', '', exportCounts);
     } else {
       result.message = '未知的操作指令';
     }
   } catch (err) {
-    result.message = '處理失敗：' + err.toString();
+    // 這個端點對所有人開放，例外訊息可能帶出試算表名稱與內部函式名，
+    // 對外一律給固定字串，細節留在 GAS 執行記錄與稽核日誌裡。
+    console.error('doPost 失敗：' + err.toString());
+    appendAudit_('ERROR', 'system', '', '系統例外錯誤', '', err.toString());
+    result.message = '處理失敗，請聯繫管理者';
   }
   return respondJSON_(result);
 }
@@ -394,6 +444,163 @@ function formatString_(v, isPhone) {
     s = '0' + s;
   }
   return s;
+}
+
+/**
+ * 覆寫前先把雲端現況存成一張時間戳工作表。
+ * syncFullDatabase_ 是 clearContent + setValues 的破壞性覆寫，
+ * 沒有還原點的話，一次誤同步就找不回客戶帳務資料。
+ */
+function backupBeforeSync_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var stamp = Utilities.formatDate(new Date(), 'Asia/Taipei', 'yyyyMMdd_HHmmss');
+  var name = '備份_' + stamp;
+  var snapshotData = exportFullDatabase_();
+  var snapshot = JSON.stringify(snapshotData);
+
+  var sheet = ss.insertSheet(name);
+  if (snapshot.length <= 45000) {
+    sheet.getRange(1, 1).setValue(snapshot);
+  } else {
+    var chunkSize = 40000;
+    var chunks = [];
+    chunks.push(['CHUNKED:' + snapshot.slice(0, chunkSize)]);
+    for (var pos = chunkSize; pos < snapshot.length; pos += chunkSize) {
+      chunks.push([snapshot.slice(pos, pos + chunkSize)]);
+    }
+    sheet.getRange(1, 1, chunks.length, 1).setValues(chunks);
+  }
+  sheet.hideSheet();
+
+  pruneOldBackups_(ss);
+  return { sheetName: name, snapshot: snapshotData };
+}
+
+/**
+ * 只留最近 10 份備份，否則試算表分頁會無限膨脹。
+ */
+function pruneOldBackups_(ss) {
+  var backups = ss.getSheets()
+    .filter(function(s) { return s.getName().indexOf('備份_') === 0; })
+    .sort(function(a, b) { return a.getName() < b.getName() ? 1 : -1; });
+  for (var i = 10; i < backups.length; i++) {
+    ss.deleteSheet(backups[i]);
+  }
+}
+
+/**
+ * 稽核寫入。
+ * 這是帳務系統，「資料被改成什麼」可以靠備份表還原，
+ * 但「誰在什麼時候做了什麼」只有這裡查得到。
+ * 任何情況下都不得讓稽核失敗影響主流程 —— 記帳失敗不能連累記帳這件事本身。
+ */
+function appendAudit_(action, entity, entityId, summary, before, after) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_AUDIT);
+    if (!sheet) return;   // setupSheets 還沒跑過，靜默略過
+    sheet.appendRow([
+      Utilities.formatDate(new Date(), 'Asia/Taipei', 'yyyy-MM-dd HH:mm:ss'),
+      String(action || ''),
+      String(entity || ''),
+      String(entityId || ''),
+      String(summary || ''),
+      truncateForAudit_(before),
+      truncateForAudit_(after)
+    ]);
+  } catch (err) {
+    console.error('appendAudit_ 失敗：' + err.toString());
+  }
+}
+
+/**
+ * 單一儲存格上限約 50,000 字元，超過會整列寫入失敗。
+ */
+function truncateForAudit_(v) {
+  if (v === null || v === undefined || v === '') return '';
+  var s = (typeof v === 'string') ? v : JSON.stringify(v);
+  return s.length > 5000 ? s.slice(0, 5000) + '…(截斷)' : s;
+}
+
+/**
+ * 固定視窗，不是滑動視窗。
+ * 滑動視窗每次失敗都會延長 TTL，攻擊者只要持續送就能讓管理者被無限期鎖在外面。
+ * 固定視窗保證最長 15 分鐘後一定自動解除。
+ */
+function recordAuthFailure_() {
+  var cache = CacheService.getScriptCache();
+  var now = Date.now();
+  var raw = cache.get(LOCKOUT_CACHE_KEY);
+  var state = raw ? JSON.parse(raw) : null;
+
+  if (!state || now > state.until) {
+    state = { n: 0, until: now + LOCKOUT_WINDOW_SEC * 1000 };
+  }
+  state.n++;
+
+  var remainingSec = Math.max(1, Math.ceil((state.until - now) / 1000));
+  cache.put(LOCKOUT_CACHE_KEY, JSON.stringify(state), remainingSec);
+  return state.n;
+}
+
+function isLockedOut_() {
+  var raw = CacheService.getScriptCache().get(LOCKOUT_CACHE_KEY);
+  if (!raw) return false;
+  var state = JSON.parse(raw);
+  return state.n >= LOCKOUT_THRESHOLD && Date.now() <= state.until;
+}
+
+function clearAuthFailures_() {
+  CacheService.getScriptCache().remove(LOCKOUT_CACHE_KEY);
+}
+
+/**
+ * 手動逃生門：在 GAS 編輯器選這個函式執行，立即解除鎖定。
+ */
+function resetLockout() {
+  clearAuthFailures_();
+  Logger.log('已清除密鑰失敗計數，鎖定解除。');
+}
+
+/**
+ * 在 GAS 編輯器手動執行，檢查 ADMIN_KEY 強度。
+ * 注意：絕對不要 Logger.log 金鑰本身 —— 執行記錄不是保險箱。
+ *
+ * 本函式只回報強度，刻意不產生金鑰。產生行為留在瀏覽器端，
+ * 是為了讓金鑰完全不經過任何伺服器日誌 —— 印出來的「建議金鑰」
+ * 使用者八成會直接採用，那等於新金鑰一出生就躺在這份執行記錄裡。
+ *
+ * 這個估算把金鑰當成隨機字串。如果實際值是人想出來的密碼（即使長且混合大小寫），
+ * 真實強度會遠低於估算值。
+ */
+function checkAdminKeyStrength() {
+  var key = PropertiesService.getScriptProperties().getProperty('ADMIN_KEY') || '';
+  if (!key) {
+    Logger.log('❌ 尚未設定 ADMIN_KEY。');
+    logKeyGenHint_();
+    return;
+  }
+  var pool = 0;
+  if (/[a-z]/.test(key)) pool += 26;
+  if (/[A-Z]/.test(key)) pool += 26;
+  if (/[0-9]/.test(key)) pool += 10;
+  if (/[^a-zA-Z0-9]/.test(key)) pool += 32;
+  var bits = Math.round(key.length * (Math.log(pool) / Math.log(2)));
+
+  Logger.log('長度 = ' + key.length + '，字元池 = ' + pool + '，估計強度 ≈ ' + bits + ' bits');
+  if (key.length < 24 || bits < 128) {
+    Logger.log('⚠️ 強度不足，請更換。');
+    logKeyGenHint_();
+  } else {
+    Logger.log('✓ 強度足夠。');
+  }
+}
+
+/**
+ * 只印產生方式，不印值。
+ */
+function logKeyGenHint_() {
+  Logger.log('請在瀏覽器開發者工具 Console 自行產生，避免金鑰落入本執行記錄：');
+  Logger.log("Array.from(crypto.getRandomValues(new Uint8Array(24)), b => b.toString(16).padStart(2,'0')).join('')");
 }
 
 function respondJSON_(data) {

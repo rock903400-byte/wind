@@ -699,6 +699,25 @@
       opacity: 0.6;
     }
 
+    /* Cloud Sync Status Banner */
+    .cloud-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.875rem 1.25rem;
+      margin-bottom: 1.5rem;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: var(--radius-sm);
+      color: #fcd34d;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .cloud-banner[hidden] {
+      display: none;
+    }
+
     @media (max-width: 768px) {
       .header-inner { flex-direction: column; align-items: flex-start; }
       .header-actions { width: 100%; justify-content: flex-start; }
@@ -738,6 +757,15 @@
 
   <!-- Main Content -->
   <main>
+    <!-- Cloud Sync Status Banner -->
+    <div id="cloud-banner" class="cloud-banner" role="status" aria-live="polite" hidden>
+      <span id="cloud-banner-text"></span>
+      <span class="cloud-banner-actions" style="display: flex; gap: 0.5rem; flex-shrink: 0; flex-wrap: wrap;">
+        <button type="button" class="btn btn-secondary btn-sm" id="cloud-btn-retry" data-action="retry-cloud-load">🔄 重試連線</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="cloud-btn-discard" data-action="discard-local-load-cloud" hidden>⬇️ 捨棄本機變更，改用雲端</button>
+      </span>
+    </div>
+
     <!-- KPI Overview Cards -->
     <section class="kpi-grid">
       <div class="kpi-card emerald">
@@ -942,15 +970,19 @@
         <div class="kpi-card">
           <h3 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">☁️ Google 試算表雲端同步 (GAS API)</h3>
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
-            串接 Google Apps Script Web App API，將本機資料庫與 Google 試算表雙向同步。管理端同步需驗證管理者密鑰 (ADMIN_KEY)，客戶端僅能以隨機 Token 查閱個人單筆資料。
+            串接 Google Apps Script Web App API，將本機資料庫與 Google 試算表雙向同步。管理端同步需驗證管理者密鑰 (ADMIN_KEY)，客戶端僅能以隨機 Token 查閱個人單筆資料。本頁不對外部署，僅供本機使用。
           </p>
           <div style="margin-bottom: 0.75rem;">
             <label class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">Google Apps Script Web App 網址 (/exec)</label>
             <input type="url" id="gas-api-url" class="form-input" placeholder="https://script.google.com/macros/s/.../exec" />
           </div>
-          <div style="margin-bottom: 1rem;">
+          <div style="margin-bottom: 0.75rem;">
             <label class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">管理者密鑰 (ADMIN_KEY - 僅存於本機)</label>
             <input type="password" id="gas-admin-key" class="form-input" placeholder="請輸入在 Apps Script 設定的 ADMIN_KEY" />
+          </div>
+          <div style="margin-bottom: 1rem;">
+            <label class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">客戶查詢頁網址（產生專屬連結用）</label>
+            <input type="url" id="client-base-url" class="form-input" placeholder="https://wind.rock903400.workers.dev/" />
           </div>
           <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
             <button type="button" class="btn btn-primary" data-action="sync-to-google-sheets">
@@ -1215,6 +1247,7 @@
   <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
   <!-- ==================== LOGIC / JAVASCRIPT ==================== -->
+  <script src="assets/shared.js?v=20260828" defer></script>
   <script src="assets/member-balance.js?v=20260828" defer></script>
 </body>
 </html>

@@ -6,6 +6,9 @@
     const STORAGE_KEY = 'feilu_member_system_v1';
     const GAS_API_CONFIG_KEY = 'feilu_gas_api_url';
     const GAS_ADMIN_KEY_CONFIG = 'feilu_gas_admin_key';
+    const CLIENT_BASE_URL_KEY = 'feilu_client_base_url';
+    const DEFAULT_CLIENT_BASE_URL = 'https://wind.rock903400.workers.dev/';
+    const SYNCED_HASH_KEY = 'feilu_synced_hash';
 
     // 狀態管理物件
     let DB = {
@@ -13,6 +16,42 @@
       recharges: [],
       tasks: []
     };
+
+    // 這次開頁有沒有成功從雲端拿到資料。沒有的話畫面上就是一份來源不明的快取，
+    // 拿它去覆蓋雲端等於用舊資料蓋新資料 —— 所以未成功載入時一律禁止上傳。
+    let cloudLoadOk = false;
+    // 開頁（或最後一次成功載入）當下的 DB 快照，用來判斷本機有沒有未上傳的變更。
+    let loadSnapshot = '';
+
+    /**
+     * 只用來偵測「本機資料自上次同步後有沒有變過」，不是安全用途，
+     * 所以不需要密碼學雜湊。存指紋而不存整份快照，是為了不讓 localStorage 用量翻倍。
+     */
+    function dbFingerprint(db) {
+      const s = JSON.stringify({
+        members: db.members, recharges: db.recharges, tasks: db.tasks
+      });
+      let h = 5381;
+      for (let i = 0; i < s.length; i++) {
+        h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+      }
+      return String(h) + ':' + s.length;
+    }
+
+    function markSynced() {
+      localStorage.setItem(SYNCED_HASH_KEY, dbFingerprint(DB));
+    }
+
+    function hasUnsyncedChanges() {
+      const marked = localStorage.getItem(SYNCED_HASH_KEY);
+      if (!marked) {
+        // feilu_synced_hash 是後來才加的鍵，所有在此之前用過後台的瀏覽器都沒有它。
+        // 沒有基準時無法判斷這份快取是否已上傳過，保守地當作有未同步變更 ——
+        // 誤判的代價只是多按一次按鈕，猜錯的代價是靜默丟掉管理者的資料。
+        return (DB.members.length + DB.recharges.length + DB.tasks.length) > 0;
+      }
+      return marked !== dbFingerprint(DB);
+    }
 
     // ── 安全隨機 Token 產生器 (16 bytes -> 32 字元 Hex) ─────────
     function generateSecureToken() {
@@ -28,6 +67,7 @@
       initGasSettings();
       bindStaticEvents();
       renderAll();
+      autoLoadFromCloud();   // 非同步，先讓 UI 用快取渲染出來，不要卡住首屏
     });
 
     function setDefaultDates() {
@@ -80,6 +120,9 @@
       const gasKey = document.getElementById('gas-admin-key');
       if (gasKey) gasKey.addEventListener('change', saveGasSettings);
 
+      const clientBase = document.getElementById('client-base-url');
+      if (clientBase) clientBase.addEventListener('change', saveGasSettings);
+
       // 全域點擊事件委派 (data-action)
       document.addEventListener('click', (e) => {
         const btn = e.target.closest('[data-action]');
@@ -94,6 +137,12 @@
         switch (action) {
           case 'switch-tab':
             if (tab) switchTab(tab, btn);
+            break;
+          case 'retry-cloud-load':
+            retryCloudLoad();
+            break;
+          case 'discard-local-load-cloud':
+            discardLocalAndLoadCloud();
             break;
           case 'open-recharge-modal':
             openRechargeModal();
@@ -185,7 +234,7 @@
       m.email = String(m.email || '');
       m.tier = String(m.tier || '');
       m.notes = String(m.notes || '');
-      m.createdAt = sanitizeDate(m.createdAt);
+      m.createdAt = formatDate(m.createdAt);
 
       if (!m.token) {
         m.token = generateSecureToken();
@@ -197,7 +246,7 @@
       if (!r) return r;
       r.id = String(r.id || '');
       r.memberId = String(r.memberId || '');
-      r.date = sanitizeDate(r.date);
+      r.date = formatDate(r.date);
       r.plan = String(r.plan || '');
       r.amount = parseFloat(r.amount) || 0;
       r.points = parseFloat(r.points) || 0;
@@ -211,7 +260,7 @@
       if (!t) return t;
       t.id = String(t.id || '');
       t.memberId = String(t.memberId || '');
-      t.date = sanitizeDate(t.date);
+      t.date = formatDate(t.date);
       t.module = String(t.module || '');
       t.title = String(t.title || '');
       t.points = parseFloat(t.points) || 0;
@@ -219,22 +268,6 @@
       t.url = String(t.url || '');
       t.notes = String(t.notes || '');
       return t;
-    }
-
-    function sanitizeDate(v) {
-      if (!v) return '';
-      const s = String(v).trim();
-      if (s.includes('T')) {
-        const d = new Date(s);
-        if (!isNaN(d.getTime())) {
-          const year = d.getFullYear();
-          const month = String(d.getMonth() + 1).padStart(2, '0');
-          const day = String(d.getDate()).padStart(2, '0');
-          return `${year}-${month}-${day}`;
-        }
-        return s.slice(0, 10);
-      }
-      return s;
     }
 
     function loadDatabase() {
@@ -251,13 +284,23 @@
           if (DB.tasks && Array.isArray(DB.tasks)) {
             DB.tasks = DB.tasks.map(sanitizeTaskData);
           }
+          // 本次修正之前，loadDatabase() 會自動灌示範資料並 saveDatabase()，
+          // 所以舊瀏覽器的 localStorage 裡存著「沒有 _demo 欄位的示範資料」。
+          // 那批資料如果被當成正式資料放行同步，W-01 想擋的事情就白做了 ——
+          // 而那正好是管理者自己、存著 ADMIN_KEY 的那台機器。
+          if (DB._demo === undefined) {
+            DB._demo = looksLikeDemoData(DB);
+          } else {
+            DB._demo = Boolean(DB._demo);
+          }
           saveDatabase();
+          loadSnapshot = JSON.stringify(DB);
         } catch (e) {
           console.error('Failed to parse DB:', e);
           initEmptyDB();
         }
       } else {
-        loadDemoData(false);
+        initEmptyDB();
       }
     }
 
@@ -266,13 +309,28 @@
     }
 
     function initEmptyDB() {
-      DB = { members: [], recharges: [], tasks: [] };
+      DB = { members: [], recharges: [], tasks: [], _demo: false };
       saveDatabase();
+      loadSnapshot = JSON.stringify(DB);
     }
 
     // ── 示範資料載入 ───────────────────────────────────────
+    const DEMO_TOKENS = [
+      'a1b2c3d4e5f6789012345678abcdef01',
+      'b2c3d4e5f6789012345678abcdef0123',
+      'c3d4e5f6789012345678abcdef012345'
+    ];
+
+    function looksLikeDemoData(db) {
+      if (!db || !Array.isArray(db.members)) return false;
+      return db.members.some(function(m) {
+        return m && DEMO_TOKENS.indexOf(String(m.token || '')) !== -1;
+      });
+    }
+
     function loadDemoData(notify = true) {
       DB = {
+        _demo: true,
         members: [
           {
             id: 'MEM-2026-001',
@@ -284,7 +342,7 @@
             tier: '輕量儲值會員',
             notes: '主要需求為每月收支傳票自動清洗與跨表勾稽。',
             createdAt: '2026-08-15',
-            token: 'a1b2c3d4e5f6789012345678abcdef01'
+            token: DEMO_TOKENS[0]
           },
           {
             id: 'MEM-2026-002',
@@ -296,7 +354,7 @@
             tier: '破冰體驗戶',
             notes: '希望建立 LINE 官方帳號物流與訂單自動查詢助手。',
             createdAt: '2026-08-20',
-            token: 'b2c3d4e5f6789012345678abcdef0123'
+            token: DEMO_TOKENS[1]
           },
           {
             id: 'MEM-2026-003',
@@ -308,7 +366,7 @@
             tier: '月度訂閱客戶',
             notes: '司法院標準支付命令與民事起訴狀自動套版外掛。',
             createdAt: '2026-08-25',
-            token: 'c3d4e5f6789012345678abcdef012345'
+            token: DEMO_TOKENS[2]
           }
         ],
         recharges: [
@@ -519,18 +577,21 @@
 
         const stats = getMemberStats(m.id);
         if (statusFilter === 'high' && stats.availablePoints <= 1) return false;
-        if (statusFilter === 'low' && stats.availablePoints !== 1) return false;
+        if (statusFilter === 'low' && !(stats.availablePoints > 0 && stats.availablePoints <= 1)) return false;
         if (statusFilter === 'empty' && stats.availablePoints !== 0) return false;
 
         return true;
       });
 
       if (filtered.length === 0) {
+        const emptyMsg = DB.members.length === 0
+          ? '尚無會員資料。請點上方「☁️ 從 Google 試算表下載」取得正式資料，或「新增會員」開始建檔。'
+          : '查無符合條件之會員';
         tbody.innerHTML = `
           <tr>
             <td colspan="7" class="empty-state">
               <div class="empty-state-icon">👥</div>
-              <div>查無符合條件之會員</div>
+              <div>${emptyMsg}</div>
             </td>
           </tr>
         `;
@@ -599,11 +660,14 @@
       filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
 
       if (filtered.length === 0) {
+        const emptyMsg = DB.recharges.length === 0
+          ? '尚無儲值流水帳紀錄。請點上方「☁️ 從 Google 試算表下載」取得正式資料，或「新增儲值」開始建檔。'
+          : '尚無儲值流水帳紀錄';
         tbody.innerHTML = `
           <tr>
             <td colspan="8" class="empty-state">
               <div class="empty-state-icon">💰</div>
-              <div>尚無儲值流水帳紀錄</div>
+              <div>${emptyMsg}</div>
             </td>
           </tr>
         `;
@@ -655,11 +719,14 @@
       filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
 
       if (filtered.length === 0) {
+        const emptyMsg = DB.tasks.length === 0
+          ? '尚無任務履歷紀錄。請點上方「☁️ 從 Google 試算表下載」取得正式資料，或「新增任務」開始建檔。'
+          : '尚無任務履歷紀錄';
         tbody.innerHTML = `
           <tr>
             <td colspan="7" class="empty-state">
               <div class="empty-state-icon">🛠️</div>
-              <div>尚無任務履歷紀錄</div>
+              <div>${emptyMsg}</div>
             </td>
           </tr>
         `;
@@ -673,6 +740,7 @@
         else if (t.status === 'acceptance') statusBadge = '<span class="tag tag-cyan">⏳ 7 天驗收期</span>';
         else if (t.status === 'completed') statusBadge = '<span class="tag tag-emerald">✅ 驗收通過 (扣點)</span>';
         else if (t.status === 'waived') statusBadge = '<span class="tag tag-gray">↩️ 未過免扣</span>';
+        const taskUrl = safeUrl(t.url);
 
         return `
           <tr>
@@ -688,7 +756,7 @@
             <td><strong style="color: var(--rose); font-family: var(--font-mono);">-${t.points} 點</strong></td>
             <td>${statusBadge}</td>
             <td>
-              ${t.url ? `<a href="${escapeHTML(t.url)}" target="_blank" style="color: var(--cyan); text-decoration: none; font-size: 0.8rem;">🔗 交付成果 ↗</a><br>` : ''}
+              ${taskUrl ? `<a href="${escapeHTML(taskUrl)}" target="_blank" rel="noopener noreferrer" style="color: var(--cyan); text-decoration: none; font-size: 0.8rem;">🔗 交付成果 ↗</a><br>` : ''}
               <span style="font-size: 0.775rem; color: var(--text-muted);">${escapeHTML(t.notes || '')}</span>
             </td>
             <td style="text-align: right;">
@@ -739,14 +807,82 @@
       }
     }
 
+    // ── Dialog 焦點管理 ─────────────────────────────────────
+    // 四個容器都標了 aria-modal="true"，那是在對螢幕閱讀器宣告「背景不存在」。
+    // 沒有 focus trap 的話這個宣告就是騙人的 —— Tab 幾下就掉到後面的表格裡。
+    let dialogReturnFocus = null;
+    let activeDialog = null;
+
+    const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), ' +
+      'select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    function openDialog(el) {
+      if (!el) return;
+      if (activeDialog !== el) {
+        dialogReturnFocus = document.activeElement;
+        activeDialog = el;
+      }
+      el.classList.add('active');
+      const first = el.querySelector(FOCUSABLE);
+      if (first) first.focus();
+      document.addEventListener('keydown', onDialogKeydown, true);
+    }
+
+    function closeDialog(el) {
+      if (!el) return;
+      el.classList.remove('active');
+      if (activeDialog === el) {
+        activeDialog = null;
+        document.removeEventListener('keydown', onDialogKeydown, true);
+        // renderAll() 會整包重寫 tbody，開啟 drawer 的那顆按鈕可能已經被換掉。
+        // 在 detached node 上 focus() 不拋錯也不生效，焦點會靜默掉回 <body>，
+        // 鍵盤使用者得從頁首重新 Tab 起。
+        if (dialogReturnFocus && dialogReturnFocus.isConnected) {
+          dialogReturnFocus.focus();
+        } else {
+          const fallback = document.querySelector('.tab-btn.active');
+          if (fallback) fallback.focus();
+        }
+        dialogReturnFocus = null;
+      }
+    }
+
+    function onDialogKeydown(e) {
+      if (!activeDialog) return;
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        if (activeDialog.id === 'drawer-panel') {
+          closeDrawer();
+        } else {
+          closeDialog(activeDialog);
+        }
+        return;
+      }
+      if (e.key !== 'Tab') return;
+
+      const items = Array.prototype.slice.call(activeDialog.querySelectorAll(FOCUSABLE))
+        .filter(n => n.offsetParent !== null);
+      if (!items.length) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
     // ── MODAL 顯示與儲存處理 ──────────────────────────────
     function openModal(id) {
       const el = document.getElementById(id);
-      if (el) el.classList.add('active');
+      if (el) openDialog(el);
     }
     function closeModal(id) {
       const el = document.getElementById(id);
-      if (el) el.classList.remove('active');
+      if (el) closeDialog(el);
     }
 
     function openMemberModal() {
@@ -796,8 +932,13 @@
         }
         showToast('✅ 會員資料已更新');
       } else {
-        // Create
-        const newId = 'MEM-' + new Date().getFullYear() + '-' + String(DB.members.length + 1).padStart(3, '0');
+        // 用陣列長度當序號，只要曾經刪過會員就會撞號，
+        // 而撞號會讓兩位客戶的儲值與任務在 memberId 比對時混為一談。
+        const maxSerial = DB.members.reduce((max, m) => {
+          const matched = /^MEM-\d{4}-(\d+)$/.exec(m.id);
+          return matched ? Math.max(max, parseInt(matched[1], 10)) : max;
+        }, 0);
+        const newId = 'MEM-' + new Date().getFullYear() + '-' + String(maxSerial + 1).padStart(3, '0');
         const newMember = {
           id: newId,
           name, company, taxId, tier, email, line, notes,
@@ -957,11 +1098,13 @@
       document.getElementById('drawer-member-name').innerText = `${member.name} (${member.company})`;
 
       // 產生前台專屬隨機 Token 查詢連結
-      // 用瀏覽器內建的相對網址解析，與本頁 <a href="client-balance.html"> 規則一致，
-      // 不受 /member-balance 或 /member-balance.html 影響，本機 file:// 也適用
+      // 後台改為本機開啟後，window.location.href 會是 file:// —— 用它解析出來的
+      // 連結客戶點不開。改由設定分頁指定正式站網址當 base。
+      const base = safeUrl(localStorage.getItem(CLIENT_BASE_URL_KEY) || DEFAULT_CLIENT_BASE_URL)
+        || DEFAULT_CLIENT_BASE_URL;
       const clientUrl = new URL(
         `client-balance.html?token=${encodeURIComponent(member.token)}`,
-        window.location.href
+        base
       ).toString();
 
       // 產生 LINE / Email 格式化對帳文字
@@ -1039,12 +1182,12 @@
 
       document.getElementById('drawer-content').innerHTML = content;
       document.getElementById('drawer-overlay').classList.add('active');
-      document.getElementById('drawer-panel').classList.add('active');
+      openDialog(document.getElementById('drawer-panel'));
     }
 
     function closeDrawer() {
       document.getElementById('drawer-overlay').classList.remove('active');
-      document.getElementById('drawer-panel').classList.remove('active');
+      closeDialog(document.getElementById('drawer-panel'));
     }
 
     function generateStatementText(member, stats, recharges, tasks) {
@@ -1073,13 +1216,13 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
       const text = document.getElementById('statement-preview').innerText;
       navigator.clipboard.writeText(text).then(() => {
         showToast('📋 LINE 對帳單文字已複製到剪貼簿！');
-      });
+      }).catch(() => showToast('⚠️ 瀏覽器阻擋了剪貼簿存取，請手動選取上方文字複製。'));
     }
 
     function copyClientLink(url) {
       navigator.clipboard.writeText(url).then(() => {
         showToast('🔗 客戶專屬免登入查詢連結已複製！');
-      });
+      }).catch(() => showToast('⚠️ 瀏覽器阻擋了剪貼簿存取，請手動選取上方文字複製。'));
     }
 
     // ── CSV 匯出引擎 ───────────────────────────────────────
@@ -1158,7 +1301,8 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
             DB = {
               members: (imported.members || []).map(sanitizeMemberData),
               recharges: (imported.recharges || []).map(sanitizeRechargeData),
-              tasks: (imported.tasks || []).map(sanitizeTaskData)
+              tasks: (imported.tasks || []).map(sanitizeTaskData),
+              _demo: false
             };
             saveDatabase();
             renderAll();
@@ -1186,6 +1330,10 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
       if (keyInput) {
         keyInput.value = localStorage.getItem(GAS_ADMIN_KEY_CONFIG) || '';
       }
+      const clientBaseInput = document.getElementById('client-base-url');
+      if (clientBaseInput) {
+        clientBaseInput.value = localStorage.getItem(CLIENT_BASE_URL_KEY) || DEFAULT_CLIENT_BASE_URL;
+      }
     }
 
     function saveGasSettings() {
@@ -1197,11 +1345,113 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
       if (keyInput) {
         localStorage.setItem(GAS_ADMIN_KEY_CONFIG, keyInput.value.trim());
       }
-      showToast('⚙️ 雲端同步設定已儲存至本機！');
+      const clientBaseInput = document.getElementById('client-base-url');
+      if (clientBaseInput) {
+        const val = clientBaseInput.value.trim();
+        if (val) {
+          localStorage.setItem(CLIENT_BASE_URL_KEY, val);
+        } else {
+          localStorage.removeItem(CLIENT_BASE_URL_KEY);
+        }
+      }
+      showToast('⚙️ 設定已儲存至本機！');
+    }
+
+    async function autoLoadFromCloud(force = false) {
+      const url = localStorage.getItem(GAS_API_CONFIG_KEY) || (document.getElementById('gas-api-url') ? document.getElementById('gas-api-url').value.trim() : '') || DEFAULT_GAS_URL;
+      const adminKey = localStorage.getItem(GAS_ADMIN_KEY_CONFIG) || (document.getElementById('gas-admin-key') ? document.getElementById('gas-admin-key').value.trim() : '');
+
+      if (!url || !adminKey) {
+        showCloudBanner('尚未設定雲端同步：請到「設定」分頁填入 Web App 網址與 ADMIN_KEY。目前顯示的是本機資料，且無法上傳雲端。', { showRetry: false, showDiscard: false });
+        return;
+      }
+
+      try {
+        const resp = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'exportAll', adminKey: adminKey })
+        });
+        const res = await resp.json();
+        if (!res.success || !res.data || !res.data.members) {
+          throw new Error(res.message || '雲端無有效資料');
+        }
+
+        // 取得雲端資料成功之後、覆蓋 DB 之前：
+        if (!force && hasUnsyncedChanges()) {
+          // 雲端是通的，所以同步要放行 —— 上傳正是解決衝突的方式。
+          // 但絕不能自動覆蓋本機，那會把還沒上去的變更吃掉。
+          cloudLoadOk = true;
+          showCloudConflictBanner();
+          return;
+        }
+
+        DB = {
+          members: (res.data.members || []).map(sanitizeMemberData),
+          recharges: (res.data.recharges || []).map(sanitizeRechargeData),
+          tasks: (res.data.tasks || []).map(sanitizeTaskData),
+          _demo: false
+        };
+        saveDatabase();
+        renderAll();
+        cloudLoadOk = true;
+        loadSnapshot = JSON.stringify(DB);
+        markSynced();
+        hideCloudBanner();
+      } catch (err) {
+        console.warn('自動載入雲端資料失敗：', err);
+        // 載入失敗就不能再宣稱本機是最新的。不重設的話橫幅說「不會上傳」
+        // 但同步照樣送得出去 —— 使用者是照畫面上的字做決定的。
+        cloudLoadOk = false;
+        showCloudBanner('離線模式：顯示的是本機快取，變更不會上傳雲端。請恢復連線後點「重試連線」。', { showRetry: true, showDiscard: false });
+      }
+    }
+
+    function discardLocalAndLoadCloud() {
+      if (!confirm('確定要捨棄本機尚未上傳的變更，改用雲端版本嗎？\n\n此操作無法復原，建議先用「💾 匯出完整備份 (JSON)」保存一份。')) {
+        return;
+      }
+      autoLoadFromCloud(true);   // force
+    }
+
+    function retryCloudLoad() {
+      if (loadSnapshot && JSON.stringify(DB) !== loadSnapshot) {
+        if (!confirm('本機有尚未上傳的變更，重新載入雲端資料會直接覆蓋掉它們。\n\n建議先用「💾 匯出完整備份 JSON」保存一份，確定要繼續嗎？')) {
+          return;
+        }
+      }
+      autoLoadFromCloud(true);
+    }
+
+    function showCloudBanner(msg, options = { showRetry: true, showDiscard: false }) {
+      const banner = document.getElementById('cloud-banner');
+      const text = document.getElementById('cloud-banner-text');
+      const btnRetry = document.getElementById('cloud-btn-retry');
+      const btnDiscard = document.getElementById('cloud-btn-discard');
+      if (banner && text) {
+        text.innerText = msg;
+        if (btnRetry) btnRetry.hidden = !options.showRetry;
+        if (btnDiscard) btnDiscard.hidden = !options.showDiscard;
+        banner.hidden = false;
+      }
+    }
+
+    function showCloudConflictBanner() {
+      showCloudBanner(
+        '本機有尚未上傳的變更，已暫停自動載入雲端資料。請選擇：按「☁️ 立即同步至雲端」把本機變更推上去，或按下方按鈕捨棄本機、改用雲端版本。',
+        { showRetry: false, showDiscard: true }
+      );
+    }
+
+    function hideCloudBanner() {
+      const banner = document.getElementById('cloud-banner');
+      if (banner) {
+        banner.hidden = true;
+      }
     }
 
     async function syncToGoogleSheets() {
-      const url = localStorage.getItem(GAS_API_CONFIG_KEY) || (document.getElementById('gas-api-url') ? document.getElementById('gas-api-url').value.trim() : '');
+      const url = localStorage.getItem(GAS_API_CONFIG_KEY) || (document.getElementById('gas-api-url') ? document.getElementById('gas-api-url').value.trim() : '') || DEFAULT_GAS_URL;
       const adminKey = localStorage.getItem(GAS_ADMIN_KEY_CONFIG) || (document.getElementById('gas-admin-key') ? document.getElementById('gas-admin-key').value.trim() : '');
 
       if (!url) {
@@ -1215,7 +1465,21 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
         return;
       }
 
-      if (!confirm('即將以本機目前的會員、儲值與任務資料覆蓋 Google 試算表，確定執行嗎？')) {
+      if (DB._demo) {
+        alert('⚠️ 目前本機是示範資料，禁止上傳覆蓋雲端。\n\n請先執行「從 Google 試算表下載」取得正式資料，或「清空重置」後重新建檔。');
+        return;
+      }
+
+      if (!cloudLoadOk) {
+        alert('⚠️ 本次開啟未成功從雲端載入資料，畫面上可能是過期快取。\n\n為避免以舊資料覆蓋雲端，同步已停用。請先點畫面上方的「重試連線」。');
+        return;
+      }
+
+      if (!confirm(
+        '即將以本機資料【完整覆蓋】Google 試算表，雲端現有內容會被清除。\n\n' +
+        '本機目前：會員 ' + DB.members.length + ' 筆 / 儲值 ' + DB.recharges.length + ' 筆 / 任務 ' + DB.tasks.length + ' 筆\n\n' +
+        '若這個數字比你預期的少很多，請按取消。'
+      )) {
         return;
       }
 
@@ -1228,6 +1492,9 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
         });
         const res = await resp.json();
         if (res.success) {
+          loadSnapshot = JSON.stringify(DB);
+          markSynced();
+          hideCloudBanner();
           showToast('☁️ 成功同步至 Google 試算表！');
         } else {
           alert('同步失敗：' + (res.message || '未知錯誤'));
@@ -1239,7 +1506,7 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
     }
 
     async function fetchFromGoogleSheets() {
-      const url = localStorage.getItem(GAS_API_CONFIG_KEY) || (document.getElementById('gas-api-url') ? document.getElementById('gas-api-url').value.trim() : '');
+      const url = localStorage.getItem(GAS_API_CONFIG_KEY) || (document.getElementById('gas-api-url') ? document.getElementById('gas-api-url').value.trim() : '') || DEFAULT_GAS_URL;
       const adminKey = localStorage.getItem(GAS_ADMIN_KEY_CONFIG) || (document.getElementById('gas-admin-key') ? document.getElementById('gas-admin-key').value.trim() : '');
 
       if (!url) {
@@ -1253,7 +1520,7 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
         return;
       }
 
-      if (!confirm('即將從 Google 試算表下載最新資料並覆蓋本機資料庫，確定執行嗎？\\n（系統將自動校正電話前導 0 與日期時區）')) {
+      if (!confirm('即將從 Google 試算表下載最新資料並覆蓋本機資料庫，確定執行嗎？\n（系統將自動校正電話前導 0 與日期時區）')) {
         return;
       }
 
@@ -1269,10 +1536,15 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
           DB = {
             members: (res.data.members || []).map(sanitizeMemberData),
             recharges: (res.data.recharges || []).map(sanitizeRechargeData),
-            tasks: (res.data.tasks || []).map(sanitizeTaskData)
+            tasks: (res.data.tasks || []).map(sanitizeTaskData),
+            _demo: false
           };
           saveDatabase();
           renderAll();
+          cloudLoadOk = true;
+          loadSnapshot = JSON.stringify(DB);
+          markSynced();
+          hideCloudBanner();
           showToast('🎉 已成功從 Google 試算表下載並還原資料庫！');
         } else {
           alert('下載失敗：' + (res.message || '雲端尚無有效資料'));
@@ -1287,25 +1559,4 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
     function getTimestamp() {
       const d = new Date();
       return d.toISOString().split('T')[0].replace(/-/g, '');
-    }
-
-    function showToast(msg) {
-      const container = document.getElementById('toast-container');
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.innerText = msg;
-      container.appendChild(toast);
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(10px)';
-        toast.style.transition = 'all 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-      }, 3200);
-    }
-
-    function escapeHTML(str) {
-      if (!str) return '';
-      return String(str).replace(/[&<>'"]/g, 
-        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-      );
     }
