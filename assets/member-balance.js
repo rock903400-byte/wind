@@ -8,6 +8,7 @@
     const GAS_ADMIN_KEY_CONFIG = 'feilu_gas_admin_key';
     const CLIENT_BASE_URL_KEY = 'feilu_client_base_url';
     const DEFAULT_CLIENT_BASE_URL = 'https://wind.rock903400.workers.dev/';
+    const SYNCED_HASH_KEY = 'feilu_synced_hash';
 
     // 狀態管理物件
     let DB = {
@@ -21,6 +22,31 @@
     let cloudLoadOk = false;
     // 開頁（或最後一次成功載入）當下的 DB 快照，用來判斷本機有沒有未上傳的變更。
     let loadSnapshot = '';
+
+    /**
+     * 只用來偵測「本機資料自上次同步後有沒有變過」，不是安全用途，
+     * 所以不需要密碼學雜湊。存指紋而不存整份快照，是為了不讓 localStorage 用量翻倍。
+     */
+    function dbFingerprint(db) {
+      const s = JSON.stringify({
+        members: db.members, recharges: db.recharges, tasks: db.tasks
+      });
+      let h = 5381;
+      for (let i = 0; i < s.length; i++) {
+        h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+      }
+      return String(h) + ':' + s.length;
+    }
+
+    function markSynced() {
+      localStorage.setItem(SYNCED_HASH_KEY, dbFingerprint(DB));
+    }
+
+    function hasUnsyncedChanges() {
+      const marked = localStorage.getItem(SYNCED_HASH_KEY);
+      if (!marked) return false;      // 從未同步過就沒有基準，不阻擋
+      return marked !== dbFingerprint(DB);
+    }
 
     // ── 安全隨機 Token 產生器 (16 bytes -> 32 字元 Hex) ─────────
     function generateSecureToken() {
@@ -109,6 +135,9 @@
             break;
           case 'retry-cloud-load':
             retryCloudLoad();
+            break;
+          case 'discard-local-load-cloud':
+            discardLocalAndLoadCloud();
             break;
           case 'open-recharge-modal':
             openRechargeModal();
@@ -1320,15 +1349,15 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
           localStorage.removeItem(CLIENT_BASE_URL_KEY);
         }
       }
-      showToast('⚙️ 雲端同步設定已儲存至本機！');
+      showToast('⚙️ 設定已儲存至本機！');
     }
 
-    async function autoLoadFromCloud() {
+    async function autoLoadFromCloud(force = false) {
       const url = localStorage.getItem(GAS_API_CONFIG_KEY) || (document.getElementById('gas-api-url') ? document.getElementById('gas-api-url').value.trim() : '') || DEFAULT_GAS_URL;
       const adminKey = localStorage.getItem(GAS_ADMIN_KEY_CONFIG) || (document.getElementById('gas-admin-key') ? document.getElementById('gas-admin-key').value.trim() : '');
 
       if (!url || !adminKey) {
-        showCloudBanner('尚未設定雲端同步：請到「設定」分頁填入 Web App 網址與 ADMIN_KEY。目前顯示的是本機資料，且無法上傳雲端。');
+        showCloudBanner('尚未設定雲端同步：請到「設定」分頁填入 Web App 網址與 ADMIN_KEY。目前顯示的是本機資料，且無法上傳雲端。', { showRetry: false, showDiscard: false });
         return;
       }
 
@@ -1342,6 +1371,16 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
         if (!res.success || !res.data || !res.data.members) {
           throw new Error(res.message || '雲端無有效資料');
         }
+
+        // 取得雲端資料成功之後、覆蓋 DB 之前：
+        if (!force && hasUnsyncedChanges()) {
+          // 雲端是通的，所以同步要放行 —— 上傳正是解決衝突的方式。
+          // 但絕不能自動覆蓋本機，那會把還沒上去的變更吃掉。
+          cloudLoadOk = true;
+          showCloudConflictBanner();
+          return;
+        }
+
         DB = {
           members: (res.data.members || []).map(sanitizeMemberData),
           recharges: (res.data.recharges || []).map(sanitizeRechargeData),
@@ -1352,11 +1391,19 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
         renderAll();
         cloudLoadOk = true;
         loadSnapshot = JSON.stringify(DB);
+        markSynced();
         hideCloudBanner();
       } catch (err) {
         console.warn('自動載入雲端資料失敗：', err);
-        showCloudBanner('離線模式：顯示的是本機快取，變更不會上傳雲端。請恢復連線後點「重試連線」。');
+        showCloudBanner('離線模式：顯示的是本機快取，變更不會上傳雲端。請恢復連線後點「重試連線」。', { showRetry: true, showDiscard: false });
       }
+    }
+
+    function discardLocalAndLoadCloud() {
+      if (!confirm('確定要捨棄本機尚未上傳的變更，改用雲端版本嗎？\n\n此操作無法復原，建議先用「💾 匯出完整備份 (JSON)」保存一份。')) {
+        return;
+      }
+      autoLoadFromCloud(true);   // force
     }
 
     function retryCloudLoad() {
@@ -1365,16 +1412,27 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
           return;
         }
       }
-      autoLoadFromCloud();
+      autoLoadFromCloud(true);
     }
 
-    function showCloudBanner(msg) {
+    function showCloudBanner(msg, options = { showRetry: true, showDiscard: false }) {
       const banner = document.getElementById('cloud-banner');
       const text = document.getElementById('cloud-banner-text');
+      const btnRetry = document.getElementById('cloud-btn-retry');
+      const btnDiscard = document.getElementById('cloud-btn-discard');
       if (banner && text) {
         text.innerText = msg;
+        if (btnRetry) btnRetry.hidden = !options.showRetry;
+        if (btnDiscard) btnDiscard.hidden = !options.showDiscard;
         banner.hidden = false;
       }
+    }
+
+    function showCloudConflictBanner() {
+      showCloudBanner(
+        '本機有尚未上傳的變更，已暫停自動載入雲端資料。請選擇：按「☁️ 立即同步至雲端」把本機變更推上去，或按下方按鈕捨棄本機、改用雲端版本。',
+        { showRetry: false, showDiscard: true }
+      );
     }
 
     function hideCloudBanner() {
@@ -1385,7 +1443,7 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
     }
 
     async function syncToGoogleSheets() {
-      const url = localStorage.getItem(GAS_API_CONFIG_KEY) || (document.getElementById('gas-api-url') ? document.getElementById('gas-api-url').value.trim() : '');
+      const url = localStorage.getItem(GAS_API_CONFIG_KEY) || (document.getElementById('gas-api-url') ? document.getElementById('gas-api-url').value.trim() : '') || DEFAULT_GAS_URL;
       const adminKey = localStorage.getItem(GAS_ADMIN_KEY_CONFIG) || (document.getElementById('gas-admin-key') ? document.getElementById('gas-admin-key').value.trim() : '');
 
       if (!url) {
@@ -1427,6 +1485,8 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
         const res = await resp.json();
         if (res.success) {
           loadSnapshot = JSON.stringify(DB);
+          markSynced();
+          hideCloudBanner();
           showToast('☁️ 成功同步至 Google 試算表！');
         } else {
           alert('同步失敗：' + (res.message || '未知錯誤'));
@@ -1438,7 +1498,7 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
     }
 
     async function fetchFromGoogleSheets() {
-      const url = localStorage.getItem(GAS_API_CONFIG_KEY) || (document.getElementById('gas-api-url') ? document.getElementById('gas-api-url').value.trim() : '');
+      const url = localStorage.getItem(GAS_API_CONFIG_KEY) || (document.getElementById('gas-api-url') ? document.getElementById('gas-api-url').value.trim() : '') || DEFAULT_GAS_URL;
       const adminKey = localStorage.getItem(GAS_ADMIN_KEY_CONFIG) || (document.getElementById('gas-admin-key') ? document.getElementById('gas-admin-key').value.trim() : '');
 
       if (!url) {
@@ -1475,6 +1535,7 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
           renderAll();
           cloudLoadOk = true;
           loadSnapshot = JSON.stringify(DB);
+          markSynced();
           hideCloudBanner();
           showToast('🎉 已成功從 Google 試算表下載並還原資料庫！');
         } else {

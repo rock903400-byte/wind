@@ -760,7 +760,10 @@
     <!-- Cloud Sync Status Banner -->
     <div id="cloud-banner" class="cloud-banner" role="status" aria-live="polite" hidden>
       <span id="cloud-banner-text"></span>
-      <button type="button" class="btn btn-secondary btn-sm" data-action="retry-cloud-load">🔄 重試連線</button>
+      <span class="cloud-banner-actions" style="display: flex; gap: 0.5rem; flex-shrink: 0; flex-wrap: wrap;">
+        <button type="button" class="btn btn-secondary btn-sm" id="cloud-btn-retry" data-action="retry-cloud-load">🔄 重試連線</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="cloud-btn-discard" data-action="discard-local-load-cloud" hidden>⬇️ 捨棄本機變更，改用雲端</button>
+      </span>
     </div>
 
     <!-- KPI Overview Cards -->
