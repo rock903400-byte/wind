@@ -2060,6 +2060,55 @@
       line-height: 1.4;
     }
 
+    /* ---- Hero 證據縮圖列 (T-9) ---- */
+    .hero-proof-strip {
+      margin-top: 1.75rem;
+    }
+
+    .hero-proof-text {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      margin: 0 0 0.5rem 0;
+      line-height: 1.5;
+    }
+
+    .hero-proof-thumbs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+      max-width: 560px;
+      text-decoration: none;
+    }
+
+    .hero-proof-thumbs picture,
+    .hero-proof-thumbs img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      aspect-ratio: 720 / 440;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+    }
+
+    .hero-proof-thumbs img {
+      border: 1px solid var(--border);
+      opacity: 0.82;
+      transition: opacity 0.2s ease, border-color 0.2s ease;
+    }
+
+    .hero-proof-thumbs:hover img,
+    .hero-proof-thumbs:focus img {
+      opacity: 1;
+      border-color: rgba(16, 185, 129, 0.5);
+    }
+
+    @media (max-width: 640px) {
+      .hero-proof-thumbs {
+        max-width: 100%;
+        gap: 0.4rem;
+      }
+    }
+
     .booking-scope-hint {
       color: var(--accent-light);
       background: rgba(16, 185, 129, 0.08);
