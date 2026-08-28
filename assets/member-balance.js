@@ -956,8 +956,14 @@
 
       document.getElementById('drawer-member-name').innerText = `${member.name} (${member.company})`;
 
-      // 產生前台專屬隨機 Token 查詢連結
-      const clientUrl = `${window.location.origin}${window.location.pathname.replace('member-balance.html', 'client-balance.html')}?token=${encodeURIComponent(member.token)}`;
+      // 產生前台專屬隨機 Token 查詢連結 (相容 /member-balance 與 /member-balance.html)
+      let basePath = window.location.pathname;
+      if (basePath.includes('member-balance')) {
+        basePath = basePath.replace(/\/member-balance(\.html)?$/, '/client-balance.html');
+      } else {
+        basePath = '/client-balance.html';
+      }
+      const clientUrl = `${window.location.origin}${basePath}?token=${encodeURIComponent(member.token)}`;
 
       // 產生 LINE / Email 格式化對帳文字
       const statementText = generateStatementText(member, stats, recharges, tasks);
