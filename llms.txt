@@ -9,7 +9,7 @@
 
 ## 核心服務 1: 飛律 AI 流程賦能・輕量儲值制
 - 服務網址: https://wind.pages.dev/ai-enablement.html
-- 會員儲值查詢: https://wind.pages.dev/member-balance.html
+- 會員儲值查詢: https://wind.pages.dev/client-balance.html
 - 收費方案: 儲值 NT$ 1,000 交付 2 項輕量自動化模組（單項折合 NT$ 500，48 小時極速交付、資產 100% 自主、點數永久有效）
 - 核心自動化模組項目:
   1. Google Workspace / 試算表自動勾稽: 跨試算表即時交叉比對、收支傳票自動清洗、進銷存防呆防錯與月報一鍵出圖。
@@ -45,6 +45,6 @@
 ## 網站完整頁面索引 (Sitemap)
 - 首頁 / 作品集主頁: https://wind.pages.dev/
 - 飛律 AI 流程賦能介紹: https://wind.pages.dev/ai-enablement.html
-- 會員儲值與任務自主查詢: https://wind.pages.dev/member-balance.html
+- 會員儲值與任務自主查詢: https://wind.pages.dev/client-balance.html
 - 實體名片 1:1 PDF 產生工具: https://wind.pages.dev/print-card.html
 - 隱私權保護政策: https://wind.pages.dev/privacy.html

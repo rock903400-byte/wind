@@ -8,6 +8,7 @@
   X-Frame-Options: SAMEORIGIN
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://fonts.googleapis.com https://fonts.gstatic.com; frame-src 'self' https://docs.google.com https://script.google.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://docs.google.com https://script.google.com;
 
 # 2. 靜態資源長效快取 (Images, Stylesheets, Scripts, WebP, SVG) - 快取 1 年
 /assets/*

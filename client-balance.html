@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>飛律 | 會員點數餘額與任務進度查詢中心</title>
   <meta name="description" content="飛律 AI 流程賦能・會員點數餘額與交付進度自主查詢中心。48 小時交付、7 天驗收通過才扣點、點數永久有效。" />
+  <meta property="og:title" content="飛律 | 會員點數餘額與任務進度查詢中心" />
+  <meta property="og:description" content="飛律 AI 流程賦能・會員點數餘額與交付進度自主查詢中心。48 小時交付、7 天驗收通過才扣點、點數永久有效。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://wind.pages.dev/client-balance.html" />
+  <meta property="og:image" content="https://wind.pages.dev/assets/feilu-og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <link rel="canonical" href="https://wind.pages.dev/client-balance.html" />
   <meta name="theme-color" content="#080c0f" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
 
+  <link rel="stylesheet" href="assets/tokens.css" />
   <style>
     :root {
       --bg-primary: #080c0f;
@@ -454,14 +463,14 @@
     <div class="query-card" id="query-box">
       <div class="query-title">🔍 查詢會員點數餘額與任務進度</div>
       <div class="query-desc">
-        輸入您預約或提單時留下的 <strong>電子信箱 (Email)</strong>、<strong>統一編號</strong> 或 <strong>手機號碼</strong>，即可即時查詢點數餘額與交付狀態。
+        請使用您收到的「專屬查詢連結」，或在此輸入 <strong>專屬查詢 Token</strong>，即可即時查詢點數餘額與任務交付狀態。
       </div>
-      <form class="query-form" onsubmit="handleQuery(event)">
+      <form class="query-form" id="query-form">
         <input
           type="text"
           id="search-input"
           class="query-input"
-          placeholder="例：boduosavings@example.com 或 54730503"
+          placeholder="請輸入您的專屬查詢 Token"
           required
         />
         <button type="submit" class="btn-submit">
@@ -543,181 +552,6 @@
   </footer>
 
   <!-- Script Logic -->
-  <script>
-    const STORAGE_KEY = 'feilu_member_system_v1';
-
-    document.addEventListener('DOMContentLoaded', () => {
-      // 檢查 URL 參數是否有 ?token=MEM-XXX 或 ?email=xxx
-      const params = new URLSearchParams(window.location.search);
-      const token = params.get('token') || params.get('id') || params.get('email') || params.get('taxId');
-      if (token) {
-        document.getElementById('search-input').value = token;
-        runSearch(token);
-      }
-    });
-
-    function handleQuery(e) {
-      e.preventDefault();
-      const input = document.getElementById('search-input').value.trim();
-      if (!input) return;
-      runSearch(input);
-    }
-
-    function runSearch(keyword) {
-      const alertBox = document.getElementById('query-alert');
-      const resultSection = document.getElementById('result-section');
-      alertBox.style.display = 'none';
-
-      // 取得資料庫
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (!saved) {
-        showError('系統資料庫尚無會員資料。若您剛完成預約，飛律專案人員將於 24 小時內為您建檔並透過 LINE/Email 通知！');
-        return;
-      }
-
-      let db;
-      try {
-        db = JSON.parse(saved);
-      } catch (err) {
-        showError('讀取資料庫錯誤，請重新整理頁面。');
-        return;
-      }
-
-      const q = keyword.toLowerCase();
-      // 搜尋會員
-      const member = db.members.find(m => 
-        m.id.toLowerCase() === q ||
-        m.email.toLowerCase() === q ||
-        (m.taxId && m.taxId.toLowerCase() === q) ||
-        (m.line && m.line.toLowerCase() === q) ||
-        (m.company && m.company.toLowerCase() === q) ||
-        (m.name && m.name.toLowerCase() === q)
-      );
-
-      if (!member) {
-        showError(`🔍 查無與「${keyword}」相符的會員資料。請確認輸入的 Email 或統編是否正確，或直接加 LINE (ID: 0980463400) 由專人協助查詢！`);
-        resultSection.style.display = 'none';
-        return;
-      }
-
-      // 計算統計
-      const recharges = (db.recharges || []).filter(r => r.memberId === member.id);
-      const tasks = (db.tasks || []).filter(t => t.memberId === member.id);
-
-      const totalRechargePts = recharges.reduce((s, r) => s + (parseFloat(r.points) || 0), 0);
-      const completedPts = tasks.filter(t => t.status === 'completed').reduce((s, t) => s + (parseFloat(t.points) || 0), 0);
-      const availablePts = Math.max(0, totalRechargePts - completedPts);
-
-      const activeTasks = tasks.filter(t => t.status === 'in_progress' || t.status === 'acceptance');
-
-      // 渲染畫面
-      document.getElementById('client-company').innerText = member.company;
-      document.getElementById('client-name').innerText = `稱呼：${member.name} (${member.email})`;
-      document.getElementById('client-tier').innerText = member.tier || '輕量儲值會員';
-      document.getElementById('client-tax').innerText = member.taxId ? `統編：${member.taxId}` : '統一編號：未填寫';
-      document.getElementById('client-balance').innerText = `💎 ${availablePts} 點`;
-
-      // 渲染進行中任務
-      const activeContainer = document.getElementById('active-tasks-list');
-      if (activeTasks.length === 0) {
-        activeContainer.innerHTML = `
-          <div style="text-align: center; padding: 1.5rem; color: var(--text-muted); background: rgba(255,255,255,0.02); border-radius: var(--radius-sm); border: 1px dashed var(--border);">
-            目前無進行中或驗收中的任務。隨時歡迎加 LINE 提出新流程需求！
-          </div>
-        `;
-      } else {
-        activeContainer.innerHTML = activeTasks.map(t => {
-          let badge = t.status === 'in_progress'
-            ? '<span class="tag tag-amber">⚡ 48h 開發中</span>'
-            : '<span class="tag tag-cyan">⏳ 7 天驗收中</span>';
-
-          return `
-            <div class="task-item">
-              <div>
-                <div class="task-module">${escapeHTML(t.module)}</div>
-                <div class="task-title">${escapeHTML(t.title)}</div>
-                <div class="task-meta">提單日期：${t.date} · 預計扣點：${t.points} 點</div>
-                ${t.notes ? `<div style="font-size: 0.8rem; color: var(--text-sub); margin-top: 0.35rem;">💬 備註：${escapeHTML(t.notes)}</div>` : ''}
-              </div>
-              <div style="text-align: right;">
-                ${badge}
-                ${t.url ? `<div style="margin-top: 0.4rem;"><a href="${escapeHTML(t.url)}" target="_blank" style="color: var(--cyan); text-decoration: none; font-size: 0.8rem;">🔗 檢視成果 ↗</a></div>` : ''}
-              </div>
-            </div>
-          `;
-        }).join('');
-      }
-
-      // 渲染歷史歷程
-      const historyContainer = document.getElementById('history-timeline');
-      const allEvents = [];
-
-      recharges.forEach(r => {
-        allEvents.push({
-          type: 'recharge',
-          date: r.date,
-          title: `💰 儲值入帳：${r.plan}`,
-          badge: `+${r.points} 點`,
-          sub: `實收 NT$ ${Number(r.amount).toLocaleString()} ${r.invoice ? `(發票: ${r.invoice})` : ''}`
-        });
-      });
-
-      tasks.forEach(t => {
-        let statusText = '進行中';
-        if (t.status === 'completed') statusText = '已驗收扣點';
-        else if (t.status === 'acceptance') statusText = '7 天驗收期';
-        else if (t.status === 'waived') statusText = '未通過免扣點';
-
-        allEvents.push({
-          type: 'task',
-          date: t.date,
-          title: `🛠️ ${t.title}`,
-          badge: t.status === 'completed' ? `-${t.points} 點` : `${statusText}`,
-          sub: `${t.module} · ${statusText}`
-        });
-      });
-
-      // 排序倒序
-      allEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-      if (allEvents.length === 0) {
-        historyContainer.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem;">尚無歷史明細</div>';
-      } else {
-        historyContainer.innerHTML = allEvents.map(ev => `
-          <div class="timeline-node">
-            <div class="timeline-icon ${ev.type === 'recharge' ? '' : 'deduct'}"></div>
-            <div class="timeline-box">
-              <div class="timeline-header">
-                <span style="color: var(--text-main);">${escapeHTML(ev.title)}</span>
-                <span style="color: ${ev.type === 'recharge' ? '#6ee7b7' : 'var(--rose)'}; font-family: var(--font-mono); font-weight: 700;">${escapeHTML(ev.badge)}</span>
-              </div>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.25rem;">
-                <span style="font-size: 0.775rem; color: var(--text-sub);">${escapeHTML(ev.sub)}</span>
-                <span class="timeline-date">${ev.date}</span>
-              </div>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      resultSection.style.display = 'block';
-    }
-
-    function showError(msg) {
-      const alertBox = document.getElementById('query-alert');
-      alertBox.style.display = 'block';
-      alertBox.style.background = 'rgba(244, 63, 94, 0.12)';
-      alertBox.style.border = '1px solid rgba(244, 63, 94, 0.3)';
-      alertBox.style.color = '#fda4af';
-      alertBox.innerText = msg;
-    }
-
-    function escapeHTML(str) {
-      if (!str) return '';
-      return String(str).replace(/[&<>'"]/g, 
-        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-      );
-    }
-  </script>
+  <script src="assets/client-balance.js" defer></script>
 </body>
 </html>

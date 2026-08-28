@@ -1,8 +1,8 @@
 # Wind × 飛律
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Portfolio Live](https://img.shields.io/badge/Portfolio-Live-brightgreen)](https://rock903400-byte.github.io/wind/)
-[![AI Enablement](https://img.shields.io/badge/AI%20Enablement-Live-10b981)](https://rock903400-byte.github.io/wind/ai-enablement.html)
+[![Portfolio Live](https://img.shields.io/badge/Portfolio-Live-brightgreen)](https://wind.pages.dev/)
+[![AI Enablement](https://img.shields.io/badge/AI%20Enablement-Live-10b981)](https://wind.pages.dev/ai-enablement.html)
 
 > 跨產業全端接案開發 × AI 流程賦能輕量儲值制  
 > 🖨️ **實體名片** — [`print-card.html`](print-card.html)｜標準 90×54mm（含出血 92×56mm）雙面送印檔與 1:1 PDF 產生工具
@@ -23,7 +23,7 @@
 - ⚖️ **智慧法務公文與時效鬧鐘**：司法院標準支付命令聲請狀一鍵生成 + 消滅時效行事曆鬧鐘。
 - 🖥️ **舊系統無 API 桌面自動填表**：老舊進銷存/行政系統 (Access/FoxPro) AHK 一鍵防呆貼入。
 
-👉 **[查看 AI 流程賦能完整介紹與預約頁面](https://rock903400-byte.github.io/wind/ai-enablement.html)**
+👉 **[查看 AI 流程賦能完整介紹與預約頁面](https://wind.pages.dev/ai-enablement.html)**
 
 ---
 
@@ -51,7 +51,7 @@
 | 18 | **臺中市林業生產合作社** | 品牌形象 | [訪問官網](https://rock903400-byte.github.io/taichung-forestry-coop/) |
 | 19 | **台中建德浸信會** | 品牌形象 | [訪問官網](https://rock903400-byte.github.io/chienteh-church-site/) |
 
-👉 **[瀏覽完整 Wind 作品集首頁](https://rock903400-byte.github.io/wind/)**
+👉 **[瀏覽完整 Wind 作品集首頁](https://wind.pages.dev/)**
 
 ---
 

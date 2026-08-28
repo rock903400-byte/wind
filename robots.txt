@@ -3,6 +3,7 @@
 # ==============================================================================
 
 User-agent: *
+Disallow: /member-balance.html
 Allow: /
 
 # 主流 AI 爬蟲明確允許 (OpenAI, Perplexity, Anthropic, Google, Apple, etc.)
@@ -26,4 +27,3 @@ Allow: /
 
 # Sitemap 站點地圖
 Sitemap: https://wind.pages.dev/sitemap.xml
-Sitemap: https://rock903400-byte.github.io/wind/sitemap.xml

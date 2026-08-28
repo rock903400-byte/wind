@@ -100,7 +100,7 @@ docs-Patrick Hand (活潑)  ·  docs-Parisienne (裝飾)
 
 | 檔名 | 尺寸 | 用途 | 信任錨那行 |
 | :-- | :-- | :-- | :-- |
-| `assets/feilu-form-header.png` | 1600×400 | Google 表單頁首 | 無 |
+| `assets/feilu-form-header.png` | 1600×400 | Google 表單頁首（供表單後台上傳，站內無直接引用，請勿刪除） | 無 |
 | `assets/feilu-og.png` | 1200×630 | `ai-enablement.html` 社群分享卡 | 有，置於底部 |
 
 **版面（極簡文字型，左對齊）**
@@ -145,15 +145,15 @@ Google 表單頁首在窄螢幕會裁掉左右兩側。所有文字必須落在 
 **改前**（檔案第 12 行與第 18 行）：
 
 ```html
-  <meta property="og:image" content="https://rock903400-byte.github.io/wind/assets/og-cover.jpg" />
-  <meta name="twitter:image" content="https://rock903400-byte.github.io/wind/assets/og-cover.jpg" />
+  <meta property="og:image" content="https://wind.pages.dev/assets/og-cover.jpg" />
+  <meta name="twitter:image" content="https://wind.pages.dev/assets/og-cover.jpg" />
 ```
 
 **改後**：
 
 ```html
-  <meta property="og:image" content="https://rock903400-byte.github.io/wind/assets/feilu-og.png" />
-  <meta name="twitter:image" content="https://rock903400-byte.github.io/wind/assets/feilu-og.png" />
+  <meta property="og:image" content="https://wind.pages.dev/assets/feilu-og.png" />
+  <meta name="twitter:image" content="https://wind.pages.dev/assets/feilu-og.png" />
 ```
 
 同時在 `og:image:height` 那行之後補一行 `og:image:alt`（目前只有 `index.html` 有這個屬性）：
