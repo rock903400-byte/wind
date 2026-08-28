@@ -107,6 +107,7 @@
           let badge = t.status === 'in_progress'
             ? '<span class="tag tag-amber">⚡ 48h 開發中</span>'
             : '<span class="tag tag-cyan">⏳ 7 天驗收中</span>';
+          const taskUrl = safeUrl(t.url);
 
           return `
             <div class="task-item">
@@ -118,7 +119,7 @@
               </div>
               <div style="text-align: right;">
                 ${badge}
-                ${t.url ? `<div style="margin-top: 0.4rem;"><a href="${escapeHTML(t.url)}" target="_blank" style="color: var(--cyan); text-decoration: none; font-size: 0.8rem;">🔗 檢視成果 ↗</a></div>` : ''}
+                ${taskUrl ? `<div style="margin-top: 0.4rem;"><a href="${escapeHTML(taskUrl)}" target="_blank" rel="noopener noreferrer" style="color: var(--cyan); text-decoration: none; font-size: 0.8rem;">🔗 檢視成果 ↗</a></div>` : ''}
               </div>
             </div>
           `;
@@ -187,27 +188,4 @@
       alertBox.style.border = '1px solid rgba(244, 63, 94, 0.3)';
       alertBox.style.color = '#fda4af';
       alertBox.innerText = msg;
-    }
-
-    function formatDate(v) {
-      if (!v) return '';
-      const s = String(v).trim();
-      if (s.includes('T')) {
-        const d = new Date(s);
-        if (!isNaN(d.getTime())) {
-          const year = d.getFullYear();
-          const month = String(d.getMonth() + 1).padStart(2, '0');
-          const day = String(d.getDate()).padStart(2, '0');
-          return `${year}-${month}-${day}`;
-        }
-        return s.slice(0, 10);
-      }
-      return s;
-    }
-
-    function escapeHTML(str) {
-      if (!str) return '';
-      return String(str).replace(/[&<>'"]/g, 
-        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-      );
     }

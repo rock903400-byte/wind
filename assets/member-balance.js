@@ -185,7 +185,7 @@
       m.email = String(m.email || '');
       m.tier = String(m.tier || '');
       m.notes = String(m.notes || '');
-      m.createdAt = sanitizeDate(m.createdAt);
+      m.createdAt = formatDate(m.createdAt);
 
       if (!m.token) {
         m.token = generateSecureToken();
@@ -197,7 +197,7 @@
       if (!r) return r;
       r.id = String(r.id || '');
       r.memberId = String(r.memberId || '');
-      r.date = sanitizeDate(r.date);
+      r.date = formatDate(r.date);
       r.plan = String(r.plan || '');
       r.amount = parseFloat(r.amount) || 0;
       r.points = parseFloat(r.points) || 0;
@@ -211,7 +211,7 @@
       if (!t) return t;
       t.id = String(t.id || '');
       t.memberId = String(t.memberId || '');
-      t.date = sanitizeDate(t.date);
+      t.date = formatDate(t.date);
       t.module = String(t.module || '');
       t.title = String(t.title || '');
       t.points = parseFloat(t.points) || 0;
@@ -219,22 +219,6 @@
       t.url = String(t.url || '');
       t.notes = String(t.notes || '');
       return t;
-    }
-
-    function sanitizeDate(v) {
-      if (!v) return '';
-      const s = String(v).trim();
-      if (s.includes('T')) {
-        const d = new Date(s);
-        if (!isNaN(d.getTime())) {
-          const year = d.getFullYear();
-          const month = String(d.getMonth() + 1).padStart(2, '0');
-          const day = String(d.getDate()).padStart(2, '0');
-          return `${year}-${month}-${day}`;
-        }
-        return s.slice(0, 10);
-      }
-      return s;
     }
 
     function loadDatabase() {
@@ -251,13 +235,14 @@
           if (DB.tasks && Array.isArray(DB.tasks)) {
             DB.tasks = DB.tasks.map(sanitizeTaskData);
           }
+          DB._demo = Boolean(DB._demo);
           saveDatabase();
         } catch (e) {
           console.error('Failed to parse DB:', e);
           initEmptyDB();
         }
       } else {
-        loadDemoData(false);
+        initEmptyDB();
       }
     }
 
@@ -266,13 +251,14 @@
     }
 
     function initEmptyDB() {
-      DB = { members: [], recharges: [], tasks: [] };
+      DB = { members: [], recharges: [], tasks: [], _demo: false };
       saveDatabase();
     }
 
     // ── 示範資料載入 ───────────────────────────────────────
     function loadDemoData(notify = true) {
       DB = {
+        _demo: true,
         members: [
           {
             id: 'MEM-2026-001',
@@ -519,18 +505,21 @@
 
         const stats = getMemberStats(m.id);
         if (statusFilter === 'high' && stats.availablePoints <= 1) return false;
-        if (statusFilter === 'low' && stats.availablePoints !== 1) return false;
+        if (statusFilter === 'low' && !(stats.availablePoints > 0 && stats.availablePoints <= 1)) return false;
         if (statusFilter === 'empty' && stats.availablePoints !== 0) return false;
 
         return true;
       });
 
       if (filtered.length === 0) {
+        const emptyMsg = DB.members.length === 0
+          ? '尚無會員資料。請點上方「☁️ 從 Google 試算表下載」取得正式資料，或「新增會員」開始建檔。'
+          : '查無符合條件之會員';
         tbody.innerHTML = `
           <tr>
             <td colspan="7" class="empty-state">
               <div class="empty-state-icon">👥</div>
-              <div>查無符合條件之會員</div>
+              <div>${emptyMsg}</div>
             </td>
           </tr>
         `;
@@ -599,11 +588,14 @@
       filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
 
       if (filtered.length === 0) {
+        const emptyMsg = DB.recharges.length === 0
+          ? '尚無儲值流水帳紀錄。請點上方「☁️ 從 Google 試算表下載」取得正式資料，或「新增儲值」開始建檔。'
+          : '尚無儲值流水帳紀錄';
         tbody.innerHTML = `
           <tr>
             <td colspan="8" class="empty-state">
               <div class="empty-state-icon">💰</div>
-              <div>尚無儲值流水帳紀錄</div>
+              <div>${emptyMsg}</div>
             </td>
           </tr>
         `;
@@ -655,11 +647,14 @@
       filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
 
       if (filtered.length === 0) {
+        const emptyMsg = DB.tasks.length === 0
+          ? '尚無任務履歷紀錄。請點上方「☁️ 從 Google 試算表下載」取得正式資料，或「新增任務」開始建檔。'
+          : '尚無任務履歷紀錄';
         tbody.innerHTML = `
           <tr>
             <td colspan="7" class="empty-state">
               <div class="empty-state-icon">🛠️</div>
-              <div>尚無任務履歷紀錄</div>
+              <div>${emptyMsg}</div>
             </td>
           </tr>
         `;
@@ -673,6 +668,7 @@
         else if (t.status === 'acceptance') statusBadge = '<span class="tag tag-cyan">⏳ 7 天驗收期</span>';
         else if (t.status === 'completed') statusBadge = '<span class="tag tag-emerald">✅ 驗收通過 (扣點)</span>';
         else if (t.status === 'waived') statusBadge = '<span class="tag tag-gray">↩️ 未過免扣</span>';
+        const taskUrl = safeUrl(t.url);
 
         return `
           <tr>
@@ -688,7 +684,7 @@
             <td><strong style="color: var(--rose); font-family: var(--font-mono);">-${t.points} 點</strong></td>
             <td>${statusBadge}</td>
             <td>
-              ${t.url ? `<a href="${escapeHTML(t.url)}" target="_blank" style="color: var(--cyan); text-decoration: none; font-size: 0.8rem;">🔗 交付成果 ↗</a><br>` : ''}
+              ${taskUrl ? `<a href="${escapeHTML(taskUrl)}" target="_blank" rel="noopener noreferrer" style="color: var(--cyan); text-decoration: none; font-size: 0.8rem;">🔗 交付成果 ↗</a><br>` : ''}
               <span style="font-size: 0.775rem; color: var(--text-muted);">${escapeHTML(t.notes || '')}</span>
             </td>
             <td style="text-align: right;">
@@ -739,14 +735,74 @@
       }
     }
 
+    // ── Dialog 焦點管理 ─────────────────────────────────────
+    // 四個容器都標了 aria-modal="true"，那是在對螢幕閱讀器宣告「背景不存在」。
+    // 沒有 focus trap 的話這個宣告就是騙人的 —— Tab 幾下就掉到後面的表格裡。
+    let dialogReturnFocus = null;
+    let activeDialog = null;
+
+    const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), ' +
+      'select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    function openDialog(el) {
+      if (!el) return;
+      if (activeDialog !== el) {
+        dialogReturnFocus = document.activeElement;
+        activeDialog = el;
+      }
+      el.classList.add('active');
+      const first = el.querySelector(FOCUSABLE);
+      if (first) first.focus();
+      document.addEventListener('keydown', onDialogKeydown, true);
+    }
+
+    function closeDialog(el) {
+      if (!el) return;
+      el.classList.remove('active');
+      if (activeDialog === el) {
+        activeDialog = null;
+        document.removeEventListener('keydown', onDialogKeydown, true);
+        if (dialogReturnFocus && dialogReturnFocus.focus) dialogReturnFocus.focus();
+        dialogReturnFocus = null;
+      }
+    }
+
+    function onDialogKeydown(e) {
+      if (!activeDialog) return;
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        if (activeDialog.id === 'drawer-panel') {
+          closeDrawer();
+        } else {
+          closeDialog(activeDialog);
+        }
+        return;
+      }
+      if (e.key !== 'Tab') return;
+
+      const items = Array.prototype.slice.call(activeDialog.querySelectorAll(FOCUSABLE))
+        .filter(n => n.offsetParent !== null);
+      if (!items.length) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
     // ── MODAL 顯示與儲存處理 ──────────────────────────────
     function openModal(id) {
       const el = document.getElementById(id);
-      if (el) el.classList.add('active');
+      if (el) openDialog(el);
     }
     function closeModal(id) {
       const el = document.getElementById(id);
-      if (el) el.classList.remove('active');
+      if (el) closeDialog(el);
     }
 
     function openMemberModal() {
@@ -796,8 +852,13 @@
         }
         showToast('✅ 會員資料已更新');
       } else {
-        // Create
-        const newId = 'MEM-' + new Date().getFullYear() + '-' + String(DB.members.length + 1).padStart(3, '0');
+        // 用陣列長度當序號，只要曾經刪過會員就會撞號，
+        // 而撞號會讓兩位客戶的儲值與任務在 memberId 比對時混為一談。
+        const maxSerial = DB.members.reduce((max, m) => {
+          const matched = /^MEM-\d{4}-(\d+)$/.exec(m.id);
+          return matched ? Math.max(max, parseInt(matched[1], 10)) : max;
+        }, 0);
+        const newId = 'MEM-' + new Date().getFullYear() + '-' + String(maxSerial + 1).padStart(3, '0');
         const newMember = {
           id: newId,
           name, company, taxId, tier, email, line, notes,
@@ -1039,12 +1100,12 @@
 
       document.getElementById('drawer-content').innerHTML = content;
       document.getElementById('drawer-overlay').classList.add('active');
-      document.getElementById('drawer-panel').classList.add('active');
+      openDialog(document.getElementById('drawer-panel'));
     }
 
     function closeDrawer() {
       document.getElementById('drawer-overlay').classList.remove('active');
-      document.getElementById('drawer-panel').classList.remove('active');
+      closeDialog(document.getElementById('drawer-panel'));
     }
 
     function generateStatementText(member, stats, recharges, tasks) {
@@ -1073,13 +1134,13 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
       const text = document.getElementById('statement-preview').innerText;
       navigator.clipboard.writeText(text).then(() => {
         showToast('📋 LINE 對帳單文字已複製到剪貼簿！');
-      });
+      }).catch(() => showToast('⚠️ 瀏覽器阻擋了剪貼簿存取，請手動選取上方文字複製。'));
     }
 
     function copyClientLink(url) {
       navigator.clipboard.writeText(url).then(() => {
         showToast('🔗 客戶專屬免登入查詢連結已複製！');
-      });
+      }).catch(() => showToast('⚠️ 瀏覽器阻擋了剪貼簿存取，請手動選取上方文字複製。'));
     }
 
     // ── CSV 匯出引擎 ───────────────────────────────────────
@@ -1158,7 +1219,8 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
             DB = {
               members: (imported.members || []).map(sanitizeMemberData),
               recharges: (imported.recharges || []).map(sanitizeRechargeData),
-              tasks: (imported.tasks || []).map(sanitizeTaskData)
+              tasks: (imported.tasks || []).map(sanitizeTaskData),
+              _demo: false
             };
             saveDatabase();
             renderAll();
@@ -1215,7 +1277,16 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
         return;
       }
 
-      if (!confirm('即將以本機目前的會員、儲值與任務資料覆蓋 Google 試算表，確定執行嗎？')) {
+      if (DB._demo) {
+        alert('⚠️ 目前本機是示範資料，禁止上傳覆蓋雲端。\n\n請先執行「從 Google 試算表下載」取得正式資料，或「清空重置」後重新建檔。');
+        return;
+      }
+
+      if (!confirm(
+        '即將以本機資料【完整覆蓋】Google 試算表，雲端現有內容會被清除。\n\n' +
+        '本機目前：會員 ' + DB.members.length + ' 筆 / 儲值 ' + DB.recharges.length + ' 筆 / 任務 ' + DB.tasks.length + ' 筆\n\n' +
+        '若這個數字比你預期的少很多，請按取消。'
+      )) {
         return;
       }
 
@@ -1253,7 +1324,7 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
         return;
       }
 
-      if (!confirm('即將從 Google 試算表下載最新資料並覆蓋本機資料庫，確定執行嗎？\\n（系統將自動校正電話前導 0 與日期時區）')) {
+      if (!confirm('即將從 Google 試算表下載最新資料並覆蓋本機資料庫，確定執行嗎？\n（系統將自動校正電話前導 0 與日期時區）')) {
         return;
       }
 
@@ -1269,7 +1340,8 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
           DB = {
             members: (res.data.members || []).map(sanitizeMemberData),
             recharges: (res.data.recharges || []).map(sanitizeRechargeData),
-            tasks: (res.data.tasks || []).map(sanitizeTaskData)
+            tasks: (res.data.tasks || []).map(sanitizeTaskData),
+            _demo: false
           };
           saveDatabase();
           renderAll();
@@ -1287,25 +1359,4 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
     function getTimestamp() {
       const d = new Date();
       return d.toISOString().split('T')[0].replace(/-/g, '');
-    }
-
-    function showToast(msg) {
-      const container = document.getElementById('toast-container');
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.innerText = msg;
-      container.appendChild(toast);
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(10px)';
-        toast.style.transition = 'all 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-      }, 3200);
-    }
-
-    function escapeHTML(str) {
-      if (!str) return '';
-      return String(str).replace(/[&<>'"]/g, 
-        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
-      );
     }

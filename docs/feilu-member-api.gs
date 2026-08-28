@@ -102,9 +102,19 @@ function doPost(e) {
     }
 
     if (payload.action === 'syncAll' && payload.db) {
-      syncFullDatabase_(payload.db);
-      result.success = true;
-      result.message = '資料庫同步成功';
+      var lock = LockService.getScriptLock();
+      if (!lock.tryLock(30000)) {
+        result.message = '另一個同步作業進行中，請稍候再試';
+        return respondJSON_(result);
+      }
+      try {
+        backupBeforeSync_();
+        syncFullDatabase_(payload.db);
+        result.success = true;
+        result.message = '資料庫同步成功';
+      } finally {
+        lock.releaseLock();
+      }
     } else if (payload.action === 'exportAll' || payload.action === 'getDB') {
       result.success = true;
       result.message = '資料庫匯出成功';
@@ -113,7 +123,10 @@ function doPost(e) {
       result.message = '未知的操作指令';
     }
   } catch (err) {
-    result.message = '處理失敗：' + err.toString();
+    // 這個端點對所有人開放，例外訊息可能帶出試算表名稱與內部函式名，
+    // 對外一律給固定字串，細節留在 GAS 執行記錄裡。
+    console.error('doPost 失敗：' + err.toString());
+    result.message = '處理失敗，請聯繫管理者';
   }
   return respondJSON_(result);
 }
@@ -394,6 +407,46 @@ function formatString_(v, isPhone) {
     s = '0' + s;
   }
   return s;
+}
+
+/**
+ * 覆寫前先把雲端現況存成一張時間戳工作表。
+ * syncFullDatabase_ 是 clearContent + setValues 的破壞性覆寫，
+ * 沒有還原點的話，一次誤同步就找不回客戶帳務資料。
+ */
+function backupBeforeSync_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var stamp = Utilities.formatDate(new Date(), 'Asia/Taipei', 'yyyyMMdd_HHmmss');
+  var name = '備份_' + stamp;
+  var snapshot = JSON.stringify(exportFullDatabase_());
+
+  var sheet = ss.insertSheet(name);
+  if (snapshot.length <= 45000) {
+    sheet.getRange(1, 1).setValue(snapshot);
+  } else {
+    var chunkSize = 40000;
+    var chunks = [];
+    chunks.push(['CHUNKED:' + snapshot.slice(0, chunkSize)]);
+    for (var pos = chunkSize; pos < snapshot.length; pos += chunkSize) {
+      chunks.push([snapshot.slice(pos, pos + chunkSize)]);
+    }
+    sheet.getRange(1, 1, chunks.length, 1).setValues(chunks);
+  }
+  sheet.hideSheet();
+
+  pruneOldBackups_(ss);
+}
+
+/**
+ * 只留最近 10 份備份，否則試算表分頁會無限膨脹。
+ */
+function pruneOldBackups_(ss) {
+  var backups = ss.getSheets()
+    .filter(function(s) { return s.getName().indexOf('備份_') === 0; })
+    .sort(function(a, b) { return a.getName() < b.getName() ? 1 : -1; });
+  for (var i = 10; i < backups.length; i++) {
+    ss.deleteSheet(backups[i]);
+  }
 }
 
 function respondJSON_(data) {
