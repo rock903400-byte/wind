@@ -156,16 +156,19 @@ def check_heading_and_secret_scan(errors, warnings):
     print("  ✓ WCAG 標題大綱與密鑰洩漏掃描通過")
 
 def check_asset_versions(errors, warnings):
-    print("\n🔍 [5/7] 檢查 asset 快取版本號一致性...")
+    print("\n🔍 [5/7] 檢查 asset 快取版本號一致性與完整性...")
     ver_pattern = re.compile(r'(?:href|src)=["\']assets/[^"\']+\?v=(\d+)["\']')
+    unversioned_pattern = re.compile(r'(?:href|src)=["\'](assets/[^"\']+\.(?:js|css))["\']')
     versions = {}
     for filename in HTML_FILES:
         content = (ROOT_DIR / filename).read_text(encoding="utf-8")
+        for unversioned in unversioned_pattern.findall(content):
+            errors.append(f"❌ [{filename}] 引用了未帶版本號的靜態資源：{unversioned}（請加上 ?v=...）")
         for v in ver_pattern.findall(content):
             versions.setdefault(v, []).append(filename)
     if len(versions) > 1:
         errors.append(f"❌ asset ?v= 版本號不一致：{ {k: sorted(set(f)) for k, f in versions.items()} }")
-    print("  ✓ asset 版本號一致")
+    print("  ✓ asset 版本號一致且全部帶有版號")
 
 def check_sitemap_and_robots(errors, warnings):
     print("\n🔍 [6/7] 檢查 Sitemap 與 Robots.txt...")

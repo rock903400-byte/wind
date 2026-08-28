@@ -235,68 +235,89 @@
           if (DB.tasks && Array.isArray(DB.tasks)) {
             DB.tasks = DB.tasks.map(sanitizeTaskData);
           }
+        // 本次修正之前，loadDatabase() 會自動灌示範資料並 saveDatabase()，
+        // 所以舊瀏覽器的 localStorage 裡存著「沒有 _demo 欄位的示範資料」。
+        // 那批資料如果被當成正式資料放行同步，W-01 想擋的事情就白做了 ——
+        // 而那正好是管理者自己、存著 ADMIN_KEY 的那台機器。
+        if (DB._demo === undefined) {
+          DB._demo = looksLikeDemoData(DB);
+        } else {
           DB._demo = Boolean(DB._demo);
-          saveDatabase();
-        } catch (e) {
-          console.error('Failed to parse DB:', e);
-          initEmptyDB();
         }
-      } else {
+        saveDatabase();
+      } catch (e) {
+        console.error('Failed to parse DB:', e);
         initEmptyDB();
       }
+    } else {
+      initEmptyDB();
     }
+  }
 
-    function saveDatabase() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(DB));
-    }
+  function saveDatabase() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(DB));
+  }
 
-    function initEmptyDB() {
-      DB = { members: [], recharges: [], tasks: [], _demo: false };
-      saveDatabase();
-    }
+  function initEmptyDB() {
+    DB = { members: [], recharges: [], tasks: [], _demo: false };
+    saveDatabase();
+  }
 
-    // ── 示範資料載入 ───────────────────────────────────────
-    function loadDemoData(notify = true) {
-      DB = {
-        _demo: true,
-        members: [
-          {
-            id: 'MEM-2026-001',
-            name: '林秘書長',
-            company: '伯鐸儲蓄互助社',
-            taxId: '88888888',
-            email: 'boduosavings@example.com',
-            line: '0980463400',
-            tier: '輕量儲值會員',
-            notes: '主要需求為每月收支傳票自動清洗與跨表勾稽。',
-            createdAt: '2026-08-15',
-            token: 'a1b2c3d4e5f6789012345678abcdef01'
-          },
-          {
-            id: 'MEM-2026-002',
-            name: '謝創辦人',
-            company: '果醬女孩 Jam Girl',
-            taxId: '88291023',
-            email: 'jamgirl@example.com',
-            line: 'jamgirl_official',
-            tier: '破冰體驗戶',
-            notes: '希望建立 LINE 官方帳號物流與訂單自動查詢助手。',
-            createdAt: '2026-08-20',
-            token: 'b2c3d4e5f6789012345678abcdef0123'
-          },
-          {
-            id: 'MEM-2026-003',
-            name: '張律師',
-            company: '誠律法律事務所',
-            taxId: '49201948',
-            email: 'chang.law@example.com',
-            line: 'lawyer_chang',
-            tier: '月度訂閱客戶',
-            notes: '司法院標準支付命令與民事起訴狀自動套版外掛。',
-            createdAt: '2026-08-25',
-            token: 'c3d4e5f6789012345678abcdef012345'
-          }
-        ],
+  // ── 示範資料載入 ───────────────────────────────────────
+  const DEMO_TOKENS = [
+    'a1b2c3d4e5f6789012345678abcdef01',
+    'b2c3d4e5f6789012345678abcdef0123',
+    'c3d4e5f6789012345678abcdef012345'
+  ];
+
+  function looksLikeDemoData(db) {
+    if (!db || !Array.isArray(db.members)) return false;
+    return db.members.some(function(m) {
+      return m && DEMO_TOKENS.indexOf(String(m.token || '')) !== -1;
+    });
+  }
+
+  function loadDemoData(notify = true) {
+    DB = {
+      _demo: true,
+      members: [
+        {
+          id: 'MEM-2026-001',
+          name: '林秘書長',
+          company: '伯鐸儲蓄互助社',
+          taxId: '88888888',
+          email: 'boduosavings@example.com',
+          line: '0980463400',
+          tier: '輕量儲值會員',
+          notes: '主要需求為每月收支傳票自動清洗與跨表勾稽。',
+          createdAt: '2026-08-15',
+          token: DEMO_TOKENS[0]
+        },
+        {
+          id: 'MEM-2026-002',
+          name: '謝創辦人',
+          company: '果醬女孩 Jam Girl',
+          taxId: '88291023',
+          email: 'jamgirl@example.com',
+          line: 'jamgirl_official',
+          tier: '破冰體驗戶',
+          notes: '希望建立 LINE 官方帳號物流與訂單自動查詢助手。',
+          createdAt: '2026-08-20',
+          token: DEMO_TOKENS[1]
+        },
+        {
+          id: 'MEM-2026-003',
+          name: '張律師',
+          company: '誠律法律事務所',
+          taxId: '49201948',
+          email: 'chang.law@example.com',
+          line: 'lawyer_chang',
+          tier: '月度訂閱客戶',
+          notes: '司法院標準支付命令與民事起訴狀自動套版外掛。',
+          createdAt: '2026-08-25',
+          token: DEMO_TOKENS[2]
+        }
+      ],
         recharges: [
           {
             id: 'REC-001',
@@ -762,7 +783,15 @@
       if (activeDialog === el) {
         activeDialog = null;
         document.removeEventListener('keydown', onDialogKeydown, true);
-        if (dialogReturnFocus && dialogReturnFocus.focus) dialogReturnFocus.focus();
+        // renderAll() 會整包重寫 tbody，開啟 drawer 的那顆按鈕可能已經被換掉。
+        // 在 detached node 上 focus() 不拋錯也不生效，焦點會靜默掉回 <body>，
+        // 鍵盤使用者得從頁首重新 Tab 起。
+        if (dialogReturnFocus && dialogReturnFocus.isConnected) {
+          dialogReturnFocus.focus();
+        } else {
+          const fallback = document.querySelector('.tab-btn.active');
+          if (fallback) fallback.focus();
+        }
         dialogReturnFocus = null;
       }
     }

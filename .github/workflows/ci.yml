@@ -32,4 +32,4 @@ jobs:
 
       - name: Run Shared Utilities Unit Tests
         run: |
-          node --test "tests/**/*.test.mjs"
+          node --test
