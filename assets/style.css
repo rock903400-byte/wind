@@ -329,9 +329,21 @@ a.hero-badge:focus-visible{outline:2px solid var(--accent-light);outline-offset:
 .svc-jump{align-self:flex-start;appearance:none;background:none;border:0;padding:0;font-family:inherit;font-size:.82rem;font-weight:600;color:var(--accent-light);cursor:pointer;transition:color .2s}
 .svc-jump:hover{color:var(--accent-lighter)}
 .svc-jump:focus-visible{outline:2px solid var(--accent-light);outline-offset:3px;border-radius:4px}
-.svc-card.svc-featured{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.1)}
-.svc-card.svc-featured:hover{border-color:rgba(16,185,129,.65)}
-.svc-card.svc-featured h3,.svc-card.svc-featured .svc-jump{color:#6ee7b7}
+.svc-card.svc-featured{
+  position:relative;
+  border-color:rgba(var(--accent-light-rgb),.45);
+  border-top:2px solid var(--accent-light);
+  background:linear-gradient(135deg,rgba(var(--accent-rgb),.12) 0%,rgba(var(--accent2-rgb),.1) 100%);
+  box-shadow:0 8px 24px -12px rgba(var(--accent-rgb),.35);
+}
+.svc-card.svc-featured:hover{
+  border-color:var(--accent-light);
+  transform:translateY(-4px);
+  box-shadow:0 16px 36px -16px rgba(var(--accent-rgb),.55);
+}
+.svc-card.svc-featured h3{color:#fff}
+.svc-card.svc-featured .svc-jump{color:var(--accent-lighter);font-weight:700}
+.svc-card.svc-featured .svc-icon{background:rgba(var(--accent-rgb),.2);border-color:rgba(var(--accent-light-rgb),.4)}
 
 /* ---- process ---- */
 .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
