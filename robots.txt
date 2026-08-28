@@ -26,4 +26,4 @@ User-agent: Applebot-Extended
 Allow: /
 
 # Sitemap 站點地圖
-Sitemap: https://wind.pages.dev/sitemap.xml
+Sitemap: https://wind.rock903400.workers.dev/sitemap.xml

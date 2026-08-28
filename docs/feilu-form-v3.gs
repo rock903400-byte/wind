@@ -42,7 +42,7 @@ var TIMELINE = [
 
 var CONSENT = ['我已閱讀並同意隱私權政策'];
 
-var PRIVACY_URL = 'https://wind.pages.dev/privacy.html';
+var PRIVACY_URL = 'https://wind.rock903400.workers.dev/privacy.html';
 var FORM_TITLE  = '飛律｜AI 流程賦能預約';
 var SHEET_TITLE = '飛律預約_回應 V3';
 

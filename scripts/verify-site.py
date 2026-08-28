@@ -207,7 +207,7 @@ def check_sitemap_and_robots(errors, warnings):
         errors.append("❌ sitemap.xml 缺少客戶查詢頁面 client-balance.html")
 
     for loc in locs:
-        if not loc.startswith("https://wind.pages.dev"):
+        if not loc.startswith("https://wind.rock903400.workers.dev"):
             errors.append(f"❌ sitemap.xml 包含非主網域 URL: {loc}")
 
     robots_file = ROOT_DIR / "robots.txt"

@@ -145,15 +145,15 @@ Google 表單頁首在窄螢幕會裁掉左右兩側。所有文字必須落在 
 **改前**（檔案第 12 行與第 18 行）：
 
 ```html
-  <meta property="og:image" content="https://wind.pages.dev/assets/og-cover.jpg" />
-  <meta name="twitter:image" content="https://wind.pages.dev/assets/og-cover.jpg" />
+  <meta property="og:image" content="https://wind.rock903400.workers.dev/assets/og-cover.jpg" />
+  <meta name="twitter:image" content="https://wind.rock903400.workers.dev/assets/og-cover.jpg" />
 ```
 
 **改後**：
 
 ```html
-  <meta property="og:image" content="https://wind.pages.dev/assets/feilu-og.png" />
-  <meta name="twitter:image" content="https://wind.pages.dev/assets/feilu-og.png" />
+  <meta property="og:image" content="https://wind.rock903400.workers.dev/assets/feilu-og.png" />
+  <meta name="twitter:image" content="https://wind.rock903400.workers.dev/assets/feilu-og.png" />
 ```
 
 同時在 `og:image:height` 那行之後補一行 `og:image:alt`（目前只有 `index.html` 有這個屬性）：

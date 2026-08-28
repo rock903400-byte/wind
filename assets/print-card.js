@@ -649,8 +649,8 @@ async function downloadDOMCardImage(cardEl, filename, btnEl) {
 // 頁面互動與控制
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
-  const frontUrl = 'https://wind.pages.dev/';
-  const backUrl = 'https://wind.pages.dev/ai-enablement.html';
+  const frontUrl = 'https://wind.rock903400.workers.dev/';
+  const backUrl = 'https://wind.rock903400.workers.dev/ai-enablement.html';
 
   // 1. 動態注入 @page 列印樣式 (修復 CSS 列印尺寸 Bug)
   function updatePrintPageSize(isBleed) {
@@ -717,10 +717,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const backSVG = QRCodeGen.createSVG(backUrl, backColor);
     
     const qrTargets = [
-      { id: 'qrFrontWrap', svg: frontSVG, label: 'QR Code：掃碼查看 Wind 作品集 https://wind.pages.dev/' },
-      { id: 'qr3DFrontWrap', svg: frontSVG, label: 'QR Code：掃碼查看 Wind 作品集 https://wind.pages.dev/' },
-      { id: 'qrBackWrap', svg: backSVG, label: 'QR Code：掃碼查看合約範本與案例 https://wind.pages.dev/ai-enablement.html' },
-      { id: 'qr3DBackWrap', svg: backSVG, label: 'QR Code：掃碼查看合約範本與案例 https://wind.pages.dev/ai-enablement.html' }
+      { id: 'qrFrontWrap', svg: frontSVG, label: 'QR Code：掃碼查看 Wind 作品集 https://wind.rock903400.workers.dev/' },
+      { id: 'qr3DFrontWrap', svg: frontSVG, label: 'QR Code：掃碼查看 Wind 作品集 https://wind.rock903400.workers.dev/' },
+      { id: 'qrBackWrap', svg: backSVG, label: 'QR Code：掃碼查看合約範本與案例 https://wind.rock903400.workers.dev/ai-enablement.html' },
+      { id: 'qr3DBackWrap', svg: backSVG, label: 'QR Code：掃碼查看合約範本與案例 https://wind.rock903400.workers.dev/ai-enablement.html' }
     ];
     
     qrTargets.forEach(item => {
@@ -798,7 +798,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function getShareUrl() {
     if (window.location.protocol === 'file:') {
-      return 'https://wind.pages.dev/print-card.html';
+      return 'https://wind.rock903400.workers.dev/print-card.html';
     }
     return window.location.href;
   }
