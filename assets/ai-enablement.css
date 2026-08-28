@@ -1489,6 +1489,177 @@
       color: #7c8b9a;
     }
 
+    .scope-rule-list li .fine-print {
+      margin-top: 0.15rem;
+    }
+
+    /* ---- FAQ Enhancement Styles (T-2) ---- */
+    .faq-flow-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin: 0.85rem 0;
+    }
+
+    @media (min-width: 768px) {
+      .faq-flow-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .faq-flow-item {
+      background: rgba(8, 12, 15, 0.65);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .faq-flow-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .faq-flow-scope {
+      font-size: 0.78rem;
+      color: var(--accent-light);
+      line-height: 1.4;
+    }
+
+    .faq-flow-desc {
+      font-size: 0.84rem;
+      color: var(--text-sub);
+      line-height: 1.55;
+      margin-top: 0.2rem;
+    }
+
+    .faq-highlight-box {
+      margin-top: 0.85rem;
+      padding: 0.85rem 1rem;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    .faq-highlight-icon {
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .faq-price-banner {
+      margin-top: 0.85rem;
+      padding: 0.85rem 1rem;
+      background: rgba(8, 12, 15, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .faq-price-tag-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .faq-price-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .faq-price-val {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--accent-light);
+    }
+
+    .faq-price-note {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    .faq-plan-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin: 0.85rem 0;
+    }
+
+    @media (min-width: 640px) {
+      .faq-plan-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .faq-plan-card {
+      background: rgba(8, 12, 15, 0.65);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .faq-plan-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .faq-plan-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .faq-plan-price {
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+    }
+
+    .faq-plan-price .currency {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent-light);
+    }
+
+    .faq-plan-price .amount {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .faq-plan-price .unit {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .faq-plan-desc {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      line-height: 1.55;
+    }
+
     .mockup-note {
       margin-top: 0.9rem;
       font-size: 0.76rem;
@@ -1764,6 +1935,129 @@
     .bridge-guarantee {
       color: var(--text-muted);
       font-size: 0.85rem;
+    }
+
+    /* ---- 可驗證事實 3 大證據卡 (T-3) ---- */
+    .bridge-evidence-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-top: 0.5rem;
+    }
+
+    @media (min-width: 860px) {
+      .bridge-evidence-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .evidence-card {
+      background: rgba(8, 12, 15, 0.75);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .evidence-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(16, 185, 129, 0.4);
+      box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(16, 185, 129, 0.2);
+    }
+
+    .evidence-preview {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #0d151c;
+      position: relative;
+    }
+
+    .evidence-preview picture,
+    .evidence-preview img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .evidence-preview img {
+      transition: transform 0.3s ease;
+    }
+
+    .evidence-card:hover .evidence-preview img {
+      transform: scale(1.04);
+    }
+
+    .evidence-body {
+      padding: 1.15rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      flex-grow: 1;
+    }
+
+    .evidence-module-badge {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      align-self: flex-start;
+      line-height: 1.4;
+    }
+
+    .evidence-body h4 {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.35;
+      margin-top: 0.15rem;
+    }
+
+    .evidence-data {
+      font-size: 0.86rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    .btn-evidence-demo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent-light);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 0.5rem;
+      padding-top: 0.65rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-evidence-demo:hover {
+      color: #fff;
+      transform: translateX(3px);
+    }
+
+    .evidence-locked {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+      margin-top: 0.5rem;
+      padding-top: 0.65rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.08);
+      cursor: default;
+      user-select: none;
+      line-height: 1.4;
     }
 
     .booking-scope-hint {

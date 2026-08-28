@@ -76,7 +76,7 @@
           "name": "我的帳冊或個資會不會外洩？",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "資料流向依模組型態分三種，提單時會先向你說明清楚，不會含糊帶過：① 純離線型（AHK 桌面外掛、純前端試算工具）：全部運算在你的電腦本機完成，資料不經過網路。② Google Workspace 雲端資料庫型（試算表自動勾稽與排程）：資料留在你自己的 Google Workspace 企業帳號內，權限由你控管。③ 私有 AI 原廠直連型（規章 RAG、LINE 問答）：這類模組有兩段資料流，我分開講清楚——建置時：你的規章手冊會被切成段落、轉成向量，連同原文片段一起寫進向量資料庫。這份索引等於一份你文件的副本，所以它建在你自己的向量資料庫帳號內（用哪一家在提單時一起選定），金鑰、帳單與刪除權都在你手上，你隨時可以整份刪掉。查詢時：會將回答所需的必要片段，送往你自己官方帳號 API 金鑰所對應的服務；LINE 訊息則經 LINE 官方伺服器轉送——這是這類模組的架構本質，我不會假裝它是離線的。三種型態飛律端一律不留存客戶資料副本、不建立中繼資料庫（第 ③ 種的向量索引也在你的帳號內，不在我這邊）。若你的帳冊或個資完全不能離開本機，提單時直接指定第 ① 種，我會以純離線架構實作。"
+            "text": "資料流向依模組型態分三種，提單時會先向你說明清楚，不會含糊帶過：① 純本機離線型（AHK 桌面外掛、純前端演算法與試算工具）：全部運算在你的電腦本機完成，資料 100% 不離開本機、不經過外部網路。② 私有大型雲端型（Firebase / Google Cloud / Cloudflare）：適用於 PWA 跨平台 App、跨門市庫存、LINE Bot 24h 運作。直接建立在客戶自有 Google / Firebase 專案內（BYOC），享受毫秒級即時同步與離線快取，且享有極大免費額度（幾近零伺服器月租），資料庫安全規則與存取權限全由你掌控。③ 私有 AI 原廠直連型（規章 RAG、LINE 智慧問答）：API 金鑰與向量資料庫直接建在客戶自有帳號內（BYOK），實報實銷、零加價、隨時可整份刪除。三種型態飛律端一律不留存客戶資料副本、不建立中繼資料庫（第 ③ 種的向量索引也在你的帳號內，不在我這邊）。若你的帳冊或個資完全不能離開本機，提單時直接指定第 ① 種，我會以純離線架構實作。"
           }
         },
         {
@@ -168,8 +168,8 @@
       </p>
 
       <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; width: 100%;">
-        <a href="#scope" class="btn-primary" data-analytics="cta_hero_explore">
-          探索 6 大賦能模組與方案 ↓
+        <a href="#pricing" class="btn-primary" data-analytics="cta_hero_pricing">
+          NT$ 1,000 預約 2 項模組 ➔
         </a>
         <div class="hero-trust-pills">
           <span class="trust-pill">⚡ 48h 極速交付驗收</span>
@@ -177,6 +177,9 @@
           <span class="trust-pill">🎯 驗收通過才扣點</span>
         </div>
         <div style="display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 0.75rem;">
+          <a href="#scope" class="btn-sub" style="margin-top: 0;" data-analytics="cta_hero_explore">
+            探索 6 大賦能模組與方案 ↓
+          </a>
           <a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" class="btn-sub" style="margin-top: 0;" data-analytics="cta_hero_line">
             💬 加 LINE 傳截圖或講痛點，直接聊聊（ID: 0980463400）
           </a>
@@ -715,17 +718,64 @@
       </div>
     </section>
 
-    <!-- Portfolio Bridge / 單一極簡作品集導流橫幅 -->
+    <!-- Portfolio Bridge / 可驗證事實信任區塊 -->
     <section class="portfolio-bridge-wrap" id="portfolio-bridge">
       <div class="bridge-card">
         <div class="bridge-header">
-          <span class="bridge-tag">19+ LIVE PORTFOLIO WORKS</span>
-          <h3>想看更多真實案例？探索 19 項跨 11+ 產業已上線作品</h3>
+          <span class="bridge-tag">VERIFIABLE LIVE SYSTEMS · 可驗證事實</span>
+          <h3>頁面上方是情境示意；以下 3 個系統不是——正在線上運作，公開項目現在就能點開驗證</h3>
         </div>
         <p class="bridge-desc">
-          從金融風控、LINE AI 生態、多路直播監看、PWA 行動系統到形象品牌電商——
-          所有系統皆提供真實線上 Demo 與架構展示，證明我們具備跨產業、從 0 到 1 交付穩定系統的深厚底蘊。
+          從金融風控、LINE AI 生態到即時法院法拍精算：不講抽象理論、不捏造虛假見證。3 個系統皆在線上真實運作（受保護之客戶正式系統依規鎖定，公開展示項目你現在就能點開驗證）：
         </p>
+
+        <div class="bridge-evidence-grid">
+          <!-- Card 1: 儲互社風險儀表板 -->
+          <div class="evidence-card">
+            <div class="evidence-preview">
+              <picture><source srcset="assets/cu-risk-dashboard.webp" type="image/webp"><img src="assets/cu-risk-dashboard.jpg" alt="儲蓄互助社風險監控儀表板，顯示跨機構比較與趨勢追蹤" decoding="async" loading="lazy" width="720" height="440"></picture>
+            </div>
+            <div class="evidence-body">
+              <div class="evidence-module-badge">🎯 這證明了上方：模組 1・財務試算表自動勾稽</div>
+              <h4>儲蓄互助社風險監控儀表板</h4>
+              <p class="evidence-data">自動偵測逾期與流動性風險；跨機構同業比較</p>
+              <div class="evidence-locked">
+                🔒 客戶正式營運系統 · 受密碼保護，不提供公開存取
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: LINE AI 互助經濟網絡系統 -->
+          <div class="evidence-card">
+            <div class="evidence-preview">
+              <picture><source srcset="assets/line-ai-ecosystem.webp" type="image/webp"><img src="assets/line-ai-ecosystem.jpg" alt="LINE AI 生態系首頁主視覺" decoding="async" loading="lazy" width="720" height="440"></picture>
+            </div>
+            <div class="evidence-body">
+              <div class="evidence-module-badge">🎯 這證明了上方：模組 2・LINE 助手 ＋ 模組 3・規章 RAG 問答</div>
+              <h4>LINE AI 互助經濟網絡系統</h4>
+              <p class="evidence-data">300+ 商家 × 20 萬會員；Gemini LLM + Pinecone 向量檢索，毫秒級規章問答</p>
+              <a href="https://rock903400-byte.github.io/line-ai-ecosystem-demo/" class="btn-evidence-demo" target="_blank" rel="noopener">
+                點開驗證 Live 系統 ➔
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3: 全台法拍公告即時監控與 ROI 試算 -->
+          <div class="evidence-card">
+            <div class="evidence-preview">
+              <picture><source srcset="assets/foreclosure-analyzer.webp" type="image/webp"><img src="assets/foreclosure-analyzer.jpg" alt="法拍補償試算工具的案件列表與篩選介面" decoding="async" loading="lazy" width="720" height="440"></picture>
+            </div>
+            <div class="evidence-body">
+              <div class="evidence-module-badge">🎯 這證明了上方：模組 4・標案與情報監控雷達</div>
+              <h4>全台法拍公告即時監控與 ROI 試算</h4>
+              <p class="evidence-data">每 5 分鐘同步全台法院公告；ROI 報酬率與點交風險自動試算排序</p>
+              <a href="https://rock903400-byte.github.io/foreclosure-compensation-analyzer/" class="btn-evidence-demo" target="_blank" rel="noopener">
+                點開驗證 Live 系統 ➔
+              </a>
+            </div>
+          </div>
+        </div>
+
         <div class="bridge-actions">
           <a href="./#works" class="btn-bridge" target="_blank" rel="noopener">
             前往 Wind 作品集互動展廳 (查看 19 項實機 Demo) ➔
@@ -860,27 +910,38 @@
             <ul class="scope-rule-list">
               <li>
                 <span class="bullet">🔹</span>
-                <span><strong>全端營運中樞與 POS 系統：</strong><br>
-                庫存、結帳櫃台、規格對比三合一系統，或旅遊/製造業「業務即時報價 × 內部成本隔離」權限後台。</span>
+                <div>
+                  <strong>全端營運中樞與 POS 系統：</strong>
+                  <div class="fine-print">庫存、結帳櫃台、規格對比三合一系統，或旅遊/製造業「業務即時報價 × 內部成本隔離」權限後台。</div>
+                </div>
               </li>
               <li>
                 <span class="bullet">🔹</span>
-                <span><strong>Firebase 私有雲端即時系統與 PWA App：</strong><br>
-                特約商店跨平台 App、旅宿即時房況防超賣日曆，具備多端即時同步、離線可用與兩級審核機制。</span>
+                <div>
+                  <strong>Firebase 私有雲端即時系統與 PWA App：</strong>
+                  <div class="fine-print">特約商店跨平台 App、旅宿即時房況防超賣日曆，具備多端即時同步、離線可用與兩級審核機制。</div>
+                </div>
               </li>
               <li>
                 <span class="bullet">🔹</span>
-                <span><strong>金融風控與資料分析儀表板：</strong><br>
-                逾期與流動性即時監控、四維加權信用評分與合規 PDF 報告產生器、全台法拍公告即時同步精算。</span>
+                <div>
+                  <strong>金融風控與資料分析儀表板：</strong>
+                  <div class="fine-print">逾期與流動性即時監控、四維加權信用評分與合規 PDF 報告產生器、全台法拍公告即時同步精算。</div>
+                </div>
               </li>
               <li>
                 <span class="bullet">🔹</span>
-                <span><strong>大型 LINE 生態系與向量知識庫：</strong><br>
-                支援 20 萬會員級別的 Gemini LLM + 向量資料庫（Pinecone）毫秒級問答、會員互動與商務推播。</span>
+                <div>
+                  <strong>大型 LINE 生態系與向量知識庫：</strong>
+                  <div class="fine-print">支援 20 萬會員級別的 Gemini LLM + 向量資料庫（Pinecone）毫秒級問答、會員互動與商務推播。</div>
+                </div>
               </li>
               <li>
                 <span class="bullet">🔹</span>
-                <span><strong>分拆交付優勢：</strong> 任何中大型專案皆可拆解為獨立模組依序交付，每完成一階段驗收才扣點/結算，進度與預算 100% 自主掌控。</span>
+                <div>
+                  <strong>分拆交付優勢：</strong>
+                  <div class="fine-print">任何中大型專案皆可拆解為獨立模組依序交付，每完成一階段驗收才扣點/結算，進度與預算 100% 自主掌控。</div>
+                </div>
               </li>
             </ul>
           </div>
@@ -932,23 +993,23 @@
             <ul class="scope-rule-list">
               <li>
                 <span class="bullet">×</span>
-                <span>金流串接、第三方支付與信用卡收單（涉及金流法遵與 PCI 規範，非輕量模組能承擔）</span>
+                <span><strong>金流與支付串接：</strong>金流串接、第三方支付與信用卡收單（涉及金流法遵與 PCI 規範，非輕量模組能承擔）</span>
               </li>
               <li>
                 <span class="bullet">×</span>
-                <span>規避他站反爬機制、破解登入或違反服務條款的抓取行為</span>
+                <span><strong>破解與違規爬蟲：</strong>規避他站反爬機制、破解登入或違反服務條款的抓取行為</span>
               </li>
               <li>
                 <span class="bullet">×</span>
-                <span>代客撰擬法律文件、代為判斷個案法律關係或代辦司法程序（僅提供排版自動化工具）</span>
+                <span><strong>代撰法律文件與訴訟代辦：</strong>代客撰擬法律文件、代為判斷個案法律關係或代辦司法程序（僅提供排版自動化工具）</span>
               </li>
               <li>
                 <span class="bullet">×</span>
-                <span>需通過正式資安稽核、金管會或主管機關認證的正式營運系統</span>
+                <span><strong>主管機關資安認證：</strong>需通過正式資安稽核、金管會或主管機關認證的正式營運系統</span>
               </li>
               <li>
                 <span class="bullet">×</span>
-                <span>需要 7×24 值班待命或簽署 SLA 保證可用率的維運服務</span>
+                <span><strong>7×24 SLA 維運：</strong>需要 7×24 值班待命或簽署 SLA 保證可用率的維運服務</span>
               </li>
             </ul>
           </div>
@@ -1221,11 +1282,30 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-body" id="faq-body-3">
-            資料流向依模組型態分三種，提單時會先向你說明清楚，不會含糊帶過：<br><br>
-            <strong>① 純本機離線型</strong>（AHK 桌面外掛、純前端演算法與試算工具）：全部運算在你的電腦本機完成，資料 100% 不離開本機、不經過外部網路。<br>
-            <strong>② 私有大型雲端型</strong>（Firebase / Google Cloud / Cloudflare）：適用於 PWA 跨平台 App、跨門市庫存、LINE Bot 24h 運作。直接建立在客戶自有 Google / Firebase 專案內（BYOC），享受毫秒級即時同步與離線快取，且享有極大免費額度（幾近零伺服器月租），資料庫安全規則與存取權限全由你掌控。<br>
-            <strong>③ 私有 AI 原廠直連型</strong>（規章 RAG、LINE 智慧問答）：API 金鑰與向量資料庫直接建在客戶自有帳號內（BYOK），實報實銷、零加價、隨時可整份刪除。<br><br>
-            三種型態<strong>飛律端一律不留存客戶資料副本、不建立中繼資料庫</strong>（第 ③ 種的向量索引也在你的帳號內，不在我這邊）。若你的帳冊或個資完全不能離開本機，提單時直接指定第 ① 種，我會以純離線架構實作。
+            <p>資料流向依模組型態分三種，提單時會先向你說明清楚，不會含糊帶過：</p>
+            <div class="faq-flow-grid">
+              <div class="faq-flow-item">
+                <div class="faq-flow-title">① 純本機離線型</div>
+                <div class="faq-flow-scope">（AHK 桌面外掛、純前端演算法與試算工具）</div>
+                <p class="faq-flow-desc">全部運算在你的電腦本機完成，資料 100% 不離開本機、不經過外部網路。</p>
+              </div>
+              <div class="faq-flow-item">
+                <div class="faq-flow-title">② 私有大型雲端型</div>
+                <div class="faq-flow-scope">（Firebase / Google Cloud / Cloudflare）</div>
+                <p class="faq-flow-desc">適用於 PWA 跨平台 App、跨門市庫存、LINE Bot 24h 運作。直接建立在客戶自有 Google / Firebase 專案內（BYOC），享受毫秒級即時同步與離線快取，且享有極大免費額度（幾近零伺服器月租），資料庫安全規則與存取權限全由你掌控。</p>
+              </div>
+              <div class="faq-flow-item">
+                <div class="faq-flow-title">③ 私有 AI 原廠直連型</div>
+                <div class="faq-flow-scope">（規章 RAG、LINE 智慧問答）</div>
+                <p class="faq-flow-desc">API 金鑰與向量資料庫直接建在客戶自有帳號內（BYOK），實報實銷、零加價、隨時可整份刪除。</p>
+              </div>
+            </div>
+            <div class="faq-highlight-box">
+              <span class="faq-highlight-icon">🛡️</span>
+              <div>
+                三種型態<strong>飛律端一律不留存客戶資料副本、不建立中繼資料庫</strong>（第 ③ 種的向量索引也在你的帳號內，不在我這邊）。若你的帳冊或個資完全不能離開本機，提單時直接指定第 ① 種，我會以純離線架構實作。
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1235,8 +1315,18 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-body" id="faq-body-4">
-採<strong>客戶私有帳號直連（原廠實報實銷）</strong>原則：API 金鑰與帳單<strong>都在你自己的官方帳號手上</strong>（例如你的 OpenAI / Claude / Gemini 帳號），用多少付多少、隨時可停，費用直接付給原廠，<strong>不經過我的帳戶、不收中介差價</strong>。規章 RAG 的<strong>向量資料庫同理，直接建在你自己的資料庫帳號內</strong>——儲存與刪除權完全由你掌控。<br><br>
-            費用完全取決於使用量：以每月數百次輕量問答估算，OpenAI / Claude / Gemini 的原廠費用多在<strong>每月數十至數百元</strong>之間；若是每日全文檢索或高頻推播，成本會再往上。交付前我會依你的實際用量先試算預估給你，不會讓帳單超出預期。
+            <p>
+              採<strong>客戶私有帳號直連（原廠實報實銷）</strong>原則：API 金鑰與帳單<strong>都在你自己的官方帳號手上</strong>（例如你的 OpenAI / Claude / Gemini 帳號），用多少付多少、隨時可停，費用直接付給原廠，<strong>不經過我的帳戶、不收中介差價</strong>。規章 RAG 的<strong>向量資料庫同理，直接建在你自己的資料庫帳號內</strong>——儲存與刪除權完全由你掌控。
+            </p>
+            <div class="faq-price-banner">
+              <div class="faq-price-tag-sm">
+                <span class="faq-price-label">原廠 API 費用預估</span>
+                <span class="faq-price-val">每月數十至數百元</span>
+              </div>
+              <p class="faq-price-note">
+                費用完全取決於使用量：以每月數百次輕量問答估算，OpenAI / Claude / Gemini 的原廠費用多在<strong>每月數十至數百元</strong>之間；若是每日全文檢索或高頻推播，成本會再往上。交付前我會依你的實際用量先試算預估給你，不會讓帳單超出預期。
+              </p>
+            </div>
           </div>
         </div>
 
@@ -1246,10 +1336,32 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-body" id="faq-body-5">
-體驗滿意後有兩條路，依你的需求密度選：<br><br>
-            <strong>① 5 點輕量儲值包 NT$ 3,500</strong>（每點 NT$ 700）—— 無使用期限、隨提隨做，適合需求零星出現的團隊。<br>
-            <strong>② 月度訂閱制 NT$ 5,000／月</strong> —— 期間內不限提單數（仍依單一線程原則依序交付，提單當下告知預計啟動時間），適合已經有連續需求、想把一整條流程做完的團隊。<br><br>
-            兩者可依團隊節奏自由切換，<strong>無強制續約、無最低綁約期</strong>。
+            <p>體驗滿意後有兩條路，依你的需求密度選：</p>
+            <div class="faq-plan-grid">
+              <div class="faq-plan-card">
+                <div class="faq-plan-header">
+                  <span class="faq-plan-title">① 5 點輕量儲值包</span>
+                  <div class="faq-plan-price">
+                    <span class="currency">NT$</span>
+                    <span class="amount">3,500</span>
+                    <span class="unit">（每點 NT$ 700）</span>
+                  </div>
+                </div>
+                <p class="faq-plan-desc">無使用期限、隨提隨做，適合需求零星出現的團隊。</p>
+              </div>
+              <div class="faq-plan-card">
+                <div class="faq-plan-header">
+                  <span class="faq-plan-title">② 月度訂閱制</span>
+                  <div class="faq-plan-price">
+                    <span class="currency">NT$</span>
+                    <span class="amount">5,000</span>
+                    <span class="unit">／月</span>
+                  </div>
+                </div>
+                <p class="faq-plan-desc">期間內不限提單數（仍依單一線程原則依序交付，提單當下告知預計啟動時間），適合已經有連續需求、想把一整條流程做完的團隊。</p>
+              </div>
+            </div>
+            <p>兩者可依團隊節奏自由切換，<strong>無強制續約、無最低綁約期</strong>。</p>
           </div>
         </div>
 

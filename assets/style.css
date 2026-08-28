@@ -129,6 +129,7 @@ a.hero-badge:focus-visible{outline:2px solid #8fa4ff;outline-offset:3px}
 .btn-demo:hover{color:#b3c0ff}
 .btn-demo::after{content:'↗';transition:transform .35s cubic-bezier(.22,.61,.36,1)}
 .work-card:hover .btn-demo::after{transform:translate(3px,-3px)}
+.btn-demo-locked{display:inline-flex;align-items:center;gap:6px;color:var(--dim);font-size:.85rem;font-weight:500;margin-top:4px;cursor:default;user-select:none}
 
 /* ---- 旗艦作品卡 ---- */
 .work-card.featured{grid-column:span 2;border-color:rgba(143,164,255,.28);box-shadow:0 18px 44px -24px rgba(102,126,234,.5)}
