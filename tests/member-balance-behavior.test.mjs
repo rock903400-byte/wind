@@ -274,6 +274,64 @@ describe('實機與瀏覽器行為自動化驗證測試套件', () => {
       const savedHash = storage.get('feilu_synced_hash');
       assert.ok(savedHash, '應記錄同步指紋');
     });
+
+    it('I-2 情境 1: 無 feilu_synced_hash 但本機有既有資料時（遷移情境），保守視為未同步並阻止覆蓋', async () => {
+      const { evalInCtx, elements, storage } = createDOMSandbox();
+      
+      const localDB = {
+        members: [{ id: 'MEM-LEGACY-001', name: '既有舊客戶', token: 'legacytoken' }],
+        recharges: [],
+        tasks: [],
+        _demo: false
+      };
+      storage.set('feilu_member_system_v1', JSON.stringify(localDB));
+      storage.delete('feilu_synced_hash'); // 模擬升級前舊版瀏覽器
+
+      evalInCtx('loadDatabase()');
+      await evalInCtx('autoLoadFromCloud()');
+
+      const db = evalInCtx('DB');
+      assert.equal(db.members.length, 1);
+      assert.equal(db.members[0].name, '既有舊客戶', '舊版既有資料不得被靜默覆蓋');
+      
+      const banner = elements.get('cloud-banner');
+      assert.equal(banner.hidden, false, '應跳出衝突橫幅通知管理者處置');
+    });
+
+    it('I-2 情境 2: 無 feilu_synced_hash 且本機無資料時（全新瀏覽器），正常載入不誤報衝突', async () => {
+      const { evalInCtx, elements, storage } = createDOMSandbox();
+      storage.delete('feilu_member_system_v1');
+      storage.delete('feilu_synced_hash');
+
+      evalInCtx('loadDatabase()');
+      await evalInCtx('autoLoadFromCloud()');
+
+      const db = evalInCtx('DB');
+      assert.equal(db.members.length, 1);
+      assert.equal(db.members[0].name, '雲端會員');
+      
+      const banner = elements.get('cloud-banner');
+      assert.equal(banner.hidden, true, '全新環境不應跳出衝突橫幅');
+    });
+
+    it('I-1: 載入失敗後 cloudLoadOk 必須重設為 false，同步功能被即時阻擋', async () => {
+      const { evalInCtx, sandbox, alerts } = createDOMSandbox();
+      
+      // 模擬先前連線成功
+      evalInCtx('cloudLoadOk = true');
+
+      // 模擬後續重試時發生網路失敗
+      sandbox.fetch = async () => { throw new Error('Network Offline'); };
+      await evalInCtx('autoLoadFromCloud()');
+
+      const cloudLoadOk = evalInCtx('cloudLoadOk');
+      assert.equal(cloudLoadOk, false, '載入失敗後 cloudLoadOk 必須重設為 false');
+
+      // 嘗試同步至 Google 試算表，應被 alert 阻擋且零網路請求
+      await evalInCtx('syncToGoogleSheets()');
+      assert.equal(alerts.length, 1);
+      assert.match(alerts[0], /未成功從雲端載入資料/);
+    });
   });
 
   describe('W-07 & F-2: 焦點捕獲與降級焦點測試', () => {

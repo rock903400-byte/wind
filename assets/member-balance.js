@@ -44,7 +44,12 @@
 
     function hasUnsyncedChanges() {
       const marked = localStorage.getItem(SYNCED_HASH_KEY);
-      if (!marked) return false;      // 從未同步過就沒有基準，不阻擋
+      if (!marked) {
+        // feilu_synced_hash 是後來才加的鍵，所有在此之前用過後台的瀏覽器都沒有它。
+        // 沒有基準時無法判斷這份快取是否已上傳過，保守地當作有未同步變更 ——
+        // 誤判的代價只是多按一次按鈕，猜錯的代價是靜默丟掉管理者的資料。
+        return (DB.members.length + DB.recharges.length + DB.tasks.length) > 0;
+      }
       return marked !== dbFingerprint(DB);
     }
 
@@ -1395,6 +1400,9 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
         hideCloudBanner();
       } catch (err) {
         console.warn('自動載入雲端資料失敗：', err);
+        // 載入失敗就不能再宣稱本機是最新的。不重設的話橫幅說「不會上傳」
+        // 但同步照樣送得出去 —— 使用者是照畫面上的字做決定的。
+        cloudLoadOk = false;
         showCloudBanner('離線模式：顯示的是本機快取，變更不會上傳雲端。請恢復連線後點「重試連線」。', { showRetry: true, showDiscard: false });
       }
     }
