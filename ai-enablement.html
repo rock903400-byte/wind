@@ -1700,6 +1700,192 @@
       background-color: rgba(255, 255, 255, 0.03);
     }
 
+    /* ---- 3 大企業級全端成果支柱樣式 ---- */
+    .pillar-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 1.5rem;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .pillar-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-accent);
+      box-shadow: 0 12px 30px -10px rgba(16, 185, 129, 0.2);
+    }
+
+    .pillar-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--accent-light);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 999px;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 0.75rem;
+      align-self: flex-start;
+    }
+
+    .pillar-card h3 {
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.55rem;
+      line-height: 1.4;
+    }
+
+    .pillar-lead {
+      color: var(--text-sub);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 1.1rem;
+    }
+
+    .pillar-checklist {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.25rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.55;
+    }
+
+    .pillar-checklist li {
+      position: relative;
+      padding-left: 1.35rem;
+    }
+
+    .pillar-checklist li::before {
+      content: "•";
+      position: absolute;
+      left: 0.35rem;
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    .pillar-checklist strong {
+      color: var(--text-main);
+    }
+
+    .pillar-tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .tag-pill {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.15rem 0.55rem;
+    }
+
+    /* ---- 作品集極簡導流橋樑橫幅 ---- */
+    .portfolio-bridge-wrap {
+      margin-top: 4.5rem;
+    }
+
+    .bridge-card {
+      background: linear-gradient(135deg, rgba(18, 27, 34, 0.95) 0%, rgba(12, 19, 25, 0.98) 100%);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      box-shadow: 0 16px 40px -15px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(16, 185, 129, 0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .bridge-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .bridge-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      letter-spacing: 0.5px;
+    }
+
+    .bridge-header h3 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.35;
+    }
+
+    .bridge-desc {
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      max-width: 850px;
+    }
+
+    .bridge-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.25rem;
+      margin-top: 0.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .btn-bridge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--accent) 0%, #059669 100%);
+      color: #04130d;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 0.85rem 1.65rem;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 8px 24px -6px rgba(16, 185, 129, 0.45);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-bridge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -4px rgba(16, 185, 129, 0.6);
+    }
+
+    .bridge-guarantee {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .booking-scope-hint {
+      color: var(--accent-light);
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+
     /* ---- Mobile Sticky Action Bar ---- */
     .mobile-sticky-bar {
       position: fixed;
@@ -1947,8 +2133,10 @@
       <div class="nav-chapters" id="navChapters" role="navigation" aria-label="章節快速跳轉">
         <a href="#scope" class="nav-chapter-link">⚡ 賦能領域</a>
         <a href="#showcase" class="nav-chapter-link">📊 效益實測</a>
+        <a href="#enterprise-solutions" class="nav-chapter-link">🏛️ 全端實力</a>
         <a href="#boundary" class="nav-chapter-link">🛡️ 任務邊界</a>
         <a href="#pricing" class="nav-chapter-link">💰 儲值方案</a>
+        <a href="./#works" class="nav-chapter-link" target="_blank" rel="noopener">🏆 作品實績 (19)</a>
         <a href="#faq" class="nav-chapter-link">❓ 常見問題</a>
       </div>
       <div style="display: flex; align-items: center; gap: 1rem;">
@@ -1999,21 +2187,21 @@
     <!-- Trust Anchor / Profile -->
     <section>
       <div class="bio-strip">
-        <div class="bio-tag">FINANCE · CLOUD & FIREBASE · FULLSTACK · AUTOMATION</div>
+        <div class="bio-tag">ENTERPRISE FULLSTACK · FINTECH · AUTOMATION · LEGAL COMPLIANCE</div>
         <div class="bio-content">
-          <h3>不賣弄技術名詞 · 只交付打開就能跑的穩定系統 ｜ 飛律</h3>
+          <h3>不賣弄技術黑話 · 只交付打開就能跑的穩定系統 ｜ 飛律</h3>
           <p>
-            深耕金融內控稽核 × 政府採購法規實務 × 大型雲端 (Firebase/GCP) 與 AI 全端自動化架構。<br>
+            深耕金融內控稽核 × 政府採購法規實務 × 企業級全端自動化架構。<br>
             別人還在講抽象的 AI 大模型或開無效會議，飛律只專注做一件事：用最白話的溝通，把你的真實資料接上自動化。<br>
-            支援本機純離線與私有 Firebase/GCP 雲端架構，堅持單一責任制全程專責把關，48 小時內交出你打開就會用的成品，方向錯當場調。
+            支援本機純離線與私有雲端架構，堅持單一責任制全程專責把關，48 小時內交出你打開就會用的成品，方向錯當場調。
           </p>
           <div class="bio-highlights">
-            <span class="bio-pill">🏦 10+ 年金融內控稽核與風控試算演算法</span>
-            <span class="bio-pill">☁️ Firebase / GCP 私有雲端與 PWA 跨平台 App</span>
-            <span class="bio-pill">📜 政府電子採購網情報爬蟲與自動推播</span>
-            <span class="bio-pill">⚖️ 司法院標準訴狀與消滅時效防呆鬧鐘</span>
-            <span class="bio-pill">🤖 數十萬會員級 LINE 規章問答與向量檢索</span>
-            <span class="bio-pill">🔒 本機純離線／私有帳號直連・100% 原始碼交付</span>
+            <span class="bio-pill">🏦 10+ 年金融內控稽核與 5P 授信精算法規</span>
+            <span class="bio-pill">🤖 服務 20 萬會員級 LINE AI 網絡與高併發架構</span>
+            <span class="bio-pill">📹 LiveHub 16 路多畫面零延遲即時視訊監看</span>
+            <span class="bio-pill">📱 免安裝跨平台 PWA 企業會員生活圈系統</span>
+            <span class="bio-pill">🧾 正式統一發票開立 · 支援簽署 NDA 保密合約</span>
+            <span class="bio-pill">🔒 私有帳號直連 · 100% 原始碼與資料資產交付</span>
           </div>
         </div>
       </div>
@@ -2456,6 +2644,96 @@
       <p class="mockup-note">以上三組畫面與數據皆為典型作業場景的情境示意，非任何特定客戶的真實資料；實際成效依你的資料量與流程複雜度而異。</p>
     </section>
 
+    <!-- Enterprise Solutions / 3 大企業級全端成果支柱（大白話版） -->
+    <section id="enterprise-solutions">
+      <h2>除了輕量外掛，我們也能為你打造大型專屬系統</h2>
+      <p class="sec-desc">不論是一張千元鈔票的自動化外掛，還是從 0 到 1 的企業專屬系統，皆以最高規格交付：</p>
+
+      <div class="grid grid-3">
+        <!-- 支柱 1：財務、法規與審查精算 -->
+        <div class="card pillar-card">
+          <div>
+            <div class="pillar-badge">FINTECH & AUDITING</div>
+            <h3>🏦 財務與法規自動精算</h3>
+            <p class="pillar-lead">把繁瑣的審核、算錢與風控，做成主管點一下就能出結果的工具。</p>
+            <ul class="pillar-checklist">
+              <li><strong>金融機構風險儀表板</strong>：即時抓出逾期與資金健康度。</li>
+              <li><strong>全台法拍即時監控</strong>：每 5 分鐘同步法院，300+ 標的秒算投報率。</li>
+              <li><strong>5P 信用審查評分</strong>：四維加權演算法，一鍵生成送審報告。</li>
+              <li><strong>合作社 7,000 人官方入口</strong>：符合金融法規與防詐標準。</li>
+            </ul>
+          </div>
+          <div class="pillar-tech-tags">
+            <span class="tag-pill">Streamlit 儀表板</span>
+            <span class="tag-pill">5P 授信模型</span>
+            <span class="tag-pill">Python 即時精算</span>
+          </div>
+        </div>
+
+        <!-- 支柱 2：大流量 AI 與即時監控 -->
+        <div class="card pillar-card">
+          <div>
+            <div class="pillar-badge">ENTERPRISE AI & VIDEO</div>
+            <h3>🤖 數十萬人同時在線的 AI · 多畫面即時監看</h3>
+            <p class="pillar-lead">大量會員同時問問題也不卡頓、不用裝軟體就能多路監控。</p>
+            <ul class="pillar-checklist">
+              <li><strong>LINE 20 萬會員 AI 網絡</strong>：300 家店、20 萬會員秒問秒答。</li>
+              <li><strong>16 個即時畫面並排監看</strong>：多路即時視訊同屏看，瀏覽器即開。</li>
+              <li><strong>AI 財務體質診斷系統</strong>：丟入兩張財報，AI 秒出決策圖表。</li>
+              <li><strong>FitLog 拍照辨識 AI</strong>：鏡頭一拍自動估算營養素與熱量。</li>
+            </ul>
+          </div>
+          <div class="pillar-tech-tags">
+            <span class="tag-pill">Gemini LLM</span>
+            <span class="tag-pill">向量檢索 (Pinecone)</span>
+            <span class="tag-pill">多串流影音架構</span>
+          </div>
+        </div>
+
+        <!-- 支柱 3：免安裝手機系統與防洩密系統 -->
+        <div class="card pillar-card">
+          <div>
+            <div class="pillar-badge">FULL-STACK & CLOUD</div>
+            <h3>💻 免安裝手機 App · 獨立官網與防洩密系統</h3>
+            <p class="pillar-lead">傳網址點開就能用、不被平台抽月費，資料 100% 屬於你。</p>
+            <ul class="pillar-checklist">
+              <li><strong>免下載手機系統 (PWA)</strong>：點開即用，沒網路也能離線運作。</li>
+              <li><strong>業務估價與機密防洩引擎</strong>：業務秒出報價，成本毛利加密隔離。</li>
+              <li><strong>野溪溫泉民宿訂房系統</strong>：線上即時訂房防超賣、夜衝動態計價。</li>
+              <li><strong>學術展覽線上數位策展</strong>：七大展區沉浸捲動，生硬數據變故事。</li>
+            </ul>
+          </div>
+          <div class="pillar-tech-tags">
+            <span class="tag-pill">PWA 漸進式網頁</span>
+            <span class="tag-pill">Firebase 雲端</span>
+            <span class="tag-pill">100% 原始碼交付</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Bridge / 單一極簡作品集導流橫幅 -->
+    <section class="portfolio-bridge-wrap" id="portfolio-bridge">
+      <div class="bridge-card">
+        <div class="bridge-header">
+          <span class="bridge-tag">19+ LIVE PORTFOLIO WORKS</span>
+          <h3>想看更多真實案例？探索 19 項跨 11+ 產業已上線作品</h3>
+        </div>
+        <p class="bridge-desc">
+          從金融風控、LINE AI 生態、多路直播監看、PWA 行動系統到形象品牌電商——
+          所有系統皆提供真實線上 Demo 與架構展示，證明我們具備跨產業、從 0 到 1 交付穩定系統的深厚底蘊。
+        </p>
+        <div class="bridge-actions">
+          <a href="./#works" class="btn-bridge" target="_blank" rel="noopener">
+            前往 Wind 作品集互動展廳 (查看 19 項實機 Demo) ➔
+          </a>
+          <span class="bridge-guarantee">
+            🛡️ 可開立統一發票 · 支援簽署 NDA 保密合約 · 100% 原始碼與資料資產交付
+          </span>
+        </div>
+      </div>
+    </section>
+
     <!-- How it works (Pillars) -->
     <section>
       <h2>服務運作流程：高效、透明、無耗損</h2>
@@ -2754,6 +3032,9 @@
             不必先寫規格書，把最耗時的環節講清楚就好。收到後我會先判斷可行性與拆解方式，
             再跟你確認要用掉哪 2 個額度。
           </p>
+          <div class="booking-scope-hint">
+            💡 <strong>大型客製專案諮詢</strong>：若您需要從 0 到 1 規劃品牌形象官網、獨立電商系統、PWA 行動系統或金融儀表板，流程類型可先勾選「其他／尚未確定」並在下方備註說明，或直接加 LINE 免費聊聊！
+          </div>
 
           <div class="booking-field" data-field="module">
             <span class="booking-label" id="booking-module-label">想解決的流程類型<span class="booking-req">*</span></span>
@@ -2992,6 +3273,7 @@
         本頁所有前後對照畫面與數據皆為典型作業場景的情境示意，非特定客戶真實資料，實際成效依資料量與流程複雜度而異。法務相關模組僅提供文書排版自動化，不提供法律意見，個案請洽執業律師。
       </p>
       <p style="font-size: 0.8rem; color: var(--text-muted);">
+        <a href="./" style="text-decoration: underline; text-underline-offset: 3px;">Wind 跨產業作品集首頁 (19 項實績)</a> · 
         <a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" data-analytics="cta_footer_line">LINE (ID: 0980463400)</a> · 
         <a href="https://github.com/rock903400-byte" target="_blank" rel="noopener">GitHub</a> · 
         <a href="mailto:rock90340@gmail.com" data-analytics="cta_footer_mail">rock90340@gmail.com</a> · 
