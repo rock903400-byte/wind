@@ -9,13 +9,14 @@
   <meta property="og:description" content="儲值 NT$ 1,000 交付 2 項輕量自動化模組，由懂金融內控與法規的專業架構團隊交付。" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://rock903400-byte.github.io/wind/ai-enablement.html" />
-  <meta property="og:image" content="https://rock903400-byte.github.io/wind/assets/og-cover.jpg" />
+  <meta property="og:image" content="https://rock903400-byte.github.io/wind/assets/feilu-og.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="飛律 AI 流程賦能 — 儲值 NT$ 1,000 交付 2 項輕量自動化模組" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="飛律 | AI 流程賦能・輕量儲值制" />
   <meta name="twitter:description" content="儲值 NT$ 1,000 交付 2 項輕量自動化模組，48h 極速交付、資產 100% 自主。" />
-  <meta name="twitter:image" content="https://rock903400-byte.github.io/wind/assets/og-cover.jpg" />
+  <meta name="twitter:image" content="https://rock903400-byte.github.io/wind/assets/feilu-og.png" />
   <link rel="canonical" href="https://rock903400-byte.github.io/wind/ai-enablement.html" />
   <meta name="theme-color" content="#080c0f" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,13 +31,13 @@
     {
       "@type": "Service",
       "@id": "https://rock903400-byte.github.io/wind/ai-enablement.html#feilu",
-      "name": "飛律 AI 流程賦能 (Feilu)",
+      "name": "飛律 AI 流程賦能",
       "description": "把繁瑣法規、帳務與行政流程，做成不必盯著也能跑的 AI 外掛。儲值 NT$ 1,000 交付 2 項自動化模組，48h 極速交付、資產 100% 自主。",
       "url": "https://rock903400-byte.github.io/wind/ai-enablement.html",
       "serviceType": "AI 流程自動化與賦能",
       "provider": {
         "@type": "Organization",
-        "name": "飛律 Feilu",
+        "name": "飛律",
         "url": "https://rock903400-byte.github.io/wind/ai-enablement.html"
       },
       "areaServed": {
@@ -711,6 +712,374 @@
       color: var(--accent);
       font-weight: 800;
       font-size: 1.1rem;
+    }
+
+    /* ---- Booking Form (站內原生表單，POST 至 Google Forms) ---- */
+    .booking-shell {
+      background: linear-gradient(180deg, rgba(24, 34, 42, 0.85) 0%, rgba(15, 23, 29, 0.96) 100%);
+      border: 1px solid var(--border-accent);
+      border-radius: 20px;
+      padding: 2.75rem 2.25rem;
+      box-shadow: 0 20px 50px -18px rgba(0, 0, 0, 0.6);
+    }
+
+    .booking-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .booking-intro {
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      line-height: 1.85;
+      margin-bottom: 2.25rem;
+      max-width: 640px;
+    }
+
+    .booking-field {
+      margin-bottom: 1.75rem;
+    }
+
+    .booking-label {
+      display: block;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.3rem;
+    }
+
+    .booking-req {
+      color: var(--accent-light);
+      margin-left: 0.25rem;
+    }
+
+    .booking-hint {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 0.7rem;
+    }
+
+    .booking-input,
+    .booking-textarea {
+      width: 100%;
+      background: rgba(8, 12, 15, 0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.98rem;
+      line-height: 1.6;
+      padding: 0.8rem 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+    }
+
+    .booking-textarea {
+      min-height: 118px;
+      resize: vertical;
+    }
+
+    .booking-input::placeholder,
+    .booking-textarea::placeholder {
+      color: rgba(148, 163, 184, 0.55);
+    }
+
+    .booking-input:hover,
+    .booking-textarea:hover {
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .booking-input:focus,
+    .booking-textarea:focus {
+      outline: none;
+      background: rgba(8, 12, 15, 0.85);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .booking-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .booking-row .booking-field {
+      margin-bottom: 0;
+    }
+
+    /* 模組複選：語意上是 checkbox，視覺語言比照 .scope-filter-btn */
+    .booking-picks {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.65rem;
+    }
+
+    .booking-pick {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      color: var(--text-sub);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .booking-pick input {
+      position: absolute;
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+
+    .booking-pick .booking-box {
+      flex: 0 0 auto;
+      width: 18px;
+      height: 18px;
+      margin-top: 0.15rem;
+      border: 1.5px solid rgba(148, 163, 184, 0.5);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: transparent;
+      transition: all 0.18s;
+    }
+
+    .booking-pick:hover {
+      color: var(--text-main);
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .booking-pick.is-on {
+      background: rgba(16, 185, 129, 0.14);
+      border-color: rgba(16, 185, 129, 0.55);
+      color: var(--accent-light);
+      font-weight: 600;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.18);
+    }
+
+    .booking-pick.is-on .booking-box {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #04130d;
+    }
+
+    /* 已達 2 項上限時，未勾選的項目視覺上退場但仍可聚焦 */
+    .booking-pick.is-capped {
+      opacity: 0.42;
+    }
+
+    .booking-pick:focus-within {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* 時程單選：橫排 chip */
+    .booking-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .booking-chip {
+      position: relative;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .booking-chip input {
+      position: absolute;
+      opacity: 0;
+      width: 1px;
+      height: 1px;
+      pointer-events: none;
+    }
+
+    .booking-chip:hover {
+      color: var(--text-main);
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .booking-chip.is-on {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: rgba(16, 185, 129, 0.55);
+      color: var(--accent-light);
+      font-weight: 700;
+      box-shadow: 0 0 14px rgba(16, 185, 129, 0.25);
+    }
+
+    .booking-chip:focus-within {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* 隱私同意 */
+    .booking-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      background: rgba(8, 12, 15, 0.45);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.95rem 1.1rem;
+      color: var(--text-sub);
+      font-size: 0.86rem;
+      line-height: 1.7;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .booking-consent:hover {
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+
+    .booking-consent:focus-within {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .booking-consent input {
+      flex: 0 0 auto;
+      width: 17px;
+      height: 17px;
+      margin-top: 0.22rem;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .booking-consent a {
+      color: var(--accent-light);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* 錯誤與狀態 */
+    .booking-err {
+      display: none;
+      color: #fca5a5;
+      font-size: 0.83rem;
+      font-weight: 600;
+      margin-top: 0.45rem;
+    }
+
+    .booking-field.has-err .booking-err {
+      display: block;
+    }
+
+    .booking-field.has-err .booking-input,
+    .booking-field.has-err .booking-textarea {
+      border-color: rgba(248, 113, 113, 0.65);
+    }
+
+    .booking-status {
+      min-height: 1.2rem;
+      color: #fca5a5;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 0.9rem;
+    }
+
+    .booking-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.9rem;
+      margin-top: 2.25rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .booking-submit[aria-busy="true"] {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .booking-alt {
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      line-height: 1.8;
+    }
+
+    .booking-alt a {
+      color: var(--accent-light);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .booking-alt a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* 成功態 */
+    .booking-done {
+      display: none;
+      text-align: center;
+      padding: 1.5rem 0.5rem;
+    }
+
+    .booking-done h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      color: var(--accent-light);
+    }
+
+    .booking-done p {
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      line-height: 1.9;
+      max-width: 520px;
+      margin: 0 auto 1.25rem auto;
+    }
+
+    .booking-shell.is-done .booking-form { display: none; }
+    .booking-shell.is-done .booking-done { display: block; }
+
+    .booking-sink {
+      display: none;
+      width: 0;
+      height: 0;
+      border: 0;
+    }
+
+    @media (max-width: 720px) {
+      .booking-shell {
+        padding: 2rem 1.25rem;
+      }
+
+      .booking-row,
+      .booking-picks {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-actions .btn-primary {
+        width: 100%;
+      }
     }
 
     /* ---- FAQ Accordion ---- */
@@ -1562,6 +1931,9 @@
     .showcase-panel { display: block !important; }
     .showcase-tabs { display: none; }
     .showcase-panel + .showcase-panel { border-top: 1px solid var(--border); }
+    /* 站內表單的 action 與欄位 name 由 JS 填入，沒 JS 時送不出去 ——
+       直接收起來，改用下方 noscript 區塊的 Google 表單連結。 */
+    #booking-shell { display: none; }
   </style></noscript>
 </head>
 <body>
@@ -1570,7 +1942,7 @@
   <nav aria-label="主要導覽">
     <div class="nav-container">
       <a href="#" class="nav-logo">
-        飛律 <span>Feilu</span> <span class="nav-badge">AI 流程賦能</span>
+        飛律 <span class="nav-badge">AI 流程賦能</span>
       </a>
       <div class="nav-chapters" id="navChapters" role="navigation" aria-label="章節快速跳轉">
         <a href="#scope" class="nav-chapter-link">⚡ 賦能領域</a>
@@ -1580,7 +1952,7 @@
         <a href="#faq" class="nav-chapter-link">❓ 常見問題</a>
       </div>
       <div style="display: flex; align-items: center; gap: 1rem;">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScxZUEHsd_8CdnbxDGLQ2c22XGzq0bBTfgJSa6Xt5TXEAUwDA/viewform" target="_blank" rel="noopener" class="nav-btn" data-analytics="cta_nav_google_form_external">儲值體驗</a>
+        <a href="#pricing" class="nav-btn" data-analytics="cta_nav_pricing">儲值方案</a>
       </div>
     </div>
   </nav>
@@ -1605,8 +1977,8 @@
       </p>
 
       <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; width: 100%;">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLScxZUEHsd_8CdnbxDGLQ2c22XGzq0bBTfgJSa6Xt5TXEAUwDA/viewform" target="_blank" rel="noopener" class="btn-primary" data-analytics="cta_hero_google_form_external">
-          儲值 NT$ 1,000 交付 2 項模組 ➔
+        <a href="#scope" class="btn-primary" data-analytics="cta_hero_explore">
+          探索 6 大賦能模組與方案 ↓
         </a>
         <div class="hero-trust-pills">
           <span class="trust-pill">⚡ 48h 極速交付驗收</span>
@@ -1627,18 +1999,21 @@
     <!-- Trust Anchor / Profile -->
     <section>
       <div class="bio-strip">
-        <div class="bio-tag">FINANCE · LEGAL · AUTOMATION</div>
+        <div class="bio-tag">FINANCE · CLOUD & FIREBASE · FULLSTACK · AUTOMATION</div>
         <div class="bio-content">
-          <h3>一人專職交付，從頭到尾都是同一個人 ｜ 飛律 Feilu</h3>
+          <h3>不賣弄技術名詞 · 只交付打開就能跑的穩定系統 ｜ 飛律</h3>
           <p>
-            深耕金融內控稽核 × 政府採購法規實務 × AI Agent 自動化流程架構。<br>
-            飛律不是外包團隊轉包給你不認識的工程師，而是由我一個人從需求訪談、開發到交付驗收全程負責——這也是「單一線程一次只衝刺一項」的原因：我看得懂帳冊借貸、讀得透法規條文，並把判斷標準固化成穩定的 AI 工作流。
+            深耕金融內控稽核 × 政府採購法規實務 × 大型雲端 (Firebase/GCP) 與 AI 全端自動化架構。<br>
+            別人還在講抽象的 AI 大模型或開無效會議，飛律只專注做一件事：用最白話的溝通，把你的真實資料接上自動化。<br>
+            支援本機純離線與私有 Firebase/GCP 雲端架構，堅持單一責任制全程專責把關，48 小時內交出你打開就會用的成品，方向錯當場調。
           </p>
           <div class="bio-highlights">
-            <span class="bio-pill">🏦 10+ 年金融合作社內控與稽核實戰</span>
-            <span class="bio-pill">📜 政府電子採購網最低標爬蟲系統</span>
-            <span class="bio-pill">⚖️ 司法院標準訴狀與法催自動化</span>
-            <span class="bio-pill">🔒 本機純離線／私有帳號直連</span>
+            <span class="bio-pill">🏦 10+ 年金融內控稽核與風控試算演算法</span>
+            <span class="bio-pill">☁️ Firebase / GCP 私有雲端與 PWA 跨平台 App</span>
+            <span class="bio-pill">📜 政府電子採購網情報爬蟲與自動推播</span>
+            <span class="bio-pill">⚖️ 司法院標準訴狀與消滅時效防呆鬧鐘</span>
+            <span class="bio-pill">🤖 數十萬會員級 LINE 規章問答與向量檢索</span>
+            <span class="bio-pill">🔒 本機純離線／私有帳號直連・100% 原始碼交付</span>
           </div>
         </div>
       </div>
@@ -1767,16 +2142,16 @@
 
         <div class="card" data-cat="legacy">
           <div class="icon">🖥️</div>
-          <h3>6. 舊系統無 API 桌面自動填表</h3>
-          <p>針對老舊桌面進銷存或行政系統 (Access/FoxPro)，製作一鍵防呆自動貼入外掛 (AHK)。</p>
+          <h3>6. 舊系統無 API 桌面自動填表外掛 (AHK)</h3>
+          <p>針對老舊桌面進銷存或行政系統 (Access/FoxPro)，製作一鍵防呆自動貼入外掛 (AHK 桌面自動化 · 無 API 系統救星)。</p>
           <div class="card-ba-box">
             <div class="ba-line">
               <span class="ba-tag before">過去</span>
-              <span>老舊 ERP 系統無 API，需人工重複鍵入。</span>
+              <span>老舊 ERP 系統無 API，需人工重複逐欄鍵入。</span>
             </div>
             <div class="ba-line">
               <span class="ba-tag after">現在</span>
-              <span>一鍵 AHK 外掛防呆自動對齊欄位貼入。</span>
+              <span>一鍵 AHK 外掛防呆自動對齊欄位貼入，0.5 秒完成。</span>
             </div>
           </div>
           <div class="card-metrics">
@@ -2199,26 +2574,32 @@
 
           <div class="scope-rule-card complex">
             <div class="scope-rule-title">
-              <span>🟡 複合型 / 大型專案（模組化分拆交付）</span>
+              <span>🟡 複合型 / 大型專案與全端系統（模組化分拆交付）</span>
             </div>
             <ul class="scope-rule-list">
               <li>
                 <span class="bullet">🔹</span>
-                <span>若需求為跨多系統、多部門之大型專案，將<strong>透明拆解為獨立模組分批提單</strong>。</span>
+                <span><strong>全端營運中樞與 POS 系統：</strong><br>
+                庫存、結帳櫃台、規格對比三合一系統，或旅遊/製造業「業務即時報價 × 內部成本隔離」權限後台。</span>
               </li>
               <li>
                 <span class="bullet">🔹</span>
-                <span><strong>範例：全套進銷存與 LINE 會員系統</strong><br>
-                可拆為「① 資料庫自動化架構 (1點) + ② LINE 查詢端點 (1點) + ③ 庫存推播與報表 (1點)」，共 3 點依序交付。</span>
+                <span><strong>Firebase 私有雲端即時系統與 PWA App：</strong><br>
+                特約商店跨平台 App、旅宿即時房況防超賣日曆，具備多端即時同步、離線可用與兩級審核機制。</span>
               </li>
               <li>
                 <span class="bullet">🔹</span>
-                <span><strong>範例：跨平台多 API 雙向大型整合</strong><br>
-                依資料流向拆解為 2~3 個階段交付驗收。</span>
+                <span><strong>金融風控與資料分析儀表板：</strong><br>
+                逾期與流動性即時監控、四維加權信用評分與合規 PDF 報告產生器、全台法拍公告即時同步精算。</span>
               </li>
               <li>
                 <span class="bullet">🔹</span>
-                <span><strong>最大優勢：</strong> 零合約綁定壓力，每完成一項模組驗收才扣 1 點，進度與預算 100% 掌握在手。</span>
+                <span><strong>大型 LINE 生態系與向量知識庫：</strong><br>
+                支援 20 萬會員級別的 Gemini LLM + 向量資料庫（Pinecone）毫秒級問答、會員互動與商務推播。</span>
+              </li>
+              <li>
+                <span class="bullet">🔹</span>
+                <span><strong>分拆交付優勢：</strong> 任何中大型專案皆可拆解為獨立模組依序交付，每完成一階段驗收才扣點/結算，進度與預算 100% 自主掌控。</span>
               </li>
             </ul>
           </div>
@@ -2336,7 +2717,7 @@
         </div>
 
         <div style="display: flex; flex-direction: column; align-items: center; gap: 0.9rem;">
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLScxZUEHsd_8CdnbxDGLQ2c22XGzq0bBTfgJSa6Xt5TXEAUwDA/viewform" target="_blank" rel="noopener" class="btn-primary" style="font-size: 1.15rem; padding: 1.1rem 2.8rem;" data-analytics="cta_pricing_google_form_external">
+          <a href="#booking" class="btn-primary" style="font-size: 1.15rem; padding: 1.1rem 2.8rem;" data-analytics="cta_pricing_booking">
             立即預約 2 項額度 ➔
           </a>
           <a href="mailto:rock90340@gmail.com?subject=預約AI賦能儲值體驗(NT$1,000交付2項)&body=飛律團隊您好，我想預約NT$1,000儲值體驗（交付2項模組）。%0D%0A%0D%0A我的公司/單位名稱：%0D%0A目前想解決的第1個流程痛點：%0D%0A聯絡人電話/LINE ID：" style="color: var(--text-muted); font-size: 0.88rem; text-decoration: none; border-bottom: 1px dashed rgba(148,163,184,0.5); padding-bottom: 2px;" data-analytics="cta_pricing_mail">
@@ -2352,6 +2733,175 @@
           <a href="privacy.html" style="color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px;">隱私權政策</a> · 資料僅用於聯絡與交付，不作其他用途。
         </p>
       </div>
+    </section>
+
+    <!-- Booking Form Section -->
+    <!--
+      站內原生表單。送出方式為 HTML 表單 POST 至 Google Forms 的 formResponse，
+      target 指向下方隱藏 iframe，資料寫入「飛律預約_回應 V3」試算表。
+      表單的 action 與各欄位 name（entry.XXXXXXX）由 JS 從 FEILU_FORM 設定填入，
+      設定來源：執行 docs/feilu-form-v3.gs 後由執行紀錄印出，貼進本檔 JS 區塊即可。
+      各選項的 value 必須與 feilu-form-v3.gs 的 MODULES / TIMELINE / CONSENT 逐字相同。
+    -->
+    <section id="booking">
+      <h2>預約 2 項模組額度</h2>
+      <p class="sec-desc">填完約 60 秒，24 小時內回覆。先談定規格、確認可行後才付款。</p>
+
+      <div class="booking-shell" id="booking-shell">
+        <form class="booking-form" id="booking-form" method="POST" target="feilu-sink" novalidate>
+          <div class="booking-eyebrow">提單需求</div>
+          <p class="booking-intro">
+            不必先寫規格書，把最耗時的環節講清楚就好。收到後我會先判斷可行性與拆解方式，
+            再跟你確認要用掉哪 2 個額度。
+          </p>
+
+          <div class="booking-field" data-field="module">
+            <span class="booking-label" id="booking-module-label">想解決的流程類型<span class="booking-req">*</span></span>
+            <span class="booking-hint">最多勾選 2 項，對應方案的 2 個任務額度。不確定可先勾「其他／尚未確定」。</span>
+            <div class="booking-picks" role="group" aria-labelledby="booking-module-label">
+              <label class="booking-pick" data-cat="fin">
+                <input type="checkbox" data-name="module" value="試算表自動勾稽（跨表核帳、比對、資料清洗）">
+                <span class="booking-box" aria-hidden="true">✓</span>
+                <span class="booking-text">試算表自動勾稽<br><span style="color: var(--text-muted); font-size: 0.8rem;">跨表核帳、比對、資料清洗</span></span>
+              </label>
+              <label class="booking-pick" data-cat="line">
+                <input type="checkbox" data-name="module" value="LINE 官方帳號微型助手（訂單查詢、常見問答、預約查詢）">
+                <span class="booking-box" aria-hidden="true">✓</span>
+                <span class="booking-text">LINE 官方帳號微型助手<br><span style="color: var(--text-muted); font-size: 0.8rem;">訂單查詢、常見問答、預約查詢</span></span>
+              </label>
+              <label class="booking-pick" data-cat="rag">
+                <input type="checkbox" data-name="module" value="規章手冊 RAG 檢索（作業手冊、法規 SOP 智慧問答）">
+                <span class="booking-box" aria-hidden="true">✓</span>
+                <span class="booking-text">規章手冊 RAG 檢索<br><span style="color: var(--text-muted); font-size: 0.8rem;">作業手冊、法規 SOP 智慧問答</span></span>
+              </label>
+              <label class="booking-pick" data-cat="gov">
+                <input type="checkbox" data-name="module" value="政府標案與公告雷達（關鍵字監控、每日推播）">
+                <span class="booking-box" aria-hidden="true">✓</span>
+                <span class="booking-text">政府標案與公告雷達<br><span style="color: var(--text-muted); font-size: 0.8rem;">關鍵字監控、每日推播</span></span>
+              </label>
+              <label class="booking-pick" data-cat="legal">
+                <input type="checkbox" data-name="module" value="法務文書排版（訴狀套版、合約範本產出）">
+                <span class="booking-box" aria-hidden="true">✓</span>
+                <span class="booking-text">法務文書排版<br><span style="color: var(--text-muted); font-size: 0.8rem;">訴狀套版、合約範本產出</span></span>
+              </label>
+              <label class="booking-pick" data-cat="legacy">
+                <input type="checkbox" data-name="module" value="舊系統桌面自動填表（跨系統資料轉貼、批次輸入）">
+                <span class="booking-box" aria-hidden="true">✓</span>
+                <span class="booking-text">舊系統桌面自動填表<br><span style="color: var(--text-muted); font-size: 0.8rem;">跨系統資料轉貼、批次輸入</span></span>
+              </label>
+              <label class="booking-pick" data-cat="other">
+                <input type="checkbox" data-name="module" value="其他／尚未確定">
+                <span class="booking-box" aria-hidden="true">✓</span>
+                <span class="booking-text">其他／尚未確定<br><span style="color: var(--text-muted); font-size: 0.8rem;">先聊聊，由我協助拆解</span></span>
+              </label>
+            </div>
+            <p class="booking-err" data-err="module">請至少勾選 1 項，最多 2 項。</p>
+          </div>
+
+          <div class="booking-field" data-field="scenario">
+            <label class="booking-label" for="booking-scenario">目前最耗時的具體環節</label>
+            <span class="booking-hint">寫得越具體，我越能在第一次回覆就給你可行性判斷與拆解方式。</span>
+            <textarea class="booking-textarea" id="booking-scenario" data-name="scenario"
+              placeholder="例：每週一要跨 3 本 Excel 帳冊比對出貨與收款，手動核對要花 4 小時，還常常漏掉退貨單。"></textarea>
+          </div>
+
+          <div class="booking-row">
+            <div class="booking-field" data-field="company">
+              <label class="booking-label" for="booking-company">公司／單位名稱<span class="booking-req">*</span></label>
+              <span class="booking-hint">例：○○有限公司、○○事務所、○○合作社</span>
+              <input class="booking-input" type="text" id="booking-company" data-name="company" autocomplete="organization">
+              <p class="booking-err" data-err="company">請填寫公司或單位名稱。</p>
+            </div>
+            <div class="booking-field" data-field="name">
+              <label class="booking-label" for="booking-name">您的稱呼</label>
+              <span class="booking-hint">例：王先生、林經理</span>
+              <input class="booking-input" type="text" id="booking-name" data-name="name" autocomplete="name">
+            </div>
+          </div>
+
+          <div class="booking-row" style="margin-top: 1.75rem;">
+            <div class="booking-field" data-field="email">
+              <label class="booking-label" for="booking-email">電子信箱<span class="booking-req">*</span></label>
+              <span class="booking-hint">規格確認書、交付成果與發票都寄到這裡。</span>
+              <input class="booking-input" type="email" id="booking-email" data-name="email" autocomplete="email" inputmode="email">
+              <p class="booking-err" data-err="email">請填寫可收信的電子信箱。</p>
+            </div>
+            <div class="booking-field" data-field="line">
+              <label class="booking-label" for="booking-line">LINE ID 或手機</label>
+              <span class="booking-hint">想用 LINE 快速對接可留，例：LINE ID 或 09xx-xxx-xxx</span>
+              <input class="booking-input" type="text" id="booking-line" data-name="line" autocomplete="tel">
+            </div>
+          </div>
+
+          <div class="booking-field" data-field="timeline" style="margin-top: 1.75rem;">
+            <span class="booking-label" id="booking-timeline-label">期望啟動時程<span class="booking-req">*</span></span>
+            <span class="booking-hint">單一線程依序交付，先讓我知道你的急迫度。</span>
+            <div class="booking-chips" role="radiogroup" aria-labelledby="booking-timeline-label">
+              <label class="booking-chip">
+                <input type="radio" data-name="timeline" value="越快越好，希望 48 小時內啟動">
+                <span>越快越好（48 小時內啟動）</span>
+              </label>
+              <label class="booking-chip">
+                <input type="radio" data-name="timeline" value="2 週內啟動">
+                <span>2 週內啟動</span>
+              </label>
+              <label class="booking-chip">
+                <input type="radio" data-name="timeline" value="先評估可行性與確認規格">
+                <span>先評估可行性與確認規格</span>
+              </label>
+            </div>
+            <p class="booking-err" data-err="timeline">請選擇一個期望時程。</p>
+          </div>
+
+          <div class="booking-field" data-field="consent">
+            <label class="booking-consent">
+              <input type="checkbox" data-name="consent" value="我已閱讀並同意隱私權政策">
+              <span>我已閱讀並同意<a href="privacy.html" target="_blank" rel="noopener">隱私權政策</a>。填寫內容僅用於需求諮詢與成果交付，不作其他用途、不轉售、不外流。</span>
+            </label>
+            <p class="booking-err" data-err="consent">需要您同意隱私權政策才能送出。</p>
+          </div>
+
+          <div class="booking-actions">
+            <p class="booking-status" id="booking-status" role="status" aria-live="polite"></p>
+            <button type="submit" class="btn-primary booking-submit" id="booking-submit" data-analytics="cta_booking_submit">
+              送出預約需求 ➔
+            </button>
+            <p class="booking-alt">
+              不想填表？也可以直接
+              <a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" data-analytics="cta_booking_line">加 LINE（ID: 0980463400）</a>
+              或寄信到
+              <a href="mailto:rock90340@gmail.com?subject=預約AI賦能儲值體驗(NT$1,000交付2項)" data-analytics="cta_booking_mail">rock90340@gmail.com</a>。
+            </p>
+          </div>
+        </form>
+
+        <div class="booking-done" id="booking-done" role="status" aria-live="polite">
+          <h3>已收到您的預約需求</h3>
+          <p>
+            飛律將於 24 小時內以您留的 Email 或 LINE 聯繫，先把規格談定、確認可行，再談付款。<br>
+            若有急件，也可以直接加 LINE ID: 0980463400 找我。
+          </p>
+          <a href="#scope" class="btn-sub" style="margin-top: 0;">← 回去看看還有哪些模組可以搭配</a>
+        </div>
+      </div>
+
+      <p class="fine-print" style="text-align: center; margin-top: 1.25rem;">
+        表單資料由 Google Forms 代管並寫入回應試算表，適用 Google 隱私權政策。
+        <a href="privacy.html" style="color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px;">查看隱私權政策</a>
+      </p>
+
+      <iframe class="booking-sink" name="feilu-sink" title="表單送出結果" tabindex="-1" aria-hidden="true"></iframe>
+
+      <noscript>
+        <div class="booking-shell" style="margin-top: 1rem; text-align: center;">
+          <p style="color: var(--text-sub); margin-bottom: 1.25rem;">
+            本站表單需要 JavaScript。你也可以直接填寫 Google 表單，或用 LINE / Email 聯繫。
+          </p>
+          <a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdxmIze1qHJbRrWcXGFb64OYKrlSadpN4uyRSzbHhL6DZYGWg/viewform" target="_blank" rel="noopener">
+            開啟 Google 預約表單 ➔
+          </a>
+        </div>
+      </noscript>
     </section>
 
     <!-- FAQ Section (Interactive Accordion) -->
@@ -2387,12 +2937,10 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-body" id="faq-body-3">
-資料流向依模組型態分三種，提單時會先向你說明清楚，不會含糊帶過：<br><br>
-            <strong>① 純離線型</strong>（AHK 桌面外掛、純前端試算工具）：全部運算在你的電腦本機完成，資料不經過網路。<br>
-            <strong>② Google Workspace 雲端資料庫型</strong>（試算表自動勾稽與排程）：資料留在你自己的 Google Workspace 企業帳號內，權限由你控管。<br>
-            <strong>③ 私有 AI 原廠直連型</strong>（規章 RAG、LINE 問答）：這類模組有兩段資料流，我分開講清楚——<br><br>
-            <strong>建置時</strong>：你的規章手冊會被切成段落、轉成向量，連同原文片段一起寫進向量資料庫。這份索引等於一份你文件的副本，所以它<strong>建在你自己的向量資料庫帳號內</strong>（用哪一家在提單時一起選定），金鑰、帳單與刪除權都在你手上，你隨時可以整份刪掉。<br><br>
-            <strong>查詢時</strong>：會將回答所需的必要片段，送往<strong>你自己官方帳號 API 金鑰所對應的服務</strong>；LINE 訊息則經 LINE 官方伺服器轉送——這是這類模組的架構本質，我不會假裝它是離線的。<br><br>
+            資料流向依模組型態分三種，提單時會先向你說明清楚，不會含糊帶過：<br><br>
+            <strong>① 純本機離線型</strong>（AHK 桌面外掛、純前端演算法與試算工具）：全部運算在你的電腦本機完成，資料 100% 不離開本機、不經過外部網路。<br>
+            <strong>② 私有大型雲端型</strong>（Firebase / Google Cloud / Cloudflare）：適用於 PWA 跨平台 App、跨門市庫存、LINE Bot 24h 運作。直接建立在客戶自有 Google / Firebase 專案內（BYOC），享受毫秒級即時同步與離線快取，且享有極大免費額度（幾近零伺服器月租），資料庫安全規則與存取權限全由你掌控。<br>
+            <strong>③ 私有 AI 原廠直連型</strong>（規章 RAG、LINE 智慧問答）：API 金鑰與向量資料庫直接建在客戶自有帳號內（BYOK），實報實銷、零加價、隨時可整份刪除。<br><br>
             三種型態<strong>飛律端一律不留存客戶資料副本、不建立中繼資料庫</strong>（第 ③ 種的向量索引也在你的帳號內，不在我這邊）。若你的帳冊或個資完全不能離開本機，提單時直接指定第 ① 種，我會以純離線架構實作。
           </div>
         </div>
@@ -2438,7 +2986,7 @@
     <!-- Footer -->
     <footer>
       <p style="margin-bottom: 0.75rem;">
-        © 2026 飛律 Feilu ｜ AI 流程賦能 ｜ 把規則想清楚，把系統建起來，剩下的交給時間。
+        © 2026 飛律 ｜ AI 流程賦能 ｜ 賦能企業流程自動化，讓核心營運高效運轉。
       </p>
       <p style="font-size: 0.78rem; color: var(--text-muted); max-width: 640px; margin: 0 auto 1.25rem auto; line-height: 1.7;">
         本頁所有前後對照畫面與數據皆為典型作業場景的情境示意，非特定客戶真實資料，實際成效依資料量與流程複雜度而異。法務相關模組僅提供文書排版自動化，不提供法律意見，個案請洽執業律師。
@@ -2459,7 +3007,7 @@
       <span class="mobile-sticky-title">AI 流程賦能儲值體驗</span>
       <span class="mobile-sticky-price">NT$ 1,000 <span>(2 項模組)</span></span>
     </div>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLScxZUEHsd_8CdnbxDGLQ2c22XGzq0bBTfgJSa6Xt5TXEAUwDA/viewform" target="_blank" rel="noopener" class="mobile-sticky-btn" data-analytics="cta_sticky_google_form_external">立即預約 ➔</a>
+    <a href="#pricing" class="mobile-sticky-btn" data-analytics="cta_sticky_pricing">立即預約 ➔</a>
   </div>
 
   <!-- Interactive JavaScript -->
@@ -2701,7 +3249,7 @@
       }
       appendUtmToMailto();
 
-      // (表單相關已移除)
+      // 預約表單邏輯移至檔案最後的「站內預約表單 (#booking)」區塊，需要 trackEvent 與 __FEILU_getScopeCat 先就緒。
 
       window.__FEILU_getScopeCat = function() {
         const active = document.querySelector('.scope-filter-btn.active');
@@ -2768,6 +3316,281 @@
           try { trackEvent('showcase_tab', { tab: btn.getAttribute('data-tab') }); } catch (e) {}
         };
       }
+    })();
+
+    // ---- 站內預約表單 (#booking) ----
+    // 送出方式：原生 <form> POST 至 Google Forms 的 formResponse，target 指向隱藏 iframe。
+    // 跨網域 POST 收不到回應，因此 Google 表單端所有題目一律設為「非必填」，
+    // 必填與格式驗證全部在這裡做；否則使用者會看到假的成功畫面而資料沒進試算表。
+    //
+    // ⬇⬇ 執行 docs/feilu-form-v3.gs 後，用執行紀錄印出的區塊整段取代下面這段設定 ⬇⬇
+    var FEILU_FORM = {
+      formId: '1FAIpQLSdxmIze1qHJbRrWcXGFb64OYKrlSadpN4uyRSzbHhL6DZYGWg',
+      entry: {
+        module:   'entry.1732701326',
+        scenario: 'entry.1412570505',
+        company:  'entry.1197813012',
+        name:     'entry.720325251',
+        email:    'entry.862146608',
+        line:     'entry.1486521661',
+        timeline: 'entry.1897316280',
+        consent:  'entry.1223031784'
+      }
+    };
+    // 保底入口：設定缺失時的降級連結，與 <noscript> 區塊指向同一張 V3 表單。
+    var FEILU_FORM_FALLBACK_URL =
+      'https://docs.google.com/forms/d/e/1FAIpQLSdxmIze1qHJbRrWcXGFb64OYKrlSadpN4uyRSzbHhL6DZYGWg/viewform';
+
+    (function initBookingForm() {
+      var shell = document.getElementById('booking-shell');
+      var form = document.getElementById('booking-form');
+      if (!shell || !form) return;
+
+      var statusEl = document.getElementById('booking-status');
+      var submitBtn = document.getElementById('booking-submit');
+      var MAX_PICKS = 2;
+      var SUBMIT_TIMEOUT_MS = 8000;
+      var STORE_KEY = 'feilu_booked';
+
+      // 1. 設定未填妥時不讓表單假裝能用，直接降級成外部表單連結
+      var configured = FEILU_FORM.formId.indexOf('PASTE_') !== 0 &&
+        Object.keys(FEILU_FORM.entry).every(function(k) {
+          return FEILU_FORM.entry[k].indexOf('entry.') === 0;
+        });
+
+      if (!configured) {
+        form.innerHTML =
+          '<div class="booking-eyebrow">提單需求</div>' +
+          '<p class="booking-intro">站內表單正在串接中，目前請使用 Google 表單預約，' +
+          '或直接用 LINE / Email 聯繫，回覆速度一樣。</p>' +
+          '<div class="booking-actions">' +
+          '<a class="btn-primary" href="' + FEILU_FORM_FALLBACK_URL + '" target="_blank" rel="noopener" ' +
+          'data-analytics="cta_booking_fallback">開啟預約表單 ➔</a>' +
+          '<p class="booking-alt">或直接 ' +
+          '<a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" data-analytics="cta_booking_line">' +
+          '加 LINE（ID: 0980463400）</a> ／ ' +
+          '<a href="mailto:rock90340@gmail.com" data-analytics="cta_booking_mail">rock90340@gmail.com</a></p>' +
+          '</div>';
+        form.removeAttribute('target');
+        if (window.console && console.warn) {
+          console.warn('[feilu] #booking 尚未填入 FEILU_FORM 設定，已降級為外部表單連結。');
+        }
+        return;
+      }
+
+      form.setAttribute('action',
+        'https://docs.google.com/forms/d/e/' + FEILU_FORM.formId + '/formResponse');
+
+      // 2. 把 entry.XXXXXXX 寫進各欄位的 name（HTML 只保留語意用的 data-name）
+      form.querySelectorAll('[data-name]').forEach(function(el) {
+        var entry = FEILU_FORM.entry[el.getAttribute('data-name')];
+        if (entry) el.setAttribute('name', entry);
+      });
+
+      // 3. 模組複選：視覺狀態同步 + 2 項上限
+      var picks = Array.prototype.slice.call(form.querySelectorAll('.booking-pick'));
+      var pickInputs = picks.map(function(l) { return l.querySelector('input'); });
+
+      function syncPicks() {
+        var checked = pickInputs.filter(function(i) { return i.checked; }).length;
+        picks.forEach(function(label, i) {
+          var on = pickInputs[i].checked;
+          label.classList.toggle('is-on', on);
+          label.classList.toggle('is-capped', !on && checked >= MAX_PICKS);
+        });
+      }
+
+      pickInputs.forEach(function(input) {
+        input.addEventListener('change', function() {
+          var checked = pickInputs.filter(function(i) { return i.checked; }).length;
+          if (input.checked && checked > MAX_PICKS) {
+            input.checked = false;
+            setStatus('最多只能勾選 ' + MAX_PICKS + ' 項，這正好對應方案的 2 個任務額度。');
+          } else {
+            setStatus('');
+          }
+          syncPicks();
+          clearErr('module');
+        });
+      });
+
+      // 4. 時程單選：chip 視覺狀態
+      var chips = Array.prototype.slice.call(form.querySelectorAll('.booking-chip'));
+      chips.forEach(function(label) {
+        var input = label.querySelector('input');
+        input.addEventListener('change', function() {
+          chips.forEach(function(l) {
+            l.classList.toggle('is-on', l.querySelector('input').checked);
+          });
+          clearErr('timeline');
+        });
+      });
+
+      // 5. 驗證
+      function fieldEl(key) { return form.querySelector('[data-field="' + key + '"]'); }
+      function clearErr(key) {
+        var f = fieldEl(key);
+        if (f) f.classList.remove('has-err');
+      }
+      function markErr(key, msg) {
+        var f = fieldEl(key);
+        if (!f) return;
+        f.classList.add('has-err');
+        if (msg) {
+          var p = f.querySelector('[data-err]');
+          if (p) p.textContent = msg;
+        }
+      }
+      function setStatus(msg) {
+        if (statusEl) statusEl.textContent = msg || '';
+      }
+
+      ['company', 'email'].forEach(function(key) {
+        var input = form.querySelector('#booking-' + key);
+        if (input) input.addEventListener('input', function() { clearErr(key); });
+      });
+
+      var consentInput = form.querySelector('[data-name="consent"]');
+      if (consentInput) {
+        consentInput.addEventListener('change', function() { clearErr('consent'); });
+      }
+
+      // type="email" 會放行 a@b，但 Google 表單的 Email 驗證要求網域帶點，
+      // 這裡收緊到與 Google 一致，避免送出後被 Google 靜默擋下。
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+      function validate() {
+        var bad = [];
+        var picked = pickInputs.filter(function(i) { return i.checked; }).length;
+        if (picked < 1 || picked > MAX_PICKS) {
+          markErr('module', picked > MAX_PICKS
+            ? '最多勾選 ' + MAX_PICKS + ' 項。'
+            : '請至少勾選 1 項，最多 2 項。');
+          bad.push('module');
+        }
+
+        var company = form.querySelector('#booking-company');
+        if (!company.value.trim()) { markErr('company'); bad.push('company'); }
+
+        var email = form.querySelector('#booking-email');
+        if (!EMAIL_RE.test(email.value.trim())) { markErr('email'); bad.push('email'); }
+
+        var timeline = form.querySelector('[data-name="timeline"]:checked');
+        if (!timeline) { markErr('timeline'); bad.push('timeline'); }
+
+        if (consentInput && !consentInput.checked) { markErr('consent'); bad.push('consent'); }
+
+        return bad;
+      }
+
+      // 6. 送出：交給瀏覽器原生 POST，只在這裡攔驗證與切狀態
+      var submitting = false;
+      var timeoutId = null;
+      var sink = document.querySelector('iframe[name="feilu-sink"]');
+
+      function finishSuccess() {
+        if (!submitting) return;   // iframe 初始載入也會觸發 load，用旗標擋掉
+        submitting = false;
+        clearTimeout(timeoutId);
+        shell.classList.add('is-done');
+        try { sessionStorage.setItem(STORE_KEY, String(Date.now())); } catch (e) {}
+        try { trackEvent('booking_success', {}); } catch (e) {}
+        shell.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      if (sink) sink.addEventListener('load', finishSuccess);
+
+      form.addEventListener('submit', function(e) {
+        var bad = validate();
+        if (bad.length) {
+          e.preventDefault();
+          setStatus('還有 ' + bad.length + ' 個欄位需要補齊。');
+          var first = fieldEl(bad[0]);
+          if (first) {
+            first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            var focusable = first.querySelector('input, textarea');
+            if (focusable) focusable.focus({ preventScroll: true });
+          }
+          try { trackEvent('booking_invalid', { fields: bad.join(',') }); } catch (e2) {}
+          return;
+        }
+
+        submitting = true;
+        setStatus('');
+        submitBtn.setAttribute('aria-busy', 'true');
+        submitBtn.textContent = '送出中…';
+
+        try {
+          trackEvent('booking_submit', {
+            modules: pickInputs.filter(function(i) { return i.checked; })
+              .map(function(i) { return i.value.split('（')[0]; }).join('|'),
+            timeline: (form.querySelector('[data-name="timeline"]:checked') || {}).value || ''
+          });
+        } catch (e3) {}
+
+        // iframe 沒回來就降級提示，不讓使用者卡在「送出中…」
+        timeoutId = setTimeout(function() {
+          if (!submitting) return;
+          submitting = false;
+          submitBtn.removeAttribute('aria-busy');
+          submitBtn.textContent = '再送一次 ➔';
+          setStatus('網路似乎不太順。若沒收到我的回覆，請直接加 LINE ID: 0980463400 或來信 rock90340@gmail.com。');
+          try { trackEvent('booking_timeout', {}); } catch (e4) {}
+        }, SUBMIT_TIMEOUT_MS);
+      });
+
+      // 7. 從模組區跳過來時，預先勾好對應的模組
+      function prefillFromScope() {
+        var cat = (window.__FEILU_getScopeCat && window.__FEILU_getScopeCat()) || 'all';
+        if (cat === 'all') return;
+        if (pickInputs.some(function(i) { return i.checked; })) return;
+        var target = picks.filter(function(l) { return l.getAttribute('data-cat') === cat; })[0];
+        if (!target) return;
+        target.querySelector('input').checked = true;
+        syncPicks();
+      }
+
+      document.querySelectorAll('a[href="#booking"]').forEach(function(a) {
+        a.addEventListener('click', prefillFromScope);
+      });
+      if (location.hash === '#booking') prefillFromScope();
+
+      // 8. 同一次瀏覽已送出過就先顯示成功態，附「再送一次」出口
+      try {
+        if (sessionStorage.getItem(STORE_KEY)) {
+          shell.classList.add('is-done');
+          var again = document.createElement('button');
+          again.type = 'button';
+          again.className = 'btn-sub';
+          again.style.cssText = 'margin-top: 0.75rem; background: none; border: 0; cursor: pointer; font-family: inherit;';
+          again.textContent = '要再提一筆需求 →';
+          again.addEventListener('click', function() {
+            shell.classList.remove('is-done');
+            try { sessionStorage.removeItem(STORE_KEY); } catch (e) {}
+            submitBtn.removeAttribute('aria-busy');
+            submitBtn.textContent = '送出預約需求 ➔';
+            form.reset();
+            syncPicks();
+            chips.forEach(function(l) { l.classList.remove('is-on'); });
+          });
+          document.getElementById('booking-done').appendChild(again);
+        }
+      } catch (e) {}
+
+      // 9. 曝光事件
+      if ('IntersectionObserver' in window) {
+        var seen = false;
+        new IntersectionObserver(function(entries, obs) {
+          entries.forEach(function(en) {
+            if (!en.isIntersecting || seen) return;
+            seen = true;
+            try { trackEvent('booking_view', {}); } catch (e) {}
+            obs.disconnect();
+          });
+        }, { threshold: 0.25 }).observe(shell);
+      }
+
+      syncPicks();
     })();
   </script>
 

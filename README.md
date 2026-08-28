@@ -1,4 +1,4 @@
-# Wind × 飛律 Feilu
+# Wind × 飛律
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Portfolio Live](https://img.shields.io/badge/Portfolio-Live-brightgreen)](https://rock903400-byte.github.io/wind/)
@@ -65,5 +65,5 @@
 
 ## License
 
-MIT License © 2026 Wind × 飛律 Feilu
+MIT License © 2026 Wind × 飛律
 
