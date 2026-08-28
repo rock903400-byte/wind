@@ -6,6 +6,8 @@
     const STORAGE_KEY = 'feilu_member_system_v1';
     const GAS_API_CONFIG_KEY = 'feilu_gas_api_url';
     const GAS_ADMIN_KEY_CONFIG = 'feilu_gas_admin_key';
+    const CLIENT_BASE_URL_KEY = 'feilu_client_base_url';
+    const DEFAULT_CLIENT_BASE_URL = 'https://wind.rock903400.workers.dev/';
 
     // 狀態管理物件
     let DB = {
@@ -13,6 +15,12 @@
       recharges: [],
       tasks: []
     };
+
+    // 這次開頁有沒有成功從雲端拿到資料。沒有的話畫面上就是一份來源不明的快取，
+    // 拿它去覆蓋雲端等於用舊資料蓋新資料 —— 所以未成功載入時一律禁止上傳。
+    let cloudLoadOk = false;
+    // 開頁（或最後一次成功載入）當下的 DB 快照，用來判斷本機有沒有未上傳的變更。
+    let loadSnapshot = '';
 
     // ── 安全隨機 Token 產生器 (16 bytes -> 32 字元 Hex) ─────────
     function generateSecureToken() {
@@ -28,6 +36,7 @@
       initGasSettings();
       bindStaticEvents();
       renderAll();
+      autoLoadFromCloud();   // 非同步，先讓 UI 用快取渲染出來，不要卡住首屏
     });
 
     function setDefaultDates() {
@@ -80,6 +89,9 @@
       const gasKey = document.getElementById('gas-admin-key');
       if (gasKey) gasKey.addEventListener('change', saveGasSettings);
 
+      const clientBase = document.getElementById('client-base-url');
+      if (clientBase) clientBase.addEventListener('change', saveGasSettings);
+
       // 全域點擊事件委派 (data-action)
       document.addEventListener('click', (e) => {
         const btn = e.target.closest('[data-action]');
@@ -94,6 +106,9 @@
         switch (action) {
           case 'switch-tab':
             if (tab) switchTab(tab, btn);
+            break;
+          case 'retry-cloud-load':
+            retryCloudLoad();
             break;
           case 'open-recharge-modal':
             openRechargeModal();
@@ -235,89 +250,91 @@
           if (DB.tasks && Array.isArray(DB.tasks)) {
             DB.tasks = DB.tasks.map(sanitizeTaskData);
           }
-        // 本次修正之前，loadDatabase() 會自動灌示範資料並 saveDatabase()，
-        // 所以舊瀏覽器的 localStorage 裡存著「沒有 _demo 欄位的示範資料」。
-        // 那批資料如果被當成正式資料放行同步，W-01 想擋的事情就白做了 ——
-        // 而那正好是管理者自己、存著 ADMIN_KEY 的那台機器。
-        if (DB._demo === undefined) {
-          DB._demo = looksLikeDemoData(DB);
-        } else {
-          DB._demo = Boolean(DB._demo);
+          // 本次修正之前，loadDatabase() 會自動灌示範資料並 saveDatabase()，
+          // 所以舊瀏覽器的 localStorage 裡存著「沒有 _demo 欄位的示範資料」。
+          // 那批資料如果被當成正式資料放行同步，W-01 想擋的事情就白做了 ——
+          // 而那正好是管理者自己、存著 ADMIN_KEY 的那台機器。
+          if (DB._demo === undefined) {
+            DB._demo = looksLikeDemoData(DB);
+          } else {
+            DB._demo = Boolean(DB._demo);
+          }
+          saveDatabase();
+          loadSnapshot = JSON.stringify(DB);
+        } catch (e) {
+          console.error('Failed to parse DB:', e);
+          initEmptyDB();
         }
-        saveDatabase();
-      } catch (e) {
-        console.error('Failed to parse DB:', e);
+      } else {
         initEmptyDB();
       }
-    } else {
-      initEmptyDB();
     }
-  }
 
-  function saveDatabase() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(DB));
-  }
+    function saveDatabase() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(DB));
+    }
 
-  function initEmptyDB() {
-    DB = { members: [], recharges: [], tasks: [], _demo: false };
-    saveDatabase();
-  }
+    function initEmptyDB() {
+      DB = { members: [], recharges: [], tasks: [], _demo: false };
+      saveDatabase();
+      loadSnapshot = JSON.stringify(DB);
+    }
 
-  // ── 示範資料載入 ───────────────────────────────────────
-  const DEMO_TOKENS = [
-    'a1b2c3d4e5f6789012345678abcdef01',
-    'b2c3d4e5f6789012345678abcdef0123',
-    'c3d4e5f6789012345678abcdef012345'
-  ];
+    // ── 示範資料載入 ───────────────────────────────────────
+    const DEMO_TOKENS = [
+      'a1b2c3d4e5f6789012345678abcdef01',
+      'b2c3d4e5f6789012345678abcdef0123',
+      'c3d4e5f6789012345678abcdef012345'
+    ];
 
-  function looksLikeDemoData(db) {
-    if (!db || !Array.isArray(db.members)) return false;
-    return db.members.some(function(m) {
-      return m && DEMO_TOKENS.indexOf(String(m.token || '')) !== -1;
-    });
-  }
+    function looksLikeDemoData(db) {
+      if (!db || !Array.isArray(db.members)) return false;
+      return db.members.some(function(m) {
+        return m && DEMO_TOKENS.indexOf(String(m.token || '')) !== -1;
+      });
+    }
 
-  function loadDemoData(notify = true) {
-    DB = {
-      _demo: true,
-      members: [
-        {
-          id: 'MEM-2026-001',
-          name: '林秘書長',
-          company: '伯鐸儲蓄互助社',
-          taxId: '88888888',
-          email: 'boduosavings@example.com',
-          line: '0980463400',
-          tier: '輕量儲值會員',
-          notes: '主要需求為每月收支傳票自動清洗與跨表勾稽。',
-          createdAt: '2026-08-15',
-          token: DEMO_TOKENS[0]
-        },
-        {
-          id: 'MEM-2026-002',
-          name: '謝創辦人',
-          company: '果醬女孩 Jam Girl',
-          taxId: '88291023',
-          email: 'jamgirl@example.com',
-          line: 'jamgirl_official',
-          tier: '破冰體驗戶',
-          notes: '希望建立 LINE 官方帳號物流與訂單自動查詢助手。',
-          createdAt: '2026-08-20',
-          token: DEMO_TOKENS[1]
-        },
-        {
-          id: 'MEM-2026-003',
-          name: '張律師',
-          company: '誠律法律事務所',
-          taxId: '49201948',
-          email: 'chang.law@example.com',
-          line: 'lawyer_chang',
-          tier: '月度訂閱客戶',
-          notes: '司法院標準支付命令與民事起訴狀自動套版外掛。',
-          createdAt: '2026-08-25',
-          token: DEMO_TOKENS[2]
-        }
-      ],
+    function loadDemoData(notify = true) {
+      DB = {
+        _demo: true,
+        members: [
+          {
+            id: 'MEM-2026-001',
+            name: '林秘書長',
+            company: '伯鐸儲蓄互助社',
+            taxId: '88888888',
+            email: 'boduosavings@example.com',
+            line: '0980463400',
+            tier: '輕量儲值會員',
+            notes: '主要需求為每月收支傳票自動清洗與跨表勾稽。',
+            createdAt: '2026-08-15',
+            token: DEMO_TOKENS[0]
+          },
+          {
+            id: 'MEM-2026-002',
+            name: '謝創辦人',
+            company: '果醬女孩 Jam Girl',
+            taxId: '88291023',
+            email: 'jamgirl@example.com',
+            line: 'jamgirl_official',
+            tier: '破冰體驗戶',
+            notes: '希望建立 LINE 官方帳號物流與訂單自動查詢助手。',
+            createdAt: '2026-08-20',
+            token: DEMO_TOKENS[1]
+          },
+          {
+            id: 'MEM-2026-003',
+            name: '張律師',
+            company: '誠律法律事務所',
+            taxId: '49201948',
+            email: 'chang.law@example.com',
+            line: 'lawyer_chang',
+            tier: '月度訂閱客戶',
+            notes: '司法院標準支付命令與民事起訴狀自動套版外掛。',
+            createdAt: '2026-08-25',
+            token: DEMO_TOKENS[2]
+          }
+        ],
         recharges: [
           {
             id: 'REC-001',
@@ -1047,11 +1064,13 @@
       document.getElementById('drawer-member-name').innerText = `${member.name} (${member.company})`;
 
       // 產生前台專屬隨機 Token 查詢連結
-      // 用瀏覽器內建的相對網址解析，與本頁 <a href="client-balance.html"> 規則一致，
-      // 不受 /member-balance 或 /member-balance.html 影響，本機 file:// 也適用
+      // 後台改為本機開啟後，window.location.href 會是 file:// —— 用它解析出來的
+      // 連結客戶點不開。改由設定分頁指定正式站網址當 base。
+      const base = safeUrl(localStorage.getItem(CLIENT_BASE_URL_KEY) || DEFAULT_CLIENT_BASE_URL)
+        || DEFAULT_CLIENT_BASE_URL;
       const clientUrl = new URL(
         `client-balance.html?token=${encodeURIComponent(member.token)}`,
-        window.location.href
+        base
       ).toString();
 
       // 產生 LINE / Email 格式化對帳文字
@@ -1277,6 +1296,10 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
       if (keyInput) {
         keyInput.value = localStorage.getItem(GAS_ADMIN_KEY_CONFIG) || '';
       }
+      const clientBaseInput = document.getElementById('client-base-url');
+      if (clientBaseInput) {
+        clientBaseInput.value = localStorage.getItem(CLIENT_BASE_URL_KEY) || DEFAULT_CLIENT_BASE_URL;
+      }
     }
 
     function saveGasSettings() {
@@ -1288,7 +1311,77 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
       if (keyInput) {
         localStorage.setItem(GAS_ADMIN_KEY_CONFIG, keyInput.value.trim());
       }
+      const clientBaseInput = document.getElementById('client-base-url');
+      if (clientBaseInput) {
+        const val = clientBaseInput.value.trim();
+        if (val) {
+          localStorage.setItem(CLIENT_BASE_URL_KEY, val);
+        } else {
+          localStorage.removeItem(CLIENT_BASE_URL_KEY);
+        }
+      }
       showToast('⚙️ 雲端同步設定已儲存至本機！');
+    }
+
+    async function autoLoadFromCloud() {
+      const url = localStorage.getItem(GAS_API_CONFIG_KEY) || (document.getElementById('gas-api-url') ? document.getElementById('gas-api-url').value.trim() : '') || DEFAULT_GAS_URL;
+      const adminKey = localStorage.getItem(GAS_ADMIN_KEY_CONFIG) || (document.getElementById('gas-admin-key') ? document.getElementById('gas-admin-key').value.trim() : '');
+
+      if (!url || !adminKey) {
+        showCloudBanner('尚未設定雲端同步：請到「設定」分頁填入 Web App 網址與 ADMIN_KEY。目前顯示的是本機資料，且無法上傳雲端。');
+        return;
+      }
+
+      try {
+        const resp = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'exportAll', adminKey: adminKey })
+        });
+        const res = await resp.json();
+        if (!res.success || !res.data || !res.data.members) {
+          throw new Error(res.message || '雲端無有效資料');
+        }
+        DB = {
+          members: (res.data.members || []).map(sanitizeMemberData),
+          recharges: (res.data.recharges || []).map(sanitizeRechargeData),
+          tasks: (res.data.tasks || []).map(sanitizeTaskData),
+          _demo: false
+        };
+        saveDatabase();
+        renderAll();
+        cloudLoadOk = true;
+        loadSnapshot = JSON.stringify(DB);
+        hideCloudBanner();
+      } catch (err) {
+        console.warn('自動載入雲端資料失敗：', err);
+        showCloudBanner('離線模式：顯示的是本機快取，變更不會上傳雲端。請恢復連線後點「重試連線」。');
+      }
+    }
+
+    function retryCloudLoad() {
+      if (loadSnapshot && JSON.stringify(DB) !== loadSnapshot) {
+        if (!confirm('本機有尚未上傳的變更，重新載入雲端資料會直接覆蓋掉它們。\n\n建議先用「💾 匯出完整備份 JSON」保存一份，確定要繼續嗎？')) {
+          return;
+        }
+      }
+      autoLoadFromCloud();
+    }
+
+    function showCloudBanner(msg) {
+      const banner = document.getElementById('cloud-banner');
+      const text = document.getElementById('cloud-banner-text');
+      if (banner && text) {
+        text.innerText = msg;
+        banner.hidden = false;
+      }
+    }
+
+    function hideCloudBanner() {
+      const banner = document.getElementById('cloud-banner');
+      if (banner) {
+        banner.hidden = true;
+      }
     }
 
     async function syncToGoogleSheets() {
@@ -1311,6 +1404,11 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
         return;
       }
 
+      if (!cloudLoadOk) {
+        alert('⚠️ 本次開啟未成功從雲端載入資料，畫面上可能是過期快取。\n\n為避免以舊資料覆蓋雲端，同步已停用。請先點畫面上方的「重試連線」。');
+        return;
+      }
+
       if (!confirm(
         '即將以本機資料【完整覆蓋】Google 試算表，雲端現有內容會被清除。\n\n' +
         '本機目前：會員 ' + DB.members.length + ' 筆 / 儲值 ' + DB.recharges.length + ' 筆 / 任務 ' + DB.tasks.length + ' 筆\n\n' +
@@ -1328,6 +1426,7 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
         });
         const res = await resp.json();
         if (res.success) {
+          loadSnapshot = JSON.stringify(DB);
           showToast('☁️ 成功同步至 Google 試算表！');
         } else {
           alert('同步失敗：' + (res.message || '未知錯誤'));
@@ -1374,6 +1473,9 @@ ${tasks.filter(t => t.status === 'completed').slice(0, 3).map(t => `・${t.date}
           };
           saveDatabase();
           renderAll();
+          cloudLoadOk = true;
+          loadSnapshot = JSON.stringify(DB);
+          hideCloudBanner();
           showToast('🎉 已成功從 Google 試算表下載並還原資料庫！');
         } else {
           alert('下載失敗：' + (res.message || '雲端尚無有效資料'));
