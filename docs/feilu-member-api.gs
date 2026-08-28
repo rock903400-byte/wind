@@ -564,6 +564,11 @@ function resetLockout() {
 /**
  * 在 GAS 編輯器手動執行，檢查 ADMIN_KEY 強度。
  * 注意：絕對不要 Logger.log 金鑰本身 —— 執行記錄不是保險箱。
+ *
+ * 本函式只回報強度，刻意不產生金鑰。產生行為留在瀏覽器端，
+ * 是為了讓金鑰完全不經過任何伺服器日誌 —— 印出來的「建議金鑰」
+ * 使用者八成會直接採用，那等於新金鑰一出生就躺在這份執行記錄裡。
+ *
  * 這個估算把金鑰當成隨機字串。如果實際值是人想出來的密碼（即使長且混合大小寫），
  * 真實強度會遠低於估算值。
  */
@@ -571,7 +576,7 @@ function checkAdminKeyStrength() {
   var key = PropertiesService.getScriptProperties().getProperty('ADMIN_KEY') || '';
   if (!key) {
     Logger.log('❌ 尚未設定 ADMIN_KEY。');
-    Logger.log('建議金鑰：' + generateStrongKey_());
+    logKeyGenHint_();
     return;
   }
   var pool = 0;
@@ -583,14 +588,19 @@ function checkAdminKeyStrength() {
 
   Logger.log('長度 = ' + key.length + '，字元池 = ' + pool + '，估計強度 ≈ ' + bits + ' bits');
   if (key.length < 24 || bits < 128) {
-    Logger.log('⚠️ 強度不足，請更換。建議金鑰：' + generateStrongKey_());
+    Logger.log('⚠️ 強度不足，請更換。');
+    logKeyGenHint_();
   } else {
     Logger.log('✓ 強度足夠。');
   }
 }
 
-function generateStrongKey_() {
-  return (Utilities.getUuid() + Utilities.getUuid()).replace(/-/g, '').slice(0, 40);
+/**
+ * 只印產生方式，不印值。
+ */
+function logKeyGenHint_() {
+  Logger.log('請在瀏覽器開發者工具 Console 自行產生，避免金鑰落入本執行記錄：');
+  Logger.log("Array.from(crypto.getRandomValues(new Uint8Array(24)), b => b.toString(16).padStart(2,'0')).join('')");
 }
 
 function respondJSON_(data) {
