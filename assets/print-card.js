@@ -570,34 +570,60 @@ function showToast(msg) {
 // 且輸出的向量檔正是印刷廠真正需要的格式。
 // ==========================================================================
 const PRINT_FALLBACK_MSG = '⚠️ 高解析圖片模組載入失敗，請改用「另存 1:1 PDF / 列印」取得送印檔';
+const H2C_URL = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+const H2C_INTEGRITY = 'sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==';
+let _h2cPromise = null;
+
+function ensureHtml2Canvas() {
+  if (typeof html2canvas !== 'undefined' && !window.__h2cFailed) return Promise.resolve();
+  if (window.__h2cFailed) return Promise.reject(new Error('html2canvas previously failed'));
+  if (_h2cPromise) return _h2cPromise;
+  _h2cPromise = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = H2C_URL;
+    s.integrity = H2C_INTEGRITY;
+    s.crossOrigin = 'anonymous';
+    s.referrerPolicy = 'no-referrer';
+    s.onload = () => resolve();
+    s.onerror = () => { window.__h2cFailed = true; reject(new Error('html2canvas load error')); };
+    document.head.appendChild(s);
+  });
+  return _h2cPromise;
+}
 
 function canvasToBlob(canvas) {
- return new Promise((resolve, reject) => {
-  canvas.toBlob((blob) => {
-   if (blob) resolve(blob);
-   else reject(new Error('canvas.toBlob 回傳空值'));
-  }, 'image/png', 1.0);
- });
+  return new Promise((resolve, reject) => {
+   canvas.toBlob((blob) => {
+    if (blob) resolve(blob);
+    else reject(new Error('canvas.toBlob 回傳空值'));
+   }, 'image/png', 1.0);
+  });
 }
 
 function triggerBlobDownload(blob, filename) {
- const url = URL.createObjectURL(blob);
- const a = document.createElement('a');
- a.href = url;
- a.download = filename;
- document.body.appendChild(a);
- a.click();
- setTimeout(() => {
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
- }, 200);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => {
+   document.body.removeChild(a);
+   URL.revokeObjectURL(url);
+  }, 200);
 }
 
 async function downloadDOMCardImage(cardEl, filename, btnEl) {
- if (typeof html2canvas === 'undefined' || window.__h2cFailed) {
-  showToast(PRINT_FALLBACK_MSG);
-  return;
- }
+  try {
+    await ensureHtml2Canvas();
+  } catch (e) {
+    showToast(PRINT_FALLBACK_MSG);
+    return;
+  }
+  if (typeof html2canvas === 'undefined' || window.__h2cFailed) {
+   showToast(PRINT_FALLBACK_MSG);
+   return;
+  }
 
  const isDark = document.body.classList.contains('theme-dark');
  const isBleed = document.body.classList.contains('bleed-active');
@@ -744,13 +770,15 @@ document.addEventListener('DOMContentLoaded', () => {
     return !!(sel && sel.toString().trim().length > 0);
   }
 
-  function toggleCardFlip() {
-    if (!cardFlipper) return;
-    const isFlipped = cardFlipper.classList.toggle('is-flipped');
-    if (flipFaceLabel) {
-      flipFaceLabel.textContent = isFlipped ? '(當前：背面 飛律)' : '(當前：正面 Wind)';
-    }
-  }
+   function toggleCardFlip() {
+     if (!cardFlipper) return;
+     const isFlipped = cardFlipper.classList.toggle('is-flipped');
+     cardFlipper.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
+     if (btnFlipCard) btnFlipCard.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
+     if (flipFaceLabel) {
+       flipFaceLabel.textContent = isFlipped ? '(當前：背面 飛律)' : '(當前：正面 Wind)';
+     }
+   }
 
   if (cardFlipper) {
     // 點擊卡片本體翻面 (排除點擊內部連結)
@@ -879,17 +907,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnTogglePrint = document.getElementById('btnTogglePrintToolbox');
   const btnBackToEcard = document.getElementById('btnBackToEcard');
 
-  function switchToEcardMode() {
-    document.body.classList.remove('view-mode-print');
-    document.body.classList.add('view-mode-ecard');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  const SCROLL_BEHAVIOR = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) ? 'auto' : 'smooth';
+   function switchToEcardMode() {
+     document.body.classList.remove('view-mode-print');
+     document.body.classList.add('view-mode-ecard');
+     window.scrollTo({ top: 0, behavior: SCROLL_BEHAVIOR });
+   }
 
-  function switchToPrintMode() {
-    document.body.classList.remove('view-mode-ecard');
-    document.body.classList.add('view-mode-print');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+   function switchToPrintMode() {
+     document.body.classList.remove('view-mode-ecard');
+     document.body.classList.add('view-mode-print');
+     window.scrollTo({ top: 0, behavior: SCROLL_BEHAVIOR });
+   }
 
   if (btnTogglePrint) {
     btnTogglePrint.addEventListener('click', switchToPrintMode);
