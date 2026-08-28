@@ -10,10 +10,29 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Content-Security-Policy: default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://fonts.googleapis.com https://fonts.gstatic.com; frame-src 'self' https://docs.google.com https://script.google.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://docs.google.com https://script.google.com;
 
-# 2. 靜態資源長效快取 (Images, Stylesheets, Scripts, WebP, SVG) - 快取 1 年
+# 2a. assets 共用標頭（刻意不含 Cache-Control，避免與下方規則合併衝突）
 /assets/*
-  Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
   Access-Control-Allow-Origin: *
+
+# 2b. 程式碼類：每次都向伺服器確認，push 後立即生效
+/assets/*.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/*.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+# 2c. 圖片／字型：內容不變，維持一年 immutable
+/assets/*.webp
+  Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+
+/assets/*.jpg
+  Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+
+/assets/*.png
+  Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+
+/assets/*.svg
+  Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
 
 # 3. HTML 網頁及時重新驗證快取 (確保 push 更新立即生效)
 /*.html
