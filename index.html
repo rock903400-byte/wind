@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="Wind · 跨產業接案開發">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://wind.rock903400.workers.dev/">
-<meta name="theme-color" content="#0a0e1a">
+<meta name="theme-color" content="#080c0f">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌀</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -536,17 +536,19 @@
 
 <!-- ============ TOP NAV ============ -->
 <nav class="site-nav" aria-label="主要導覽">
-  <a class="site-brand" href="./" aria-label="Wind 首頁">Wind</a>
-  <div class="site-links">
-    <a href="#services">我能做什麼</a>
-    <a href="#works">作品實績</a>
-    <a href="#about">關於</a>
-    <a href="#process">合作流程</a>
-    <a href="#strengths">為什麼選我</a>
-    <a href="#faq">常見問題</a>
-    <a href="#contact">聯絡</a>
+  <div class="site-nav-inner wrap">
+    <a class="site-brand" href="./" aria-label="Wind 首頁">Wind</a>
+    <div class="site-links">
+      <a href="#services">我能做什麼</a>
+      <a href="#works">作品實績</a>
+      <a href="#about">關於</a>
+      <a href="#process">合作流程</a>
+      <a href="#strengths">為什麼選我</a>
+      <a href="#faq">常見問題</a>
+      <a href="#contact">聯絡</a>
+    </div>
+    <a class="nav-cta" href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener noreferrer">免費聊聊</a>
   </div>
-  <a class="nav-cta" href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener noreferrer">免費聊聊</a>
 </nav>
 
 <main id="main">
@@ -557,6 +559,39 @@
   <a class="hero-badge" href="#works" aria-label="跳至作品實績，查看 19 項案例">🤖 AI Agent 加速交付・19 項實戰作品・橫跨 11+ 個產業 ↓</a>
   <h1>別人還在對規格書<br>我已交付可運行的系統</h1>
   <p>從帳務對帳到門市訂房，同一套做法——靠 AI Agent 快速摸熟你的行業，用你聽得懂的話，交出你打開就會用的成品。我是石誠風 Wind，以臺中為基地、全台遠端合作。</p>
+
+  <div class="hero-proof-strip" role="region" aria-label="旗艦案例精選">
+    <a href="#works" class="hero-proof-card" aria-label="查看旗艦案例：法拍屋監控系統">
+      <picture class="hero-proof-thumb">
+        <source srcset="assets/foreclosure-analyzer.webp" type="image/webp">
+        <img src="assets/foreclosure-analyzer.jpg" alt="法拍屋監控系統截圖" width="120" height="72">
+      </picture>
+      <div class="hero-proof-info">
+        <span class="hero-proof-tag">法拍屋監控</span>
+        <span class="hero-proof-title">每 5 分鐘同步法院公告</span>
+      </div>
+    </a>
+    <a href="#works" class="hero-proof-card" aria-label="查看旗艦案例：LINE AI 客服與生產品管生態系">
+      <picture class="hero-proof-thumb">
+        <source srcset="assets/line-ai-ecosystem.webp" type="image/webp">
+        <img src="assets/line-ai-ecosystem.jpg" alt="LINE AI 客服與生產品管生態系截圖" width="120" height="72">
+      </picture>
+      <div class="hero-proof-info">
+        <span class="hero-proof-tag">LINE AI</span>
+        <span class="hero-proof-title">企業知識庫助理</span>
+      </div>
+    </a>
+    <a href="#works" class="hero-proof-card" aria-label="查看旗艦案例：儲互社 AI 授信與風險儀表板">
+      <picture class="hero-proof-thumb">
+        <source srcset="assets/cu-risk-dashboard.webp" type="image/webp">
+        <img src="assets/cu-risk-dashboard.jpg" alt="儲互社 AI 授信與風險儀表板截圖" width="120" height="72">
+      </picture>
+      <div class="hero-proof-info">
+        <span class="hero-proof-tag">風險儀表板</span>
+        <span class="hero-proof-title">跨指標授信風控</span>
+      </div>
+    </a>
+  </div>
 
   <a href="#works" class="scroll-cue">先看 19 項作品再決定 →</a>
 </div>
@@ -582,7 +617,7 @@
   <h2 class="sec-title reveal">我能做什麼</h2>
   <p class="sec-sub reveal">從零到一，從一頁式網站到跨系統整合</p>
   <div class="svc-grid reveal">
-    <div class="svc-card">
+    <div class="svc-card svc-featured">
       <span class="svc-icon">⚡</span>
       <h3>客製系統與工作流</h3>
       <p>把重複繁瑣的工作交給程式與排程，打造專屬內部系統與數位工作流。</p>
@@ -612,7 +647,7 @@
       <p>LINE 官方帳號、LIFF、PWA，讓客戶不用安裝就能用。</p>
       <button class="svc-jump" type="button" data-jump="aiapp" aria-label="篩選並查看 LINE 與 App 相關案例">看案例 →</button>
     </div>
-    <div class="svc-card">
+    <div class="svc-card svc-featured">
       <span class="svc-icon">🤖</span>
       <h3>AI 整合</h3>
       <p>把 LLM 接進你的資料與流程，不是接個聊天框就算數——讓 AI 真正幫團隊省下時間。</p>
@@ -624,7 +659,7 @@
       <p>庫存、訂單、房況、權限分級，讓不懂技術的同事也敢自己操作。</p>
       <button class="svc-jump" type="button" data-jump="ecom" aria-label="篩選並查看後台管理系統相關案例">看案例 →</button>
     </div>
-    <div class="svc-card">
+    <div class="svc-card svc-featured">
       <span class="svc-icon">📈</span>
       <h3>資料視覺化</h3>
       <p>把散在各處的數字，變成主管一眼看得懂的儀表板。</p>
