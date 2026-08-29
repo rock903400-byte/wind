@@ -3,3 +3,11 @@
 Thumbs.db
 node_modules/
 
+# 客戶開發 - 政府採購名單（公開資料本地暫存，不進版控）
+data/pcc-vendors-*.csv
+data/pcc-vendors-*.json
+data/*.cleaned.csv
+data/*.excluded.csv
+# 退訂名單（內含個資，不進版控）
+data/optout-list.csv
+

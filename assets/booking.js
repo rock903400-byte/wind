@@ -192,6 +192,7 @@
     });
 
     // 8. UTM 承接 (query → sessionStorage → localStorage 備援) + 表單隱藏欄位注入
+    // 新增：零預算主動開發歸因 (utm_campaign=fin|gov) — 見 docs/OUTREACH_TEMPLATES.md
     (function() {
       const UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
       const STORAGE_KEY = 'feilu_utm';
@@ -241,12 +242,63 @@
       }
       appendUtmToMailto();
 
-      // 預約表單邏輯移至檔案最後的「站內預約表單 (#booking)」區塊，需要 trackEvent 與 __FEILU_getScopeCat 先就緒。
-
       window.__FEILU_getScopeCat = function() {
         const active = document.querySelector('.scope-filter-btn.active');
         return active ? active.getAttribute('data-cat') : 'all';
       };
+      window.__FEILU_getCampaign = function() {
+        return (window.__FEILU_UTM && window.__FEILU_UTM.utm_campaign) ? String(window.__FEILU_UTM.utm_campaign).toLowerCase() : '';
+      };
+
+      // outreach 專屬：依 utm_campaign 客製化 #booking 的 scenario 提示（僅 placeholder，不增必填）
+      function applyOutreachPrefill() {
+        const campaign = window.__FEILU_getCampaign();
+        if (campaign !== 'fin' && campaign !== 'gov') return;
+        const scenario = document.getElementById('booking-scenario');
+        if (!scenario) return;
+        // 已有使用者輸入就不覆蓋
+        if (scenario.value && scenario.value.trim()) return;
+        const hints = {
+          fin: '例：每週一要跨 3 本 Excel 對帳 4 小時，退貨單常漏 — 想做成 10 秒自動標紅的勾稽（來自 outreach-fin）',
+          gov: '例：想監控「空調維護 / 清潔勞務」等 3 組關鍵字，每日推 LINE 不漏標（來自 outreach-gov）'
+        };
+        const ph = hints[campaign];
+        if (ph) scenario.setAttribute('placeholder', ph);
+        // 同步預勾模組（若尚未勾選）：fin→試算表、gov→標案雷達
+        try {
+          const picks = document.querySelectorAll('.booking-pick');
+          const hasChecked = document.querySelector('.booking-pick input:checked');
+          if (!hasChecked && picks.length) {
+            const targetCat = campaign === 'fin' ? 'fin' : 'gov';
+            const target = document.querySelector('.booking-pick[data-cat="' + targetCat + '"] input');
+            if (target) {
+              target.checked = true;
+              // 觸發 change 以同步 is-on 樣式
+              target.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          }
+        } catch (e) {}
+      }
+
+      // DOM 就緒後執行；若 trackEvent 已就緒則補一筆 outreach_view 供週看板分析
+      function onOutreachReady() {
+        applyOutreachPrefill();
+        const campaign = window.__FEILU_getCampaign();
+        if ((campaign === 'fin' || campaign === 'gov') && window.trackEvent) {
+          try { trackEvent('outreach_view', { campaign: campaign, landing: window.__FEILU_UTM._landing || location.pathname }); } catch (e) {}
+        } else if (campaign === 'fin' || campaign === 'gov') {
+          // trackEvent 可能還沒掛載，延遲一 tick 重試
+          setTimeout(function() {
+            try { if (window.trackEvent) window.trackEvent('outreach_view', { campaign: campaign }); } catch (e) {}
+          }, 300);
+        }
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', onOutreachReady);
+      } else {
+        // booking.js 在 </body> 前，DOM 已就緒
+        setTimeout(onOutreachReady, 0);
+      }
     })();
 
     // 9. 本機自訂事件 (無 Cookie、無外部依賴)
