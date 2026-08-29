@@ -192,7 +192,7 @@
     });
 
     // 8. UTM 承接 (query → sessionStorage → localStorage 備援) + 表單隱藏欄位注入
-    // 新增：零預算主動開發歸因 (utm_campaign=fin|gov) — 見 docs/OUTREACH_TEMPLATES.md
+    // 支援 utm_campaign=fin|gov 等管道歸因（寫入 #booking 與 localStorage 追蹤）
     (function() {
       const UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
       const STORAGE_KEY = 'feilu_utm';
