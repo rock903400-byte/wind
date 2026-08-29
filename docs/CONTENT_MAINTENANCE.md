@@ -88,6 +88,16 @@
 
 **作品 desc 模板**：`一句痛點 + 一句解法 + 一句數據`。數據優先硬數字（-85%/每5分鐘/300+筆），無硬數字則用情境（半世紀在地/防重複下單）。
 
+## 圖片與品牌圖說明
+
+- `assets/` 內 `720×440` 縮圖皆成對 `jpg+webp`，透過 `<picture>` 引用，詳見 `assets/README.md`。
+- **`assets/feilu-form-header.png` 請勿刪除**：1600×400 Google 表單頁首圖，供表單後台手動上傳，站內無 `<img>` 直連屬正常。由 `scripts/make-brand-images.py` 依 `docs/BRAND_IMAGES_SPEC.md` 生成，同批產出 `feilu-og.png`（`ai-enablement.html` OG 卡）。
+- 舊版 10 張縮圖（`boduosavings`/`fitlog-ai`/`meixu`/`ttq-estimator`/`taichung-forestry-coop` 各 jpg+webp）已於 2026-08-29 由 `*-v2` 取代並清理，`index.html` 已全切 v2，`_headers` 對圖片 `immutable` 一年，留舊檔會占倉庫與快取。
+
+## 已歸檔工單
+
+- 2026-08 已驗收的 8 份工單（`INDEX_THUMBNAIL_AUDIT.md` + `INDEX_ATTRACTIVENESS_TICKET*.md` ×4 + `AI_ENABLEMENT_UPLIFT_TICKET*.md` ×3）已 `git mv` 至 `docs/archive/2026-08/`，根 `docs/` 僅留活躍規格。查詢歷史請至 `docs/archive/README.md`。
+
 ## 注意事項
 
 - 篩選 / 收折 / reveal / spotlight 全在 `</body>` 前最後一個 `<script>` IIFE 內,修改勿拆散。

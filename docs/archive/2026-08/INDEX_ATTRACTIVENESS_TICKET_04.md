@@ -106,7 +106,7 @@ IDX-01 §2 的 L1~L8 **全部繼續適用**。重點重申與本單新增：
 | 08 | `fitlog-ai` | 大片白邊、暗底下對比弱 | — |
 | 10 | `ttq-estimator` | 構圖鬆散、主體不明 | — |
 | 13 | `boduosavings` | 頂部大片留白 | — |
-| 16 | `taichung-forestry-coop` | **102.8 KB / webp 86.2 KB，全站最重** | 壓到 **webp ≤ 45 KB**；其餘 18 張 webp 現況為 9–39 KB，這張不該是唯一的異常值 |
+| 16 | `taichung-forestry-coop` | **102.8 KB / webp 86.2 KB，全站最重** | 壓到 **webp ≤ 45 KB**；其餘 18 張 webp 現況為 9–39 KB，這張不該是唯一的異常值 → 已重壓為 `taichung-forestry-coop-v2` (80.0 KB / 44.6 KB)，舊檔已刪除 |
 | 18 | `meixu` | 構圖鬆散、主體不明 | — |
 
 #### 硬性規格
@@ -167,7 +167,7 @@ T-2 建的 Hero 證據帶，3 張縮圖的實際情況是：
 | 6 分類 `#filterCount` vs 實際渲染 | 9 / 6 / 3 / 4 / 3 / 3，全部相符 |
 | 收合／展開 | 9 / 19 / 9 |
 | console error | 0 |
-| `taichung-forestry-coop.webp` | 86.2 KB |
+| `taichung-forestry-coop.webp` | 86.2 KB → 已替換為 `taichung-forestry-coop-v2.webp` (44.6 KB)，舊檔於 2026-08-29 清理刪除 |
 | `cu-risk-dashboard` | 1919×818 |
 | Hero 縮圖 | 渲染 56×36、natural 720×440、屬性 120×72 |
 
