@@ -46,6 +46,7 @@ function safeUrl(v) {
 }
 
 function showToast(msg) {
+  if (typeof document === 'undefined') return;
   const container = document.getElementById('toast-container');
   if (!container) return;
   const toast = document.createElement('div');
@@ -59,3 +60,91 @@ function showToast(msg) {
     setTimeout(() => toast.remove(), 300);
   }, 3200);
 }
+
+/**
+ * ==============================================================================
+ * ☀️ 全站雙主題切換引擎 (Dual-Theme Engine)
+ * ==============================================================================
+ * 支援：
+ * 1. localStorage 偏好記憶 (key: wind_theme)
+ * 2. 系統色彩偏好 (prefers-color-scheme) 自動適配
+ * 3. 一鍵流暢切換與無障礙 aria-label 同步
+ */
+function getPreferredTheme() {
+  try {
+    if (typeof localStorage !== 'undefined') {
+      const saved = localStorage.getItem('wind_theme');
+      if (saved === 'light' || saved === 'dark') return saved;
+    }
+  } catch (e) {}
+
+  if (typeof window !== 'undefined' && window.matchMedia) {
+    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+      return 'light';
+    }
+  }
+  return 'dark';
+}
+
+function applyTheme(theme) {
+  if (typeof document === 'undefined' || !document.documentElement) return;
+  if (typeof document.documentElement.setAttribute === 'function') {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+  if (typeof document.querySelectorAll === 'function') {
+    const btns = document.querySelectorAll('.theme-toggle-btn, #themeToggleBtn');
+    btns.forEach(btn => {
+      btn.innerHTML = theme === 'light' ? '🌙' : '☀️';
+      btn.setAttribute('aria-label', theme === 'light' ? '切換至曜黑科技深色模式' : '切換至現代清爽淺色模式');
+      btn.setAttribute('title', theme === 'light' ? '切換至深色模式 (Dark Mode)' : '切換至淺色模式 (Light Mode)');
+    });
+  }
+}
+
+function toggleTheme() {
+  const current = (typeof document !== 'undefined' && document.documentElement && typeof document.documentElement.getAttribute === 'function' && document.documentElement.getAttribute('data-theme')) || getPreferredTheme();
+  const next = current === 'light' ? 'dark' : 'light';
+  try {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('wind_theme', next);
+    }
+  } catch (e) {}
+  applyTheme(next);
+}
+
+function initThemeEngine() {
+  if (typeof document === 'undefined' || !document.documentElement) return;
+  const theme = getPreferredTheme();
+  applyTheme(theme);
+
+  if (typeof document.querySelectorAll === 'function') {
+    document.querySelectorAll('.theme-toggle-btn, #themeToggleBtn').forEach(btn => {
+      btn.removeEventListener('click', toggleTheme);
+      btn.addEventListener('click', toggleTheme);
+    });
+  }
+
+  if (typeof window !== 'undefined' && window.matchMedia) {
+    const mq = window.matchMedia('(prefers-color-scheme: light)');
+    if (mq && mq.addEventListener) {
+      mq.addEventListener('change', e => {
+        try {
+          if (!localStorage.getItem('wind_theme')) {
+            applyTheme(e.matches ? 'light' : 'dark');
+          }
+        } catch (err) {}
+      });
+    }
+  }
+}
+
+// 頁面載入時若 DOM 已備妥則立即初始化
+if (typeof document !== 'undefined' && document.documentElement) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThemeEngine);
+  } else {
+    initThemeEngine();
+  }
+}
+
+

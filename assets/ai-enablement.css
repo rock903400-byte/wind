@@ -2341,3 +2341,191 @@
       /* 黏底列的進出改成瞬間切換，不要滑入 */
       .mobile-sticky-bar { transition: none !important; }
     }
+
+/* ==============================================================================
+ * ☀️ 飛律 AI 賦能銷售頁 [data-theme="light"] 淺色模式適配
+ * ============================================================================== */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  cursor: pointer;
+  font-size: 1.05rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: scale(1.05);
+  border-color: rgba(16, 185, 129, 0.5);
+}
+.theme-toggle-btn:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 2px;
+}
+
+[data-theme="light"] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #ffffff;
+  --border: rgba(15, 23, 42, 0.09);
+  --border-accent: rgba(16, 185, 129, 0.35);
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+}
+
+[data-theme="light"] body {
+  background-color: #f8fafc;
+  color: #0f172a;
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 60%, rgba(14, 165, 233, 0.05) 0%, transparent 40%),
+    linear-gradient(to bottom, transparent, rgba(248, 250, 252, 0.95));
+}
+
+[data-theme="light"] nav {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid var(--border);
+}
+
+[data-theme="light"] .theme-toggle-btn {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.12);
+  color: #0f172a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .theme-toggle-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+[data-theme="light"] .card,
+[data-theme="light"] .scope-rule-card,
+[data-theme="light"] .bio-strip,
+[data-theme="light"] .faq-plan-card,
+[data-theme="light"] .proof-card,
+[data-theme="light"] .pricing-box,
+[data-theme="light"] .faq-item {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .scope-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+[data-theme="light"] .scope-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+[data-theme="light"] .scope-filter-btn {
+  background: #ffffff;
+  border-color: var(--border);
+  color: var(--text-muted);
+}
+[data-theme="light"] .scope-filter-btn:hover {
+  color: var(--text-main);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+[data-theme="light"] .scope-filter-btn.active {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #047857;
+  font-weight: 700;
+}
+
+[data-theme="light"] .tab-btn {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid var(--border);
+}
+[data-theme="light"] .tab-btn.active {
+  background: #ffffff;
+  color: #047857;
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .form-input,
+[data-theme="light"] .form-select,
+[data-theme="light"] .form-textarea,
+[data-theme="light"] input[type="text"],
+[data-theme="light"] input[type="email"],
+[data-theme="light"] input[type="tel"],
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+}
+[data-theme="light"] .form-input:focus,
+[data-theme="light"] .form-select:focus,
+[data-theme="light"] .form-textarea:focus,
+[data-theme="light"] input:focus,
+[data-theme="light"] textarea:focus,
+[data-theme="light"] select:focus {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
+}
+
+[data-theme="light"] .mockup {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+}
+[data-theme="light"] .mockup-header {
+  background: #f1f5f9;
+  border-bottom: 1px solid var(--border);
+}
+
+[data-theme="light"] .bio-pill {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+}
+
+[data-theme="light"] .btn-secondary,
+[data-theme="light"] .btn-sub,
+[data-theme="light"] .btn-bridge {
+  background: #f1f5f9;
+  color: #0f172a;
+  border: 1px solid #cbd5e1;
+}
+[data-theme="light"] .btn-secondary:hover,
+[data-theme="light"] .btn-sub:hover,
+[data-theme="light"] .btn-bridge:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+}
+
+[data-theme="light"] .btn-evidence-demo {
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+[data-theme="light"] .mobile-sticky-bar {
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .mobile-sticky-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] footer {
+  border-top-color: var(--border);
+}
+
