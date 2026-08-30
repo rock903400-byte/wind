@@ -73,15 +73,11 @@
   --shadow-lg: 0 15px 35px -5px rgba(0, 0, 0, 0.6);
 
   /* ── 層級語意 (z-index) ─────────────────────────────────────── */
-  --z-base: 0;
-  --z-raised: 1;
-  --z-card: 2;
   --z-sticky: 50;
   --z-drawer-overlay: 90;
   --z-drawer: 95;
   --z-sticky-bar: 99;
   --z-nav: 100;
-  --z-modal: 100;
   --z-toast-container: 200;
   --z-copy-toast: 1000;
   --z-toast: 9999;

@@ -45,7 +45,7 @@
       --font-mono: 'JetBrains Mono', monospace;
       --radius-lg: var(--radius-xl);
       --radius-md: 14px;
-      --radius-sm: var(--radius-sm);
+      --radius-sm: 8px;
       --shadow-card: var(--shadow-lg);
     }
 
@@ -84,7 +84,16 @@
       align-items: center;
       gap: 1rem;
     }
-    
+    .brand-logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      letter-spacing: -0.02em;
+    }
     .brand-logo span { color: var(--accent); }
     .badge-portal {
       font-size: 0.725rem;
@@ -249,9 +258,9 @@
       font-size: 0.775rem;
       font-weight: 600;
     }
-    
-    
-    
+    .tag-emerald { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .tag-amber { background: rgba(245, 158, 11, 0.15); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .tag-cyan { background: rgba(14, 165, 233, 0.15); color: #7dd3fc; border: 1px solid rgba(14, 165, 233, 0.3); }
     .tag-gray { background: rgba(255, 255, 255, 0.08); color: var(--text-sub); border: 1px solid rgba(255, 255, 255, 0.12); }
 
     /* Big Balance Spotlight */
@@ -453,6 +462,7 @@
 
     /* ---- ☀️ 主題切換按鈕與淺色模式適配 ---- */
 [data-theme="light"] {
+      --toggle-border-light: rgba(15, 23, 42, 0.09);
       --bg-primary: var(--color-bg-dark);
       --bg-secondary: var(--color-bg-surface);
       --bg-card: var(--color-bg-surface);
@@ -508,66 +518,37 @@
       color: #0f172a;
       border-color: #cbd5e1;
     }
-    [data-theme="light"] .tag-emerald {
-      background: rgba(4, 120, 87, 0.12);
-      color: #047857;
-      border-color: rgba(4, 120, 87, 0.25);
-    }
-    [data-theme="light"] .tag-amber {
-      background: rgba(180, 83, 9, 0.12);
-      color: #b45309;
-      border-color: rgba(180, 83, 9, 0.25);
-    }
-    [data-theme="light"] .tag-cyan {
-      background: rgba(14, 116, 144, 0.12);
-      color: #0e7490;
-      border-color: rgba(14, 116, 144, 0.25);
-    }
+    [data-theme="light"] .tag-emerald { background: rgba(4, 120, 87, 0.12); color: #047857; border-color: rgba(4, 120, 87, 0.25); }
+    [data-theme="light"] .tag-amber { background: rgba(180, 83, 9, 0.12); color: #b45309; border-color: rgba(180, 83, 9, 0.25); }
+    [data-theme="light"] .tag-cyan { background: rgba(14, 116, 144, 0.12); color: #0e7490; border-color: rgba(14, 116, 144, 0.25); }
     [data-theme="light"] .badge-portal {
       background: rgba(4,120,87,0.10);
       color: #047857;
       border-color: rgba(4,120,87,0.25);
     }
-    [data-theme="light"] .query-title {
+    [data-theme="light"] .query-title,
+    [data-theme="light"] .query-label,
+    [data-theme="light"] .company-name,
+    [data-theme="light"] .section-title,
+    [data-theme="light"] .task-title,
+    [data-theme="light"] .timeline-header {
       color: #0f172a;
     }
-    [data-theme="light"] .query-desc {
-      color: #334155;
-    }
-    [data-theme="light"] .query-label {
-      color: #0f172a;
-    }
-    [data-theme="light"] .company-name {
-      color: #0f172a;
-    }
+    [data-theme="light"] .query-desc,
     [data-theme="light"] .client-name {
       color: #334155;
-    }
-    [data-theme="light"] .section-title {
-      color: #0f172a;
-    }
-    [data-theme="light"] .task-title {
-      color: #0f172a;
     }
     [data-theme="light"] .task-module {
       color: #0e7490;
     }
-    [data-theme="light"] .task-meta {
-      color: #475569;
-    }
-    [data-theme="light"] .timeline-header {
-      color: #0f172a;
-    }
-    [data-theme="light"] .timeline-date {
+    [data-theme="light"] .task-meta,
+    [data-theme="light"] .timeline-date,
+    [data-theme="light"] .balance-note {
       color: #475569;
     }
     [data-theme="light"] .balance-label {
       color: #047857;
     }
-    [data-theme="light"] .balance-note {
-      color: #475569;
-    }
-
     [data-theme="light"] .btn-action-secondary:hover {
       background: #e2e8f0;
     }
@@ -578,16 +559,11 @@
     [data-theme="light"] .guarantee-box strong {
       color: #065f46;
     }
-    [data-theme="light"] .btn-submit {
-      color: #ffffff;
-    }
+    [data-theme="light"] .btn-submit,
     [data-theme="light"] .btn-action-primary {
       color: #ffffff;
     }
-    [data-theme="light"] .btn-submit:hover {
-      background: #065f46;
-      color: #fff;
-    }
+    [data-theme="light"] .btn-submit:hover,
     [data-theme="light"] .btn-action-primary:hover {
       background: #065f46;
       color: #fff;
