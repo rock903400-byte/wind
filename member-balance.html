@@ -9,6 +9,7 @@
   <meta name="theme-color" content="#080c0f" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="assets/theme-init.js?v=20260830"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="assets/tokens.css?v=20260830" />
@@ -725,6 +726,142 @@
       .drawer-panel { max-width: 100%; }
       .data-table th:nth-child(4), .data-table td:nth-child(4) { display: none; }
     }
+
+    /* ---- ☀️ 淺色模式適配 ---- */
+    .theme-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 0;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .theme-toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: scale(1.05);
+      border-color: rgba(16, 185, 129, 0.5);
+    }
+    .theme-toggle-btn:focus-visible {
+      outline: 2px solid var(--accent-light);
+      outline-offset: 2px;
+    }
+    [data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #ffffff;
+      --bg-elevated: #f1f5f9;
+      --border: rgba(15, 23, 42, 0.09);
+      --border-focus: rgba(16, 185, 129, 0.5);
+      --text-main: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
+      --accent: #047857;
+      --accent-light: #047857;
+    }
+    [data-theme="light"] body {
+      background-color: #f8fafc;
+      color: #0f172a;
+      background-image:
+        radial-gradient(circle at 10% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 20%, rgba(14, 165, 233, 0.05) 0%, transparent 40%),
+        linear-gradient(to bottom, transparent, rgba(248, 250, 252, 0.98));
+    }
+    [data-theme="light"] header {
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid var(--border);
+    }
+    [data-theme="light"] .theme-toggle-btn {
+      background: #ffffff;
+      border-color: rgba(15, 23, 42, 0.12);
+      color: #0f172a;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    [data-theme="light"] .theme-toggle-btn:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+    [data-theme="light"] .kpi-card,
+    [data-theme="light"] .table-container,
+    [data-theme="light"] .data-table,
+    [data-theme="light"] .modal-card,
+    [data-theme="light"] .drawer-panel {
+      background: #ffffff;
+      border: 1px solid rgba(15, 23, 42, 0.09);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    }
+    [data-theme="light"] .data-table th {
+      background: #f1f5f9;
+      color: #334155;
+    }
+    [data-theme="light"] .data-table td {
+      border-bottom-color: rgba(15, 23, 42, 0.06);
+      color: #334155;
+    }
+    [data-theme="light"] .data-table tr:hover td {
+      background: #f8fafc;
+      color: #0f172a;
+    }
+    [data-theme="light"] .modal-overlay,
+    [data-theme="light"] .drawer-overlay {
+      background: rgba(15, 23, 42, 0.35);
+    }
+    [data-theme="light"] .modal-body {
+      background: #ffffff;
+    }
+    [data-theme="light"] .modal-header,
+    [data-theme="light"] .modal-footer,
+    [data-theme="light"] .drawer-header {
+      background: #f8fafc;
+      border-color: rgba(15, 23, 42, 0.09);
+    }
+    [data-theme="light"] .form-input,
+    [data-theme="light"] .form-select,
+    [data-theme="light"] .form-textarea,
+    [data-theme="light"] .search-input,
+    [data-theme="light"] .filter-select {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      border: 1px solid #cbd5e1 !important;
+    }
+    [data-theme="light"] .form-input:focus,
+    [data-theme="light"] .form-select:focus,
+    [data-theme="light"] .form-textarea:focus,
+    [data-theme="light"] .search-input:focus {
+      border-color: #047857 !important;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
+    }
+    [data-theme="light"] .tabs-bar {
+      border-bottom-color: rgba(15, 23, 42, 0.09);
+    }
+    [data-theme="light"] .tab-btn {
+      color: #64748b;
+    }
+    [data-theme="light"] .tab-btn.active {
+      color: #047857;
+    }
+    [data-theme="light"] .btn-secondary {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #cbd5e1;
+    }
+    [data-theme="light"] .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+    [data-theme="light"] .cloud-banner {
+      background: rgba(245, 158, 11, 0.08);
+      border-color: rgba(245, 158, 11, 0.25);
+      color: #92400e;
+    }
   </style>
 </head>
 <body>
@@ -739,6 +876,7 @@
         <h1 class="badge-admin" style="font-size: 0.775rem; font-weight: 700; display: inline-flex; margin: 0;">會員儲值與餘額管理總後台</h1>
       </div>
       <div class="header-actions">
+        <button class="theme-toggle-btn" id="themeToggleBtn" type="button" aria-label="切換淺色/深色主題" title="切換淺色/深色主題">☀️</button>
         <button class="btn btn-primary btn-sm" data-action="open-recharge-modal">
           <span>💰 快速儲值</span>
         </button>
@@ -829,10 +967,10 @@
       <div class="toolbar">
         <div class="search-box">
           <span class="search-icon">🔍</span>
-          <input type="text" id="member-search" class="search-input" placeholder="搜尋會員姓名、公司、統編、Email、LINE..."  />
+          <input type="text" id="member-search" class="search-input" placeholder="搜尋會員姓名、公司、統編、Email、LINE..." aria-label="搜尋會員" />
         </div>
         <div class="filter-group">
-          <select id="member-filter-status" class="filter-select" >
+          <select id="member-filter-status" class="filter-select" aria-label="篩選會員狀態">
             <option value="all">全部狀態</option>
             <option value="high">餘額充裕 (>1點)</option>
             <option value="low">餘額偏低 (1點)</option>
@@ -869,7 +1007,7 @@
       <div class="toolbar">
         <div class="search-box">
           <span class="search-icon">🔍</span>
-          <input type="text" id="recharge-search" class="search-input" placeholder="搜尋儲值會員、發票號碼、備註..."  />
+          <input type="text" id="recharge-search" class="search-input" placeholder="搜尋儲值會員、發票號碼、備註..." aria-label="搜尋儲值紀錄" />
         </div>
         <div class="filter-group">
           <button class="btn btn-primary btn-sm" data-action="open-recharge-modal">
@@ -907,10 +1045,10 @@
       <div class="toolbar">
         <div class="search-box">
           <span class="search-icon">🔍</span>
-          <input type="text" id="task-search" class="search-input" placeholder="搜尋任務名稱、會員、模組類型..."  />
+          <input type="text" id="task-search" class="search-input" placeholder="搜尋任務名稱、會員、模組類型..." aria-label="搜尋任務" />
         </div>
         <div class="filter-group">
-          <select id="task-filter-status" class="filter-select" >
+          <select id="task-filter-status" class="filter-select" aria-label="篩選任務狀態">
             <option value="all">全部狀態</option>
             <option value="in_progress">進行中 / 48h 開發中</option>
             <option value="acceptance">7 天驗收中</option>
@@ -951,7 +1089,7 @@
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
         <!-- Backup & Restore Card -->
         <div class="kpi-card">
-          <h3 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">💾 本機資料備份與還原</h3>
+          <h2 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">💾 本機資料備份與還原</h2>
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
             系統資料即時保存在本機瀏覽器（LocalStorage），可隨時匯出完整 JSON 備份檔，或跨電腦匯入還原。
           </p>
@@ -959,30 +1097,30 @@
             <button class="btn btn-primary" data-action="export-database-json">
               <span>📤 匯出完整備份 (JSON)</span>
             </button>
-            <label class="btn btn-secondary" style="cursor: pointer;">
+            <label for="import-json-file" class="btn btn-secondary" style="cursor: pointer;">
               <span>📥 匯入還原 (JSON)</span>
-              <input type="file" id="import-json-file" accept=".json" style="display: none;"  />
+              <input type="file" id="import-json-file" accept=".json" style="display: none;" aria-label="匯入還原 JSON 備份檔" />
             </label>
           </div>
         </div>
 
         <!-- Google Sheets Cloud Sync Card -->
         <div class="kpi-card">
-          <h3 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">☁️ Google 試算表雲端同步 (GAS API)</h3>
+          <h2 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">☁️ Google 試算表雲端同步 (GAS API)</h2>
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
             串接 Google Apps Script Web App API，將本機資料庫與 Google 試算表雙向同步。管理端同步需驗證管理者密鑰 (ADMIN_KEY)，客戶端僅能以隨機 Token 查閱個人單筆資料。本頁不對外部署，僅供本機使用。
           </p>
           <div style="margin-bottom: 0.75rem;">
-            <label class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">Google Apps Script Web App 網址 (/exec)</label>
-            <input type="url" id="gas-api-url" class="form-input" placeholder="https://script.google.com/macros/s/.../exec" />
+            <label for="gas-api-url" class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">Google Apps Script Web App 網址 (/exec)</label>
+            <input type="url" id="gas-api-url" class="form-input" placeholder="https://script.google.com/macros/s/.../exec" aria-label="Google Apps Script Web App 網址" />
           </div>
           <div style="margin-bottom: 0.75rem;">
-            <label class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">管理者密鑰 (ADMIN_KEY - 僅存於本機)</label>
-            <input type="password" id="gas-admin-key" class="form-input" placeholder="請輸入在 Apps Script 設定的 ADMIN_KEY" />
+            <label for="gas-admin-key" class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">管理者密鑰 (ADMIN_KEY - 僅存於本機)</label>
+            <input type="password" id="gas-admin-key" class="form-input" placeholder="請輸入在 Apps Script 設定的 ADMIN_KEY" aria-label="管理者密鑰 ADMIN_KEY" />
           </div>
           <div style="margin-bottom: 1rem;">
-            <label class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">客戶查詢頁網址（產生專屬連結用）</label>
-            <input type="url" id="client-base-url" class="form-input" placeholder="https://wind.rock903400.workers.dev/" />
+            <label for="client-base-url" class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">客戶查詢頁網址（產生專屬連結用）</label>
+            <input type="url" id="client-base-url" class="form-input" placeholder="https://wind.rock903400.workers.dev/" aria-label="客戶查詢頁網址" />
           </div>
           <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
             <button type="button" class="btn btn-primary" data-action="sync-to-google-sheets">
@@ -999,7 +1137,7 @@
 
         <!-- Demo Data & Reset Card -->
         <div class="kpi-card">
-          <h3 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">🧪 測試資料與重置</h3>
+          <h2 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">🧪 測試資料與重置</h2>
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
             可一鍵載入「飛律 AI 流程賦能」典型業務示範資料進行預覽與體驗，亦可隨時清空重設。
           </p>
@@ -1030,22 +1168,22 @@
           <input type="hidden" id="member-id" />
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">會員稱呼 / 聯絡人 <span class="req">*</span></label>
+              <label for="member-name" class="form-label">會員稱呼 / 聯絡人 <span class="req">*</span></label>
               <input type="text" id="member-name" class="form-input" placeholder="例：林經理、王小姐" required />
             </div>
             <div class="form-group">
-              <label class="form-label">公司 / 單位名稱 <span class="req">*</span></label>
+              <label for="member-company" class="form-label">公司 / 單位名稱 <span class="req">*</span></label>
               <input type="text" id="member-company" class="form-input" placeholder="例：伯鐸儲蓄互助社" required />
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">統一編號 (統編)</label>
+              <label for="member-tax-id" class="form-label">統一編號 (統編)</label>
               <input type="text" id="member-tax-id" class="form-input" placeholder="例：88888888" />
             </div>
             <div class="form-group">
-              <label class="form-label">會員類型</label>
+              <label for="member-tier" class="form-label">會員類型</label>
               <select id="member-tier" class="form-select">
                 <option value="破冰體驗戶">破冰體驗戶 (2點)</option>
                 <option value="輕量儲值會員">輕量儲值會員 (5點包)</option>
@@ -1057,17 +1195,17 @@
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">電子信箱 (Email) <span class="req">*</span></label>
+              <label for="member-email" class="form-label">電子信箱 (Email) <span class="req">*</span></label>
               <input type="email" id="member-email" class="form-input" placeholder="client@example.com" required />
             </div>
             <div class="form-group">
-              <label class="form-label">LINE ID / 電話</label>
+              <label for="member-line" class="form-label">LINE ID / 電話</label>
               <input type="text" id="member-line" class="form-input" placeholder="例：0980463400" />
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">備註 / 需求偏好</label>
+            <label for="member-notes" class="form-label">備註 / 需求偏好</label>
             <textarea id="member-notes" class="form-textarea" placeholder="客戶主要痛點或備忘資訊..."></textarea>
           </div>
 
@@ -1090,14 +1228,14 @@
       <div class="modal-body">
         <form id="form-recharge" >
           <div class="form-group">
-            <label class="form-label">選擇儲值會員 <span class="req">*</span></label>
+            <label for="recharge-member-id" class="form-label">選擇儲值會員 <span class="req">*</span></label>
             <select id="recharge-member-id" class="form-select" required>
               <!-- Populated by JS -->
             </select>
           </div>
 
           <div class="form-group">
-            <label class="form-label">選擇方案模板</label>
+            <label for="recharge-plan-template" class="form-label">選擇方案模板</label>
             <select id="recharge-plan-template" class="form-select" >
               <option value="icebreak">破冰體驗包 (NT$ 1,000 / 2 點)</option>
               <option value="pack5">5 點輕量儲值包 (NT$ 3,500 / 5 點)</option>
@@ -1108,22 +1246,22 @@
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">實收金額 (TWD NT$) <span class="req">*</span></label>
+              <label for="recharge-amount" class="form-label">實收金額 (TWD NT$) <span class="req">*</span></label>
               <input type="number" id="recharge-amount" class="form-input" min="0" value="1000" required />
             </div>
             <div class="form-group">
-              <label class="form-label">獲得任務點數 (點) <span class="req">*</span></label>
+              <label for="recharge-points" class="form-label">獲得任務點數 (點) <span class="req">*</span></label>
               <input type="number" id="recharge-points" class="form-input" min="0" step="0.5" value="2" required />
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">儲值日期 <span class="req">*</span></label>
+              <label for="recharge-date" class="form-label">儲值日期 <span class="req">*</span></label>
               <input type="date" id="recharge-date" class="form-input" required />
             </div>
             <div class="form-group">
-              <label class="form-label">付款管道</label>
+              <label for="recharge-method" class="form-label">付款管道</label>
               <select id="recharge-method" class="form-select">
                 <option value="銀行轉帳">銀行轉帳</option>
                 <option value="綠界信用卡/LINE Pay">綠界信用卡 / LINE Pay</option>
@@ -1134,12 +1272,12 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">發票號碼 / 收據編號</label>
+            <label for="recharge-invoice" class="form-label">發票號碼 / 收據編號</label>
             <input type="text" id="recharge-invoice" class="form-input" placeholder="例：AB-12345678" />
           </div>
 
           <div class="form-group">
-            <label class="form-label">備註</label>
+            <label for="recharge-notes" class="form-label">備註</label>
             <input type="text" id="recharge-notes" class="form-input" placeholder="例：2026 Q3 預約第一期" />
           </div>
 
@@ -1162,14 +1300,14 @@
       <div class="modal-body">
         <form id="form-task" >
           <div class="form-group">
-            <label class="form-label">委託會員 <span class="req">*</span></label>
+            <label for="task-member-id" class="form-label">委託會員 <span class="req">*</span></label>
             <select id="task-member-id" class="form-select" required>
               <!-- Populated by JS -->
             </select>
           </div>
 
           <div class="form-group">
-            <label class="form-label">飛律核心 AI 模組分類 <span class="req">*</span></label>
+            <label for="task-module" class="form-label">飛律核心 AI 模組分類 <span class="req">*</span></label>
             <select id="task-module" class="form-select" required>
               <option value="試算表自動勾稽">試算表自動勾稽（跨表核帳、比對、資料清洗）</option>
               <option value="LINE 官方帳號微型助手">LINE 官方帳號微型助手（訂單查詢、常見問答）</option>
@@ -1182,18 +1320,18 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">任務名稱 / 具體交付需求 <span class="req">*</span></label>
+            <label for="task-title" class="form-label">任務名稱 / 具體交付需求 <span class="req">*</span></label>
             <input type="text" id="task-title" class="form-input" placeholder="例：收支傳票自動清洗與跨表勾稽腳本" required />
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">扣除任務點數 <span class="req">*</span></label>
+              <label for="task-points" class="form-label">扣除任務點數 <span class="req">*</span></label>
               <input type="number" id="task-points" class="form-input" min="0" step="0.5" value="1" required />
               <div class="form-hint">標準任務每項 1 點；驗收通過才正式扣點。</div>
             </div>
             <div class="form-group">
-              <label class="form-label">任務狀態 <span class="req">*</span></label>
+              <label for="task-status" class="form-label">任務狀態 <span class="req">*</span></label>
               <select id="task-status" class="form-select" required>
                 <option value="in_progress">進行中 (48h 快速開發中)</option>
                 <option value="acceptance">7 天驗收期 (客戶測試中)</option>
@@ -1205,17 +1343,17 @@
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">提單日期 <span class="req">*</span></label>
+              <label for="task-date" class="form-label">提單日期 <span class="req">*</span></label>
               <input type="date" id="task-date" class="form-input" required />
             </div>
             <div class="form-group">
-              <label class="form-label">成果交付/試算表連結</label>
+              <label for="task-url" class="form-label">成果交付/試算表連結</label>
               <input type="url" id="task-url" class="form-input" placeholder="https://..." />
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">交付備註與備忘</label>
+            <label for="task-notes" class="form-label">交付備註與備忘</label>
             <textarea id="task-notes" class="form-textarea" placeholder="交付成果細節、驗收意見或調整紀錄..."></textarea>
           </div>
 
@@ -1234,7 +1372,7 @@
     <div class="drawer-header">
       <div style="display: flex; align-items: center; gap: 0.6rem;">
         <span style="font-size: 1.25rem;">📋</span>
-        <h3 id="drawer-member-name" style="font-size: 1.1rem; color: var(--text-main);">會員明細</h3>
+        <h2 id="drawer-member-name" style="font-size: 1.1rem; color: var(--text-main);">會員明細</h2>
       </div>
       <button class="modal-close" data-action="close-drawer" aria-label="關閉明細側欄">✕</button>
     </div>

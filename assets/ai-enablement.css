@@ -2382,6 +2382,8 @@
   --text-main: #0f172a;
   --text-sub: #334155;
   --text-muted: #64748b;
+  --accent: #047857;
+  --accent-light: #047857;
 }
 
 [data-theme="light"] body {

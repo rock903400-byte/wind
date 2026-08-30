@@ -56,6 +56,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script src="assets/theme-init.js?v=20260830"></script>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/tokens.css?v=20260830">
 <link rel="stylesheet" href="assets/print-card.css?v=20260830">
@@ -63,6 +64,9 @@
 </head>
 <body class="view-mode-ecard">
 <a href="#mainContainer" class="skip-link">跳至主要內容</a>
+<div style="position: fixed; top: 12px; right: 12px; z-index: 101;">
+  <button class="theme-toggle-btn" id="themeToggleBtn" type="button" aria-label="切換淺色/深色主題" title="切換淺色/深色主題">☀️</button>
+</div>
 
 <!-- 頂部送印專用工具列 (展開送印視圖時顯示) -->
 <header class="toolbar-wrap no-print">
@@ -272,9 +276,9 @@
 
   </div>
 
-  <!-- 送印與列印指南說明 -->
-  <div class="info-box no-print" style="margin-top: 36px;">
-   <h3>💡 實體送印與列印操作指南</h3>
+   <!-- 送印與列印指南說明 -->
+   <div class="info-box no-print" style="margin-top: 36px;">
+    <h2>💡 實體送印與列印操作指南</h2>
    <ul>
     <li><strong>送印印刷廠發包（健豪 / 藍格 / 卡之屋）</strong>：
      點擊右上角「<strong>含出血 92×56mm</strong>」，再點擊「<strong>另存 1:1 PDF</strong>」，在列印設定中將邊界設為「無」、縮放設為「<strong>100%（實際大小）</strong>」，目標選擇「另存為 PDF」。
@@ -303,6 +307,7 @@
    標準 ISO/IEC 18004 QR Code 純前端向量生成引擎 (支援 Reed-Solomon Level M 糾錯)
    html2canvas 改為按需動態載入，首屏不阻塞；PNG 下載時才以 SRI 載入
    ========================================================================== -->
+<script src="assets/shared.js?v=20260830" defer></script>
 <script src="assets/print-card.js?v=20260830" defer></script>
 
 </body>

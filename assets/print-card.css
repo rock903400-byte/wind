@@ -1069,14 +1069,15 @@ body {
  line-height: 1.7;
 }
 
+.info-box h2,
 .info-box h3 {
- font-size: 0.95rem;
- font-weight: 700;
- color: #f1f5f9;
- margin-bottom: 8px;
- display: flex;
- align-items: center;
- gap: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .info-box ul {
@@ -1086,6 +1087,95 @@ body {
 
 .info-box li {
   margin-bottom: 4px;
+}
+
+/* ==============================================================================
+ * ☀️ 淺色模式適配
+ * ============================================================================== */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-screen);
+  color: var(--text-screen);
+  cursor: pointer;
+  font-size: 1.05rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: scale(1.05);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+.theme-toggle-btn:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+[data-theme="light"] {
+  --bg-screen: #f8fafc;
+  --surface-screen: #ffffff;
+  --border-screen: rgba(15, 23, 42, 0.09);
+  --text-screen: #0f172a;
+  --dim-screen: #64748b;
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-elevated: #f1f5f9;
+  --border: rgba(15, 23, 42, 0.09);
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent: #047857;
+  --accent-light: #047857;
+}
+[data-theme="light"] body {
+  background: radial-gradient(circle at 50% 18%, rgba(59, 130, 246, 0.04) 0%, transparent 65%), var(--bg-screen);
+  color: var(--text-screen);
+}
+[data-theme="light"] .toolbar-wrap {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid var(--border-screen);
+}
+[data-theme="light"] .main-preview {
+  background: transparent;
+}
+[data-theme="light"] .theme-toggle-btn {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.12);
+  color: #0f172a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+[data-theme="light"] .theme-toggle-btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+[data-theme="light"] .info-box {
+  background: #ffffff;
+  border: 1px solid var(--border-screen);
+  color: var(--dim-screen);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+}
+[data-theme="light"] .info-box h2,
+[data-theme="light"] .info-box h3 {
+  color: #0f172a;
+}
+[data-theme="light"] .ecard-footer .footer-brand {
+  color: #64748b;
+}
+[data-theme="light"] .btn-print-toggle {
+  border-color: rgba(15, 23, 42, 0.12);
+  color: #64748b;
+}
+[data-theme="light"] .btn-print-toggle:hover {
+  background: #f1f5f9;
+  color: #334155;
 }
 
 @media (prefers-reduced-motion: reduce) {

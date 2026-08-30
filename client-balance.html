@@ -16,6 +16,7 @@
   <meta name="theme-color" content="#080c0f" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="assets/theme-init.js?v=20260830"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="assets/tokens.css?v=20260830" />
@@ -142,12 +143,24 @@
       max-width: 540px;
       margin: 0 auto 1.5rem;
     }
+    .query-label {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      font-weight: 600;
+      text-align: left;
+      width: 100%;
+      margin-bottom: 0.35rem;
+    }
     .query-form {
       display: flex;
+      flex-wrap: wrap;
       gap: 0.6rem;
       max-width: 520px;
       margin: 0 auto;
       position: relative;
+    }
+    .query-form .query-label {
+      flex-basis: 100%;
     }
     .query-input {
       flex: 1;
@@ -479,6 +492,8 @@
       --text-main: #0f172a;
       --text-sub: #334155;
       --text-muted: #64748b;
+      --accent: #047857;
+      --accent-light: #047857;
     }
     [data-theme="light"] body {
       background-color: #f8fafc;
@@ -565,11 +580,12 @@
   <main>
     <!-- Query Box -->
     <div class="query-card" id="query-box">
-      <div class="query-title">🔍 查詢會員點數餘額與任務進度</div>
+      <h1 class="query-title">🔍 查詢會員點數餘額與任務進度</h1>
       <div class="query-desc">
         請使用您收到的「專屬查詢連結」，或在此輸入 <strong>專屬查詢 Token</strong>，即可即時查詢點數餘額與任務交付狀態。
       </div>
       <form class="query-form" id="query-form">
+        <label for="search-input" class="query-label">專屬查詢 Token</label>
         <input
           type="text"
           id="search-input"
@@ -584,7 +600,7 @@
     </div>
 
     <!-- Error/Notice Alert -->
-    <div id="query-alert" style="display: none; padding: 1rem 1.25rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-size: 0.9rem; text-align: center;"></div>
+    <div id="query-alert" role="alert" style="display: none; padding: 1rem 1.25rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-size: 0.9rem; text-align: center;"></div>
 
     <!-- Result Dashboard -->
     <div id="result-section">
@@ -619,17 +635,17 @@
         </div>
 
         <!-- In-Progress Tasks Section -->
-        <div class="section-title">
+        <h2 class="section-title">
           <span>⚡ 進行中 / 驗收中任務</span>
-        </div>
+        </h2>
         <div id="active-tasks-list">
           <!-- Injected by JS -->
         </div>
 
         <!-- History Timeline Section -->
-        <div class="section-title" style="margin-top: 1.75rem;">
+        <h2 class="section-title" style="margin-top: 1.75rem;">
           <span>📜 點數儲值與扣點歷史歷程</span>
-        </div>
+        </h2>
         <div class="timeline" id="history-timeline">
           <!-- Injected by JS -->
         </div>
