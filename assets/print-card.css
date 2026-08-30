@@ -14,6 +14,8 @@
 }
 
 :root {
+  --toggle-hover-border: rgba(59, 130, 246, 0.5);
+  --toggle-border: rgba(255, 255, 255, 0.10);
  --font-base: 'Plus Jakarta Sans', "Noto Sans TC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
  --bg-screen: #0f172a;
  --surface-screen: #1e293b;
@@ -38,7 +40,7 @@
   border-radius: 6px;
   font-size: 13px;
   font-weight: 700;
-  z-index: 10000;
+  z-index: var(--z-skip-link);
   text-decoration: none;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
@@ -75,7 +77,7 @@ body {
  padding: 14px 24px;
  position: sticky;
  top: 0;
- z-index: 100;
+ z-index: var(--z-nav);
 }
 
 .toolbar-inner {
@@ -427,7 +429,7 @@ body {
  display: flex;
  align-items: center;
  gap: 8px;
- z-index: 9999;
+ z-index: var(--z-toast);
  opacity: 0;
  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
  pointer-events: none;
@@ -1092,32 +1094,6 @@ body {
 /* ==============================================================================
  * ☀️ 淺色模式適配
  * ============================================================================== */
-.theme-toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 99px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--border-screen);
-  color: var(--text-screen);
-  cursor: pointer;
-  font-size: 1.05rem;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 0;
-  flex-shrink: 0;
-  line-height: 1;
-}
-.theme-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.16);
-  transform: scale(1.05);
-  border-color: rgba(59, 130, 246, 0.5);
-}
-.theme-toggle-btn:focus-visible {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
-}
 [data-theme="light"] {
   --bg-screen: var(--color-bg-dark);
   --surface-screen: var(--color-bg-surface);
@@ -1145,16 +1121,6 @@ body {
 }
 [data-theme="light"] .main-preview {
   background: transparent;
-}
-[data-theme="light"] .theme-toggle-btn {
-  background: #ffffff;
-  border-color: rgba(15, 23, 42, 0.12);
-  color: #0f172a;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-}
-[data-theme="light"] .theme-toggle-btn:hover {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
 }
 [data-theme="light"] .info-box {
   background: #ffffff;

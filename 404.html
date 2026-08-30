@@ -12,8 +12,11 @@
   <script src="assets/theme-init.js?v=20260830"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/tokens.css?v=20260830">
+<link rel="stylesheet" href="assets/components.css?v=20260830">
   <style>
     :root {
+  --toggle-size: 34px;
+  --toggle-font-size: 1rem;
       --bg: #0a0e1a;
       --card-bg: rgba(255, 255, 255, 0.03);
       --card-border: rgba(255, 255, 255, 0.08);
@@ -135,33 +138,7 @@
     }
 
     /* ---- ☀️ 淺色模式適配 ---- */
-    .theme-toggle-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 34px;
-      height: 34px;
-      border-radius: 99px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      color: #f8fafc;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      padding: 0;
-      line-height: 1;
-      flex-shrink: 0;
-    }
-    .theme-toggle-btn:hover {
-      background: rgba(255, 255, 255, 0.16);
-      transform: scale(1.05);
-      border-color: rgba(16, 185, 129, 0.5);
-    }
-    .theme-toggle-btn:focus-visible {
-      outline: 2px solid #6ee7b7;
-      outline-offset: 2px;
-    }
-    [data-theme="light"] {
+[data-theme="light"] {
       --bg: var(--color-bg-dark);
       --card-bg: var(--color-bg-surface);
       --card-border: var(--color-border);
@@ -187,17 +164,7 @@
       border: 1px solid rgba(15, 23, 42, 0.09);
       box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.08);
     }
-    [data-theme="light"] .theme-toggle-btn {
-      background: #ffffff;
-      border-color: rgba(15, 23, 42, 0.12);
-      color: #0f172a;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    }
-    [data-theme="light"] .theme-toggle-btn:hover {
-      background: #f1f5f9;
-      border-color: #cbd5e1;
-    }
-    [data-theme="light"] h1 {
+[data-theme="light"] h1 {
       color: #0f172a;
     }
     [data-theme="light"] p {
