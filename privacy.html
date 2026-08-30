@@ -27,19 +27,19 @@
   <link rel="stylesheet" href="assets/tokens.css?v=20260830" />
   <style>
     :root {
-      --bg-primary: #080c0f;
-      --bg-secondary: #0f171d;
+      --bg-primary: var(--color-bg-dark);
+      --bg-secondary: var(--color-bg-surface);
       --bg-card: rgba(18, 27, 34, 0.72);
-      --border: rgba(255, 255, 255, 0.09);
+      --border: var(--color-border);
       --border-accent: rgba(16, 185, 129, 0.35);
-      --accent: #10b981;
-      --accent-light: #6ee7b7;
-      --text-main: #f8fafc;
-      --text-sub: #cbd5e1;
-      --text-muted: #94a3b8;
+      --accent: var(--color-emerald);
+      --accent-light: var(--color-emerald-light);
+      --text-main: var(--color-text-main);
+      --text-sub: var(--color-text-sub);
+      --text-muted: var(--color-text-muted);
       --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
-      --radius-lg: 16px;
-      --radius-md: 12px;
+      --radius-lg: var(--radius-lg);
+      --radius-md: var(--radius-md);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
@@ -113,17 +113,17 @@
       outline-offset: 2px;
     }
     [data-theme="light"] {
-      --bg-primary: #f8fafc;
-      --bg-secondary: #ffffff;
-      --bg-card: #ffffff;
-      --bg-elevated: #f1f5f9;
-      --border: rgba(15, 23, 42, 0.09);
+      --bg-primary: var(--color-bg-dark);
+      --bg-secondary: var(--color-bg-surface);
+      --bg-card: var(--color-bg-surface);
+      --bg-elevated: var(--color-bg-elevated);
+      --border: var(--color-border);
       --border-accent: rgba(16, 185, 129, 0.35);
-      --text-main: #0f172a;
-      --text-sub: #334155;
-      --text-muted: #64748b;
-      --accent: #047857;
-      --accent-light: #047857;
+      --text-main: var(--color-text-main);
+      --text-sub: var(--color-text-sub);
+      --text-muted: var(--color-text-muted);
+      --accent: var(--color-emerald-dark);
+      --accent-light: var(--color-emerald-dark);
     }
     [data-theme="light"] body {
       background-color: #f8fafc;

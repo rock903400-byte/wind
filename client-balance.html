@@ -22,28 +22,28 @@
   <link rel="stylesheet" href="assets/tokens.css?v=20260830" />
   <style>
     :root {
-      --bg-primary: #080c0f;
-      --bg-secondary: #0f171d;
+      --bg-primary: var(--color-bg-dark);
+      --bg-secondary: var(--color-bg-surface);
       --bg-card: rgba(18, 27, 34, 0.85);
       --bg-elevated: #15212b;
-      --border: rgba(255, 255, 255, 0.09);
-      --border-focus: rgba(16, 185, 129, 0.5);
-      --accent: #10b981;
-      --accent-hover: #059669;
-      --accent-glow: rgba(16, 185, 129, 0.25);
-      --accent-light: #6ee7b7;
-      --cyan: #0ea5e9;
-      --amber: #f59e0b;
-      --rose: #f43f5e;
-      --text-main: #f8fafc;
-      --text-sub: #cbd5e1;
-      --text-muted: #94a3b8;
+      --border: var(--color-border);
+      --border-focus: var(--color-border-focus);
+      --accent: var(--color-emerald);
+      --accent-hover: var(--color-emerald-hover);
+      --accent-glow: var(--color-emerald-glow);
+      --accent-light: var(--color-emerald-light);
+      --cyan: var(--color-cyan);
+      --amber: var(--color-amber);
+      --rose: var(--color-rose);
+      --text-main: var(--color-text-main);
+      --text-sub: var(--color-text-sub);
+      --text-muted: var(--color-text-muted);
       --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --radius-lg: 20px;
+      --radius-lg: var(--radius-xl);
       --radius-md: 14px;
-      --radius-sm: 8px;
-      --shadow-card: 0 15px 35px -5px rgba(0, 0, 0, 0.6);
+      --radius-sm: var(--radius-sm);
+      --shadow-card: var(--shadow-lg);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -484,16 +484,16 @@
       outline-offset: 2px;
     }
     [data-theme="light"] {
-      --bg-primary: #f8fafc;
-      --bg-secondary: #ffffff;
-      --bg-card: #ffffff;
-      --bg-elevated: #f1f5f9;
-      --border: rgba(15, 23, 42, 0.09);
-      --text-main: #0f172a;
-      --text-sub: #334155;
-      --text-muted: #64748b;
-      --accent: #047857;
-      --accent-light: #047857;
+      --bg-primary: var(--color-bg-dark);
+      --bg-secondary: var(--color-bg-surface);
+      --bg-card: var(--color-bg-surface);
+      --bg-elevated: var(--color-bg-elevated);
+      --border: var(--color-border);
+      --text-main: var(--color-text-main);
+      --text-sub: var(--color-text-sub);
+      --text-muted: var(--color-text-muted);
+      --accent: var(--color-emerald-dark);
+      --accent-light: var(--color-emerald-dark);
     }
     [data-theme="light"] body {
       background-color: #f8fafc;

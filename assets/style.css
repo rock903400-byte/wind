@@ -1,4 +1,4 @@
-:root{
+:root {
   --bg:var(--color-bg-dark, #080c0f);
   --surface:var(--color-bg-card, rgba(18,27,34,.75));
   --surface2:var(--color-bg-elevated, #16222c);
@@ -19,7 +19,7 @@
   /* 深底上的漸層文字專用：--grad-text 起點 #6ee7b7 對 --bg 達 12.88:1，
      終點 #7dd3fc 對 --bg 達 11.77:1，全段皆遠超 WCAG AAA 7.0:1 門檻，確保標題與數字清晰易讀。 */
   --grad-text:linear-gradient(135deg,var(--accent-light),var(--accent-grad-end));
-  --radius:12px;
+  --radius: var(--radius-md);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -700,10 +700,10 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 
 [data-theme="light"] {
   --grad-text: linear-gradient(135deg, #047857, #0e7490);
-  --accent: #047857;
-  --accent-light: #047857;
-  --accent-lighter: #047857;
-  --accent2: #0e7490;
+  --accent: var(--color-emerald-dark);
+  --accent-light: var(--color-emerald-dark);
+  --accent-lighter: var(--color-emerald-dark);
+  --accent2: var(--color-cyan-dark);
   --accent2-rgb: 14,116,144;
   --accent-light-rgb: 4,120,87;
 }

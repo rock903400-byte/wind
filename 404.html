@@ -18,10 +18,10 @@
       --card-bg: rgba(255, 255, 255, 0.03);
       --card-border: rgba(255, 255, 255, 0.08);
       --accent-cyan: #38bdf8;
-      --accent-indigo: #6366f1;
+      --accent-indigo: var(--color-indigo);
       --accent-purple: #c084fc;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
+      --text-main: var(--color-text-main);
+      --text-muted: var(--color-text-muted);
     }
     * {
       box-sizing: border-box;
@@ -162,18 +162,18 @@
       outline-offset: 2px;
     }
     [data-theme="light"] {
-      --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --card-border: rgba(15, 23, 42, 0.09);
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --bg-primary: #f8fafc;
-      --bg-secondary: #ffffff;
-      --bg-card: #ffffff;
-      --bg-elevated: #f1f5f9;
-      --border: rgba(15, 23, 42, 0.09);
-      --accent: #047857;
-      --accent-light: #047857;
+      --bg: var(--color-bg-dark);
+      --card-bg: var(--color-bg-surface);
+      --card-border: var(--color-border);
+      --text-main: var(--color-text-main);
+      --text-muted: var(--color-text-muted);
+      --bg-primary: var(--color-bg-dark);
+      --bg-secondary: var(--color-bg-surface);
+      --bg-card: var(--color-bg-surface);
+      --bg-elevated: var(--color-bg-elevated);
+      --border: var(--color-border);
+      --accent: var(--color-emerald-dark);
+      --accent-light: var(--color-emerald-dark);
     }
     [data-theme="light"] body {
       background-color: #f8fafc;

@@ -18,8 +18,8 @@
  --bg-screen: #0f172a;
  --surface-screen: #1e293b;
  --border-screen: rgba(255, 255, 255, 0.1);
- --text-screen: #f8fafc;
- --dim-screen: #94a3b8;
+ --text-screen: var(--color-text-main);
+ --dim-screen: var(--color-text-muted);
  
  /* 名片實體尺寸變數 */
  --card-w: 90mm;
@@ -1119,21 +1119,21 @@ body {
   outline-offset: 2px;
 }
 [data-theme="light"] {
-  --bg-screen: #f8fafc;
-  --surface-screen: #ffffff;
-  --border-screen: rgba(15, 23, 42, 0.09);
-  --text-screen: #0f172a;
-  --dim-screen: #64748b;
-  --bg-primary: #f8fafc;
-  --bg-secondary: #ffffff;
-  --bg-card: #ffffff;
-  --bg-elevated: #f1f5f9;
-  --border: rgba(15, 23, 42, 0.09);
-  --text-main: #0f172a;
-  --text-sub: #334155;
-  --text-muted: #64748b;
-  --accent: #047857;
-  --accent-light: #047857;
+  --bg-screen: var(--color-bg-dark);
+  --surface-screen: var(--color-bg-surface);
+  --border-screen: var(--color-border);
+  --text-screen: var(--color-text-main);
+  --dim-screen: var(--color-text-muted);
+  --bg-primary: var(--color-bg-dark);
+  --bg-secondary: var(--color-bg-surface);
+  --bg-card: var(--color-bg-surface);
+  --bg-elevated: var(--color-bg-elevated);
+  --border: var(--color-border);
+  --text-main: var(--color-text-main);
+  --text-sub: var(--color-text-sub);
+  --text-muted: var(--color-text-muted);
+  --accent: var(--color-emerald-dark);
+  --accent-light: var(--color-emerald-dark);
 }
 [data-theme="light"] body {
   background: radial-gradient(circle at 50% 18%, rgba(59, 130, 246, 0.04) 0%, transparent 65%), var(--bg-screen);

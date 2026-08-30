@@ -33,6 +33,15 @@
   --color-purple: #a855f7;
   --color-indigo: #6366f1;
 
+  /* ──  WIND-UI-02 遺留深色文字色票（淺色主題用，7 處硬寫收斂） ── */
+  --color-emerald-dark: #047857;
+  --color-emerald-darker: #065f46;
+  --color-cyan-dark: #0e7490;
+  --color-sky-dark: #0369a1;
+  --color-indigo-dark: #4338ca;
+  --color-amber-dark: #b45309;
+  --color-rose-dark: #be123c;
+
   /* ── 文字層級色票 ─────────────────────────────────────────── */
   --color-text-main: #f8fafc;
   --color-text-sub: #cbd5e1;
