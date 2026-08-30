@@ -96,7 +96,11 @@
 
 ## 已歸檔工單
 
-- 2026-08 已驗收的 8 份工單（`INDEX_THUMBNAIL_AUDIT.md` + `INDEX_ATTRACTIVENESS_TICKET*.md` ×4 + `AI_ENABLEMENT_UPLIFT_TICKET*.md` ×3）已 `git mv` 至 `docs/archive/2026-08/`，根 `docs/` 僅留活躍規格。查詢歷史請至 `docs/archive/README.md`。
+- 2026-08 已驗收的 11 份工單（`INDEX_THUMBNAIL_AUDIT.md` + `INDEX_ATTRACTIVENESS_TICKET*.md` ×4 + `AI_ENABLEMENT_UPLIFT_TICKET*.md` ×3 + `UI_P0_A11Y_THEME_TICKET*.md` ×3）已移至 `docs/archive/2026-08/`，根 `docs/` 僅留活躍規格與進行中工單。查詢歷史請至 `docs/archive/README.md`。
+
+## 進行中工單
+
+- `UI_LIGHT_THEME_COVERAGE_TICKET.md`（WIND-UI-02｜淺色主題覆蓋補完）**尚未實作**。淺色模式下 `index.html` 有 39 處、`ai-enablement.html` 有 115 處文字未達 WCAG AA，成因是 `c4d9f40` 的各頁 `[data-theme="light"]` 區塊只覆寫了容器層，沒覆寫為深色底設計的硬寫文字色（`#ffffff`/`#cbd5e1`/`#f1f5f9`/`#fbbf24` 等）。驗收完成後再移入當月 `docs/archive/`。
 
 ## 注意事項
 
