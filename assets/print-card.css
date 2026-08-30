@@ -1178,6 +1178,78 @@ body {
   color: #334155;
 }
 
+
+[data-theme="light"] .btn {
+  background: #ffffff;
+  border-color: rgba(15,23,42,0.12);
+  color: #0f172a;
+}
+[data-theme="light"] .btn:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+[data-theme="light"] .btn.primary {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+[data-theme="light"] .btn.primary:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+}
+[data-theme="light"] .toggle-group {
+  background: #f1f5f9;
+  border-color: rgba(15,23,42,0.09);
+}
+[data-theme="light"] .toggle-btn {
+  color: #475569;
+}
+[data-theme="light"] .toggle-btn.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border: 1px solid rgba(15,23,42,0.09);
+}
+[data-theme="light"] .flip-hint-btn {
+  background: #ffffff;
+  border-color: rgba(15,23,42,0.12);
+  color: #334155;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+[data-theme="light"] .flip-hint-btn:hover {
+  background: #f8fafc;
+  border-color: rgba(15,23,42,0.18);
+  color: #0f172a;
+}
+[data-theme="light"] .flip-hint-btn span {
+  color: #475569;
+}
+[data-theme="light"] .btn-share {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: rgba(15,23,42,0.12);
+}
+[data-theme="light"] .btn-share:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+[data-theme="light"] .brand-header p {
+  color: #475569;
+}
+[data-theme="light"] .brand-header h1 span {
+  background: rgba(4,120,87,0.10);
+  color: #047857;
+  border-color: rgba(4,120,87,0.25);
+}
+[data-theme="light"] .stage-title {
+  color: #334155;
+}
+[data-theme="light"] .toast-popup {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: rgba(15,23,42,0.12);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .card-flipper-container {
     transition: none !important;
@@ -1185,4 +1257,23 @@ body {
   .card-flipper-container:hover .card-face {
     box-shadow: 0 22px 48px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.12);
   }
+}
+
+[data-theme="light"] .btn-line {
+  background: #047857;
+  border-color: #047857;
+  color: #ffffff;
+}
+[data-theme="light"] .btn-line:hover {
+  background: #065f46;
+  border-color: #065f46;
+}
+[data-theme="light"] .btn-call {
+  background: #1e40af;
+  border-color: #1e40af;
+  color: #ffffff;
+}
+[data-theme="light"] .btn-call:hover {
+  background: #1e3a8a;
+  border-color: #1e3a8a;
 }

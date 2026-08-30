@@ -699,9 +699,13 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
 }
 
 [data-theme="light"] {
-  --grad-text: linear-gradient(135deg, #059669, #0284c7);
+  --grad-text: linear-gradient(135deg, #047857, #0e7490);
   --accent: #047857;
   --accent-light: #047857;
+  --accent-lighter: #047857;
+  --accent2: #0e7490;
+  --accent2-rgb: 14,116,144;
+  --accent-light-rgb: 4,120,87;
 }
 
 [data-theme="light"] .site-nav {
@@ -736,7 +740,11 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   background: #e2e8f0;
 }
 [data-theme="light"] .hero-proof-tag {
-  color: #059669;
+  color: #047857;
+}
+
+[data-theme="light"] .hero-proof-title {
+  color: #0f172a;
 }
 
 [data-theme="light"] .marquee-wrap {
@@ -802,6 +810,46 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   color: #1e293b;
 }
 
+[data-theme="light"] .about-punchline {
+  color: #0f172a;
+}
+
+[data-theme="light"] .highlight-dim {
+  color: #0f172a;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+
+[data-theme="light"] .highlight {
+  color: #0f172a;
+  background: linear-gradient(120deg, rgba(4,120,87,0.12) 0%, rgba(14,116,144,0.12) 100%);
+  border-bottom-color: rgba(4,120,87,0.25);
+}
+
+[data-theme="light"] .highlight-purple {
+  color: #047857;
+  background: rgba(4,120,87,0.10);
+  border: 1px solid rgba(4,120,87,0.18);
+}
+
+[data-theme="light"] .proof-card-title {
+  color: #0f172a;
+}
+
+[data-theme="light"] .proof-card-sub {
+  color: #475569;
+}
+
+[data-theme="light"] .proof-card-body {
+  color: #334155;
+}
+
+[data-theme="light"] .proof-metric {
+  background: rgba(4,120,87,0.08);
+  color: #047857;
+  border: 1px solid rgba(4,120,87,0.22);
+}
+
 [data-theme="light"] .metric {
   background: #f8fafc;
   border: 1px solid rgba(15, 23, 42, 0.08);
@@ -812,11 +860,37 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   border-color: #e2e8f0;
 }
 [data-theme="light"] .tag.green {
+  background: rgba(4,120,87,0.10);
   color: #047857;
+  border-color: rgba(4,120,87,0.25);
+}
+
+[data-theme="light"] .tag.amber {
+  background: rgba(146,64,14,0.08);
+  color: #92400e;
+  border-color: rgba(146,64,14,0.25);
+}
+
+[data-theme="light"] .tag.cyan {
+  background: rgba(14,116,144,0.10);
+  color: #0e7490;
+  border-color: rgba(14,116,144,0.25);
+}
+
+[data-theme="light"] .tag.rose {
+  background: rgba(190,18,60,0.10);
+  color: #be123c;
+  border-color: rgba(190,18,60,0.25);
+}
+
+[data-theme="light"] .tag {
+  background: rgba(4,120,87,0.10);
+  color: #047857;
+  border-color: rgba(4,120,87,0.25);
 }
 [data-theme="light"] .btn-demo-locked {
   background: #f1f5f9;
-  color: #64748b;
+  color: #475569;
   border: 1px solid #e2e8f0;
 }
 [data-theme="light"] .btn-secondary {
@@ -834,6 +908,62 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   color: #0f172a;
   border: 1px solid var(--color-border, rgba(15, 23, 42, 0.12));
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+
+[data-theme="light"] .svc-card h3,
+[data-theme="light"] .svc-card.svc-featured h3 {
+  color: #0f172a;
+}
+
+[data-theme="light"] .svc-jump,
+[data-theme="light"] .svc-card.svc-featured .svc-jump {
+  color: #047857;
+}
+
+[data-theme="light"] .svc-jump:hover {
+  color: #065f46;
+}
+
+[data-theme="light"] .svc-card p,
+[data-theme="light"] .strength-card p,
+[data-theme="light"] .step p,
+[data-theme="light"] .work-info .desc,
+[data-theme="light"] .faq-content {
+  color: #334155;
+}
+
+[data-theme="light"] .work-info h3,
+[data-theme="light"] .strength-card h3,
+[data-theme="light"] .step h3 {
+  color: #0f172a;
+}
+
+[data-theme="light"] .sec-sub {
+  color: #475569;
+}
+
+[data-theme="light"] .hero p {
+  color: #334155;
+}
+
+[data-theme="light"] .contact-card > p {
+  color: #334155;
+}
+
+[data-theme="light"] .metric-label {
+  color: #475569;
+}
+
+[data-theme="light"] .site-links a.active {
+  color: #047857;
+  background: rgba(4,120,87,0.12);
+  border-color: rgba(4,120,87,0.40);
+  box-shadow: none;
+}
+
+[data-theme="light"] .filter-count {
+  color: #475569;
 }
 
 [data-theme="light"] footer {
