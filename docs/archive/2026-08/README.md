@@ -1,6 +1,6 @@
 # 2026-08 工單歸檔
 
-本批次為 2026-08 已驗收工單，共 11 檔，集中封存於此。
+本批次為 2026-08 已驗收工單，共 12 檔，集中封存於此。
 
 ## 清單
 
@@ -17,5 +17,6 @@
 | `UI_P0_A11Y_THEME_TICKET.md` | WIND-UI-01｜全站前端介面 P0 缺陷修復 + 雙主題引擎補齊 7 頁 | 已驗收 |
 | `UI_P0_A11Y_THEME_TICKET_02.md` | WIND-UI-01A｜淺色模式按鈕對比度回歸修補（01 驗收退回項） | 已驗收 |
 | `UI_P0_A11Y_THEME_TICKET_03.md` | WIND-UI-01B｜ai-enablement 淺色 hover 對比度（01A 驗收殘留項） | 已驗收 |
+| `UI_LIGHT_THEME_COVERAGE_TICKET.md` | WIND-UI-02｜淺色主題覆蓋補完（全站掃描發現） | 已驗收 |
 
 > 原 `docs/` 根目錄下這些檔案已 `git mv` 至此，`git log --follow` 仍可追溯。活躍規格僅保留 `CONTENT_MAINTENANCE.md` / `BRAND_IMAGES_SPEC.md` / `GOOGLE_FORM_SPEC.md` / `MEMBER_BALANCE_SPEC.md` 等。
