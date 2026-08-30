@@ -2384,6 +2384,7 @@
   --text-muted: #64748b;
   --accent: #047857;
   --accent-light: #047857;
+  --accent-hover: #065f46;
 }
 
 [data-theme="light"] body {
