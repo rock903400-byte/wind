@@ -2527,6 +2527,22 @@
   color: #0f172a;
 }
 
+[data-theme="light"] .nav-btn {
+  color: #ffffff;
+}
+
+[data-theme="light"] .btn-primary {
+  color: #ffffff;
+}
+
+[data-theme="light"] .mobile-sticky-btn {
+  color: #ffffff;
+}
+
+[data-theme="light"] .booking-pick.is-on .booking-box {
+  color: #ffffff;
+}
+
 [data-theme="light"] footer {
   border-top-color: var(--border);
 }
