@@ -58,8 +58,8 @@ section{padding:64px 0 48px;scroll-margin-top:76px}
 .site-links a{padding:4px 10px;border-radius:99px;transition:color .2s,background .2s,border-color .2s;border:1px solid transparent}
 .site-links a:hover{color:var(--text)}
 .site-links a.active{color:var(--accent-light);background:rgba(var(--accent-rgb),.14);border-color:rgba(var(--accent-rgb),.35);font-weight:700}
-.nav-cta{flex:none;padding:8px 18px;border-radius:99px;background:var(--grad);color:#fff;font-size:.82rem;font-weight:600;transition:box-shadow .2s,transform .2s}
-.nav-cta:hover{color:#fff;box-shadow:0 8px 20px rgba(var(--accent-rgb),.45);transform:translateY(-1px)}
+.nav-cta{flex:none;padding:8px 18px;border-radius:99px;background:var(--grad);color:#04130d;font-size:.82rem;font-weight:600;transition:box-shadow .2s,transform .2s}
+.nav-cta:hover{color:#04130d;box-shadow:0 8px 20px rgba(var(--accent-rgb),.45);transform:translateY(-1px)}
 .nav-cta:focus-visible{outline:2px solid var(--accent-light);outline-offset:3px}
 
 /* ---- works filter ---- */
@@ -106,9 +106,9 @@ a.hero-badge:focus-visible{outline:2px solid var(--accent-light);outline-offset:
 .hero-proof-strip{animation-delay:.48s}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
-.scroll-cue{display:inline-flex;align-items:center;gap:8px;color:#fff;font-size:.88rem;font-weight:600;margin-top:0;padding:11px 24px;border-radius:99px;background:var(--grad);text-decoration:none;transition:transform .2s,box-shadow .2s;
+.scroll-cue{display:inline-flex;align-items:center;gap:8px;color:#04130d;font-size:.88rem;font-weight:600;margin-top:0;padding:11px 24px;border-radius:99px;background:var(--grad);text-decoration:none;transition:transform .2s,box-shadow .2s;
   animation:rise .9s cubic-bezier(.22,.61,.36,1) .6s both,breathe 3.4s ease-in-out 1.6s infinite;box-shadow:0 8px 24px rgba(var(--accent-rgb),.35)}
-.scroll-cue:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(var(--accent-rgb),.55);color:#fff}
+.scroll-cue:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(var(--accent-rgb),.55);color:#04130d}
 .scroll-cue:focus-visible{outline:2px solid var(--accent-light);outline-offset:3px}
 @keyframes breathe{0%,100%{opacity:.6;transform:translateY(0)}50%{opacity:1;transform:translateY(5px)}}
 
@@ -177,7 +177,7 @@ a.hero-badge:focus-visible{outline:2px solid var(--accent-light);outline-offset:
 .work-card.featured .work-info{padding:28px 32px;flex:1;display:flex;flex-direction:column;justify-content:center}
 .work-card.featured .work-info h3{font-size:1.35rem;letter-spacing:-.01em}
 .work-card.featured .desc{font-size:.94rem}
-.flagship-badge{position:absolute;top:14px;left:14px;z-index:3;display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:99px;background:var(--grad);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.5px;box-shadow:0 6px 18px rgba(var(--accent-rgb),.45)}
+.flagship-badge{position:absolute;top:14px;left:14px;z-index:3;display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:99px;background:var(--grad);color:#04130d;font-size:.72rem;font-weight:700;letter-spacing:.5px;box-shadow:0 6px 18px rgba(var(--accent-rgb),.45)}
 .metric-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:2px}
 .metric{flex:1 1 120px;padding:12px 14px;border:1px solid rgba(var(--accent-light-rgb),.18);border-radius:10px;background:rgba(var(--accent-rgb),.07)}
 .metric-num{display:block;font-size:1.15rem;font-weight:800;line-height:1.3;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -365,8 +365,8 @@ a.hero-badge:focus-visible{outline:2px solid var(--accent-light);outline-offset:
 .contact-card h2{font-size:clamp(1.5rem,4vw,2.1rem);font-weight:800;letter-spacing:-.02em;margin-bottom:12px;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .contact-card>p{color:var(--dim);font-size:.95rem;line-height:1.85;max-width:520px;margin:0 auto 28px}
 .contact-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 30px;border-radius:99px;background:var(--grad);color:#fff;font-size:.92rem;font-weight:700;box-shadow:0 8px 24px rgba(var(--accent-rgb),.35);transition:transform .2s,box-shadow .2s}
-.btn-primary:hover{color:#fff;transform:translateY(-2px);box-shadow:0 12px 32px rgba(var(--accent-rgb),.55)}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 30px;border-radius:99px;background:var(--grad);color:#04130d;font-size:.92rem;font-weight:700;box-shadow:0 8px 24px rgba(var(--accent-rgb),.35);transition:transform .2s,box-shadow .2s}
+.btn-primary:hover{color:#04130d;transform:translateY(-2px);box-shadow:0 12px 32px rgba(var(--accent-rgb),.55)}
 .btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:13px 30px;border-radius:99px;border:1px solid rgba(var(--accent-light-rgb),.35);color:var(--text);font-size:.92rem;font-weight:600;transition:border-color .2s,background .2s,transform .2s}
 .btn-secondary:hover{border-color:var(--accent-light);background:rgba(var(--accent-rgb),.12);transform:translateY(-2px)}
 .btn-primary:focus-visible,.btn-secondary:focus-visible{outline:2px solid var(--accent-light);outline-offset:3px}
@@ -853,6 +853,19 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   background: #f1f5f9;
   color: #475569;
   border: 1px solid #e2e8f0;
+}
+/* 吃 var(--grad) 的元素：基底（深色）漸層是 #10b981→#0ea5e9，配白字只有 2.54，
+   所以基底一律用深字 #04130d（最差 6.86）。淺色的漸層是 #047857→#0e7490，
+   反過來必須是白字（5.36）——用深字只有 3.47。兩邊方向相反，改一邊就要改另一邊。
+   新增任何 background:var(--grad) 的元素時，這兩處都要一起加。 */
+[data-theme="light"] .btn-primary,
+[data-theme="light"] .btn-primary:hover,
+[data-theme="light"] .nav-cta,
+[data-theme="light"] .nav-cta:hover,
+[data-theme="light"] .scroll-cue,
+[data-theme="light"] .scroll-cue:hover,
+[data-theme="light"] .flagship-badge {
+  color: #ffffff;
 }
 [data-theme="light"] .btn-secondary {
   background: #f1f5f9;
