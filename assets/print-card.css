@@ -90,7 +90,7 @@ body {
  padding: 2px 8px;
  border-radius: 99px;
  background: rgba(99, 102, 241, 0.2);
- color: #818cf8;
+ color: #a5b4fc;
  border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
@@ -130,15 +130,15 @@ body {
 }
 
 .btn.primary {
- background: #3b82f6;
- border-color: #3b82f6;
+ background: #1d4ed8;
+ border-color: #1d4ed8;
  color: #fff;
- box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+ box-shadow: 0 4px 14px rgba(29, 78, 216, 0.35);
 }
 
 .btn.primary:hover {
- background: #2563eb;
- border-color: #2563eb;
+ background: #1e40af;
+ border-color: #1e40af;
 }
 
 .toggle-group {
@@ -206,7 +206,7 @@ body {
 
 .footer-brand {
  font-size: 0.82rem;
- color: #64748b;
+ color: var(--color-text-muted);
  font-weight: 500;
  letter-spacing: 0.02em;
 }
@@ -215,7 +215,7 @@ body {
  appearance: none;
  background: transparent;
  border: 1px solid rgba(255, 255, 255, 0.1);
- color: #64748b;
+ color: var(--color-text-muted);
  padding: 6px 16px;
  border-radius: 99px;
  font-size: 0.78rem;
@@ -373,18 +373,18 @@ body {
 
 .btn-line {
  background: #06c755;
- color: #ffffff;
+ color: #04130d;
 }
 .btn-line:hover {
  background: #05b34c;
 }
 
 .btn-call {
- background: #3b82f6;
+ background: #1d4ed8;
  color: #ffffff;
 }
 .btn-call:hover {
- background: #2563eb;
+ background: #1e40af;
 }
 
 .btn-share {
@@ -453,7 +453,7 @@ body {
 .stage-title .dim {
  font-size: 0.75rem;
  font-weight: 500;
- color: #64748b;
+ color: var(--color-text-muted);
 }
 
 /* ==========================================================================

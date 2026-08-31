@@ -79,7 +79,7 @@
     .card h3 { font-size: 1rem; font-weight: 700; margin: 1.1rem 0 0.4rem 0; color: var(--text-main); }
     .card p, .card li { color: var(--text-sub); font-size: 0.93rem; line-height: 1.85; }
     .card ul { padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.4rem; }
-    .card a { color: var(--accent-light); text-decoration: underline; text-underline-offset: 3px; }
+    .card a, .lead a { color: var(--accent-light); text-decoration: underline; text-underline-offset: 3px; }
     .fine-print { font-size: 0.78rem; color: #7c8b9a; line-height: 1.7; text-align: center; margin-top: 2rem; }
     footer { margin-top: 3rem; text-align: center; color: var(--text-muted); font-size: 0.88rem; border-top: 1px solid var(--border); padding: 2.5rem 1.25rem; }
     footer a { color: var(--text-sub); text-decoration: none; }
@@ -142,7 +142,8 @@
     [data-theme="light"] .card li {
       color: #334155;
     }
-    [data-theme="light"] .card a {
+    [data-theme="light"] .card a,
+    [data-theme="light"] .lead a {
       color: #047857;
     }
     [data-theme="light"] .fine-print {
