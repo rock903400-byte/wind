@@ -365,8 +365,8 @@ a.hero-badge:focus-visible{outline:2px solid var(--accent-light);outline-offset:
 .contact-card h2{font-size:clamp(1.5rem,4vw,2.1rem);font-weight:800;letter-spacing:-.02em;margin-bottom:12px;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .contact-card>p{color:var(--dim);font-size:.95rem;line-height:1.85;max-width:520px;margin:0 auto 28px}
 .contact-actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 30px;border-radius:99px;background:var(--grad);color:#fff;font-size:.92rem;font-weight:700;box-shadow:0 8px 24px rgba(var(--accent-rgb),.35);transition:transform .2s,box-shadow .2s}
-.btn-primary:hover{color:#fff;transform:translateY(-2px);box-shadow:0 12px 32px rgba(var(--accent-rgb),.55)}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 30px;border-radius:99px;background:var(--grad);color:#04130d;font-size:.92rem;font-weight:700;box-shadow:0 8px 24px rgba(var(--accent-rgb),.35);transition:transform .2s,box-shadow .2s}
+.btn-primary:hover{color:#04130d;transform:translateY(-2px);box-shadow:0 12px 32px rgba(var(--accent-rgb),.55)}
 .btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:13px 30px;border-radius:99px;border:1px solid rgba(var(--accent-light-rgb),.35);color:var(--text);font-size:.92rem;font-weight:600;transition:border-color .2s,background .2s,transform .2s}
 .btn-secondary:hover{border-color:var(--accent-light);background:rgba(var(--accent-rgb),.12);transform:translateY(-2px)}
 .btn-primary:focus-visible,.btn-secondary:focus-visible{outline:2px solid var(--accent-light);outline-offset:3px}
@@ -853,6 +853,10 @@ footer{text-align:center;padding:32px 20px;color:var(--dim);font-size:.78rem;bor
   background: #f1f5f9;
   color: #475569;
   border: 1px solid #e2e8f0;
+}
+[data-theme="light"] .btn-primary,
+[data-theme="light"] .btn-primary:hover {
+  color: #ffffff;
 }
 [data-theme="light"] .btn-secondary {
   background: #f1f5f9;
