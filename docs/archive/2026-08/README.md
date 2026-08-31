@@ -1,6 +1,6 @@
 # 2026-08 工單歸檔
 
-本批次為 2026-08 已驗收工單，共 15 檔，集中封存於此。
+本批次為 2026-08 已驗收工單，共 16 檔，集中封存於此。
 
 ## 清單
 
@@ -21,5 +21,6 @@
 | `CSS_ARCHITECTURE_TICKET.md` | WIND-UI-03｜CSS 架構整併（tokens 落地 + 元件層抽取 + z-index 分層） | 已驗收（T-1 一次通過；T-2 因元件抽取造成 1,685 筆視覺變更退回，見 _02） |
 | `CSS_ARCHITECTURE_TICKET_02.md` | WIND-UI-03A｜元件抽取造成的視覺變更（03 驗收退回項） | 已驗收（快照差異 1,685 → 8，餘 8 筆為刻意的對比度改善） |
 | `A11Y_LANDMARK_DARKMODE_TICKET.md` | WIND-UI-04｜語意地標、skip link 與深色模式對比度 | 已驗收（`<main>` 與 skip link 補至 7/7；深色 26 個未達標 → 0；淺色維持 0）|
+| `STORAGE_GUARD_AND_FRESHNESS_TICKET.md` | WIND-UI-05｜localStorage 失敗處理與日期新鮮度守門 | 已驗收（附註：工單指示「不要改 17 個呼叫點」導致儲存失敗時仍會跟著跳成功 toast，為發單方規格疏漏，另開 WIND-UI-06 改用常駐橫幅收尾）|
 
 > 原 `docs/` 根目錄下這些檔案已 `git mv` 至此，`git log --follow` 仍可追溯。活躍規格僅保留 `CONTENT_MAINTENANCE.md` / `BRAND_IMAGES_SPEC.md` / `GOOGLE_FORM_SPEC.md` / `MEMBER_BALANCE_SPEC.md` 等。
