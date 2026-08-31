@@ -312,11 +312,13 @@
     function saveDatabase(options = {}) {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(DB));
+        hideCloudBanner();
         return true;
       } catch (e) {
         console.error('Failed to save DB:', e);
         if (!options || !options.silent) {
-          showToast('⚠️ 本機儲存失敗，這筆資料沒有保存');
+          showCloudBanner('⚠️ 本機儲存失敗，剛才的變更沒有保存。請確認瀏覽器未封鎖網站資料，或清出儲存空間後重試。',
+                          { showRetry: false, showDiscard: false });
         }
         return false;
       }
