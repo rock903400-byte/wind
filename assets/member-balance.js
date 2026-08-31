@@ -309,16 +309,26 @@
       }
     }
 
+    // #cloud-banner 是共用的：雲端同步的「未設定」「衝突」「離線」三種提示也用它，
+    // 其中衝突橫幅還掛著唯一的「捨棄本機」解決入口。所以成功儲存時不能無條件
+    // hideCloudBanner() —— 那會連同別人的橫幅與按鈕一起吃掉，管理者會失去
+    // 「本機有未上傳變更」的唯一提示。只收自己掛上去的那一條。
+    let saveFailureBannerActive = false;
+
     function saveDatabase(options = {}) {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(DB));
-        hideCloudBanner();
+        if (saveFailureBannerActive) {
+          hideCloudBanner();
+          saveFailureBannerActive = false;
+        }
         return true;
       } catch (e) {
         console.error('Failed to save DB:', e);
         if (!options || !options.silent) {
           showCloudBanner('⚠️ 本機儲存失敗，剛才的變更沒有保存。請確認瀏覽器未封鎖網站資料，或清出儲存空間後重試。',
                           { showRetry: false, showDiscard: false });
+          saveFailureBannerActive = true;
         }
         return false;
       }
