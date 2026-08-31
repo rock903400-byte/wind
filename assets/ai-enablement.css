@@ -301,6 +301,60 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
+    /* ---- Hero Secondary Actions Bar ---- */
+    .hero-actions-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 1rem;
+      width: 100%;
+    }
+
+    .hero-action-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-sub);
+      border-radius: var(--radius-sm);
+      padding: 0.52rem 0.95rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-sub);
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-action-chip:hover {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: var(--accent);
+      color: var(--text-main);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-action-chip.highlight-chip {
+      border-color: rgba(16, 185, 129, 0.35);
+      background: rgba(16, 185, 129, 0.09);
+      color: var(--accent-light);
+      font-weight: 600;
+    }
+
+    .hero-action-chip.highlight-chip:hover {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+    }
+
+    .hero-action-chip .chip-icon {
+      font-size: 0.95rem;
+      line-height: 1;
+    }
+
     /* ---- Grid & Spotlight Cards ---- */
     .grid {
       display: grid;
@@ -2791,6 +2845,33 @@
 }
 [data-theme="light"] .hero-proof-text {
   color: #475569;
+}
+[data-theme="light"] .hero-action-chip {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.12);
+  color: #334155;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+}
+[data-theme="light"] .hero-action-chip:hover {
+  background: rgba(4, 120, 87, 0.06);
+  border-color: #047857;
+  color: #047857;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+[data-theme="light"] .hero-action-chip.highlight-chip {
+  background: rgba(4, 120, 87, 0.08);
+  border-color: rgba(4, 120, 87, 0.3);
+  color: #047857;
+}
+[data-theme="light"] .hero-action-chip.highlight-chip:hover {
+  background: rgba(4, 120, 87, 0.14);
+  border-color: #047857;
+  color: #065f46;
+}
+[data-theme="light"] .booking-shell {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 20px 50px -18px rgba(15, 23, 42, 0.08) !important;
 }
 [data-theme="light"] .booking-eyebrow {
   color: #047857;
