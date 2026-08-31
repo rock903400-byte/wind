@@ -21,6 +21,7 @@
   <meta name="theme-color" content="#080c0f" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="assets/theme-init.js?v=20260830"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
 
   <!-- Schema.org JSON-LD for SEO -->
@@ -109,8 +110,9 @@
 }
   </script>
 
-  <link rel="stylesheet" href="assets/tokens.css?v=20260829" />
-  <link rel="stylesheet" href="assets/ai-enablement.css?v=20260829" />
+  <link rel="stylesheet" href="assets/tokens.css?v=20260830" />
+<link rel="stylesheet" href="assets/components.css?v=20260830">
+  <link rel="stylesheet" href="assets/ai-enablement.css?v=20260830" />
   <noscript><style>
     /* FAQ 收合與 tab 切換全靠 JS：沒 JS 時 6 題只剩第 1 題、3 個情境只剩第 1 個，
        其餘內容永久不可達 —— 直接全部攤開，並隱藏點不動的控制項。 */
@@ -126,6 +128,7 @@
   </style></noscript>
 </head>
 <body>
+  <a class="skip-link" href="#main">跳至主要內容</a>
 
   <!-- Top Sticky Navigation -->
   <nav aria-label="主要導覽">
@@ -139,10 +142,11 @@
         <a href="#enterprise-solutions" class="nav-chapter-link">🏛️ 全端實力</a>
         <a href="#boundary" class="nav-chapter-link">🛡️ 任務邊界</a>
         <a href="#pricing" class="nav-chapter-link">💰 儲值方案</a>
-        <a href="./#works" class="nav-chapter-link" target="_blank" rel="noopener">🏆 作品實績 (19)</a>
+        <a href="./#works" class="nav-chapter-link" target="_blank" rel="noopener noreferrer">🏆 作品實績 (19)</a>
         <a href="#faq" class="nav-chapter-link">❓ 常見問題</a>
       </div>
-      <div style="display: flex; align-items: center; gap: 1rem;">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <button class="theme-toggle-btn" id="themeToggleBtn" type="button" aria-label="切換淺色/深色主題" title="切換淺色/深色主題">☀️</button>
         <a href="#pricing" class="nav-btn" data-analytics="cta_nav_pricing">儲值方案</a>
       </div>
     </div>
@@ -197,6 +201,8 @@
         </div>
       </div>
     </header>
+
+    <main id="main">
 
     <!-- Trust Anchor / Profile -->
     <section>
@@ -1387,6 +1393,7 @@
 
       </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer>
@@ -1398,8 +1405,8 @@
       </p>
       <p style="font-size: 0.8rem; color: var(--text-muted);">
         <a href="./" style="text-decoration: underline; text-underline-offset: 3px;">Wind 跨產業作品集首頁 (19 項實績)</a> · 
-        <a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener" data-analytics="cta_footer_line">LINE (ID: 0980463400)</a> · 
-        <a href="https://github.com/rock903400-byte" target="_blank" rel="noopener">GitHub</a> · 
+        <a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener noreferrer" data-analytics="cta_footer_line">LINE (ID: 0980463400)</a> · 
+        <a href="https://github.com/rock903400-byte" target="_blank" rel="noopener noreferrer">GitHub</a> · 
         <a href="mailto:rock90340@gmail.com" data-analytics="cta_footer_mail">rock90340@gmail.com</a> · 
         <a href="privacy.html" style="text-decoration: underline; text-underline-offset: 3px;">隱私權政策</a>
       </p>
@@ -1417,7 +1424,8 @@
   </div>
 
   <!-- Interactive JavaScript -->
-  <script src="assets/booking.js?v=20260829" defer></script>
+  <script src="assets/shared.js?v=20260830" defer></script>
+  <script src="assets/booking.js?v=20260830" defer></script>
 
   <!-- 複製成功提示 Toast -->
   <div class="copy-toast" id="copyToast" role="status" aria-live="polite">✓ 已複製信箱 rock90340@gmail.com</div>

@@ -1,1 +1,20 @@
+# 不發佈為公開靜態資產的路徑（gitignore 語法，相對於 assets directory ＝ repo 根目錄）
+#
+# 驗證方式：部署後 curl 這些路徑應為 404，站台頁面與 assets/ 應維持 200。
+# `_headers` / `_redirects` / `.assetsignore` 由 Cloudflare 自動排除，不需列出。
+
+# 後台管理頁：noindex 且不對外發佈
 member-balance.html
+
+# 內部文件：含 Google Apps Script 後端原始碼（feilu-member-api.gs /
+# feilu-form-v3.gs）與 API 規格書，2026-08-31 實測全部是公開可讀的 200。
+docs/
+
+# 內部工具與測試
+scripts/
+tests/
+
+# 版控與 CI 設定
+.github/
+.gitignore
+wrangler.toml

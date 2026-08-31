@@ -9,32 +9,36 @@
   <meta name="theme-color" content="#080c0f" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="assets/theme-init.js?v=20260830"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/tokens.css?v=20260829" />
+  <link rel="stylesheet" href="assets/tokens.css?v=20260830" />
+<link rel="stylesheet" href="assets/components.css?v=20260830">
   <style>
     :root {
-      --bg-primary: #080c0f;
-      --bg-secondary: #0f171d;
-      --bg-card: rgba(18, 27, 34, 0.75);
-      --bg-card-hover: rgba(24, 36, 46, 0.9);
-      --bg-elevated: #16222c;
-      --border: rgba(255, 255, 255, 0.09);
-      --border-focus: rgba(16, 185, 129, 0.5);
-      --accent: #10b981;
-      --accent-hover: #059669;
+      --toggle-size: 34px;
+      --toggle-font-size: 1rem;
+      --bg-primary: var(--color-bg-dark);
+      --bg-secondary: var(--color-bg-surface);
+      --bg-card: var(--color-bg-card);
+      --bg-card-hover: var(--color-bg-card-hover);
+      --bg-elevated: var(--color-bg-elevated);
+      --border: var(--color-border);
+      --border-focus: var(--color-border-focus);
+      --accent: var(--color-emerald);
+      --accent-hover: var(--color-emerald-hover);
       --accent-glow: rgba(16, 185, 129, 0.2);
-      --accent-light: #6ee7b7;
-      --cyan: #0ea5e9;
+      --accent-light: var(--color-emerald-light);
+      --cyan: var(--color-cyan);
       --cyan-glow: rgba(14, 165, 233, 0.18);
-      --amber: #f59e0b;
+      --amber: var(--color-amber);
       --amber-glow: rgba(245, 158, 11, 0.18);
-      --rose: #f43f5e;
+      --rose: var(--color-rose-light);
       --rose-glow: rgba(244, 63, 94, 0.18);
-      --purple: #a855f7;
-      --text-main: #f8fafc;
-      --text-sub: #cbd5e1;
-      --text-muted: #94a3b8;
+      --purple: var(--color-purple);
+      --text-main: var(--color-text-main);
+      --text-sub: var(--color-text-sub);
+      --text-muted: var(--color-text-muted);
       --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --radius-lg: 16px;
@@ -62,7 +66,7 @@
     header {
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: var(--z-sticky);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       background: rgba(8, 12, 15, 0.85);
@@ -178,68 +182,6 @@
       padding: 0 1.25rem;
     }
 
-    /* ---- KPI Cards ---- */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1.75rem;
-    }
-    .kpi-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1.25rem;
-      backdrop-filter: blur(12px);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .kpi-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(255, 255, 255, 0.18);
-    }
-    .kpi-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 3px;
-      background: var(--card-accent, var(--accent));
-      opacity: 0.85;
-    }
-    .kpi-card.emerald { --card-accent: var(--accent); }
-    .kpi-card.cyan { --card-accent: var(--cyan); }
-    .kpi-card.amber { --card-accent: var(--amber); }
-    .kpi-card.purple { --card-accent: var(--purple); }
-
-    .kpi-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.5rem;
-    }
-    .kpi-title {
-      font-size: 0.825rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .kpi-icon {
-      font-size: 1.2rem;
-    }
-    .kpi-value {
-      font-size: 1.85rem;
-      font-weight: 800;
-      color: var(--text-main);
-      font-family: var(--font-mono);
-      letter-spacing: -0.03em;
-    }
-    .kpi-sub {
-      font-size: 0.775rem;
-      color: var(--text-sub);
-      margin-top: 0.25rem;
-    }
-
     /* ---- Navigation Tabs ---- */
     .tabs-bar {
       display: flex;
@@ -292,7 +234,7 @@
       color: var(--accent-light);
     }
 
-    /* ---- Search & Controls Toolbar ---- */
+    /* ---- Toolbar ---- */
     .toolbar {
       display: flex;
       justify-content: space-between;
@@ -300,54 +242,6 @@
       gap: 1rem;
       margin-bottom: 1.25rem;
       flex-wrap: wrap;
-    }
-    .search-box {
-      position: relative;
-      flex: 1;
-      min-width: 260px;
-      max-width: 480px;
-    }
-    .search-input {
-      width: 100%;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 0.6rem 1rem 0.6rem 2.4rem;
-      color: var(--text-main);
-      font-family: inherit;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .search-input:focus {
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-    }
-    .search-icon {
-      position: absolute;
-      left: 0.8rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      pointer-events: none;
-    }
-    .filter-group {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-    .filter-select {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 0.55rem 0.9rem;
-      color: var(--text-main);
-      font-family: inherit;
-      font-size: 0.875rem;
-      outline: none;
-      cursor: pointer;
     }
 
     /* ---- Tables ---- */
@@ -389,7 +283,7 @@
       border-bottom: none;
     }
 
-    /* Badges & Tags */
+    /* ---- Tags / Badges ---- */
     .tag {
       display: inline-flex;
       align-items: center;
@@ -433,255 +327,17 @@
       color: var(--text-muted);
     }
 
-    /* ---- Modals ---- */
-    .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.25s ease;
-    }
-    .modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    .modal-card {
-      background: var(--bg-elevated);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: var(--radius-lg);
-      max-width: 620px;
-      width: 100%;
-      max-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-      transform: translateY(20px) scale(0.98);
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .modal-overlay.active .modal-card {
-      transform: translateY(0) scale(1);
-    }
-    .modal-header {
-      padding: 1.25rem 1.5rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .modal-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .modal-close {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.25rem;
-      cursor: pointer;
-      padding: 0.25rem;
-      line-height: 1;
-    }
-    .modal-close:hover { color: var(--text-main); }
-    .modal-body {
-      padding: 1.5rem;
-      overflow-y: auto;
-    }
-    .modal-footer {
-      padding: 1rem 1.5rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: flex-end;
-      gap: 0.75rem;
-      background: rgba(15, 23, 29, 0.6);
-    }
-
-    /* ---- Forms Inside Modal ---- */
-    .form-group {
-      margin-bottom: 1.15rem;
-    }
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-    .form-label {
-      display: block;
-      font-size: 0.825rem;
-      font-weight: 600;
-      color: var(--text-sub);
-      margin-bottom: 0.4rem;
-    }
-    .form-label .req { color: var(--rose); margin-left: 0.2rem; }
-    .form-input, .form-select, .form-textarea {
-      width: 100%;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 0.65rem 0.85rem;
-      color: var(--text-main);
-      font-family: inherit;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .form-input:focus, .form-select:focus, .form-textarea:focus {
-      border-color: var(--border-focus);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-    }
-    .form-textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-    .form-hint {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 0.35rem;
-    }
-
-    /* ---- Drawer (Member Details) ---- */
-    .drawer-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      z-index: 90;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.25s ease;
-    }
-    .drawer-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    .drawer-panel {
-      position: fixed;
-      top: 0; right: 0; bottom: 0;
-      width: 100%;
-      max-width: 580px;
-      background: var(--bg-elevated);
-      border-left: 1px solid rgba(255, 255, 255, 0.12);
-      z-index: 95;
-      display: flex;
-      flex-direction: column;
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
-    }
-    .drawer-panel.active {
-      transform: translateX(0);
-    }
-    .drawer-header {
-      padding: 1.25rem 1.5rem;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(15, 23, 29, 0.85);
-    }
-    .drawer-body {
-      padding: 1.5rem;
-      overflow-y: auto;
-      flex: 1;
-    }
-
-    /* Statement preview box */
-    .statement-box {
-      background: #090e13;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius-sm);
-      padding: 1rem;
-      font-family: var(--font-mono);
-      font-size: 0.825rem;
-      color: #a7f3d0;
-      white-space: pre-wrap;
-      max-height: 220px;
-      overflow-y: auto;
-      line-height: 1.5;
-    }
-
-    /* Timeline items */
-    .timeline {
-      position: relative;
-      padding-left: 1.25rem;
-      margin-top: 1rem;
-    }
+    /* Timeline dots */
     .timeline::before {
       content: '';
       position: absolute;
       top: 0.5rem; bottom: 0.5rem; left: 0.35rem; width: 2px;
       background: rgba(255, 255, 255, 0.1);
     }
-    .timeline-item {
-      position: relative;
-      margin-bottom: 1.25rem;
-    }
-    .timeline-dot {
-      position: absolute;
-      left: -1.25rem;
-      top: 0.3rem;
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 8px var(--accent);
-    }
     .timeline-dot.recharge { background: var(--accent); }
     .timeline-dot.deduct { background: var(--rose); box-shadow: 0 0 8px var(--rose); }
     .timeline-dot.in-progress { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
-    .timeline-content {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 0.75rem 0.9rem;
-    }
-    .timeline-title {
-      font-weight: 600;
-      font-size: 0.875rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .timeline-time {
-      font-size: 0.725rem;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-    }
 
-    /* Toast notifications */
-    .toast-container {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      z-index: 200;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .toast {
-      background: #1e293b;
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-left: 4px solid var(--accent);
-      padding: 0.75rem 1.2rem;
-      border-radius: var(--radius-sm);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      font-size: 0.875rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
     @keyframes slideUp {
       from { transform: translateY(20px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
@@ -699,21 +355,6 @@
       opacity: 0.6;
     }
 
-    /* Cloud Sync Status Banner */
-    .cloud-banner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.875rem 1.25rem;
-      margin-bottom: 1.5rem;
-      background: rgba(245, 158, 11, 0.12);
-      border: 1px solid rgba(245, 158, 11, 0.35);
-      border-radius: var(--radius-sm);
-      color: #fcd34d;
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
     .cloud-banner[hidden] {
       display: none;
     }
@@ -721,13 +362,142 @@
     @media (max-width: 768px) {
       .header-inner { flex-direction: column; align-items: flex-start; }
       .header-actions { width: 100%; justify-content: flex-start; }
-      .form-row { grid-template-columns: 1fr; }
-      .drawer-panel { max-width: 100%; }
       .data-table th:nth-child(4), .data-table td:nth-child(4) { display: none; }
+    }
+
+    /* ---- ☀️ 淺色模式適配 ---- */
+    [data-theme="light"] {
+      --bg-primary: var(--color-bg-dark);
+      --bg-secondary: var(--color-bg-surface);
+      --bg-card: var(--color-bg-surface);
+      --bg-card-hover: var(--color-bg-surface);
+      --bg-elevated: var(--color-bg-elevated);
+      --border: var(--color-border);
+      --border-focus: var(--color-border-focus);
+      --text-main: var(--color-text-main);
+      --text-sub: var(--color-text-sub);
+      --text-muted: var(--color-text-muted);
+      --accent: var(--color-emerald-dark);
+      --accent-light: var(--color-emerald-dark);
+      --amber: var(--color-amber-dark);
+      --amber-glow: rgba(180, 83, 9, 0.15);
+      --cyan: var(--color-cyan-dark);
+      --cyan-glow: rgba(14, 116, 144, 0.15);
+      --rose: var(--color-rose-dark);
+      --rose-glow: rgba(190, 18, 60, 0.15);
+    }
+    [data-theme="light"] body {
+      background-color: #f8fafc;
+      color: #0f172a;
+      background-image:
+        radial-gradient(circle at 10% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 20%, rgba(14, 165, 233, 0.05) 0%, transparent 40%),
+        linear-gradient(to bottom, transparent, rgba(248, 250, 252, 0.98));
+    }
+    [data-theme="light"] header {
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid var(--border);
+    }
+    [data-theme="light"] .kpi-card,
+    [data-theme="light"] .table-container,
+    [data-theme="light"] .data-table,
+    [data-theme="light"] .modal-card,
+    [data-theme="light"] .drawer-panel {
+      background: #ffffff;
+      border: 1px solid rgba(15, 23, 42, 0.09);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    }
+    [data-theme="light"] .data-table th {
+      background: #f1f5f9;
+      color: #334155;
+    }
+    [data-theme="light"] .data-table td {
+      border-bottom-color: rgba(15, 23, 42, 0.06);
+      color: #334155;
+    }
+    [data-theme="light"] .data-table tr:hover td {
+      background: #f8fafc;
+      color: #0f172a;
+    }
+    [data-theme="light"] .tabs-bar {
+      border-bottom-color: rgba(15, 23, 42, 0.09);
+    }
+    [data-theme="light"] .tab-btn {
+      color: #64748b;
+    }
+    [data-theme="light"] .tab-btn.active {
+      color: #047857;
+    }
+    [data-theme="light"] .btn-primary {
+      color: #ffffff;
+    }
+    [data-theme="light"] .btn-primary:hover {
+      background: #065f46;
+      color: #fff;
+    }
+    [data-theme="light"] .btn-secondary {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #cbd5e1;
+    }
+    [data-theme="light"] .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+    [data-theme="light"] .btn-amber {
+      background: rgba(146,64,14,0.08);
+      color: #92400e;
+      border-color: rgba(146,64,14,0.30);
+    }
+    [data-theme="light"] .btn-amber:hover {
+      background: rgba(180, 83, 9, 0.18);
+      color: #92400e;
+    }
+    [data-theme="light"] .btn-cyan {
+      background: rgba(14, 116, 144, 0.12);
+      color: #0e7490;
+      border-color: rgba(14, 116, 144, 0.30);
+    }
+    [data-theme="light"] .btn-cyan:hover {
+      background: rgba(14, 116, 144, 0.18);
+      color: #0c5a72;
+    }
+    [data-theme="light"] .btn[style*="var(--rose)"] {
+      color: #be123c !important;
+    }
+    [data-theme="light"] .tab-badge {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+    }
+    [data-theme="light"] .tab-btn.active .tab-badge {
+      background: rgba(4, 120, 87, 0.08);
+      color: #065f46;
+      border-color: rgba(4, 120, 87, 0.25);
+    }
+    [data-theme="light"] .tag {
+      border-color: rgba(15,23,42,0.12);
+    }
+    [data-theme="light"] .tag-emerald { background: rgba(4, 120, 87, 0.12); color: #047857; border-color: rgba(4, 120, 87, 0.25); }
+    [data-theme="light"] .tag-amber { background: rgba(146,64,14,0.08); color: #92400e; border-color: rgba(180, 83, 9, 0.25); }
+    [data-theme="light"] .tag-rose { background: rgba(190, 18, 60, 0.12); color: #be123c; border-color: rgba(190, 18, 60, 0.25); }
+    [data-theme="light"] .tag-cyan { background: rgba(14, 116, 144, 0.12); color: #0e7490; border-color: rgba(14, 116, 144, 0.25); }
+    [data-theme="light"] .tag-purple { background: rgba(126, 58, 195, 0.10); color: #6d28d9; border-color: rgba(126, 58, 195, 0.25); }
+    [data-theme="light"] .tag-gray { background: #f1f5f9; color: #475569; border-color: #e2e8f0; }
+    [data-theme="light"] .balance-pill.high { background: rgba(4, 120, 87, 0.12); color: #047857; }
+    [data-theme="light"] .balance-pill.low { background: rgba(146,64,14,0.08); color: #92400e; }
+    [data-theme="light"] .balance-pill.empty { background: rgba(190, 18, 60, 0.12); color: #be123c; }
+    [data-theme="light"] .member-title { color: #0f172a; }
+    [data-theme="light"] .member-company,
+    [data-theme="light"] .empty-state { color: #475569; }
+    [data-theme="light"] .badge-admin {
+      background: rgba(4,120,87,0.12);
+      color: #047857;
+      border-color: rgba(4,120,87,0.25);
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">跳至主要內容</a>
 
   <!-- Header / Navigation -->
   <header>
@@ -739,6 +509,7 @@
         <h1 class="badge-admin" style="font-size: 0.775rem; font-weight: 700; display: inline-flex; margin: 0;">會員儲值與餘額管理總後台</h1>
       </div>
       <div class="header-actions">
+        <button class="theme-toggle-btn" id="themeToggleBtn" type="button" aria-label="切換淺色/深色主題" title="切換淺色/深色主題">☀️</button>
         <button class="btn btn-primary btn-sm" data-action="open-recharge-modal">
           <span>💰 快速儲值</span>
         </button>
@@ -748,7 +519,7 @@
         <button class="btn btn-secondary btn-sm" data-action="open-member-modal">
           <span>👤 新增會員</span>
         </button>
-        <a href="client-balance.html" target="_blank" class="btn btn-cyan btn-sm">
+        <a href="client-balance.html" target="_blank" rel="noopener noreferrer" class="btn btn-cyan btn-sm">
           <span>🌐 開啟前台查詢端 ↗</span>
         </a>
       </div>
@@ -756,7 +527,7 @@
   </header>
 
   <!-- Main Content -->
-  <main>
+  <main id="main">
     <!-- Cloud Sync Status Banner -->
     <div id="cloud-banner" class="cloud-banner" role="status" aria-live="polite" hidden>
       <span id="cloud-banner-text"></span>
@@ -829,10 +600,10 @@
       <div class="toolbar">
         <div class="search-box">
           <span class="search-icon">🔍</span>
-          <input type="text" id="member-search" class="search-input" placeholder="搜尋會員姓名、公司、統編、Email、LINE..."  />
+          <input type="text" id="member-search" class="search-input" placeholder="搜尋會員姓名、公司、統編、Email、LINE..." aria-label="搜尋會員" />
         </div>
         <div class="filter-group">
-          <select id="member-filter-status" class="filter-select" >
+          <select id="member-filter-status" class="filter-select" aria-label="篩選會員狀態">
             <option value="all">全部狀態</option>
             <option value="high">餘額充裕 (>1點)</option>
             <option value="low">餘額偏低 (1點)</option>
@@ -869,7 +640,7 @@
       <div class="toolbar">
         <div class="search-box">
           <span class="search-icon">🔍</span>
-          <input type="text" id="recharge-search" class="search-input" placeholder="搜尋儲值會員、發票號碼、備註..."  />
+          <input type="text" id="recharge-search" class="search-input" placeholder="搜尋儲值會員、發票號碼、備註..." aria-label="搜尋儲值紀錄" />
         </div>
         <div class="filter-group">
           <button class="btn btn-primary btn-sm" data-action="open-recharge-modal">
@@ -907,10 +678,10 @@
       <div class="toolbar">
         <div class="search-box">
           <span class="search-icon">🔍</span>
-          <input type="text" id="task-search" class="search-input" placeholder="搜尋任務名稱、會員、模組類型..."  />
+          <input type="text" id="task-search" class="search-input" placeholder="搜尋任務名稱、會員、模組類型..." aria-label="搜尋任務" />
         </div>
         <div class="filter-group">
-          <select id="task-filter-status" class="filter-select" >
+          <select id="task-filter-status" class="filter-select" aria-label="篩選任務狀態">
             <option value="all">全部狀態</option>
             <option value="in_progress">進行中 / 48h 開發中</option>
             <option value="acceptance">7 天驗收中</option>
@@ -951,7 +722,7 @@
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
         <!-- Backup & Restore Card -->
         <div class="kpi-card">
-          <h3 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">💾 本機資料備份與還原</h3>
+          <h2 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">💾 本機資料備份與還原</h2>
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
             系統資料即時保存在本機瀏覽器（LocalStorage），可隨時匯出完整 JSON 備份檔，或跨電腦匯入還原。
           </p>
@@ -959,30 +730,30 @@
             <button class="btn btn-primary" data-action="export-database-json">
               <span>📤 匯出完整備份 (JSON)</span>
             </button>
-            <label class="btn btn-secondary" style="cursor: pointer;">
+            <label for="import-json-file" class="btn btn-secondary" style="cursor: pointer;">
               <span>📥 匯入還原 (JSON)</span>
-              <input type="file" id="import-json-file" accept=".json" style="display: none;"  />
+              <input type="file" id="import-json-file" accept=".json" style="display: none;" aria-label="匯入還原 JSON 備份檔" />
             </label>
           </div>
         </div>
 
         <!-- Google Sheets Cloud Sync Card -->
         <div class="kpi-card">
-          <h3 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">☁️ Google 試算表雲端同步 (GAS API)</h3>
+          <h2 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">☁️ Google 試算表雲端同步 (GAS API)</h2>
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
             串接 Google Apps Script Web App API，將本機資料庫與 Google 試算表雙向同步。管理端同步需驗證管理者密鑰 (ADMIN_KEY)，客戶端僅能以隨機 Token 查閱個人單筆資料。本頁不對外部署，僅供本機使用。
           </p>
           <div style="margin-bottom: 0.75rem;">
-            <label class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">Google Apps Script Web App 網址 (/exec)</label>
-            <input type="url" id="gas-api-url" class="form-input" placeholder="https://script.google.com/macros/s/.../exec" />
+            <label for="gas-api-url" class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">Google Apps Script Web App 網址 (/exec)</label>
+            <input type="url" id="gas-api-url" class="form-input" placeholder="https://script.google.com/macros/s/.../exec" aria-label="Google Apps Script Web App 網址" />
           </div>
           <div style="margin-bottom: 0.75rem;">
-            <label class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">管理者密鑰 (ADMIN_KEY - 僅存於本機)</label>
-            <input type="password" id="gas-admin-key" class="form-input" placeholder="請輸入在 Apps Script 設定的 ADMIN_KEY" />
+            <label for="gas-admin-key" class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">管理者密鑰 (ADMIN_KEY - 僅存於本機)</label>
+            <input type="password" id="gas-admin-key" class="form-input" placeholder="請輸入在 Apps Script 設定的 ADMIN_KEY" aria-label="管理者密鑰 ADMIN_KEY" />
           </div>
           <div style="margin-bottom: 1rem;">
-            <label class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">客戶查詢頁網址（產生專屬連結用）</label>
-            <input type="url" id="client-base-url" class="form-input" placeholder="https://wind.rock903400.workers.dev/" />
+            <label for="client-base-url" class="form-label" style="font-size: 0.8rem; margin-bottom: 0.35rem;">客戶查詢頁網址（產生專屬連結用）</label>
+            <input type="url" id="client-base-url" class="form-input" placeholder="https://wind.rock903400.workers.dev/" aria-label="客戶查詢頁網址" />
           </div>
           <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
             <button type="button" class="btn btn-primary" data-action="sync-to-google-sheets">
@@ -999,7 +770,7 @@
 
         <!-- Demo Data & Reset Card -->
         <div class="kpi-card">
-          <h3 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">🧪 測試資料與重置</h3>
+          <h2 style="margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--text-main);">🧪 測試資料與重置</h2>
           <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
             可一鍵載入「飛律 AI 流程賦能」典型業務示範資料進行預覽與體驗，亦可隨時清空重設。
           </p>
@@ -1030,22 +801,22 @@
           <input type="hidden" id="member-id" />
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">會員稱呼 / 聯絡人 <span class="req">*</span></label>
+              <label for="member-name" class="form-label">會員稱呼 / 聯絡人 <span class="req">*</span></label>
               <input type="text" id="member-name" class="form-input" placeholder="例：林經理、王小姐" required />
             </div>
             <div class="form-group">
-              <label class="form-label">公司 / 單位名稱 <span class="req">*</span></label>
+              <label for="member-company" class="form-label">公司 / 單位名稱 <span class="req">*</span></label>
               <input type="text" id="member-company" class="form-input" placeholder="例：伯鐸儲蓄互助社" required />
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">統一編號 (統編)</label>
+              <label for="member-tax-id" class="form-label">統一編號 (統編)</label>
               <input type="text" id="member-tax-id" class="form-input" placeholder="例：88888888" />
             </div>
             <div class="form-group">
-              <label class="form-label">會員類型</label>
+              <label for="member-tier" class="form-label">會員類型</label>
               <select id="member-tier" class="form-select">
                 <option value="破冰體驗戶">破冰體驗戶 (2點)</option>
                 <option value="輕量儲值會員">輕量儲值會員 (5點包)</option>
@@ -1057,17 +828,17 @@
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">電子信箱 (Email) <span class="req">*</span></label>
+              <label for="member-email" class="form-label">電子信箱 (Email) <span class="req">*</span></label>
               <input type="email" id="member-email" class="form-input" placeholder="client@example.com" required />
             </div>
             <div class="form-group">
-              <label class="form-label">LINE ID / 電話</label>
+              <label for="member-line" class="form-label">LINE ID / 電話</label>
               <input type="text" id="member-line" class="form-input" placeholder="例：0980463400" />
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">備註 / 需求偏好</label>
+            <label for="member-notes" class="form-label">備註 / 需求偏好</label>
             <textarea id="member-notes" class="form-textarea" placeholder="客戶主要痛點或備忘資訊..."></textarea>
           </div>
 
@@ -1090,14 +861,14 @@
       <div class="modal-body">
         <form id="form-recharge" >
           <div class="form-group">
-            <label class="form-label">選擇儲值會員 <span class="req">*</span></label>
+            <label for="recharge-member-id" class="form-label">選擇儲值會員 <span class="req">*</span></label>
             <select id="recharge-member-id" class="form-select" required>
               <!-- Populated by JS -->
             </select>
           </div>
 
           <div class="form-group">
-            <label class="form-label">選擇方案模板</label>
+            <label for="recharge-plan-template" class="form-label">選擇方案模板</label>
             <select id="recharge-plan-template" class="form-select" >
               <option value="icebreak">破冰體驗包 (NT$ 1,000 / 2 點)</option>
               <option value="pack5">5 點輕量儲值包 (NT$ 3,500 / 5 點)</option>
@@ -1108,22 +879,22 @@
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">實收金額 (TWD NT$) <span class="req">*</span></label>
+              <label for="recharge-amount" class="form-label">實收金額 (TWD NT$) <span class="req">*</span></label>
               <input type="number" id="recharge-amount" class="form-input" min="0" value="1000" required />
             </div>
             <div class="form-group">
-              <label class="form-label">獲得任務點數 (點) <span class="req">*</span></label>
+              <label for="recharge-points" class="form-label">獲得任務點數 (點) <span class="req">*</span></label>
               <input type="number" id="recharge-points" class="form-input" min="0" step="0.5" value="2" required />
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">儲值日期 <span class="req">*</span></label>
+              <label for="recharge-date" class="form-label">儲值日期 <span class="req">*</span></label>
               <input type="date" id="recharge-date" class="form-input" required />
             </div>
             <div class="form-group">
-              <label class="form-label">付款管道</label>
+              <label for="recharge-method" class="form-label">付款管道</label>
               <select id="recharge-method" class="form-select">
                 <option value="銀行轉帳">銀行轉帳</option>
                 <option value="綠界信用卡/LINE Pay">綠界信用卡 / LINE Pay</option>
@@ -1134,12 +905,12 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">發票號碼 / 收據編號</label>
+            <label for="recharge-invoice" class="form-label">發票號碼 / 收據編號</label>
             <input type="text" id="recharge-invoice" class="form-input" placeholder="例：AB-12345678" />
           </div>
 
           <div class="form-group">
-            <label class="form-label">備註</label>
+            <label for="recharge-notes" class="form-label">備註</label>
             <input type="text" id="recharge-notes" class="form-input" placeholder="例：2026 Q3 預約第一期" />
           </div>
 
@@ -1162,14 +933,14 @@
       <div class="modal-body">
         <form id="form-task" >
           <div class="form-group">
-            <label class="form-label">委託會員 <span class="req">*</span></label>
+            <label for="task-member-id" class="form-label">委託會員 <span class="req">*</span></label>
             <select id="task-member-id" class="form-select" required>
               <!-- Populated by JS -->
             </select>
           </div>
 
           <div class="form-group">
-            <label class="form-label">飛律核心 AI 模組分類 <span class="req">*</span></label>
+            <label for="task-module" class="form-label">飛律核心 AI 模組分類 <span class="req">*</span></label>
             <select id="task-module" class="form-select" required>
               <option value="試算表自動勾稽">試算表自動勾稽（跨表核帳、比對、資料清洗）</option>
               <option value="LINE 官方帳號微型助手">LINE 官方帳號微型助手（訂單查詢、常見問答）</option>
@@ -1182,18 +953,18 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">任務名稱 / 具體交付需求 <span class="req">*</span></label>
+            <label for="task-title" class="form-label">任務名稱 / 具體交付需求 <span class="req">*</span></label>
             <input type="text" id="task-title" class="form-input" placeholder="例：收支傳票自動清洗與跨表勾稽腳本" required />
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">扣除任務點數 <span class="req">*</span></label>
+              <label for="task-points" class="form-label">扣除任務點數 <span class="req">*</span></label>
               <input type="number" id="task-points" class="form-input" min="0" step="0.5" value="1" required />
               <div class="form-hint">標準任務每項 1 點；驗收通過才正式扣點。</div>
             </div>
             <div class="form-group">
-              <label class="form-label">任務狀態 <span class="req">*</span></label>
+              <label for="task-status" class="form-label">任務狀態 <span class="req">*</span></label>
               <select id="task-status" class="form-select" required>
                 <option value="in_progress">進行中 (48h 快速開發中)</option>
                 <option value="acceptance">7 天驗收期 (客戶測試中)</option>
@@ -1205,17 +976,17 @@
 
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">提單日期 <span class="req">*</span></label>
+              <label for="task-date" class="form-label">提單日期 <span class="req">*</span></label>
               <input type="date" id="task-date" class="form-input" required />
             </div>
             <div class="form-group">
-              <label class="form-label">成果交付/試算表連結</label>
+              <label for="task-url" class="form-label">成果交付/試算表連結</label>
               <input type="url" id="task-url" class="form-input" placeholder="https://..." />
             </div>
           </div>
 
           <div class="form-group">
-            <label class="form-label">交付備註與備忘</label>
+            <label for="task-notes" class="form-label">交付備註與備忘</label>
             <textarea id="task-notes" class="form-textarea" placeholder="交付成果細節、驗收意見或調整紀錄..."></textarea>
           </div>
 
@@ -1234,7 +1005,7 @@
     <div class="drawer-header">
       <div style="display: flex; align-items: center; gap: 0.6rem;">
         <span style="font-size: 1.25rem;">📋</span>
-        <h3 id="drawer-member-name" style="font-size: 1.1rem; color: var(--text-main);">會員明細</h3>
+        <h2 id="drawer-member-name" style="font-size: 1.1rem; color: var(--text-main);">會員明細</h2>
       </div>
       <button class="modal-close" data-action="close-drawer" aria-label="關閉明細側欄">✕</button>
     </div>
@@ -1247,7 +1018,7 @@
   <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
   <!-- ==================== LOGIC / JAVASCRIPT ==================== -->
-  <script src="assets/shared.js?v=20260829" defer></script>
-  <script src="assets/member-balance.js?v=20260829" defer></script>
+  <script src="assets/shared.js?v=20260830" defer></script>
+  <script src="assets/member-balance.js?v=20260830" defer></script>
 </body>
 </html>

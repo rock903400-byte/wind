@@ -1,3 +1,4 @@
+@charset "utf-8";
 /**
  * ==============================================================================
  * Wind × 飛律 — 全站共用設計系統 Tokens (assets/tokens.css)
@@ -33,6 +34,15 @@
   --color-purple: #a855f7;
   --color-indigo: #6366f1;
 
+  /* ──  WIND-UI-02 遺留深色文字色票（淺色主題用，7 處硬寫收斂） ── */
+  --color-emerald-dark: #047857;
+  --color-emerald-darker: #065f46;
+  --color-cyan-dark: #0e7490;
+  --color-sky-dark: #0369a1;
+  --color-indigo-dark: #4338ca;
+  --color-amber-dark: #b45309;
+  --color-rose-dark: #be123c;
+
   /* ── 文字層級色票 ─────────────────────────────────────────── */
   --color-text-main: #f8fafc;
   --color-text-sub: #cbd5e1;
@@ -62,4 +72,46 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 15px 35px -5px rgba(0, 0, 0, 0.6);
+
+  /* ── 層級語意 (z-index) ─────────────────────────────────────── */
+  --z-sticky: 50;
+  --z-drawer-overlay: 90;
+  --z-drawer: 95;
+  --z-sticky-bar: 99;
+  --z-nav: 100;
+  --z-toast-container: 200;
+  --z-copy-toast: 1000;
+  --z-toast: 9999;
+  --z-skip-link: 10000;
 }
+
+/* ── ☀️ 現代清爽淺色主題 (Light Mode - Modern Clean B2B) ────────── */
+:root[data-theme="light"],
+[data-theme="light"] {
+  /* 淺色背景與表面層次 */
+  --color-bg-dark: #f8fafc;
+  --color-bg-surface: #ffffff;
+  --color-bg-card: rgba(255, 255, 255, 0.95);
+  --color-bg-card-hover: #ffffff;
+  --color-bg-elevated: #f1f5f9;
+
+  /* 淺色文字層級 (WCAG AAA 超高對比度 15.8:1) */
+  --color-text-main: #0f172a;
+  --color-text-sub: #334155;
+  --color-text-muted: #64748b;
+  --color-text-dim: #94a3b8;
+
+  /* 淺色邊框與分隔線 */
+  --color-border: rgba(15, 23, 42, 0.09);
+  --color-border-subtle: rgba(15, 23, 42, 0.05);
+  --color-border-focus: rgba(16, 185, 129, 0.6);
+
+  --color-emerald: #047857;
+  --color-emerald-light: #047857;
+
+  /* 淺色立體陰影規格 */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 14px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 12px 30px -4px rgba(0, 0, 0, 0.12), 0 4px 10px -2px rgba(0, 0, 0, 0.05);
+}
+

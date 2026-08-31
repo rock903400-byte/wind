@@ -27,7 +27,7 @@ const sandbox = {
 vm.createContext(sandbox);
 vm.runInContext(sharedCode, sandbox);
 
-const { escapeHTML, formatDate, safeUrl } = sandbox;
+const { escapeHTML, formatDate, safeUrl, getPreferredTheme, applyTheme, toggleTheme } = sandbox;
 
 test('escapeHTML tests', async (t) => {
   await t.test('handles 0 correctly without returning empty string', () => {
@@ -85,3 +85,19 @@ test('safeUrl tests', async (t) => {
     assert.equal(safeUrl(undefined), '');
   });
 });
+
+test('theme engine tests', async (t) => {
+  await t.test('defaults to dark when no storage or matchMedia', () => {
+    assert.equal(getPreferredTheme(), 'dark');
+  });
+
+  await t.test('handles applyTheme safely without crashing in sandbox', () => {
+    assert.doesNotThrow(() => applyTheme('light'));
+    assert.doesNotThrow(() => applyTheme('dark'));
+  });
+
+  await t.test('handles toggleTheme safely without crashing in sandbox', () => {
+    assert.doesNotThrow(() => toggleTheme());
+  });
+});
+

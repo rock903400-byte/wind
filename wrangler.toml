@@ -1,0 +1,24 @@
+# ==============================================================================
+# Cloudflare Workers 部署設定
+# ==============================================================================
+# 這是純靜態資產 Worker：沒有 Worker script，只發佈 repo 根目錄下的檔案。
+#
+# 為什麼需要這個檔案：Cloudflare 專案的 Deploy command 是
+# `npx wrangler versions upload`，而 wrangler 需要從設定檔得知要上傳什麼。
+# 沒有這個檔案時建置會失敗於：
+#   ✘ [ERROR] Missing entry-point to Worker script or to assets directory
+# 2026-08-29 專案組態變更後，所有分支（含 main）的建置都是這個原因失敗。
+#
+# `name` 必須等於 Cloudflare 上的 service 名稱，改動會建立出另一個 Worker。
+# ==============================================================================
+
+name = "wind"
+compatibility_date = "2026-08-31"
+
+[assets]
+# 站台檔案就放在 repo 根目錄，排除清單見 `.assetsignore`
+directory = "./"
+
+# 找不到路徑時回傳 404.html（本站有自訂 404 頁）。
+# 不可用 "single-page-application" —— 這是多頁靜態站，那會讓所有 404 都回首頁。
+not_found_handling = "404-page"

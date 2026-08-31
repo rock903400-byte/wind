@@ -8,8 +8,9 @@ Wind × 飛律 — 全站靜態完整性檢驗腳本 (scripts/verify-site.py)
 3. 掃描所有頁內錨點 (#...) 是否具有對應 id，確保 0 個失效錨點。
 4. 驗證全站 0 個 inline 事件處理器 (on* 屬性) 與 0 個 inline 執行腳本。
 5. 驗證全站 asset 快取版本號 (?v=) 一致性。
-6. 驗證 sitemap.xml、robots.txt、_headers 與安全標頭配置 (嚴格 CSP 無 unsafe-inline)。
-7. 驗證 WCAG 標題大綱順序與密鑰防洩漏掃描。
+6. 驗證 sitemap.xml、robots.txt、_headers 與安全標頭配置 (script-src 無 unsafe-inline)。
+7. 驗證全站 WCAG 標題大綱順序與密鑰防洩漏掃描。
+8. 驗證全站表單控制項可及名稱 (label for / aria-label / aria-labelledby)。
 """
 
 import os
@@ -31,7 +32,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 HTML_FILES = sorted(p.name for p in ROOT_DIR.glob("*.html"))
 
 def check_html_standards(errors, warnings):
-    print("\n🔍 [1/7] 檢查 HTML 標頭、語系與 Canonical 一致性...")
+    print("\n🔍 [1/8] 檢查 HTML 標頭、語系與 Canonical 一致性...")
     for filename in HTML_FILES:
         filepath = ROOT_DIR / filename
         if not filepath.exists():
@@ -69,7 +70,7 @@ def check_html_standards(errors, warnings):
         print(f"  ✓ {filename} 標頭與基礎規格檢驗通過")
 
 def check_links_and_anchors(errors, warnings):
-    print("\n🔍 [2/7] 檢查站內相對連結與錨點完整性...")
+    print("\n🔍 [2/8] 檢查站內相對連結與錨點完整性...")
     id_pattern = re.compile(r'id=["\']([^"\']+)["\']')
     href_pattern = re.compile(r'(?:href|src)=["\']([^"\']+)["\']')
 
@@ -111,7 +112,7 @@ def check_links_and_anchors(errors, warnings):
         print(f"  ✓ {filename} 站內連結與錨點無死連結")
 
 def check_inline_handlers_and_scripts(errors, warnings):
-    print("\n🔍 [3/7] 檢查全站 0 inline handler 與 0 inline 執行腳本...")
+    print("\n🔍 [3/8] 檢查全站 0 inline handler 與 0 inline 執行腳本...")
     handler_pattern = re.compile(r'\son[a-z]+=', re.IGNORECASE)
     script_pattern = re.compile(r'<script([^>]*)>(.*?)</script>', re.IGNORECASE | re.DOTALL)
     for filename in HTML_FILES:
@@ -132,16 +133,27 @@ def check_inline_handlers_and_scripts(errors, warnings):
     print("  ✓ 全站 HTML 檔案 0 個 inline handler 與 inline script 檢驗通過")
 
 def check_heading_and_secret_scan(errors, warnings):
-    print("\n🔍 [4/7] 檢查 WCAG 標題大綱與密鑰洩漏掃描...")
-    # 檢查 ai-enablement.html 標題層級
-    ai_file = ROOT_DIR / "ai-enablement.html"
-    if ai_file.exists():
-        ai_content = ai_file.read_text(encoding="utf-8")
-        headings = re.findall(r'<(h[1-6])(?:\s+[^>]*)?>', ai_content, re.IGNORECASE)
+    print("\n🔍 [4/8] 檢查全站 WCAG 標題大綱與密鑰洩漏掃描...")
+    # 檢查全站標題層級
+    for filename in HTML_FILES:
+        filepath = ROOT_DIR / filename
+        if not filepath.exists():
+            continue
+        content = filepath.read_text(encoding="utf-8")
+        headings = re.findall(r'<(h[1-6])(?:\s+[^>]*)?>', content, re.IGNORECASE)
         levels = [int(h[1]) for h in headings]
+        # 至少有 1 個標題元素
+        if len(levels) == 0:
+            errors.append(f"❌ [{filename}] 缺少標題元素 (至少需要 1 個 h1~h6)")
+            continue
+        # 必須恰好有 1 個 h1
+        h1_count = levels.count(1)
+        if h1_count != 1:
+            errors.append(f"❌ [{filename}] 應恰好有 1 個 <h1>，目前為 {h1_count} 個")
+        # 標題層級不得跳階
         for i in range(len(levels) - 1):
             if levels[i+1] > levels[i] + 1:
-                errors.append(f"❌ [ai-enablement.html] 標題層級跳階: h{levels[i]} -> h{levels[i+1]}")
+                errors.append(f"❌ [{filename}] 標題層級跳階: h{levels[i]} -> h{levels[i+1]}")
 
     # 檢查 repo 內無任何 ADMIN_KEY 字面密碼洩露
     for root, _, files in os.walk(ROOT_DIR):
@@ -153,10 +165,62 @@ def check_heading_and_secret_scan(errors, warnings):
                 if "adminKey = 'secret" in text or "adminKey: 'secret" in text:
                     errors.append(f"❌ [{file}] 疑似硬編碼管理者密鑰字面值")
 
-    print("  ✓ WCAG 標題大綱與密鑰洩漏掃描通過")
+    print("  ✓ 全站 WCAG 標題大綱與密鑰洩漏掃描通過")
+
+def check_form_labels(errors, warnings):
+    print("\n🔍 [5/8] 檢查全站表單控制項可及名稱 (label for / aria-label)...")
+    for filename in HTML_FILES:
+        filepath = ROOT_DIR / filename
+        if not filepath.exists():
+            continue
+        content = filepath.read_text(encoding="utf-8")
+        # 收集所有 for="id"
+        for_ids = set(re.findall(r'for=["\']([^"\']+)["\']', content))
+        # 收集所有被 <label> 包住的控制項 id (簡化：檢查 <label>...</label> 內是否包含 control)
+        label_wrapped_ids = set()
+        for label_match in re.finditer(r'<label[^>]*>(.*?)</label>', content, re.IGNORECASE | re.DOTALL):
+            inner = label_match.group(1)
+            for m in re.finditer(r'<(input|select|textarea)[^>]*\sid=["\']([^"\']+)["\']', inner, re.IGNORECASE):
+                label_wrapped_ids.add(m.group(2))
+        # 掃描所有控制項
+        # 使用 regex 找出每個控制項標籤及其屬性
+        control_pattern = re.compile(r'<(input|select|textarea)(\s+[^>]*)?>', re.IGNORECASE)
+        for match in control_pattern.finditer(content):
+            tag = match.group(1).lower()
+            attrs_str = match.group(2) or ""
+            # 檢查 hidden
+            if tag == "input" and re.search(r'type\s*=\s*["\']hidden["\']', attrs_str, re.IGNORECASE):
+                continue
+            # 取得 id
+            id_match = re.search(r'id\s*=\s*["\']([^"\']+)["\']', attrs_str, re.IGNORECASE)
+            ctrl_id = id_match.group(1) if id_match else ""
+            # 檢查是否有 aria-label / aria-labelledby
+            has_aria = bool(re.search(r'aria-label\s*=', attrs_str, re.IGNORECASE) or re.search(r'aria-labelledby\s*=', attrs_str, re.IGNORECASE))
+            # 檢查是否被 label 包住
+            is_wrapped = ctrl_id and ctrl_id in label_wrapped_ids
+            # 檢查是否有對應 for
+            has_for = ctrl_id and ctrl_id in for_ids
+            if not (has_for or has_aria or is_wrapped):
+                # 若無 id 且無 aria，也無包裹，視為缺失
+                if ctrl_id:
+                    errors.append(f"❌ [{filename}] 表單控制項 id=\"{ctrl_id}\" 缺少可及名稱 (無對應 for=\"{ctrl_id}\"、aria-label 或 label 包裹)")
+                else:
+                    # 無 id 的控制項，檢查是否在 label 內或有 aria
+                    # 嘗試判斷是否在 label 內：檢查該 match 位置是否位於某個 label 區間內
+                    pos = match.start()
+                    in_label = False
+                    for lm in re.finditer(r'<label[^>]*>.*?</label>', content, re.IGNORECASE | re.DOTALL):
+                        if lm.start() < pos < lm.end() and lm.group(0).find(match.group(0)) != -1:
+                            in_label = True
+                            break
+                    if not (has_aria or in_label):
+                        snippet = match.group(0)[:80].replace("\n", " ")
+                        errors.append(f"❌ [{filename}] 表單控制項缺少可及名稱 (無 id/for/aria-label)：{snippet}...")
+
+    print("  ✓ 全站表單控制項可及名稱檢驗通過")
 
 def check_asset_versions(errors, warnings):
-    print("\n🔍 [5/7] 檢查 asset 快取版本號一致性與完整性...")
+    print("\n🔍 [6/8] 檢查 asset 快取版本號一致性與完整性...")
     ver_pattern = re.compile(r'(?:href|src)=["\']assets/[^"\']+\?v=(\d+)["\']')
     unversioned_pattern = re.compile(r'(?:href|src)=["\'](assets/[^"\']+\.(?:js|css))["\']')
     versions = {}
@@ -171,7 +235,7 @@ def check_asset_versions(errors, warnings):
     print("  ✓ asset 版本號一致且全部帶有版號")
 
 def check_sitemap_and_robots(errors, warnings):
-    print("\n🔍 [6/7] 檢查 Sitemap 與 Robots.txt...")
+    print("\n🔍 [7/8] 檢查 Sitemap 與 Robots.txt...")
     sitemap_file = ROOT_DIR / "sitemap.xml"
     if not sitemap_file.exists():
         errors.append("❌ 找不到 sitemap.xml")
@@ -204,7 +268,7 @@ def check_sitemap_and_robots(errors, warnings):
     print("  ✓ Sitemap 與 Robots.txt 配置檢驗通過")
 
 def check_headers_and_security(errors, warnings):
-    print("\n🔍 [7/7] 檢查 _headers 與安全標頭 (CSP 收緊)...")
+    print("\n🔍 [8/8] 檢查 _headers 與安全標頭 (CSP 收緊)...")
     headers_file = ROOT_DIR / "_headers"
     if not headers_file.exists():
         errors.append("❌ 找不到 _headers 檔案")
@@ -242,6 +306,7 @@ def main():
     check_links_and_anchors(errors, warnings)
     check_inline_handlers_and_scripts(errors, warnings)
     check_heading_and_secret_scan(errors, warnings)
+    check_form_labels(errors, warnings)
     check_asset_versions(errors, warnings)
     check_sitemap_and_robots(errors, warnings)
     check_headers_and_security(errors, warnings)

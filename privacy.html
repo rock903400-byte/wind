@@ -22,20 +22,24 @@
   <meta name="theme-color" content="#080c0f" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="assets/theme-init.js?v=20260830"></script>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/tokens.css?v=20260829" />
+  <link rel="stylesheet" href="assets/tokens.css?v=20260830" />
+<link rel="stylesheet" href="assets/components.css?v=20260830">
   <style>
     :root {
-      --bg-primary: #080c0f;
-      --bg-secondary: #0f171d;
+  --toggle-size: 34px;
+  --toggle-font-size: 1rem;
+      --bg-primary: var(--color-bg-dark);
+      --bg-secondary: var(--color-bg-surface);
       --bg-card: rgba(18, 27, 34, 0.72);
-      --border: rgba(255, 255, 255, 0.09);
+      --border: var(--color-border);
       --border-accent: rgba(16, 185, 129, 0.35);
-      --accent: #10b981;
-      --accent-light: #6ee7b7;
-      --text-main: #f8fafc;
-      --text-sub: #cbd5e1;
-      --text-muted: #94a3b8;
+      --accent: var(--color-emerald);
+      --accent-light: var(--color-emerald-light);
+      --text-main: var(--color-text-main);
+      --text-sub: var(--color-text-sub);
+      --text-muted: var(--color-text-muted);
       --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
       --radius-lg: 16px;
       --radius-md: 12px;
@@ -54,7 +58,7 @@
       background-attachment: fixed;
     }
     nav {
-      position: sticky; top: 0; z-index: 100;
+      position: sticky; top: 0; z-index: var(--z-nav);
       backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       background: rgba(8, 12, 15, 0.82);
       border-bottom: 1px solid var(--border);
@@ -75,7 +79,7 @@
     .card h3 { font-size: 1rem; font-weight: 700; margin: 1.1rem 0 0.4rem 0; color: var(--text-main); }
     .card p, .card li { color: var(--text-sub); font-size: 0.93rem; line-height: 1.85; }
     .card ul { padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.4rem; }
-    .card a { color: var(--accent-light); text-decoration: underline; text-underline-offset: 3px; }
+    .card a, .lead a { color: var(--accent-light); text-decoration: underline; text-underline-offset: 3px; }
     .fine-print { font-size: 0.78rem; color: #7c8b9a; line-height: 1.7; text-align: center; margin-top: 2rem; }
     footer { margin-top: 3rem; text-align: center; color: var(--text-muted); font-size: 0.88rem; border-top: 1px solid var(--border); padding: 2.5rem 1.25rem; }
     footer a { color: var(--text-sub); text-decoration: none; }
@@ -83,20 +87,98 @@
     a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 3px; border-radius: 4px; }
     @media (max-width: 640px) { .container { padding-top: 1.5rem; } .card { padding: 1.35rem 1.15rem; } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } html { scroll-behavior: auto; } }
+
+    /* ---- ☀️ 淺色模式適配 ---- */
+[data-theme="light"] {
+      --bg-primary: var(--color-bg-dark);
+      --bg-secondary: var(--color-bg-surface);
+      --bg-card: var(--color-bg-surface);
+      --bg-elevated: var(--color-bg-elevated);
+      --border: var(--color-border);
+      --border-accent: rgba(16, 185, 129, 0.35);
+      --text-main: var(--color-text-main);
+      --text-sub: var(--color-text-sub);
+      --text-muted: var(--color-text-muted);
+      --accent: var(--color-emerald-dark);
+      --accent-light: var(--color-emerald-dark);
+    }
+    [data-theme="light"] body {
+      background-color: #f8fafc;
+      color: #0f172a;
+      background-image:
+        radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+        linear-gradient(to bottom, transparent, rgba(248, 250, 252, 0.98));
+    }
+    [data-theme="light"] nav {
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid var(--border);
+    }
+[data-theme="light"] .card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    }
+    [data-theme="light"] .card h2 {
+      color: #0f172a;
+    }
+    [data-theme="light"] .badge {
+      background: rgba(16, 185, 129, 0.08);
+      color: #047857;
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+    [data-theme="light"] footer {
+      border-top-color: var(--border);
+    }
+    [data-theme="light"] h1 {
+      color: #0f172a;
+    }
+    [data-theme="light"] .lead {
+      color: #334155;
+    }
+    [data-theme="light"] .card h3 {
+      color: #0f172a;
+    }
+    [data-theme="light"] .card p,
+    [data-theme="light"] .card li {
+      color: #334155;
+    }
+    [data-theme="light"] .card a,
+    [data-theme="light"] .lead a {
+      color: #047857;
+    }
+    [data-theme="light"] .fine-print {
+      color: #475569;
+    }
+    [data-theme="light"] .nav-logo {
+      color: #0f172a;
+    }
+    [data-theme="light"] .nav-back {
+      color: #475569;
+    }
+    [data-theme="light"] .nav-back:hover {
+      color: #0f172a;
+    }
+
+    [data-theme="light"] .nav-btn {
+      color: #ffffff;
+    }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">跳至主要內容</a>
   <nav aria-label="主要導覽">
     <div class="nav-container">
       <a href="ai-enablement.html" class="nav-logo">飛律 <span>· AI 流程賦能</span></a>
       <div style="display:flex; gap:1rem; align-items:center;">
         <a href="ai-enablement.html" class="nav-back">← 回銷售頁</a>
         <a href="ai-enablement.html#booking" class="nav-btn">立即預約</a>
+        <button class="theme-toggle-btn" id="themeToggleBtn" type="button" aria-label="切換淺色/深色主題" title="切換淺色/深色主題">☀️</button>
       </div>
     </div>
   </nav>
 
   <div class="container">
+    <main id="main">
     <div class="badge">🔒 資料僅用於諮詢與交付</div>
     <h1>隱私權政策</h1>
     <p class="lead">
@@ -128,9 +210,9 @@
 
     <div class="card">
       <h2>三、第三方處理與存放</h2>
-      <p>為維持「私有帳號直連」與 GitHub Pages 純靜態架構，資料處理極小化：</p>
+      <p>為維持「私有帳號直連」與 Cloudflare Pages 純靜態託管架構，資料處理極小化：</p>
       <ul>
-        <li><strong>Google Forms / Google Sheets：</strong>預約表單的介面由本站提供、資料不經本站伺服器（GitHub Pages 為純靜態，無後端）；你按下送出後，內容直接傳送至 Google Forms 並寫入回應試算表，適用 Google 隱私權政策。無法使用 JavaScript 時，改由 Google 表單頁面直接填寫，資料流向相同。</li>
+        <li><strong>Google Forms / Google Sheets：</strong>預約表單的介面由本站提供、資料不經本站伺服器（Cloudflare Pages 為純靜態託管，無後端中繼）；你按下送出後，內容直接傳送至 Google Forms 並寫入回應試算表，適用 Google 隱私權政策。無法使用 JavaScript 時，改由 Google 表單頁面直接填寫，資料流向相同。</li>
         <li><strong>LINE / Email 服務商：</strong>當你選擇加 LINE 或寄信，訊息將經 LINE 官方伺服器或郵件服務商轉送，屬該服務的本質流程。</li>
       </ul>
       <p>除上述外，不會將你的資料提供予其他第三方或用於廣告投放。若日後新增處理者，將更新本政策並於聯絡處揭示。</p>
@@ -185,6 +267,7 @@
       本政策僅適用於 wind.rock903400.workers.dev 下的 飛律 銷售頁與預約流程。<br>
       法務相關模組僅提供文書排版自動化，不提供法律意見，個案請洽執業律師。
     </p>
+    </main>
 
     <footer>
       <p style="margin-bottom: 0.6rem;">© 2026 飛律 ｜ AI 流程賦能 ｜ 賦能企業流程自動化，讓核心營運高效運轉。</p>
@@ -196,5 +279,6 @@
       </p>
     </footer>
   </div>
+  <script src="assets/shared.js?v=20260830" defer></script>
 </body>
 </html>
