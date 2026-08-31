@@ -1,6 +1,6 @@
 # 2026-08 工單歸檔
 
-本批次為 2026-08 已驗收工單，共 16 檔，集中封存於此。
+本批次為 2026-08 已驗收工單，共 17 檔，集中封存於此。
 
 ## 清單
 
@@ -22,5 +22,6 @@
 | `CSS_ARCHITECTURE_TICKET_02.md` | WIND-UI-03A｜元件抽取造成的視覺變更（03 驗收退回項） | 已驗收（快照差異 1,685 → 8，餘 8 筆為刻意的對比度改善） |
 | `A11Y_LANDMARK_DARKMODE_TICKET.md` | WIND-UI-04｜語意地標、skip link 與深色模式對比度 | 已驗收（`<main>` 與 skip link 補至 7/7；深色 26 個未達標 → 0；淺色維持 0）|
 | `STORAGE_GUARD_AND_FRESHNESS_TICKET.md` | WIND-UI-05｜localStorage 失敗處理與日期新鮮度守門 | 已驗收（附註：工單指示「不要改 17 個呼叫點」導致儲存失敗時仍會跟著跳成功 toast，為發單方規格疏漏，另開 WIND-UI-06 改用常駐橫幅收尾）|
+| `SAVE_FAILURE_BANNER_TICKET.md` | WIND-UI-06｜儲存失敗改用常駐橫幅（WIND-UI-05 規格補正）| 已驗收（附註：工單指示「成功儲存時呼叫 hideCloudBanner()」未考慮 #cloud-banner 是四個生產者共用，會吃掉衝突橫幅與其「捨棄本機」按鈕；同為發單方規格疏漏，已於 2b96d2c 加所有權旗標修正）|
 
 > 原 `docs/` 根目錄下這些檔案已 `git mv` 至此，`git log --follow` 仍可追溯。活躍規格僅保留 `CONTENT_MAINTENANCE.md` / `BRAND_IMAGES_SPEC.md` / `GOOGLE_FORM_SPEC.md` / `MEMBER_BALANCE_SPEC.md` 等。
