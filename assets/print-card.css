@@ -29,22 +29,7 @@
  --bleed-w: 92mm;
  --bleed-h: 56mm;
 }
-
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 6px;
-  background: #ffffff;
-  color: #0f172a;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 700;
-  z-index: var(--z-skip-link);
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-.skip-link:focus { top: 6px; }
+ 
 .sr-only {
   position: absolute;
   width: 1px;

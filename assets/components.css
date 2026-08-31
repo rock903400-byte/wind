@@ -4,6 +4,28 @@
  * 載入順序：tokens.css → components.css → 頁面專屬 CSS / inline <style>
  */
 
+/* ── 跳至主要內容連結（7/7 頁共用） ── */
+.skip-link {
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  z-index: var(--z-skip-link, 10000);
+  padding: 10px 20px;
+  border-radius: 0 0 8px 0;
+  background: var(--color-emerald-dark, #047857);
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  line-height: 1.4;
+}
+.skip-link:focus {
+  left: 0;
+  outline: 2px solid var(--color-emerald-light, #6ee7b7);
+  outline-offset: 2px;
+}
+
 /* ── 主題切換按鈕（7/7 頁共用） ── */
 :root {
   --toggle-size: 36px;
