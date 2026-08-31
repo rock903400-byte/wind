@@ -96,11 +96,19 @@
 
 ## 已歸檔工單
 
-- 2026-08 已驗收的 17 份工單（`INDEX_THUMBNAIL_AUDIT.md` + `INDEX_ATTRACTIVENESS_TICKET*.md` ×4 + `AI_ENABLEMENT_UPLIFT_TICKET*.md` ×3 + `UI_P0_A11Y_THEME_TICKET*.md` ×3 + `UI_LIGHT_THEME_COVERAGE_TICKET.md` + `CSS_ARCHITECTURE_TICKET*.md` ×2 + `A11Y_LANDMARK_DARKMODE_TICKET.md` + `STORAGE_GUARD_AND_FRESHNESS_TICKET.md` + `SAVE_FAILURE_BANNER_TICKET.md`）已移至 `docs/archive/2026-08/`，根 `docs/` 僅留活躍規格。查詢歷史請至 `docs/archive/README.md`。
+- 2026-08 已驗收的 18 份工單（`INDEX_THUMBNAIL_AUDIT.md` + `INDEX_ATTRACTIVENESS_TICKET*.md` ×4 + `AI_ENABLEMENT_UPLIFT_TICKET*.md` ×3 + `UI_P0_A11Y_THEME_TICKET*.md` ×3 + `UI_LIGHT_THEME_COVERAGE_TICKET.md` + `CSS_ARCHITECTURE_TICKET*.md` ×2 + `A11Y_LANDMARK_DARKMODE_TICKET.md` + `STORAGE_GUARD_AND_FRESHNESS_TICKET.md` + `SAVE_FAILURE_BANNER_TICKET.md` + `GRADIENT_BUTTON_CONTRAST_TICKET.md`）已移至 `docs/archive/2026-08/`，根 `docs/` 僅留活躍規格。查詢歷史請至 `docs/archive/README.md`。
 
-## 無障礙基準線（WIND-UI-01 ~ 04 之後，不得退化）
+## 無障礙基準線（WIND-UI-01 ~ 07 之後，不得退化）
 
-這是五張工單換來的狀態，改任何顏色或版面前先讀這節：
+這是七張工單換來的狀態，改任何顏色或版面前先讀這節：
+
+- **`background: var(--grad)` 的元素，兩個主題的文字色方向相反。**
+  目前有 4 個：`.btn-primary` / `.nav-cta` / `.scroll-cue` / `.flagship-badge`。
+  深色（基底）漸層是 `#10b981→#0ea5e9`，**必須配深字 `#04130d`**（白字只有 2.54）；
+  淺色漸層是 `#047857→#0e7490`，**必須配白字**（深字只有 3.47）。
+  基底規則同時被兩個主題吃，**只改基底會把另一邊弄壞** ——
+  淺色覆寫集中在 `assets/style.css` 的 `[data-theme="light"] .btn-primary, …` 那一組選擇器，
+  新增任何 `var(--grad)` 元素時**兩處都要加**。
 
 - **7 頁 × 深淺兩主題，對比度未達 WCAG AA 的元素 = 0。** 改色前後都要跑掃描，
   腳本見下方〈全站對比度掃描腳本（含漸層支援版）〉。

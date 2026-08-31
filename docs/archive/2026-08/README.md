@@ -1,6 +1,6 @@
 # 2026-08 工單歸檔
 
-本批次為 2026-08 已驗收工單，共 17 檔，集中封存於此。
+本批次為 2026-08 已驗收工單，共 18 檔，集中封存於此。
 
 ## 清單
 
@@ -23,5 +23,6 @@
 | `A11Y_LANDMARK_DARKMODE_TICKET.md` | WIND-UI-04｜語意地標、skip link 與深色模式對比度 | 已驗收（`<main>` 與 skip link 補至 7/7；深色 26 個未達標 → 0；淺色維持 0）|
 | `STORAGE_GUARD_AND_FRESHNESS_TICKET.md` | WIND-UI-05｜localStorage 失敗處理與日期新鮮度守門 | 已驗收（附註：工單指示「不要改 17 個呼叫點」導致儲存失敗時仍會跟著跳成功 toast，為發單方規格疏漏，另開 WIND-UI-06 改用常駐橫幅收尾）|
 | `SAVE_FAILURE_BANNER_TICKET.md` | WIND-UI-06｜儲存失敗改用常駐橫幅（WIND-UI-05 規格補正）| 已驗收（附註：工單指示「成功儲存時呼叫 hideCloudBanner()」未考慮 #cloud-banner 是四個生產者共用，會吃掉衝突橫幅與其「捨棄本機」按鈕；同為發單方規格疏漏，已於 2b96d2c 加所有權旗標修正）|
+| `GRADIENT_BUTTON_CONTRAST_TICKET.md` | WIND-UI-07｜漸層按鈕深色對比度與掃描器盲點 | 已驗收（附註：工單只點名 .btn-primary，漏了同樣吃 var(--grad) 的 .nav-cta / .scroll-cue / .flagship-badge，為發單方第三次規格漏範圍；由本工單交付的漸層感知掃描器自行抓出，已於 ec92d66 補完）|
 
 > 原 `docs/` 根目錄下這些檔案已 `git mv` 至此，`git log --follow` 仍可追溯。活躍規格僅保留 `CONTENT_MAINTENANCE.md` / `BRAND_IMAGES_SPEC.md` / `GOOGLE_FORM_SPEC.md` / `MEMBER_BALANCE_SPEC.md` 等。
