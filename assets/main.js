@@ -100,7 +100,7 @@
 
   function applyView(animate){
     // 收折只在「全部」時有意義；選了分類就一律全顯示，否則會出現
-    // 「只剩 2 張卻還掛著『顯示全部 19 項』」這種鬼畫面
+    // 「只剩 2 張卻還掛著『顯示全部作品』」這種畫面
     var collapsed = (currentCat === 'all') && !expanded;
     grid.classList.toggle('collapsed', collapsed);
 
@@ -114,13 +114,13 @@
       }
     });
 
-    if(countEl) countEl.textContent = '顯示 ' + shown + ' / ' + workCards.length + ' 項作品';
+    if(countEl) countEl.textContent = '';
     if(showAllWrap) showAllWrap.hidden = (currentCat !== 'all');
     if(showAllBtn){
       showAllBtn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
       showAllBtn.textContent = expanded
         ? '收合作品列表 ↑'
-        : '顯示全部 ' + workCards.length + ' 項作品 ↓';
+        : '顯示全部作品 ↓';
     }
   }
   // 首次只設定計數與收折狀態，不強制揭示 —— 讓 .reveal 照常做捲動進場

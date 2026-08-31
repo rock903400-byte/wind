@@ -867,7 +867,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const shareUrl = getShareUrl();
       const shareData = {
         title: '石誠風 Wind × 飛律 — 3D 電子名片',
-        text: '石誠風 Wind（全端系統架構師 · 19 項上線實績 · 統編 54730503）× 飛律（AI 流程賦能）',
+        text: '石誠風 Wind（全端系統架構師 · 跨產業上線實績 · 統編 54730503）× 飛律（AI 流程賦能）',
         url: shareUrl
       };
 

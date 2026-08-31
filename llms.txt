@@ -21,7 +21,7 @@
 
 ## 核心服務 2: 跨產業全端與客製化系統開發
 - 服務介紹: 靠 AI Agent 快速進入各陌生行業領域，用白話溝通交出立即可用的系統與網頁。
-- 19 項已上線專案實績:
+- 跨產業已上線專案實績:
   1. 伯鐸儲蓄互助社: 形象官網 (https://boduosavings-group-site.pages.dev/)
   2. 果醬女孩 Jam Girl: 電商品牌商城 (https://jamgirl-website.pages.dev/)
   3. 眉序修眉: 品牌形象網站 (https://meixu-site.pages.dev/)
