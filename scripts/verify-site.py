@@ -11,12 +11,14 @@ Wind × 飛律 — 全站靜態完整性檢驗腳本 (scripts/verify-site.py)
 6. 驗證 sitemap.xml、robots.txt、_headers 與安全標頭配置 (script-src 無 unsafe-inline)。
 7. 驗證全站 WCAG 標題大綱順序與密鑰防洩漏掃描。
 8. 驗證全站表單控制項可及名稱 (label for / aria-label / aria-labelledby)。
+9. 驗證 sitemap.xml 與 HTML JSON-LD dateModified 日期一致性與新鮮度。
 """
 
 import os
 import re
 import sys
 import xml.etree.ElementTree as ET
+from datetime import datetime, date
 from pathlib import Path
 
 # 確保 Windows 主控台支援 UTF-8 輸出
@@ -32,7 +34,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 HTML_FILES = sorted(p.name for p in ROOT_DIR.glob("*.html"))
 
 def check_html_standards(errors, warnings):
-    print("\n🔍 [1/8] 檢查 HTML 標頭、語系與 Canonical 一致性...")
+    print("\n🔍 [1/9] 檢查 HTML 標頭、語系與 Canonical 一致性...")
     for filename in HTML_FILES:
         filepath = ROOT_DIR / filename
         if not filepath.exists():
@@ -70,7 +72,7 @@ def check_html_standards(errors, warnings):
         print(f"  ✓ {filename} 標頭與基礎規格檢驗通過")
 
 def check_links_and_anchors(errors, warnings):
-    print("\n🔍 [2/8] 檢查站內相對連結與錨點完整性...")
+    print("\n🔍 [2/9] 檢查站內相對連結與錨點完整性...")
     id_pattern = re.compile(r'id=["\']([^"\']+)["\']')
     href_pattern = re.compile(r'(?:href|src)=["\']([^"\']+)["\']')
 
@@ -112,7 +114,7 @@ def check_links_and_anchors(errors, warnings):
         print(f"  ✓ {filename} 站內連結與錨點無死連結")
 
 def check_inline_handlers_and_scripts(errors, warnings):
-    print("\n🔍 [3/8] 檢查全站 0 inline handler 與 0 inline 執行腳本...")
+    print("\n🔍 [3/9] 檢查全站 0 inline handler 與 0 inline 執行腳本...")
     handler_pattern = re.compile(r'\son[a-z]+=', re.IGNORECASE)
     script_pattern = re.compile(r'<script([^>]*)>(.*?)</script>', re.IGNORECASE | re.DOTALL)
     for filename in HTML_FILES:
@@ -133,7 +135,7 @@ def check_inline_handlers_and_scripts(errors, warnings):
     print("  ✓ 全站 HTML 檔案 0 個 inline handler 與 inline script 檢驗通過")
 
 def check_heading_and_secret_scan(errors, warnings):
-    print("\n🔍 [4/8] 檢查全站 WCAG 標題大綱與密鑰洩漏掃描...")
+    print("\n🔍 [4/9] 檢查全站 WCAG 標題大綱與密鑰洩漏掃描...")
     # 檢查全站標題層級
     for filename in HTML_FILES:
         filepath = ROOT_DIR / filename
@@ -168,7 +170,7 @@ def check_heading_and_secret_scan(errors, warnings):
     print("  ✓ 全站 WCAG 標題大綱與密鑰洩漏掃描通過")
 
 def check_form_labels(errors, warnings):
-    print("\n🔍 [5/8] 檢查全站表單控制項可及名稱 (label for / aria-label)...")
+    print("\n🔍 [5/9] 檢查全站表單控制項可及名稱 (label for / aria-label)...")
     for filename in HTML_FILES:
         filepath = ROOT_DIR / filename
         if not filepath.exists():
@@ -220,7 +222,7 @@ def check_form_labels(errors, warnings):
     print("  ✓ 全站表單控制項可及名稱檢驗通過")
 
 def check_asset_versions(errors, warnings):
-    print("\n🔍 [6/8] 檢查 asset 快取版本號一致性與完整性...")
+    print("\n🔍 [6/9] 檢查 asset 快取版本號一致性與完整性...")
     ver_pattern = re.compile(r'(?:href|src)=["\']assets/[^"\']+\?v=(\d+)["\']')
     unversioned_pattern = re.compile(r'(?:href|src)=["\'](assets/[^"\']+\.(?:js|css))["\']')
     versions = {}
@@ -235,7 +237,7 @@ def check_asset_versions(errors, warnings):
     print("  ✓ asset 版本號一致且全部帶有版號")
 
 def check_sitemap_and_robots(errors, warnings):
-    print("\n🔍 [7/8] 檢查 Sitemap 與 Robots.txt...")
+    print("\n🔍 [7/9] 檢查 Sitemap 與 Robots.txt...")
     sitemap_file = ROOT_DIR / "sitemap.xml"
     if not sitemap_file.exists():
         errors.append("❌ 找不到 sitemap.xml")
@@ -268,7 +270,7 @@ def check_sitemap_and_robots(errors, warnings):
     print("  ✓ Sitemap 與 Robots.txt 配置檢驗通過")
 
 def check_headers_and_security(errors, warnings):
-    print("\n🔍 [8/8] 檢查 _headers 與安全標頭 (CSP 收緊)...")
+    print("\n🔍 [8/9] 檢查 _headers 與安全標頭 (CSP 收緊)...")
     headers_file = ROOT_DIR / "_headers"
     if not headers_file.exists():
         errors.append("❌ 找不到 _headers 檔案")
@@ -294,6 +296,79 @@ def check_headers_and_security(errors, warnings):
 
     print("  ✓ 安全標頭 (CSP script-src 嚴格模式) 與轉址配置檢驗通過")
 
+def check_date_consistency_and_freshness(errors, warnings):
+    print("\n🔍 [9/9] 檢查 Sitemap 與 JSON-LD 日期一致性與新鮮度...")
+    sitemap_file = ROOT_DIR / "sitemap.xml"
+    if not sitemap_file.exists():
+        errors.append("❌ 找不到 sitemap.xml")
+        return
+
+    tree = ET.parse(sitemap_file)
+    root = tree.getroot()
+    ns = {'ns': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+
+    lastmods = [loc.text.strip() for loc in root.findall('.//ns:lastmod', ns) if loc.text]
+    if not lastmods:
+        errors.append("❌ sitemap.xml 中未找到任何 <lastmod> 標籤")
+        return
+
+    # 1. 檢查 sitemap 內部 lastmod 是否全部一致
+    unique_lastmods = set(lastmods)
+    if len(unique_lastmods) > 1:
+        errors.append(f"❌ sitemap.xml 內部 <lastmod> 日期不一致：{sorted(unique_lastmods)}")
+
+    sitemap_date = lastmods[0] if len(unique_lastmods) == 1 else None
+
+    # 2. 讀取 index.html 的 JSON-LD dateModified
+    index_file = ROOT_DIR / "index.html"
+    index_date = None
+    if index_file.exists():
+        index_content = index_file.read_text(encoding="utf-8")
+        match = re.search(r'"dateModified"\s*:\s*"([^"]+)"', index_content)
+        if match:
+            index_date = match.group(1).strip()
+        else:
+            errors.append("❌ index.html JSON-LD 缺少 dateModified")
+    else:
+        errors.append("❌ 找不到 index.html")
+
+    # 3. 讀取 print-card.html 的 JSON-LD dateModified（若存在）
+    print_card_file = ROOT_DIR / "print-card.html"
+    pc_date = None
+    if print_card_file.exists():
+        pc_content = print_card_file.read_text(encoding="utf-8")
+        pc_match = re.search(r'"dateModified"\s*:\s*"([^"]+)"', pc_content)
+        if pc_match:
+            pc_date = pc_match.group(1).strip()
+
+    # 4. 比對一致性
+    if sitemap_date and index_date and sitemap_date != index_date:
+        errors.append(f"❌ sitemap.xml <lastmod> ({sitemap_date}) 與 index.html dateModified ({index_date}) 不一致")
+
+    if pc_date and index_date and pc_date != index_date:
+        errors.append(f"❌ print-card.html dateModified ({pc_date}) 與 index.html dateModified ({index_date}) 不一致")
+
+    # 5. 檢查新鮮度（一致但距今超過 30 天 → warnings.append）
+    all_dates = set(lastmods)
+    if index_date:
+        all_dates.add(index_date)
+    if pc_date:
+        all_dates.add(pc_date)
+
+    today = date.today()
+    for d_str in all_dates:
+        try:
+            d_val = datetime.strptime(d_str, "%Y-%m-%d").date()
+            delta_days = (today - d_val).days
+            if delta_days > 30:
+                warnings.append(f"⚠️ 日期 {d_str} 距今已超過 30 天 ({delta_days} 天)，提醒更新 sitemap 與 JSON-LD")
+            elif delta_days < 0:
+                warnings.append(f"⚠️ 日期 {d_str} 為未來日期（距今 {-delta_days} 天）")
+        except ValueError:
+            errors.append(f"❌ 日期格式無效（應為 YYYY-MM-DD）：{d_str}")
+
+    print("  ✓ Sitemap 與 JSON-LD 日期一致性與新鮮度檢驗通過")
+
 def main():
     print("==================================================")
     print("🚀 啟動 Wind × 飛律 全站品質與安全檢驗 (第四輪)")
@@ -310,6 +385,12 @@ def main():
     check_asset_versions(errors, warnings)
     check_sitemap_and_robots(errors, warnings)
     check_headers_and_security(errors, warnings)
+    check_date_consistency_and_freshness(errors, warnings)
+
+    if warnings:
+        print(f"\n⚠️ 警告提示（共 {len(warnings)} 項）：")
+        for w in warnings:
+            print(f"  • {w}")
 
     print("\n==================================================")
     if errors:
