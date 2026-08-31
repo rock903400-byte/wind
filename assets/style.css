@@ -1,3 +1,4 @@
+@charset "utf-8";
 :root {
   --bg:var(--color-bg-dark, #080c0f);
   --surface:var(--color-bg-card, rgba(18,27,34,.75));

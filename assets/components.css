@@ -1,3 +1,4 @@
+@charset "utf-8";
 /**
  * Wind × 飛律 — 共用元件層 (assets/components.css)
  * 收斂跨頁重複定義的元件，依賴 tokens.css 的色票與 z-index 語意層級。

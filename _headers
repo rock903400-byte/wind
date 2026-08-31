@@ -20,6 +20,9 @@
 
 /assets/*.css
   Cache-Control: public, max-age=0, must-revalidate
+  # 明示 charset：CSS 沒有 HTTP charset 時瀏覽器會退回猜測，實測會把
+  # style.css 的 '↗' 解成 'â†—'（Latin-1）。各檔第一行的 @charset 是第二道保險。
+  Content-Type: text/css; charset=utf-8
 
 # 2c. 圖片／字型：內容不變，維持一年 immutable
 /assets/*.webp
