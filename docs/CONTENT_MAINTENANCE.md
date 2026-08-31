@@ -103,7 +103,7 @@
 這是五張工單換來的狀態，改任何顏色或版面前先讀這節：
 
 - **7 頁 × 深淺兩主題，對比度未達 WCAG AA 的元素 = 0。** 改色前後都要跑掃描，
-  腳本見 `docs/archive/2026-08/A11Y_LANDMARK_DARKMODE_TICKET.md` 第 4-1 節。
+  腳本見下方〈全站對比度掃描腳本（含漸層支援版）〉。
 - **7 頁都有 `<main>` 與 skip link**，skip link 是每頁第一個可聚焦元素，
   樣式只在 `assets/components.css`（`.skip-link` + `.skip-link:focus`），不得在頁面另寫一份。
 - **深色模式調色方向與淺色相反**：深底上要調「亮」（如 `#f43f5e` → `#fda4af`），
@@ -112,6 +112,132 @@
   靠深色文字 `#04130d` 達標，不要改回白字。
 - 名片圖稿（`print-card.css` 的 `.theme-dark` / `.theme-light` 作用域）是印刷品設計，
   不受站台 `data-theme` 影響，也不在網頁對比度適用範圍，**不要拿掃描結果去改它**。
+
+### 全站對比度掃描腳本（含漸層支援版）
+
+起 `python -m http.server 8080`，在各頁 Console 貼上執行。
+本版本支援漸層背景解析：抓出元素自身 `background-image` 內所有色標逐一計算對比度並取最差值；
+若為祖先裝飾性漸層（如 body 光暈）則維持略過，避免過度嚴格與誤判。
+
+```js
+(() => {
+  const P = c => {
+    const m = c.match(/[\d.]+/g).map(Number);
+    return { r: m[0], g: m[1], b: m[2], a: m.length > 3 ? m[3] : 1 };
+  };
+  const O = (f, b) => ({
+    r: f.r * f.a + b.r * (1 - f.a),
+    g: f.g * f.a + b.g * (1 - f.a),
+    b: f.b * f.a + b.b * (1 - f.a),
+    a: 1
+  });
+  // 祖先若有背景圖/漸層（例如 body 光暈），沿用略過邏輯，避免過度嚴格
+  const ancestorHasImg = el => {
+    let n = el.parentElement;
+    while (n && n !== document.body) {
+      const c = getComputedStyle(n);
+      if (c.backgroundImage !== 'none') return true;
+      if (P(c.backgroundColor).a >= 1) return false;
+      n = n.parentElement;
+    }
+    return false;
+  };
+  const bgOf = el => {
+    const s = [];
+    let n = el;
+    while (n) {
+      const c = P(getComputedStyle(n).backgroundColor);
+      if (c.a > 0) s.push(c);
+      if (c.a >= 1) break;
+      n = n.parentElement;
+    }
+    const root = P(getComputedStyle(document.body).backgroundColor);
+    let b = root.a >= 1 ? root : { r: 255, g: 255, b: 255, a: 1 };
+    for (let i = s.length - 1; i >= 0; i--) b = O(s[i], b);
+    return b;
+  };
+  const L = c => {
+    const f = v => {
+      v /= 255;
+      return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+    };
+    return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b);
+  };
+  const CR = (a, b) => {
+    const x = L(a), y = L(b);
+    return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+  };
+
+  const st = document.createElement('style');
+  st.textContent = '*,*::before,*::after{transition:none!important;animation:none!important}';
+  document.head.appendChild(st);
+
+  document.querySelectorAll('.modal-overlay,.drawer-panel,[role="dialog"]').forEach(e => {
+    e.style.setProperty('display', 'block', 'important');
+    e.style.setProperty('opacity', '1', 'important');
+    e.style.setProperty('visibility', 'visible', 'important');
+  });
+  const rs = document.getElementById('result-section');
+  if (rs) rs.style.display = 'block';
+
+  for (const th of ['light', 'dark']) {
+    document.documentElement.setAttribute('data-theme', th);
+    void document.body.offsetWidth;
+
+    const out = [];
+    let checkedCount = 0;
+    let gradCount = 0;
+
+    document.querySelectorAll('body *').forEach(el => {
+      const cs = getComputedStyle(el);
+      if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity === 0) return;
+      const t = [...el.childNodes].filter(n => n.nodeType === 3 && n.textContent.trim()).map(n => n.textContent.trim()).join(' ');
+      if (!t || cs.webkitTextFillColor === 'rgba(0, 0, 0, 0)') return;
+
+      // 祖先有裝飾性漸層則跳過
+      if (ancestorHasImg(el)) return;
+
+      const fs = parseFloat(cs.fontSize), fw = +cs.fontWeight;
+      const need = (fs >= 24 || (fs >= 18.66 && fw >= 700)) ? 3 : 4.5;
+      const hasSelfGrad = cs.backgroundImage !== 'none';
+
+      let v, typeLabel;
+      if (hasSelfGrad) {
+        // 抓出元素自身 background-image 內所有色標逐一計算對比度，取最差值
+        const stops = cs.backgroundImage.match(/rgba?\([^)]+\)/g);
+        if (stops && stops.length > 0) {
+          const parentBg = bgOf(el.parentElement || el);
+          const ratios = stops.map(s => {
+            const sc = P(s);
+            const stopBg = sc.a < 1 ? O(sc, parentBg) : sc;
+            const fg = O(P(cs.color), stopBg);
+            return CR(fg, stopBg);
+          });
+          v = Math.min(...ratios);
+          typeLabel = '[漸層]';
+          gradCount++;
+        } else {
+          const bg = bgOf(el), fg = O(P(cs.color), bg);
+          v = CR(fg, bg);
+          typeLabel = '[一般]';
+        }
+      } else {
+        const bg = bgOf(el), fg = O(P(cs.color), bg);
+        v = CR(fg, bg);
+        typeLabel = '[一般]';
+      }
+
+      checkedCount++;
+      if (v < need) {
+        out.push(`${typeLabel} ${v.toFixed(2)}:1(需${need}) ${el.tagName}.${String(el.className).split(' ')[0]} fg=${cs.color} "${t.slice(0, 18)}"`);
+      }
+    });
+
+    console.log(`【${th}】檢測 ${checkedCount} 個文字元素（含漸層 ${gradCount} 個），未達標 ${out.length} 個`);
+    out.forEach(x => console.log('  ' + x));
+  }
+})();
+```
 
 ### 量測這些東西時的三個坑（都踩過）
 
