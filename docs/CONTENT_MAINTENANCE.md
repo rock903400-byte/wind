@@ -96,16 +96,37 @@
 
 ## 已歸檔工單
 
-- 2026-08 已驗收的 14 份工單（`INDEX_THUMBNAIL_AUDIT.md` + `INDEX_ATTRACTIVENESS_TICKET*.md` ×4 + `AI_ENABLEMENT_UPLIFT_TICKET*.md` ×3 + `UI_P0_A11Y_THEME_TICKET*.md` ×3 + `UI_LIGHT_THEME_COVERAGE_TICKET.md` + `CSS_ARCHITECTURE_TICKET*.md` ×2）已移至 `docs/archive/2026-08/`，根 `docs/` 僅留活躍規格與進行中工單。查詢歷史請至 `docs/archive/README.md`。
+- 2026-08 已驗收的 15 份工單（`INDEX_THUMBNAIL_AUDIT.md` + `INDEX_ATTRACTIVENESS_TICKET*.md` ×4 + `AI_ENABLEMENT_UPLIFT_TICKET*.md` ×3 + `UI_P0_A11Y_THEME_TICKET*.md` ×3 + `UI_LIGHT_THEME_COVERAGE_TICKET.md` + `CSS_ARCHITECTURE_TICKET*.md` ×2 + `A11Y_LANDMARK_DARKMODE_TICKET.md`）已移至 `docs/archive/2026-08/`，根 `docs/` 僅留活躍規格。查詢歷史請至 `docs/archive/README.md`。
 
-## 進行中工單
+## 無障礙基準線（WIND-UI-01 ~ 04 之後，不得退化）
 
-- `A11Y_LANDMARK_DARKMODE_TICKET.md`（WIND-UI-04｜語意地標、skip link 與深色模式對比度）**尚未實作**。三件事：`ai-enablement.html` 與 `privacy.html` 缺 `<main>`；skip link 只有 `index.html` / `print-card.html` 有（7 頁缺 5）；深色模式從未完整稽核，目前 26 個元素未達 WCAG AA。驗收完成後移入當月 `docs/archive/`。
+這是五張工單換來的狀態，改任何顏色或版面前先讀這節：
+
+- **7 頁 × 深淺兩主題，對比度未達 WCAG AA 的元素 = 0。** 改色前後都要跑掃描，
+  腳本見 `docs/archive/2026-08/A11Y_LANDMARK_DARKMODE_TICKET.md` 第 4-1 節。
+- **7 頁都有 `<main>` 與 skip link**，skip link 是每頁第一個可聚焦元素，
+  樣式只在 `assets/components.css`（`.skip-link` + `.skip-link:focus`），不得在頁面另寫一份。
+- **深色模式調色方向與淺色相反**：深底上要調「亮」（如 `#f43f5e` → `#fda4af`），
+  淺底上要調「暗」（如 `#10b981` → `#047857`）。前四張工單都在修淺色，容易反射性調暗而做錯。
+- **LINE 綠 `rgb(6,199,85)` 是品牌色不可更動**；`print-card.html` 的 `.action-btn`
+  靠深色文字 `#04130d` 達標，不要改回白字。
+- 名片圖稿（`print-card.css` 的 `.theme-dark` / `.theme-light` 作用域）是印刷品設計，
+  不受站台 `data-theme` 影響，也不在網頁對比度適用範圍，**不要拿掃描結果去改它**。
+
+### 量測這些東西時的三個坑（都踩過）
+
+1. **CSS transition 節流**：分頁非前景時 Chrome 會凍結 transition，`getComputedStyle`
+   讀到的是切換主題「前」的舊色。量測前務必先注入 `*{transition:none!important}` 並強制 reflow。
+2. **`:focus` 不套用**：視窗未取得真實焦點時（DevTools / 自動化驅動），
+   即使 `document.activeElement` 正確，元素也不會匹配 `:focus`。
+   驗焦點樣式要改查 CSSOM 規則，不要只看 computed 值。
+3. **索引式快照比對會失效**：只要 DOM 有新增或包裹（例如加 `<main>`），
+   後續元素索引全部位移。比對要用「標籤 + class + 文字」當鍵，不要用位置。
 
 ## CSS 架構現況（WIND-UI-03 / 03A 之後）
 
 - **`assets/tokens.css` 是唯一色票來源**，7 頁全載。新增顏色請加 token，不要在頁面硬寫十六進位值。
-- **`assets/components.css`（592 行）是跨頁共用元件層**，載入順序固定為
+- **`assets/components.css`（614 行）是跨頁共用元件層**，載入順序固定為
   `theme-init.js` → `tokens.css` → `components.css` → 頁面專屬 CSS / inline `<style>`，**不可調換**。
 - **元件只能「完全收斂」或「完全不收」，不允許兩份並存。** WIND-UI-03 就是敗在這裡：
   `components.css` 與 `style.css` 各有一份 `.tag`，重疊屬性被後載入的頁面 CSS 蓋掉看似無事，
