@@ -271,46 +271,60 @@
     }
 
     function loadDatabase() {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        try {
-          DB = JSON.parse(saved);
-          if (DB.members && Array.isArray(DB.members)) {
-            DB.members = DB.members.map(sanitizeMemberData);
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          try {
+            DB = JSON.parse(saved);
+            if (DB.members && Array.isArray(DB.members)) {
+              DB.members = DB.members.map(sanitizeMemberData);
+            }
+            if (DB.recharges && Array.isArray(DB.recharges)) {
+              DB.recharges = DB.recharges.map(sanitizeRechargeData);
+            }
+            if (DB.tasks && Array.isArray(DB.tasks)) {
+              DB.tasks = DB.tasks.map(sanitizeTaskData);
+            }
+            // 本次修正之前，loadDatabase() 會自動灌示範資料並 saveDatabase()，
+            // 所以舊瀏覽器的 localStorage 裡存著「沒有 _demo 欄位的示範資料」。
+            // 那批資料如果被當成正式資料放行同步，W-01 想擋的事情就白做了 ——
+            // 而那正好是管理者自己、存著 ADMIN_KEY 的那台機器。
+            if (DB._demo === undefined) {
+              DB._demo = looksLikeDemoData(DB);
+            } else {
+              DB._demo = Boolean(DB._demo);
+            }
+            saveDatabase({ silent: true });
+            loadSnapshot = JSON.stringify(DB);
+          } catch (e) {
+            console.error('Failed to parse DB:', e);
+            initEmptyDB();
           }
-          if (DB.recharges && Array.isArray(DB.recharges)) {
-            DB.recharges = DB.recharges.map(sanitizeRechargeData);
-          }
-          if (DB.tasks && Array.isArray(DB.tasks)) {
-            DB.tasks = DB.tasks.map(sanitizeTaskData);
-          }
-          // 本次修正之前，loadDatabase() 會自動灌示範資料並 saveDatabase()，
-          // 所以舊瀏覽器的 localStorage 裡存著「沒有 _demo 欄位的示範資料」。
-          // 那批資料如果被當成正式資料放行同步，W-01 想擋的事情就白做了 ——
-          // 而那正好是管理者自己、存著 ADMIN_KEY 的那台機器。
-          if (DB._demo === undefined) {
-            DB._demo = looksLikeDemoData(DB);
-          } else {
-            DB._demo = Boolean(DB._demo);
-          }
-          saveDatabase();
-          loadSnapshot = JSON.stringify(DB);
-        } catch (e) {
-          console.error('Failed to parse DB:', e);
+        } else {
           initEmptyDB();
         }
-      } else {
+      } catch (e) {
+        console.error('Failed to load DB:', e);
         initEmptyDB();
       }
     }
 
-    function saveDatabase() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(DB));
+    function saveDatabase(options = {}) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(DB));
+        return true;
+      } catch (e) {
+        console.error('Failed to save DB:', e);
+        if (!options || !options.silent) {
+          showToast('⚠️ 本機儲存失敗，這筆資料沒有保存');
+        }
+        return false;
+      }
     }
 
     function initEmptyDB() {
       DB = { members: [], recharges: [], tasks: [], _demo: false };
-      saveDatabase();
+      saveDatabase({ silent: true });
       loadSnapshot = JSON.stringify(DB);
     }
 
