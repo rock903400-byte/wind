@@ -17,6 +17,20 @@
       if (token) {
         const input = document.getElementById('search-input');
         if (input) input.value = token;
+
+        // 讀完立刻把 token 從網址上抹掉。它是 capability URL —— 拿到就能查，
+        // 留在網址列等於留在瀏覽器歷史，共用電腦上按個上一頁就被翻出來。
+        // replaceState 改寫的是「目前這筆」歷史紀錄，所以上一頁也回不到帶 token 的版本。
+        // token 仍留在 input 內，使用者可以直接再按查詢；只有整頁重新載入才需要重開原連結。
+        // （referrer 外洩另由 _headers 的 Referrer-Policy: strict-origin-when-cross-origin 擋住）
+        try {
+          params.delete('token');
+          const qs = params.toString();
+          history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+        } catch (e) {
+          // file:// 或不支援的環境：抹不掉就算了，查詢功能不受影響
+        }
+
         runSearch(token);
       }
     });
