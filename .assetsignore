@@ -5,6 +5,11 @@
 
 # 後台管理頁：noindex 且不對外發佈
 member-balance.html
+# 它的 68KB 腳本也一起排除 —— 唯一的載入者是上面那頁（正式站 404），
+# 發佈了也沒有任何頁面會用到，純粹是死重量兼後台邏輯外流。
+# 注意：只能排除這一支，不可寫成 assets/ —— 其他頁面要用 style.css /
+# components.css / tokens.css / main.js / booking.js / shared.js / theme-init.js。
+assets/member-balance.js
 
 # 內部文件：含 Google Apps Script 後端原始碼（feilu-member-api.gs /
 # feilu-form-v3.gs）與 API 規格書，2026-08-31 實測全部是公開可讀的 200。
