@@ -96,7 +96,7 @@
 
 ## 已歸檔工單
 
-- 2026-08 已驗收的 16 份工單（`INDEX_THUMBNAIL_AUDIT.md` + `INDEX_ATTRACTIVENESS_TICKET*.md` ×4 + `AI_ENABLEMENT_UPLIFT_TICKET*.md` ×3 + `UI_P0_A11Y_THEME_TICKET*.md` ×3 + `UI_LIGHT_THEME_COVERAGE_TICKET.md` + `CSS_ARCHITECTURE_TICKET*.md` ×2 + `A11Y_LANDMARK_DARKMODE_TICKET.md` + `STORAGE_GUARD_AND_FRESHNESS_TICKET.md`）已移至 `docs/archive/2026-08/`，根 `docs/` 僅留活躍規格。查詢歷史請至 `docs/archive/README.md`。
+- 2026-08 已驗收的 17 份工單（`INDEX_THUMBNAIL_AUDIT.md` + `INDEX_ATTRACTIVENESS_TICKET*.md` ×4 + `AI_ENABLEMENT_UPLIFT_TICKET*.md` ×3 + `UI_P0_A11Y_THEME_TICKET*.md` ×3 + `UI_LIGHT_THEME_COVERAGE_TICKET.md` + `CSS_ARCHITECTURE_TICKET*.md` ×2 + `A11Y_LANDMARK_DARKMODE_TICKET.md` + `STORAGE_GUARD_AND_FRESHNESS_TICKET.md` + `SAVE_FAILURE_BANNER_TICKET.md`）已移至 `docs/archive/2026-08/`，根 `docs/` 僅留活躍規格。查詢歷史請至 `docs/archive/README.md`。
 
 ## 無障礙基準線（WIND-UI-01 ~ 04 之後，不得退化）
 
@@ -135,6 +135,24 @@
   `docs/archive/2026-08/CSS_ARCHITECTURE_TICKET_02.md`）。
 - `--z-*` 層級 token 定義於 `tokens.css`，數值刻意等於重構前的原值，**不是收斂過的層級**，
   調整前先確認堆疊關係。
+
+## member-balance.html 的兩個共用機制（WIND-UI-05 / 06 踩過）
+
+- **`saveDatabase()` 會靜默失敗**（配額用盡、私密視窗），所以它**回傳布林值**。
+  失敗時自己掛橫幅提示，但**那 17 個呼叫點仍會照常跳成功 toast** ——
+  這是刻意的取捨（不想動 17 處），靠橫幅比 toast 持久來壓過。
+  `options.silent` 供載入路徑使用，會同時抑制 toast 與橫幅；
+  `loadDatabase()` / `initEmptyDB()` 一律走 silent，否則私密視窗一開頁就掛提示。
+
+- **`#cloud-banner` 是共用狀態，有四個生產者**：儲存失敗、尚未設定雲端同步、
+  衝突（帶「捨棄本機」按鈕，是解決衝突的唯一入口）、離線模式（帶「重試連線」）。
+  **任何人收橫幅前都必須先確認那是不是自己掛的。** WIND-UI-06 就是敗在這裡：
+  `saveDatabase()` 成功時無條件 `hideCloudBanner()`，把衝突橫幅連同按鈕一起吃掉，
+  管理者從此不知道本機有未上傳的變更。現在用 `saveFailureBannerActive` 旗標追蹤所有權。
+  新增第五種橫幅時，請沿用同樣的所有權模式，不要直接呼叫 `hideCloudBanner()`。
+
+> 這兩條都是「只看要改的函式、沒看它碰到的共用狀態」造成的。
+> 改 `member-balance.js` 的任何共用函式前，先 `grep` 一下還有誰在用。
 
 
 ## 注意事項
