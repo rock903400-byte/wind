@@ -96,7 +96,24 @@
 
 ## 已歸檔工單
 
-- 2026-08 已驗收的 12 份工單（`INDEX_THUMBNAIL_AUDIT.md` + `INDEX_ATTRACTIVENESS_TICKET*.md` ×4 + `AI_ENABLEMENT_UPLIFT_TICKET*.md` ×3 + `UI_P0_A11Y_THEME_TICKET*.md` ×3 + `UI_LIGHT_THEME_COVERAGE_TICKET.md`）已移至 `docs/archive/2026-08/`，根 `docs/` 僅留活躍規格。查詢歷史請至 `docs/archive/README.md`。
+- 2026-08 已驗收的 14 份工單（`INDEX_THUMBNAIL_AUDIT.md` + `INDEX_ATTRACTIVENESS_TICKET*.md` ×4 + `AI_ENABLEMENT_UPLIFT_TICKET*.md` ×3 + `UI_P0_A11Y_THEME_TICKET*.md` ×3 + `UI_LIGHT_THEME_COVERAGE_TICKET.md` + `CSS_ARCHITECTURE_TICKET*.md` ×2）已移至 `docs/archive/2026-08/`，根 `docs/` 僅留活躍規格與進行中工單。查詢歷史請至 `docs/archive/README.md`。
+
+## 進行中工單
+
+- `A11Y_LANDMARK_DARKMODE_TICKET.md`（WIND-UI-04｜語意地標、skip link 與深色模式對比度）**尚未實作**。三件事：`ai-enablement.html` 與 `privacy.html` 缺 `<main>`；skip link 只有 `index.html` / `print-card.html` 有（7 頁缺 5）；深色模式從未完整稽核，目前 26 個元素未達 WCAG AA。驗收完成後移入當月 `docs/archive/`。
+
+## CSS 架構現況（WIND-UI-03 / 03A 之後）
+
+- **`assets/tokens.css` 是唯一色票來源**，7 頁全載。新增顏色請加 token，不要在頁面硬寫十六進位值。
+- **`assets/components.css`（592 行）是跨頁共用元件層**，載入順序固定為
+  `theme-init.js` → `tokens.css` → `components.css` → 頁面專屬 CSS / inline `<style>`，**不可調換**。
+- **元件只能「完全收斂」或「完全不收」，不允許兩份並存。** WIND-UI-03 就是敗在這裡：
+  `components.css` 與 `style.css` 各有一份 `.tag`，重疊屬性被後載入的頁面 CSS 蓋掉看似無事，
+  但只有 `components.css` 宣告的 `display` / `align-items` / `gap` 直接洩漏到 97 個元素上。
+  要動共用元件時，**改完必用第 5 節的雙 iframe 快照比對確認差異為 0**（腳本見
+  `docs/archive/2026-08/CSS_ARCHITECTURE_TICKET_02.md`）。
+- `--z-*` 層級 token 定義於 `tokens.css`，數值刻意等於重構前的原值，**不是收斂過的層級**，
+  調整前先確認堆疊關係。
 
 
 ## 注意事項
