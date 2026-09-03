@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+  });
+</script>
 <title>Wind · 跨產業接案開發 — 網站 / App / API / 自動化</title>
 <meta name="description" content="以臺中市為基地，全台遠端合作。從帳務對帳到門市訂房同一套做法，靠 AI Agent 快速摸熟你的行業，用白話交出你打開就會用的成品。跨產業已上線作品橫跨 11+ 產業。">
 <!-- <meta name="google-site-verification" content="填入 Google Search Console 給的驗證碼"> -->
@@ -19,7 +24,7 @@
 <meta property="og:site_name" content="Wind · 跨產業接案開發">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://wind.rock903400.workers.dev/">
-<meta name="theme-color" content="#080c0f">
+<link rel="manifest" href="manifest.json">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌀</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1282,7 +1287,7 @@
 
 <!-- ============ FOOTER ============ -->
 <footer>
-  © 2026 石誠風 Wind (統編 54730503) · <a href="ai-enablement.html" class="footer-link">飛律 AI 賦能</a> · <a href="print-card.html" class="footer-link">3D 名片</a> · <a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener noreferrer" class="footer-link footer-link-accent">LINE (ID: 0980463400)</a> · <a href="https://github.com/rock903400-byte" target="_blank" rel="noopener noreferrer" class="footer-link footer-link-accent">GitHub</a> · <a href="mailto:rock90340@gmail.com" class="footer-link footer-link-accent">Email</a> · <a href="#" id="footerBackToTop" class="footer-link">↑ 回到頂部</a>
+  © 2026 石誠風 Wind (統編 54730503) · <a href="ai-enablement.html" class="footer-link">飛律 AI 賦能</a> · <a href="https://line.me/ti/p/~0980463400" target="_blank" rel="noopener noreferrer" class="footer-link footer-link-accent">LINE (ID: 0980463400)</a> · <a href="https://github.com/rock903400-byte" target="_blank" rel="noopener noreferrer" class="footer-link footer-link-accent">GitHub</a> · <a href="mailto:rock90340@gmail.com" class="footer-link footer-link-accent">Email</a> · <a href="#" id="footerBackToTop" class="footer-link">↑ 回到頂部</a>
 </footer>
 
 <!-- 懸浮回到頂部按鈕 -->

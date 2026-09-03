@@ -1,0 +1,16 @@
+{
+  "name": "Wind · 跨產業接案開發",
+  "short_name": "Wind作品集",
+  "start_url": "./",
+  "scope": "./",
+  "display": "browser",
+  "display_override": ["browser"],
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
