@@ -4,7 +4,7 @@
 
 # 短網址別名跳轉 (302 Temporary Redirect)
 /ai          /ai-enablement.html   302
-/card        /print-card.html      302
+/card        /                     302
 /balance     /client-balance.html  302
 /member      /client-balance.html  302
 /contact     /#contact             302

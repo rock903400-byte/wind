@@ -46,5 +46,4 @@
 - 首頁 / 作品集主頁: https://wind.rock903400.workers.dev/
 - 飛律 AI 流程賦能介紹: https://wind.rock903400.workers.dev/ai-enablement.html
 - 會員儲值與任務自主查詢: https://wind.rock903400.workers.dev/client-balance.html
-- 實體名片 1:1 PDF 產生工具: https://wind.rock903400.workers.dev/print-card.html
 - 隱私權保護政策: https://wind.rock903400.workers.dev/privacy.html

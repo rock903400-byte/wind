@@ -5,7 +5,6 @@
 [![AI Enablement](https://img.shields.io/badge/AI%20Enablement-Live-10b981)](https://wind.rock903400.workers.dev/ai-enablement.html)
 
 > 跨產業全端接案開發 × AI 流程賦能輕量儲值制  
-> 🖨️ **實體名片** — [`print-card.html`](print-card.html)｜標準 90×54mm（含出血 92×56mm）雙面送印檔與 1:1 PDF 產生工具
 
 從茶藝教室、果醬電商、儲蓄互助社官網、金融授信到健身 App——靠 AI Agent 快速進入陌生領域，提供「可上線的成品」與「不必盯著也能跑的 AI 自動化外掛」。
 

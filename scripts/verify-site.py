@@ -332,28 +332,14 @@ def check_date_consistency_and_freshness(errors, warnings):
     else:
         errors.append("❌ 找不到 index.html")
 
-    # 3. 讀取 print-card.html 的 JSON-LD dateModified（若存在）
-    print_card_file = ROOT_DIR / "print-card.html"
-    pc_date = None
-    if print_card_file.exists():
-        pc_content = print_card_file.read_text(encoding="utf-8")
-        pc_match = re.search(r'"dateModified"\s*:\s*"([^"]+)"', pc_content)
-        if pc_match:
-            pc_date = pc_match.group(1).strip()
-
-    # 4. 比對一致性
+    # 3. 比對一致性
     if sitemap_date and index_date and sitemap_date != index_date:
         errors.append(f"❌ sitemap.xml <lastmod> ({sitemap_date}) 與 index.html dateModified ({index_date}) 不一致")
 
-    if pc_date and index_date and pc_date != index_date:
-        errors.append(f"❌ print-card.html dateModified ({pc_date}) 與 index.html dateModified ({index_date}) 不一致")
-
-    # 5. 檢查新鮮度（一致但距今超過 30 天 → warnings.append）
+    # 4. 檢查新鮮度（一致但距今超過 30 天 → warnings.append）
     all_dates = set(lastmods)
     if index_date:
         all_dates.add(index_date)
-    if pc_date:
-        all_dates.add(pc_date)
 
     today = date.today()
     for d_str in all_dates:

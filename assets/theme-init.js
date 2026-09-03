@@ -7,4 +7,7 @@
     else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) t = 'light';
   } catch (e) {}
   document.documentElement.setAttribute('data-theme', t);
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+  });
 })();
