@@ -45,6 +45,31 @@ TARGETS = {
         "out": "line-ai-ecosystem",
         "wait_ms": 2500,
     },
+    "alexsarah": {
+        "url": "https://rock903400-byte.github.io/alexsarah-bakery/",
+        "out": "alexsarah-bakery",
+        "wait_ms": 2500,
+    },
+    "chienteh": {
+        "url": "https://rock903400-byte.github.io/chienteh-church-site/",
+        "out": "chienteh-church-site",
+        "wait_ms": 2500,
+    },
+    "laoenbuni": {
+        "url": "https://laoenbuni.pages.dev/",
+        "out": "laoenbuni",
+        "wait_ms": 3500,
+    },
+    "jamgirl": {
+        "url": "https://jamgirl-website.pages.dev/",
+        "out": "jamgirl",
+        "wait_ms": 3500,
+    },
+    "taotea": {
+        "url": "https://rock903400-byte.github.io/tao-tea-house/",
+        "out": "tao-tea-house",
+        "wait_ms": 2500,
+    },
     "foreclosure": {
         "url": "https://rock903400-byte.github.io/foreclosure-compensation-analyzer/",
         "out": "foreclosure-analyzer-v2",
