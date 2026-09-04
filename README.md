@@ -49,6 +49,8 @@
 | 17 | **艾比兒甜點** | 電商・品牌 | [訪問官網](https://rock903400-byte.github.io/alexsarah-bakery/) |
 | 18 | **臺中市林業生產合作社** | 品牌形象 | [訪問官網](https://rock903400-byte.github.io/taichung-forestry-coop/) |
 | 19 | **台中建德浸信會** | 品牌形象 | [訪問官網](https://rock903400-byte.github.io/chienteh-church-site/) |
+| 20 | **儲互社智慧法催公文助手** | 法律科技 | [開啟法催助手](https://cu-legal-assistant.pages.dev/) |
+| 21 | **口袋翻譯 App** | AI・App | [前往 GitHub 查看原始碼](https://github.com/rock903400-byte/pocket-translator) |
 
 👉 **[瀏覽完整 Wind 作品集首頁](https://wind.rock903400.workers.dev/)**
 
