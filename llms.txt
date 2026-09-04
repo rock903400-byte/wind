@@ -41,9 +41,8 @@
   17. 艾比兒甜點: 手作甜點電商官網
   18. 臺中市林業生產合作社: 林業品牌與產品官網
   19. 台中建德浸信會: 教會品牌形象官網
-  20. 儲互社理監事資訊網: 理監事名單與會議記錄公開查詢 (https://rock903400-byte.github.io/cu-board-info-site/)
-  21. 儲互社智慧法催公文助手: 8 大司法範本匯出與 5 年時效管理 (https://cu-legal-assistant.pages.dev/)
-  22. 口袋翻譯 App: Android 即時語音翻譯，Gemini Live 真實逐字
+  20. 儲互社智慧法催公文助手: 8 大司法範本匯出與 5 年時效管理 (https://cu-legal-assistant.pages.dev/)
+  21. 口袋翻譯 App: Android 即時語音翻譯，Gemini Live 真實逐字
 
 ## 網站完整頁面索引 (Sitemap)
 - 首頁 / 作品集主頁: https://wind.rock903400.workers.dev/
