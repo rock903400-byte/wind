@@ -23,3 +23,8 @@ tests/
 .github/
 .gitignore
 wrangler.toml
+
+# 依賴與工具暫存：wrangler-action 會在工作區 npm 安裝 wrangler，
+# 其 node_modules（含百 MB 的 workerd）絕不可隨靜態資產上傳（25 MiB 上限）。
+node_modules/
+.wrangler/
