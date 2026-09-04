@@ -7,6 +7,10 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+concurrency:
+  group: wind-deploy
+  cancel-in-progress: false
+
 jobs:
   verify:
     name: Verify Static Integrity & Links
@@ -33,3 +37,20 @@ jobs:
       - name: Run Shared Utilities Unit Tests
         run: |
           node --test
+
+  deploy:
+    name: Deploy to Cloudflare Workers
+    needs: [verify]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && secrets.CLOUDFLARE_API_TOKEN != ''
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy with Wrangler
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
