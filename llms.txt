@@ -1,15 +1,15 @@
 # Wind × 飛律 (Feilu)
 
 > 跨產業全端接案開發 × AI 流程賦能輕量儲值制。以臺灣臺中市為基地，全台遠端合作。
-> 官方網站: https://wind.rock903400.workers.dev/
-> 備用網站: https://rock903400-byte.github.io/wind/
-> 聯絡 LINE: https://line.me/ti/p/~0980463400 (LINE ID: 0980463400)
-> 電子郵件: rock90340@gmail.com
+> 官方網站: [Wind 作品集首頁](https://wind.rock903400.workers.dev/)
+> 備用網站: [GitHub Pages 鏡像站](https://rock903400-byte.github.io/wind/)
+> 聯絡 LINE: [點此加好友免費聊聊 (ID: 0980463400)](https://line.me/ti/p/~0980463400)
+> 電子郵件: [rock90340@gmail.com](mailto:rock90340@gmail.com)
 > 統一編號/發票/合約: 可開立正式發票、可簽訂正式法律效力合約
 
 ## 核心服務 1: 飛律 AI 流程賦能・輕量儲值制
-- 服務網址: https://wind.rock903400.workers.dev/ai-enablement.html
-- 會員儲值查詢: https://wind.rock903400.workers.dev/client-balance.html
+- 服務網址: [飛律 AI 流程賦能介紹與預約](https://wind.rock903400.workers.dev/ai-enablement.html)
+- 會員儲值查詢: [會員儲值與任務自主查詢](https://wind.rock903400.workers.dev/client-balance.html)
 - 收費方案: 儲值 NT$ 1,000 交付 2 項輕量自動化模組（單項折合 NT$ 500，48 小時極速交付、資產 100% 自主、點數永久有效）
 - 核心自動化模組項目:
   1. Google Workspace / 試算表自動勾稽: 跨試算表即時交叉比對、收支傳票自動清洗、班福法則數理異常檢驗、進銷存防呆防錯與月報一鍵出圖。
@@ -22,30 +22,30 @@
 ## 核心服務 2: 跨產業全端與客製化系統開發
 - 服務介紹: 靠 AI Agent 快速進入各陌生行業領域，用白話溝通交出立即可用的系統與網頁。
 - 跨產業已上線專案實績:
-  1. 伯鐸儲蓄互助社: 形象官網 (https://boduosavings-group-site.pages.dev/)
-  2. 果醬女孩 Jam Girl: 電商品牌商城 (https://jamgirl-website.pages.dev/)
-  3. 眉序修眉: 品牌形象網站 (https://meixu-site.pages.dev/)
-  4. 陶茶雅舍: 品牌形象網站
-  5. MONO CLASSICS: 復古相機電商與門市 POS 系統
-  6. LINE AI 生態系: LINE 官方帳號 AI 智慧應用生態
-  7. 信用評分系統: 金融授信與信用風險評估工具
-  8. 儲互社風險儀表板: 金融資料視覺化與逾期監控系統
-  9. FitLog AI: 健身紀錄與訓練追蹤 Web App / PWA
-  10. 法拍補償試算: 房地產拍賣補償金精算工具
-  11. 學術展覽互動網站: 數位策展與學術成果展示
-  12. 員工福利商店 App: PWA 點餐與福利兌換系統
-  13. AI 財務分析報告產生器: 一鍵生成財報分析與洞察報告
-  14. LiveHub 多路直播監看: 多視角即時串流監控控制台
-  15. 旅遊行程估價系統: 客製化旅遊行程快速報價與利潤分析
-  16. 勞恩布妮的家: 品牌官網與民宿訂房系統 (https://laoenbuni.pages.dev/)
-  17. 艾比兒甜點: 手作甜點電商官網
-  18. 臺中市林業生產合作社: 林業品牌與產品官網
-  19. 台中建德浸信會: 教會品牌形象官網
-  20. 儲互社智慧法催公文助手: 8 大司法範本匯出與 5 年時效管理 (https://cu-legal-assistant.pages.dev/)
-  21. 口袋翻譯 App: Android 即時語音翻譯，Gemini Live 真實逐字
+  1. 伯鐸儲蓄互助社: [形象官網](https://boduosavings-group-site.pages.dev/)
+  2. 果醬女孩 Jam Girl: [電商品牌商城](https://jamgirl-website.pages.dev/)
+  3. 眉序修眉: [品牌形象網站](https://meixu-site.pages.dev/)
+  4. 陶茶雅舍: [品牌形象網站](https://rock903400-byte.github.io/tao-tea-house/)
+  5. MONO CLASSICS: [復古相機電商與門市 POS 系統](https://rock903400-byte.github.io/mono-classics-demo/demo/demo.html)
+  6. LINE AI 生態系: [LINE 官方帳號 AI 智慧應用生態](https://rock903400-byte.github.io/line-ai-ecosystem-demo/)
+  7. 信用評分系統: [金融授信與信用風險評估工具](https://rock903400-byte.github.io/credit-score-system/)
+  8. 儲互社風險儀表板: 金融資料視覺化與逾期監控系統（客戶正式營運系統，受密碼保護）
+  9. FitLog AI: [健身紀錄與訓練追蹤 Web App / PWA](https://rock903400-byte.github.io/FitLog-AI/)
+  10. 法拍補償試算: [房地產拍賣補償金精算工具（訪客模式免登入可預覽）](https://rock903400-byte.github.io/foreclosure-compensation-analyzer/)
+  11. 學術展覽互動網站: [數位策展與學術成果展示](https://rock903400-byte.github.io/academic-exhibition-demo/)
+  12. 員工福利商店 App: [PWA 點餐與福利兌換系統](https://special-stores-app-52e1c.web.app)
+  13. AI 財務分析報告產生器: [一鍵生成財報分析與洞察報告](https://wind-report-generator-demo.streamlit.app/)
+  14. LiveHub 多路直播監看: [多視角即時串流監控控制台](https://rock903400-byte.github.io/livehub-demo/)
+  15. 旅遊行程估價系統: [客製化旅遊行程快速報價與利潤分析](https://rock903400-byte.github.io/ttq-demo/)
+  16. 勞恩布妮的家: [品牌官網與民宿訂房系統](https://laoenbuni.pages.dev/)
+  17. 艾比兒甜點: [手作甜點電商官網](https://rock903400-byte.github.io/alexsarah-bakery/)
+  18. 臺中市林業生產合作社: [林業品牌與產品官網](https://rock903400-byte.github.io/taichung-forestry-coop/)
+  19. 台中建德浸信會: [教會品牌形象官網](https://rock903400-byte.github.io/chienteh-church-site/)
+  20. 儲互社智慧法催公文助手: [8 大司法範本匯出與 5 年時效管理](https://cu-legal-assistant.pages.dev/)
+  21. 口袋翻譯 App: Android 即時語音翻譯，Gemini Live 真實逐字（[GitHub 原始碼](https://github.com/rock903400-byte/pocket-translator)，持續開發中）
 
 ## 網站完整頁面索引 (Sitemap)
-- 首頁 / 作品集主頁: https://wind.rock903400.workers.dev/
-- 飛律 AI 流程賦能介紹: https://wind.rock903400.workers.dev/ai-enablement.html
-- 會員儲值與任務自主查詢: https://wind.rock903400.workers.dev/client-balance.html
-- 隱私權保護政策: https://wind.rock903400.workers.dev/privacy.html
+- 首頁 / 作品集主頁: [Wind 跨產業接案開發](https://wind.rock903400.workers.dev/)
+- 飛律 AI 流程賦能介紹: [AI 流程賦能與預約頁面](https://wind.rock903400.workers.dev/ai-enablement.html)
+- 會員儲值與任務自主查詢: [儲值與任務查詢](https://wind.rock903400.workers.dev/client-balance.html)
+- 隱私權保護政策: [隱私權政策](https://wind.rock903400.workers.dev/privacy.html)
