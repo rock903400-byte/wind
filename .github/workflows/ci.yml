@@ -41,14 +41,22 @@ jobs:
   deploy:
     name: Deploy to Cloudflare Workers
     needs: [verify]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && secrets.CLOUDFLARE_API_TOKEN != ''
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Check deploy token present
+        id: guard
+        env:
+          TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then echo "skip=true" >> "$GITHUB_OUTPUT"; echo "No token, skipping deploy."; else echo "skip=false" >> "$GITHUB_OUTPUT"; fi
+
       - name: Deploy with Wrangler
+        if: steps.guard.outputs.skip != 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
