@@ -1,6 +1,6 @@
 # Wind × 飛律 (Feilu)
 
-> 跨產業全端接案開發 × AI 流程賦能輕量儲值制。以臺灣臺中市為基地，全台遠端合作。
+> 懂稽核的 AI 工程師。跨產業全端接案開發 × AI 流程賦能輕量儲值制。以臺灣臺中市為基地，全台遠端合作。
 > 官方網站: [Wind 作品集首頁](https://wind.rock903400.workers.dev/)
 > 備用網站: [GitHub Pages 鏡像站](https://rock903400-byte.github.io/wind/)
 > 聯絡 LINE: [點此加好友免費聊聊 (ID: 0980463400)](https://line.me/ti/p/~0980463400)
@@ -45,7 +45,7 @@
   21. 口袋翻譯 App: Android 即時語音翻譯，Gemini Live 真實逐字（[GitHub 原始碼](https://github.com/rock903400-byte/pocket-translator)，持續開發中）
 
 ## 網站完整頁面索引 (Sitemap)
-- 首頁 / 作品集主頁: [Wind 跨產業接案開發](https://wind.rock903400.workers.dev/)
+- 首頁 / 作品集主頁: [Wind 懂稽核的 AI 工程師](https://wind.rock903400.workers.dev/)
 - 飛律 AI 流程賦能介紹: [AI 流程賦能與預約頁面](https://wind.rock903400.workers.dev/ai-enablement.html)
 - 會員儲值與任務自主查詢: [儲值與任務查詢](https://wind.rock903400.workers.dev/client-balance.html)
 - 隱私權保護政策: [隱私權政策](https://wind.rock903400.workers.dev/privacy.html)
