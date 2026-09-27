@@ -159,6 +159,8 @@ a.hero-badge:focus-visible{outline:2px solid var(--accent-light);outline-offset:
 .tag.tech{background:rgba(255,255,255,.05);color:#cbd5e1;border-color:rgba(255,255,255,.12);font-size:.68rem;font-family:monospace}
 .work-info h3{font-size:1.1rem;font-weight:700}
 .work-info .desc{color:var(--dim);font-size:.88rem;line-height:1.8;flex:1}
+.work-info .desc-en{color:var(--dim);font-size:.82rem;line-height:1.7;margin-top:6px;opacity:.9}
+.trust-line{margin-top:10px;font-size:.82rem;color:var(--dim);letter-spacing:.3px}
 .btn-demo{display:inline-flex;align-items:center;gap:6px;color:var(--accent-light);font-size:.85rem;font-weight:600;margin-top:4px;transition:color .2s}
 .btn-demo:hover{color:var(--accent-lighter)}
 .btn-demo::after{content:'↗';transition:transform .35s cubic-bezier(.22,.61,.36,1)}
