@@ -1,6 +1,7 @@
 # Wind × 飛律
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/rock903400-byte/wind/actions/workflows/ci.yml/badge.svg)](https://github.com/rock903400-byte/wind/actions/workflows/ci.yml)
 [![Portfolio Live](https://img.shields.io/badge/Portfolio-Live-brightgreen)](https://wind.rock903400.workers.dev/)
 [![AI Enablement](https://img.shields.io/badge/AI%20Enablement-Live-10b981)](https://wind.rock903400.workers.dev/ai-enablement.html)
 
